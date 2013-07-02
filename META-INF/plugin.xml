@@ -1,0 +1,10 @@
+<idea-plugin>
+	<id>org.consulo.css</id>
+	<name>CSS</name>
+
+	<extensions defaultExtensionNs="com.intellij">
+		<fileTypeFactory implementation="org.consulo.css.lang.CssFileTypeFactory" />
+
+		<lang.parserDefinition language="CSS" implementationClass="org.consulo.css.lang.CssParserDefinition" />
+	</extensions>
+</idea-plugin>
