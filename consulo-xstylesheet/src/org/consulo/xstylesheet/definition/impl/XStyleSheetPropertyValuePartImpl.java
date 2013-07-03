@@ -1,7 +1,10 @@
 package org.consulo.xstylesheet.definition.impl;
 
+import com.intellij.codeInsight.lookup.LookupElement;
 import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
+
+import java.util.List;
 
 /**
  * @author VISTALL
@@ -29,5 +32,10 @@ public class XStyleSheetPropertyValuePartImpl implements XStyleSheetPropertyValu
   @Override
   public Object fromString(String value) {
     return myParser.fromString(value, myValue);
+  }
+
+  @Override
+  public List<LookupElement> getLookupElements() {
+    return myParser.getLookupElements(myValue);
   }
 }

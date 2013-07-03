@@ -1,6 +1,7 @@
 package org.consulo.xstylesheet.psi;
 
 import com.intellij.psi.PsiElement;
+import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 
 /**
  * @author VISTALL
@@ -8,4 +9,8 @@ import com.intellij.psi.PsiElement;
  */
 public interface PsiXStyleSheetPropertyValuePart extends PsiElement {
   Object getValue();
+
+  XStyleSheetPropertyValuePart getValuePart();
+
+  XStyleSheetPropertyValuePart[] getValueParts();
 }

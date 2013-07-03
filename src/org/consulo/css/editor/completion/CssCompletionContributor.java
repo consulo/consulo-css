@@ -1,9 +1,10 @@
 package org.consulo.css.editor.completion;
 
 import com.intellij.codeInsight.completion.*;
-import com.intellij.patterns.StandardPatterns;
+import com.intellij.patterns.PlatformPatterns;
 import com.intellij.util.ProcessingContext;
-import org.consulo.css.lang.psi.CssPropertyValuePart;
+import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
+import org.consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -12,10 +13,15 @@ import org.jetbrains.annotations.NotNull;
  */
 public class CssCompletionContributor extends CompletionContributor {
   public CssCompletionContributor() {
-    extend(CompletionType.BASIC, StandardPatterns.instanceOf(CssPropertyValuePart.class), new CompletionProvider<CompletionParameters>() {
+    extend(CompletionType.BASIC, PlatformPatterns.psiElement().withParent(PsiXStyleSheetPropertyValuePart.class), new CompletionProvider<CompletionParameters>() {
       @Override
       protected void addCompletions(@NotNull CompletionParameters completionParameters, ProcessingContext processingContext, @NotNull CompletionResultSet completionResultSet) {
-        System.out.println(completionParameters.getCompletionType());
+
+        PsiXStyleSheetPropertyValuePart parent = (PsiXStyleSheetPropertyValuePart) completionParameters.getPosition().getParent();
+
+        for (XStyleSheetPropertyValuePart o : parent.getValueParts()) {
+          completionResultSet.addAllElements(o.getLookupElements());
+        }
       }
     });
   }

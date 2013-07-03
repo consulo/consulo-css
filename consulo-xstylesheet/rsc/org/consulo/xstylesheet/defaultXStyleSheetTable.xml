@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xstyle-sheet-table>
     <value-definition name="color" implClass="org.consulo.xstylesheet.definition.value.impl.ColorXStyleSheetValue" />
+    <value-definition name="colorKeyword" implClass="org.consulo.xstylesheet.definition.value.impl.KeywordColorXStyleSheetValue" />
     <value-definition name="keyword" implClass="org.consulo.xstylesheet.definition.value.impl.KeywordXStyleSheetValue" />
 
     <property name="background-color">
         <valid-values>
             <entry>
                 <color />
+                <colorKeyword />
                 <keyword>transient</keyword>
                 <keyword>inherit</keyword>
             </entry>

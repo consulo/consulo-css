@@ -1,7 +1,10 @@
 package org.consulo.xstylesheet.definition;
 
+import com.intellij.codeInsight.lookup.LookupElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * @author VISTALL
@@ -10,4 +13,7 @@ import org.jetbrains.annotations.Nullable;
 public interface XStyleSheetPropertyValuePartParser {
   @Nullable
   Object fromString(@NotNull String stringValue, String value);
+
+  @NotNull
+  List<LookupElement> getLookupElements(String value);
 }

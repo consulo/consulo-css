@@ -44,4 +44,49 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
     }
     return null;
   }
+
+  @Override
+  public XStyleSheetPropertyValuePart getValuePart() {
+    PsiXStyleSheetProperty parent = (PsiXStyleSheetProperty) getParent();
+
+    XStyleSheetProperty xStyleSheetProperty = parent.getXStyleSheetProperty();
+    if(xStyleSheetProperty == null) {
+      return null;
+    }
+
+    XStyleSheetPropertyValueEntry[] validEntries = xStyleSheetProperty.getValidEntries();
+
+    PsiXStyleSheetPropertyValuePart[] parts = parent.getParts();
+
+    int i = ArrayUtil.indexOf(parts, this);
+
+    String text = getText().trim();
+    XStyleSheetPropertyValueEntry validEntry = validEntries[i];
+    for (XStyleSheetPropertyValuePart valuePart : validEntry.getParts()) {
+      Object o = valuePart.fromString(text);
+      if(o != null) {
+        return valuePart;
+      }
+    }
+    return null;
+  }
+
+  @Override
+  public XStyleSheetPropertyValuePart[] getValueParts() {
+    PsiXStyleSheetProperty parent = (PsiXStyleSheetProperty) getParent();
+
+    XStyleSheetProperty xStyleSheetProperty = parent.getXStyleSheetProperty();
+    if(xStyleSheetProperty == null) {
+      return null;
+    }
+
+    XStyleSheetPropertyValueEntry[] validEntries = xStyleSheetProperty.getValidEntries();
+
+    PsiXStyleSheetPropertyValuePart[] parts = parent.getParts();
+
+    int i = ArrayUtil.indexOf(parts, this);
+
+    XStyleSheetPropertyValueEntry validEntry = validEntries[i];
+    return validEntry.getParts();
+  }
 }
