@@ -26,8 +26,10 @@ TraditionalComment   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 CommentContent = ( [^*] | \*+ [^/*] )*
 
 Identifier = [:jletter:] [:jletterdigit:]*
+PrefixedIdentifier="-" {Identifier}
 
 StringLiteral = \" ( \\\" | [^\"\n\r] )* \"
+NumberLiteral = [0-9]+ | [0-9]*\.[0-9]+
 
 %%
 
@@ -36,6 +38,20 @@ StringLiteral = \" ( \\\" | [^\"\n\r] )* \"
     "."                     { return CssTokens.DOT; }
     "{"                     { return CssTokens.LBRACE; }
     "}"                     { return CssTokens.RBRACE; }
+    "["                     { return CssTokens.LBRACKET; }
+    "]"                     { return CssTokens.RBRACKET; }
+    ":"                     { return CssTokens.COLON; }
+    "::"                    { return CssTokens.COLONCOLON; }
+    "="                     { return CssTokens.EQ; }
+    ";"                     { return CssTokens.SEMICOLON; }
+    ","                     { return CssTokens.COMMA; }
+    "*"                     { return CssTokens.ASTERISK; }
+    "."                     { return CssTokens.DOT; }
+    "+"                     { return CssTokens.PLUiS; }
+    "%"                     { return CssTokens.PERC; }
+    {NumberLiteral}         { return CssTokens.NUMBER; }
+    {StringLiteral}         { return CssTokens.STRING; }
+    {PrefixedIdentifier}    { return CssTokens.IDENTIFIER; }
     {Identifier}            { return CssTokens.IDENTIFIER; }
     {TraditionalComment}    { return CssTokens.BLOCK_COMMENT; }
     {AnySpace}+             { return CssTokens.WHITE_SPACE; }

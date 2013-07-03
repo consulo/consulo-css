@@ -1,0 +1,4 @@
+<idea-plugin>
+    <id>org.consulo.xstylesheet</id>
+    <name>XStylesheet API</name>
+</idea-plugin>

@@ -1,10 +1,7 @@
 package org.consulo.css.parsing;
 
-import com.intellij.lang.ParserDefinition;
 import com.intellij.testFramework.ParsingTestCase;
-import org.consulo.css.lang.CssParserDefinition;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import org.consulo.css.lang.parser.CssParserDefinition;
 
 /**
  * @author VISTALL

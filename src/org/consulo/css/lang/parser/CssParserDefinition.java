@@ -1,4 +1,4 @@
-package org.consulo.css.lang;
+package org.consulo.css.lang.parser;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.*;
@@ -6,6 +6,8 @@ import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.impl.source.PsiFileImpl;
 import com.intellij.psi.tree.IElementType;
+import org.consulo.css.lang.CssLanguage;
+import org.consulo.css.lang.CssPsiElementType;
 import org.consulo.css.lang.lexer.CssLexer;
 import org.consulo.css.lang.psi.CssFile;
 import org.jetbrains.annotations.NotNull;
@@ -34,18 +36,7 @@ public class CssParserDefinition implements ParserDefinition {
     @NotNull
     @Override
     public PsiParser createParser(@Nullable Project project, @NotNull LanguageVersion languageVersion) {
-        return new PsiParser() {
-            @NotNull
-            @Override
-            public ASTNode parse(@NotNull IElementType iElementType, @NotNull PsiBuilder psiBuilder, @NotNull LanguageVersion languageVersion) {
-                PsiBuilder.Marker mark = psiBuilder.mark();
-                while (!psiBuilder.eof()) {
-                    psiBuilder.advanceLexer();
-                }
-                mark.done(iElementType);
-                return psiBuilder.getTreeBuilt();
-            }
-        };
+        return new CssParser();
     }
 
     @NotNull
@@ -75,6 +66,10 @@ public class CssParserDefinition implements ParserDefinition {
     @NotNull
     @Override
     public PsiElement createElement(ASTNode astNode) {
+        IElementType elementType = astNode.getElementType();
+        if(elementType instanceof CssPsiElementType) {
+            return ((CssPsiElementType) elementType).createPsi(astNode);
+        }
         return new ASTWrapperPsiElement(astNode);
     }
 

@@ -14,6 +14,17 @@
         <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
         <orderEntry type="module-extension-sdk" extension-id="java" />
       </module>
+      <module name="consulo-xstylesheet" dirurl="file://$PROJECT_DIR$/consulo-xstylesheet">
+        <extension id="java" sdk-module-name="" sdk-name="1.6" language-level-module-name="" language-level-name="JDK_1_6" />
+        <extension id="consulo-plugin" sdk-module-name="" sdk-name="Consulo 1.SNAPSHOT" />
+        <content url="file://$MODULE_DIR$">
+          <content-folder type="SOURCE" url="file://$MODULE_DIR$/src" />
+          <content-folder type="RESOURCE" url="file://$MODULE_DIR$/rsc" />
+        </content>
+        <orderEntry type="sourceFolder" forTests="false" />
+        <orderEntry type="module-extension-sdk" extension-id="java" />
+        <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
+      </module>
     </modules>
   </component>
 </project>

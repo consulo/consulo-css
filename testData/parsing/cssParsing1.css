@@ -1,3 +1,26 @@
-body {
-	color: red;
+p {
+  font-family: Garamond, serif;
+}
+h2 {
+  font-size: 110 %;
+  color: red;
+  background: white;
+  -web-kit-background: white;
+}
+.note {
+  color: red;
+  background: yellow;
+  font-weight: bold;
+}
+p#paragraph1 {
+  margin: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+#news p {
+  color: blue;
+}
+[type="button"] {
+  background-color: green;
 }

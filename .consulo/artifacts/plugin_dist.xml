@@ -12,6 +12,16 @@
           </element>
         </element>
       </element>
+      <element id="directory" name="xstylesheet">
+        <element id="directory" name="lib">
+          <element id="zip-archive" name="xstylesheet.jar">
+            <element id="module-output" name="consulo-xstylesheet" />
+            <element id="directory" name="META-INF">
+              <element id="dir-copy" path="$PROJECT_DIR$/consulo-xstylesheet/META-INF" />
+            </element>
+          </element>
+        </element>
+      </element>
     </root>
   </artifact>
 </component>
