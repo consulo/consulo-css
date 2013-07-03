@@ -8,6 +8,7 @@
   <component name="JavaCompilerConfiguration" compiler="JavacCompiler">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="false">
+        <processor name="lombok.core.AnnotationProcessor" />
         <processorPath useClasspath="true" />
       </profile>
     </annotationProcessing>

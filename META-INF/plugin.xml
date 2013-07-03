@@ -4,6 +4,7 @@
     <depends>org.consulo.xstylesheet</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <completion.contributor language="CSS" implementationClass="org.consulo.css.editor.completion.CssCompletionContributor" />
         <fileTypeFactory implementation="org.consulo.css.lang.CssFileTypeFactory"/>
 
         <lang.parserDefinition language="CSS" implementationClass="org.consulo.css.lang.parser.CssParserDefinition"/>

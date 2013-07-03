@@ -8,6 +8,7 @@ import com.intellij.psi.impl.source.PsiFileImpl;
 import com.intellij.psi.tree.IElementType;
 import org.consulo.css.lang.CssLanguage;
 import org.consulo.css.lang.CssPsiElementType;
+import org.consulo.css.lang.CssTokenSets;
 import org.consulo.css.lang.lexer.CssLexer;
 import org.consulo.css.lang.psi.CssFile;
 import org.jetbrains.annotations.NotNull;
@@ -48,19 +49,19 @@ public class CssParserDefinition implements ParserDefinition {
     @NotNull
     @Override
     public TokenSet getWhitespaceTokens(@NotNull LanguageVersion languageVersion) {
-        return TokenSet.EMPTY;
+        return CssTokenSets.WHITE_SPACES;
     }
 
     @NotNull
     @Override
     public TokenSet getCommentTokens(@NotNull LanguageVersion languageVersion) {
-        return TokenSet.EMPTY;
+        return CssTokenSets.COMMENTS;
     }
 
     @NotNull
     @Override
     public TokenSet getStringLiteralElements(@NotNull LanguageVersion languageVersion) {
-        return TokenSet.EMPTY;
+        return CssTokenSets.STRINGS;
     }
 
     @NotNull

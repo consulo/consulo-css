@@ -10,12 +10,12 @@ import org.jetbrains.annotations.Nullable;
  * @since 03.07.13.
  */
 public interface PsiXStyleSheetProperty extends PsiElement {
-    @Nullable
-    XStyleSheetProperty getXStyleSheetProperty();
+  @Nullable
+  XStyleSheetProperty getXStyleSheetProperty();
 
-    @NotNull
-    Object[] getXStyleSheetValues();
+  @NotNull
+  PsiXStyleSheetPropertyValuePart[] getParts();
 
-    @Nullable
-    String getName();
+  @Nullable
+  String getName();
 }

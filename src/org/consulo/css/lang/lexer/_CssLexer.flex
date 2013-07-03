@@ -25,8 +25,8 @@ EscapedCharacter = \\{InputCharacter}
 TraditionalComment   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 CommentContent = ( [^*] | \*+ [^/*] )*
 
-Identifier = [:jletter:] [:jletterdigit:]*
-PrefixedIdentifier="-" {Identifier}
+IdentifierPart = [:jletter:] [:jletterdigit:]*
+Identifier="-"? {IdentifierPart}* "-"? {IdentifierPart}*
 
 StringLiteral = \" ( \\\" | [^\"\n\r] )* \"
 NumberLiteral = [0-9]+ | [0-9]*\.[0-9]+
@@ -47,11 +47,10 @@ NumberLiteral = [0-9]+ | [0-9]*\.[0-9]+
     ","                     { return CssTokens.COMMA; }
     "*"                     { return CssTokens.ASTERISK; }
     "."                     { return CssTokens.DOT; }
-    "+"                     { return CssTokens.PLUiS; }
+    "+"                     { return CssTokens.PLUS; }
     "%"                     { return CssTokens.PERC; }
     {NumberLiteral}         { return CssTokens.NUMBER; }
     {StringLiteral}         { return CssTokens.STRING; }
-    {PrefixedIdentifier}    { return CssTokens.IDENTIFIER; }
     {Identifier}            { return CssTokens.IDENTIFIER; }
     {TraditionalComment}    { return CssTokens.BLOCK_COMMENT; }
     {AnySpace}+             { return CssTokens.WHITE_SPACE; }

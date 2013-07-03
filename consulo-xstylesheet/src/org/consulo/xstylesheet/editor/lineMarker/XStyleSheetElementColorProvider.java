@@ -5,6 +5,7 @@ import com.intellij.psi.PsiElement;
 import org.consulo.xstylesheet.definition.XStyleSheetProperty;
 import org.consulo.xstylesheet.definition.value.impl.ColorXStyleSheetValue;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetProperty;
+import org.consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,12 +19,11 @@ public class XStyleSheetElementColorProvider implements ElementColorProvider {
     @Nullable
     @Override
     public Color getColorFrom(@NotNull PsiElement psiElement) {
-        if(psiElement instanceof PsiXStyleSheetProperty) {
-            XStyleSheetProperty xStyleSheetProperty = ((PsiXStyleSheetProperty) psiElement).getXStyleSheetProperty();
-            if(xStyleSheetProperty instanceof ColorXStyleSheetValue) {
-                Object[] xStyleSheetValues = ((PsiXStyleSheetProperty) psiElement).getXStyleSheetValues();
-                return (Color) xStyleSheetValues[0];
-            }
+        if(psiElement instanceof PsiXStyleSheetPropertyValuePart) {
+          Object value = ((PsiXStyleSheetPropertyValuePart) psiElement).getValue();
+          if(value instanceof Color) {
+            return (Color) value;
+          }
         }
         return null;
     }

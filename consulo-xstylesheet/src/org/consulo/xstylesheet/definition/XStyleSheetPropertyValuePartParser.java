@@ -7,10 +7,7 @@ import org.jetbrains.annotations.Nullable;
  * @author VISTALL
  * @since 03.07.13.
  */
-public interface XStyleSheetPropertyValuePart {
-  XStyleSheetPropertyValuePartParser getParser();
-
-  String getValue();
-
-  Object fromString(String value);
+public interface XStyleSheetPropertyValuePartParser {
+  @Nullable
+  Object fromString(@NotNull String stringValue, String value);
 }

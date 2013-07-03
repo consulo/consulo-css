@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xstyle-sheet-table name="Default">
-    <value-definitions>
-        <value-definition name="color" implementClass="org.consulo.xstylesheet.definition.value.impl.ColorXStyleSheetValue" />
-        <value-definition name="keyword" implementClass="org.consulo.xstylesheet.definition.value.impl.KeywordXStyleSheetValue" />
-    </value-definitions>
+<xstyle-sheet-table>
+    <value-definition name="color" implClass="org.consulo.xstylesheet.definition.value.impl.ColorXStyleSheetValue" />
+    <value-definition name="keyword" implClass="org.consulo.xstylesheet.definition.value.impl.KeywordXStyleSheetValue" />
 
-    <property name="background">
-        <valid-definitions>
-            <color />
-            <keyword>transient</keyword>
-        </valid-definitions>
+    <property name="background-color">
+        <valid-values>
+            <entry>
+                <color />
+                <keyword>transient</keyword>
+                <keyword>inherit</keyword>
+            </entry>
+        </valid-values>
         <initial-values>
-            <keyword>transient</keyword>
+            <entry>
+                <keyword>transient</keyword>
+            </entry>
         </initial-values>
     </property>
 </xstyle-sheet-table>
