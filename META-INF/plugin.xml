@@ -8,5 +8,6 @@
         <fileTypeFactory implementation="org.consulo.css.lang.CssFileTypeFactory"/>
 
         <lang.parserDefinition language="CSS" implementationClass="org.consulo.css.lang.parser.CssParserDefinition"/>
+        <lang.syntaxHighlighterFactory key="CSS" implementationClass="org.consulo.css.lang.CssSyntaxHighlighterFactory" />
     </extensions>
 </idea-plugin>
