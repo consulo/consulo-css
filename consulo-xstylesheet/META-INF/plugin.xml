@@ -3,14 +3,15 @@
     <name>XStylesheet API</name>
 
     <extensionPoints>
-        <extensionPoint name="table" beanClass="org.consulo.xstylesheet.definition.XStyleSheetTableExtension" />
+        <extensionPoint name="table" beanClass="org.consulo.xstylesheet.definition.XStyleSheetTableExtension"/>
     </extensionPoints>
 
     <extensions defaultExtensionNs="org.consulo.xstylesheet">
-        <table file="/org/consulo/xstylesheet/defaultXStyleSheetTable.xml" />
+        <table file="/org/consulo/xstylesheet/defaultXStyleSheetTable.xml"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <colorProvider implementation="org.consulo.xstylesheet.editor.lineMarker.XStyleSheetElementColorProvider" />
+        <localInspection implementationClass="org.consulo.xstylesheet.codeInsight.PropertyIsNotValidInspection" displayName="Invalid property name" groupName="CSS" enabledByDefault="true"/>
+        <colorProvider implementation="org.consulo.xstylesheet.editor.lineMarker.XStyleSheetElementColorProvider"/>
     </extensions>
 </idea-plugin>
