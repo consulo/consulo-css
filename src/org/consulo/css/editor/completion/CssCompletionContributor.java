@@ -18,6 +18,9 @@ public class CssCompletionContributor extends CompletionContributor {
       protected void addCompletions(@NotNull CompletionParameters completionParameters, ProcessingContext processingContext, @NotNull CompletionResultSet completionResultSet) {
 
         PsiXStyleSheetPropertyValuePart parent = (PsiXStyleSheetPropertyValuePart) completionParameters.getPosition().getParent();
+        if(parent == null) {
+          return;
+        }
 
         for (XStyleSheetPropertyValuePart o : parent.getValueParts()) {
           completionResultSet.addAllElements(o.getLookupElements());
