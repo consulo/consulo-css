@@ -3,7 +3,7 @@
   <component name="ModuleManager">
     <modules>
       <module name="consulo-css" dirurl="file://$PROJECT_DIR$">
-        <extension id="java" sdk-module-name="" sdk-name="1.6" language-level-module-name="" language-level-name="JDK_1_6" />
+        <extension id="java" sdk-module-name="" sdk-name="1.6" language-level-module-name="" language-level-name="JDK_1_6" special-dir-location="MODULE_DIR" />
         <extension id="lombok" />
         <extension id="consulo-plugin" sdk-module-name="" sdk-name="Consulo 1.SNAPSHOT" />
         <content url="file://$MODULE_DIR$">
@@ -15,9 +15,19 @@
         <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
         <orderEntry type="sourceFolder" forTests="false" />
         <orderEntry type="module" module-name="consulo-xstylesheet" />
+        <orderEntry type="module-library">
+          <library name="consulo:XML">
+            <CLASSES>
+              <root url="jar://$APPLICATION_HOME_DIR$/plugins/xml/lib/xml-copyright.jar!/" />
+              <root url="jar://$APPLICATION_HOME_DIR$/plugins/xml/lib/xml.jar!/" />
+            </CLASSES>
+            <JAVADOC />
+            <SOURCES />
+          </library>
+        </orderEntry>
       </module>
       <module name="consulo-xstylesheet" dirurl="file://$PROJECT_DIR$/consulo-xstylesheet">
-        <extension id="java" sdk-module-name="consulo-css" sdk-name="1.6" language-level-module-name="consulo-css" language-level-name="JDK_1_6" />
+        <extension id="java" sdk-module-name="consulo-css" sdk-name="1.6" language-level-module-name="consulo-css" language-level-name="JDK_1_6" special-dir-location="MODULE_DIR" />
         <extension id="lombok" />
         <extension id="consulo-plugin" sdk-module-name="consulo-css" sdk-name="" />
         <extension id="lombok-pg" />

@@ -19,7 +19,7 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens {
   public ASTNode parse(@NotNull IElementType iElementType, @NotNull PsiBuilder builder, @NotNull LanguageVersion languageVersion) {
     PsiBuilder.Marker mark = builder.mark();
     while (!builder.eof()) {
-      if(builder.getTokenType() == IDENTIFIER) {
+      if(builder.getTokenType() == IDENTIFIER || builder.getTokenType() == DOT || builder.getTokenType() == SHARP) {
         PsiBuilder.Marker marker = builder.mark();
 
         parsAnySelector(builder);
@@ -107,6 +107,22 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens {
       PsiBuilder.Marker marker = builder.mark();
       builder.advanceLexer();
       marker.done(SELECTOR_ELEMENT);
+    }
+    else if(builder.getTokenType() == DOT) {
+      PsiBuilder.Marker marker = builder.mark();
+      builder.advanceLexer();
+
+      expect(builder, IDENTIFIER, "Identifier expected");
+
+      marker.done(SELECTOR_CLASS);
+    }
+    else if(builder.getTokenType() == SHARP) {
+      PsiBuilder.Marker marker = builder.mark();
+      builder.advanceLexer();
+
+      expect(builder, IDENTIFIER, "Identifier expected");
+
+      marker.done(SELECTOR_ID);
     }
 
     refMarker.done(SELECTOR_REFERENCE);

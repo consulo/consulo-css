@@ -7,10 +7,10 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 07.07.13.
  */
-public class CssSelectorClass extends CssElement implements CssSelectorPart {
-  public CssSelectorClass(@NotNull ASTNode node) {
+public class CssSelectorId extends CssElement implements CssSelectorPart{
+  public CssSelectorId(@NotNull ASTNode node) {
     super(node);
   }
 

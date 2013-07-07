@@ -1,23 +1,18 @@
 package org.consulo.xstylesheet.definition;
 
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.extensions.AbstractExtensionPointBean;
 import com.intellij.openapi.extensions.ExtensionPointName;
-import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.util.JDOMUtil;
 import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.psi.PsiFile;
 import com.intellij.util.ReflectionUtil;
 import com.intellij.util.xmlb.annotations.Attribute;
-import lombok.val;
-import org.consulo.lombok.annotations.Logger;
 import org.consulo.xstylesheet.definition.impl.*;
 import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.JDOMException;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
@@ -25,8 +20,9 @@ import java.util.*;
  * @author VISTALL
  * @since 03.07.13.
  */
-@Logger
 public class XStyleSheetTableExtension extends AbstractExtensionPointBean {
+  private static final Logger LOGGER = Logger.getInstance(XStyleSheetTableExtension.class);
+
   public static final ExtensionPointName<XStyleSheetTableExtension> EP_NAME = ExtensionPointName.create("org.consulo.xstylesheet.table");
 
   @Attribute("file")

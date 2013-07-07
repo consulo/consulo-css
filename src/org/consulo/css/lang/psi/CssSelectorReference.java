@@ -11,4 +11,8 @@ public class CssSelectorReference extends CssElement {
   public CssSelectorReference(@NotNull ASTNode node) {
     super(node);
   }
+
+  public CssSelectorPart getSelectorPart() {
+    return findChildByClass(CssSelectorPart.class);
+  }
 }

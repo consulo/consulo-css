@@ -11,8 +11,11 @@ import org.consulo.xstylesheet.definition.XStyleSheetTable;
 import org.consulo.xstylesheet.definition.XStyleSheetTableExtension;
 import org.consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;
 import org.consulo.xstylesheet.definition.impl.MergedXStyleSheetTable;
+import org.consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +36,27 @@ public class CssFile extends PsiFileBase {
   @Override
   public void accept(@NotNull PsiElementVisitor psiElementVisitor) {
     psiElementVisitor.visitFile(this);
+  }
+
+  @Nullable
+  public CssRule findRule(@NotNull XStyleRuleCondition condition) {
+    for (CssRule o : findChildrenByClass(CssRule.class)) {
+      if(condition.isAccepted(o)) {
+        return o;
+      }
+    }
+    return null;
+  }
+
+  @NotNull
+  public List<CssRule> findRules(@NotNull XStyleRuleCondition condition) {
+    List<CssRule> list = new ArrayList<CssRule>() ;
+    for (CssRule o : findChildrenByClass(CssRule.class)) {
+      if(condition.isAccepted(o)) {
+        list.add(o);
+      }
+    }
+    return list;
   }
 
   @NotNull

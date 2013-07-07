@@ -21,4 +21,6 @@ public interface CssPsiTokens {
     IElementType SELECTOR_ELEMENT = new CssPsiElementType("SELECTOR_ELEMENT", CssSelectorElement.class);
 
     IElementType SELECTOR_CLASS = new CssPsiElementType("SELECTOR_CLASS", CssSelectorClass.class);
+
+    IElementType SELECTOR_ID = new CssPsiElementType("SELECTOR_ID", CssSelectorId.class);
 }
