@@ -1,6 +1,7 @@
 package org.consulo.css.lang.psi;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetRule;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,6 +17,11 @@ public class CssRule extends CssElement implements PsiXStyleSheetRule {
   @NotNull
   public CssSelectorReference getSelectorReference() {
     return findNotNullChildByClass(CssSelectorReference.class);
+  }
+
+  @Override
+  public PsiElement getOnlyNameIdentifier() {
+    return getSelectorReference().getSelectorPart();
   }
 
   @Override

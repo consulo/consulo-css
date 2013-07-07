@@ -1,7 +1,6 @@
 package org.consulo.css.lang.psi;
 
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.util.ArrayUtil;
 import org.consulo.xstylesheet.definition.XStyleSheetProperty;
 import org.consulo.xstylesheet.definition.XStyleSheetPropertyValueEntry;
@@ -77,7 +76,7 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
 
     XStyleSheetProperty xStyleSheetProperty = parent.getXStyleSheetProperty();
     if(xStyleSheetProperty == null) {
-      return null;
+      return XStyleSheetPropertyValuePart.EMPTY_ARRAY;
     }
 
     XStyleSheetPropertyValueEntry[] validEntries = xStyleSheetProperty.getValidEntries();

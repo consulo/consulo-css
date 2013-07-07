@@ -15,6 +15,8 @@ import org.consulo.css.lang.CssTokens;
 %eof{ return;
 %eof}
 
+%state BODY
+
 LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
 WhiteSpace = [ \t]
@@ -30,13 +32,37 @@ Identifier="-"? {IdentifierPart}* "-"? {IdentifierPart}*
 
 StringLiteral = \" ( \\\" | [^\"\n\r] )* \"
 NumberLiteral = [0-9]+ | [0-9]*\.[0-9]+
+HexNumberLiteral = "#" ([_0-9A-Fa-f])+
 
 %%
 
 <YYINITIAL> {
     "#"                     { return CssTokens.SHARP; }
     "."                     { return CssTokens.DOT; }
-    "{"                     { return CssTokens.LBRACE; }
+    "{"                     { yybegin(BODY); return CssTokens.LBRACE; }
+    "}"                     { return CssTokens.RBRACE; }
+    "["                     { return CssTokens.LBRACKET; }
+    "]"                     { return CssTokens.RBRACKET; }
+    ":"                     { return CssTokens.COLON; }
+    "::"                    { return CssTokens.COLONCOLON; }
+    "="                     { return CssTokens.EQ; }
+    ";"                     { return CssTokens.SEMICOLON; }
+    ","                     { return CssTokens.COMMA; }
+    "*"                     { return CssTokens.ASTERISK; }
+    "."                     { return CssTokens.DOT; }
+    "+"                     { return CssTokens.PLUS; }
+    "%"                     { return CssTokens.PERC; }
+    {Identifier}            { return CssTokens.IDENTIFIER; }
+    {StringLiteral}         { return CssTokens.STRING; }
+    {TraditionalComment}    { return CssTokens.BLOCK_COMMENT; }
+    {AnySpace}+             { return CssTokens.WHITE_SPACE; }
+    .                       { return CssTokens.BAD_CHARACTER; }
+}
+
+<BODY> {
+    "#"                     { return CssTokens.SHARP; }
+    "."                     { return CssTokens.DOT; }
+    "{"                     { yybegin(BODY); return CssTokens.LBRACE; }
     "}"                     { return CssTokens.RBRACE; }
     "["                     { return CssTokens.LBRACKET; }
     "]"                     { return CssTokens.RBRACKET; }
@@ -50,9 +76,13 @@ NumberLiteral = [0-9]+ | [0-9]*\.[0-9]+
     "+"                     { return CssTokens.PLUS; }
     "%"                     { return CssTokens.PERC; }
     {NumberLiteral}         { return CssTokens.NUMBER; }
-    {StringLiteral}         { return CssTokens.STRING; }
+    {HexNumberLiteral}      { return CssTokens.NUMBER; }
     {Identifier}            { return CssTokens.IDENTIFIER; }
-    {TraditionalComment}    { return CssTokens.BLOCK_COMMENT; }
-    {AnySpace}+             { return CssTokens.WHITE_SPACE; }
-    .                       { return CssTokens.BAD_CHARACTER; }
+
+
+     "}"                    { yybegin(YYINITIAL); return CssTokens.RBRACE; }
+     {StringLiteral}         { return CssTokens.STRING; }
+     {TraditionalComment}    { return CssTokens.BLOCK_COMMENT; }
+     {AnySpace}+             { return CssTokens.WHITE_SPACE; }
+     .                       { return CssTokens.BAD_CHARACTER; }
 }

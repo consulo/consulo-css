@@ -7,6 +7,8 @@ import com.intellij.psi.PsiElement;
  * @since 08.07.13.
  */
 public interface PsiXStyleSheetRule extends PsiElement {
+  PsiElement getOnlyNameIdentifier();
+
   boolean isIdRule();
 
   boolean isClassRule();

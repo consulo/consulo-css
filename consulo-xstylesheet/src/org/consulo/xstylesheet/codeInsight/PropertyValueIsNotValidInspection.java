@@ -7,27 +7,31 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import org.consulo.xstylesheet.definition.XStyleSheetProperty;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetProperty;
+import org.consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 08.07.13.
  */
-public class PropertyIsNotValidInspection extends LocalInspectionTool {
+public class PropertyValueIsNotValidInspection extends LocalInspectionTool {
   @NotNull
   @Override
-  public PsiElementVisitor buildVisitor(@NotNull final ProblemsHolder holder, boolean isOnTheFly) {
+  public com.intellij.psi.PsiElementVisitor buildVisitor(@NotNull final ProblemsHolder holder, boolean isOnTheFly) {
     return new PsiElementVisitor() {
       @Override
       public void visitElement(PsiElement element) {
         if(element instanceof PsiXStyleSheetProperty) {
           XStyleSheetProperty xStyleSheetProperty = ((PsiXStyleSheetProperty) element).getXStyleSheetProperty();
           if(xStyleSheetProperty == null) {
-            PsiElement nameIdentifier = ((PsiXStyleSheetProperty) element).getNameIdentifier();
-            if(nameIdentifier == null) {
-              return;
+            return;
+          }
+
+          for (PsiXStyleSheetPropertyValuePart xStyleSheetPropertyValuePart : ((PsiXStyleSheetProperty) element).getParts()) {
+            Object value = xStyleSheetPropertyValuePart.getValue();
+            if(value == null) {
+              holder.registerProblem(xStyleSheetPropertyValuePart, "Invalid property value", ProblemHighlightType.GENERIC_ERROR_OR_WARNING);
             }
-            holder.registerProblem(nameIdentifier, "Invalid property name", ProblemHighlightType.GENERIC_ERROR_OR_WARNING);
           }
         }
       }

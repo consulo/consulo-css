@@ -9,10 +9,10 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiFile;
 import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
-import org.consulo.xstylesheet.definition.value.impl.KeywordXStyleSheetValue;
 import org.consulo.xstylesheet.definition.value.impl.LikeXStyleSheetPropertyValuePartParser;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
+import org.consulo.xstylesheet.psi.PsiXStyleSheetRule;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -53,6 +53,16 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor {
 
               myHighlightInfoHolder.add(builder.create());
             }
+          }
+        }
+        else if(element instanceof PsiXStyleSheetRule) {
+          PsiElement onlyNameIdentifier = ((PsiXStyleSheetRule) element).getOnlyNameIdentifier();
+          if(onlyNameIdentifier != null) {
+            HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
+            builder.textAttributes(XStyleSheetColors.SELECTOR_NAME);
+            builder.range(onlyNameIdentifier);
+
+            myHighlightInfoHolder.add(builder.create());
           }
         }
         element.acceptChildren(this);

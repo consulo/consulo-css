@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xstyle-sheet-table>
+    <!--http://www.w3.org/TR/CSS21/propidx.html-->
     <value-definition name="color" implClass="org.consulo.xstylesheet.definition.value.impl.ColorXStyleSheetValue" />
     <value-definition name="colorKeyword" implClass="org.consulo.xstylesheet.definition.value.impl.KeywordColorXStyleSheetValue" />
     <value-definition name="keyword" implClass="org.consulo.xstylesheet.definition.value.impl.KeywordXStyleSheetValue" />
@@ -18,5 +19,26 @@
                 <keyword>transient</keyword>
             </entry>
         </initial-values>
+        <doc>
+            <![CDATA[This property sets the background color of an element, either a <color> value or the keyword 'transparent', to make the underlying colors shine through.]]>
+        </doc>
+    </property>
+
+    <property name="color">
+        <valid-values>
+            <entry>
+                <color />
+                <colorKeyword />
+                <keyword>inherit</keyword>
+            </entry>
+        </valid-values>
+        <initial-values>
+            <entry>
+                <keyword>inherit</keyword>
+            </entry>
+        </initial-values>
+        <doc>
+            <![CDATA[This property describes the foreground color of an element's text content.]]>
+        </doc>
     </property>
 </xstyle-sheet-table>

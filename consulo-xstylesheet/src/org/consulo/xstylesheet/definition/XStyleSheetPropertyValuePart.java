@@ -1,8 +1,6 @@
 package org.consulo.xstylesheet.definition;
 
 import com.intellij.codeInsight.lookup.LookupElement;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -11,6 +9,8 @@ import java.util.List;
  * @since 03.07.13.
  */
 public interface XStyleSheetPropertyValuePart {
+  XStyleSheetPropertyValuePart[] EMPTY_ARRAY = new XStyleSheetPropertyValuePart[0];
+
   XStyleSheetPropertyValuePartParser getParser();
 
   String getValue();
