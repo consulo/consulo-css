@@ -84,6 +84,16 @@ public class CssFormattingBlock extends AbstractBlock {
     throw new IllegalArgumentException(elementType.toString());
   }
 
+  @Nullable
+  @Override
+  protected Indent getChildIndent() {
+    IElementType elementType = getNode().getElementType();
+    if (elementType == CssPsiTokens.BLOCK) {
+      return Indent.getNormalIndent();
+    }
+    return null;
+  }
+
   @Override
   public boolean isLeaf() {
     IElementType elementType = getNode().getElementType();
