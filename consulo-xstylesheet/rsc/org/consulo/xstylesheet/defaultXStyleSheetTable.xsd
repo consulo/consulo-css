@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="xstyle-sheet-table" type="xstyle-sheet-tableType"/>
+  <xs:complexType name="propertyType" mixed="true">
+    <xs:sequence>
+      <xs:element type="valid-valuesType" name="valid-values"/>
+      <xs:element type="initial-valuesType" name="initial-values" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="value-definitionType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+        <xs:attribute type="xs:string" name="implClass" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="entryType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="color" minOccurs="0"/>
+      <xs:element type="xs:string" name="colorKeyword" minOccurs="0"/>
+      <xs:element type="xs:string" name="keyword" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element name="percentNumber" maxOccurs="unbounded" minOccurs="0" />
+      <xs:element name="relativeLengthNumber" maxOccurs="unbounded" minOccurs="0" />
+      <xs:element name="absoluteLengthNumber" maxOccurs="unbounded" minOccurs="0" />
+      <xs:element name="number" maxOccurs="unbounded" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="initial-valuesType">
+    <xs:sequence>
+      <xs:element type="entryType" name="entry"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="xstyle-sheet-tableType">
+    <xs:sequence>
+      <xs:element type="value-definitionType" name="value-definition" maxOccurs="unbounded" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>http://www.w3.org/TR/CSS21/propidx.html</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="propertyType" name="property" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="valid-valuesType">
+    <xs:sequence>
+      <xs:element type="entryType" name="entry"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

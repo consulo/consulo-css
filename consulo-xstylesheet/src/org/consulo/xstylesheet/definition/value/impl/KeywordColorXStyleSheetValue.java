@@ -18,7 +18,7 @@ import java.util.Map;
  * @author VISTALL
  * @since 03.07.13.
  */
-public class KeywordColorXStyleSheetValue implements XStyleSheetPropertyValuePartParser, LikeXStyleSheetPropertyValuePartParser {
+public class KeywordColorXStyleSheetValue implements XStyleSheetPropertyValuePartParser, LikeKeywordXStyleSheetPropertyValuePartParser {
   private Map<String, String> myDefaultColors = new HashMap<String, String>() {
     {
       put("maroon", "#800000");

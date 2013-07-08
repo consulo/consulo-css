@@ -13,7 +13,7 @@ import java.util.List;
  * @author VISTALL
  * @since 03.07.13.
  */
-public class KeywordXStyleSheetValue implements XStyleSheetPropertyValuePartParser, LikeXStyleSheetPropertyValuePartParser {
+public class KeywordXStyleSheetValue implements XStyleSheetPropertyValuePartParser, LikeKeywordXStyleSheetPropertyValuePartParser {
   @Nullable
   @Override
   public String fromString(@NotNull String stringValue, String value) {

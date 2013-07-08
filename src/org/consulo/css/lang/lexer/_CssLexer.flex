@@ -28,10 +28,11 @@ TraditionalComment   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 CommentContent = ( [^*] | \*+ [^/*] )*
 
 IdentifierPart = [:jletter:] [:jletterdigit:]*
-Identifier="-"? {IdentifierPart}* "-"? {IdentifierPart}*
+Identifier=("-"? {IdentifierPart}*)*
 
 StringLiteral = \" ( \\\" | [^\"\n\r] )* \"
 NumberLiteral = [0-9]+ | [0-9]*\.[0-9]+
+NumberLiteralWithSufixes = {NumberLiteral} ("in" | "cm" | "mm" | "pt" | "pc" | "px" | "em" | "ex" | "%")?
 HexNumberLiteral = "#" ([_0-9A-Fa-f])+
 
 %%
@@ -75,7 +76,7 @@ HexNumberLiteral = "#" ([_0-9A-Fa-f])+
     "."                     { return CssTokens.DOT; }
     "+"                     { return CssTokens.PLUS; }
     "%"                     { return CssTokens.PERC; }
-    {NumberLiteral}         { return CssTokens.NUMBER; }
+    {NumberLiteralWithSufixes} { return CssTokens.NUMBER; }
     {HexNumberLiteral}      { return CssTokens.NUMBER; }
     {Identifier}            { return CssTokens.IDENTIFIER; }
 
