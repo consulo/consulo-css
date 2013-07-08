@@ -46,9 +46,9 @@ public class CssCompletionContributor extends CompletionContributor {
           if(alreadyExists.contains(property.getName())) {
             continue;
           }
-          LookupElementBuilder builder = LookupElementBuilder.create(property.getName());
 
-          String result = StringUtil.join(property.getInitialEntries(), new Function<XStyleSheetPropertyValueEntry, String>() {
+
+          String defaultText = StringUtil.join(property.getInitialEntries(), new Function<XStyleSheetPropertyValueEntry, String>() {
             @Override
             public String fun(XStyleSheetPropertyValueEntry entry) {
               XStyleSheetPropertyValuePart[] parts = entry.getParts();
@@ -60,10 +60,18 @@ public class CssCompletionContributor extends CompletionContributor {
             }
           }, ", ");
 
-          if(!result.isEmpty()) {
-            builder = builder.withTypeText(result, true);
+          StringBuilder b = new StringBuilder(property.getName());
+          if(!defaultText.isEmpty()) {
+            b.append(": ");
+            b.append(defaultText);
+            b.append(";");
           }
 
+          LookupElementBuilder builder = LookupElementBuilder.create(b.toString());
+          builder = builder.withPresentableText(property.getName());
+          if(!defaultText.isEmpty()) {
+            builder = builder.withTypeText(defaultText, true);
+          }
           completionResultSet.addElement(builder);
         }
       }
