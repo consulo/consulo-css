@@ -46,7 +46,7 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens {
 
                     builder.advanceLexer();
                   }
-                  else if(builder.getTokenType() == SEMICOLON) {
+                  else if(builder.getTokenType() == SEMICOLON || builder.getTokenType() == RBRACE) {
                     break;
                   }
                   else {
@@ -62,7 +62,9 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens {
                 }
               }
 
-              expect(builder, SEMICOLON, "';' expected");
+              if(builder.getTokenType() != RBRACE) {
+                expect(builder, SEMICOLON, "';' expected");
+              }
 
               propertyMarker.done(PROPERTY);
             }
