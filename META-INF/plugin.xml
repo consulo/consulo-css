@@ -14,5 +14,6 @@
         <lang.commenter language="CSS" implementationClass="org.consulo.css.lang.CssCommenter" />
         <lang.braceMatcher language="CSS" implementationClass="org.consulo.css.lang.CssPairedBraceMatcher" />
         <lang.formatter language="CSS" implementationClass="org.consulo.css.lang.formatting.CssFormattingModelBuilder" />
+        <lang.psiStructureViewFactory language="CSS" implementationClass="org.consulo.css.editor.structureView.CssPsiStructureViewFactory" />
     </extensions>
 </idea-plugin>
