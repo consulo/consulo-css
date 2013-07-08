@@ -60,6 +60,11 @@ public class CssFile extends PsiFileBase {
   }
 
   @NotNull
+  public CssRule[] getRules() {
+    return findChildrenByClass(CssRule.class);
+  }
+
+  @NotNull
   public XStyleSheetTable getXStyleSheetTable() {
     SmartList<XStyleSheetTable> list = new SmartList<XStyleSheetTable>();
     for (XStyleSheetTableExtension extension : XStyleSheetTableExtension.EP_NAME.getExtensions()) {

@@ -1,11 +1,18 @@
 package org.consulo.css.lang.parser;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.*;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.psi.PsiElementVisitor;
-import com.intellij.psi.impl.source.PsiFileImpl;
+import com.intellij.lang.ASTNode;
+import com.intellij.lang.LanguageVersion;
+import com.intellij.lang.ParserDefinition;
+import com.intellij.lang.PsiParser;
+import com.intellij.lexer.Lexer;
+import com.intellij.openapi.project.Project;
+import com.intellij.psi.FileViewProvider;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.tree.IFileElementType;
+import com.intellij.psi.tree.TokenSet;
 import org.consulo.css.lang.CssLanguage;
 import org.consulo.css.lang.CssPsiElementType;
 import org.consulo.css.lang.CssTokenSets;
@@ -13,20 +20,13 @@ import org.consulo.css.lang.lexer.CssLexer;
 import org.consulo.css.lang.psi.CssFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import com.intellij.lexer.Lexer;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.tree.IFileElementType;
-import com.intellij.psi.tree.TokenSet;
 
 /**
  * @author VISTALL
  * @since 23:59/12.06.13
  */
 public class CssParserDefinition implements ParserDefinition {
-    private static final IFileElementType FILE_ELEMENT = new IFileElementType("CSS_FILE", CssLanguage.INSTANCE);
+    public static final IFileElementType FILE_ELEMENT = new IFileElementType("CSS_FILE", CssLanguage.INSTANCE);
 
     @NotNull
     @Override

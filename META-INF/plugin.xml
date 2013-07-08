@@ -11,5 +11,8 @@
         <psi.referenceContributor language="HTML" implementation="org.consulo.css.html.CssToHtmlReferenceContributor" />
         <lang.parserDefinition language="CSS" implementationClass="org.consulo.css.lang.parser.CssParserDefinition"/>
         <lang.syntaxHighlighterFactory key="CSS" implementationClass="org.consulo.css.lang.CssSyntaxHighlighterFactory" />
+        <lang.commenter language="CSS" implementationClass="org.consulo.css.lang.CssCommenter" />
+        <lang.braceMatcher language="CSS" implementationClass="org.consulo.css.lang.CssPairedBraceMatcher" />
+        <lang.formatter language="CSS" implementationClass="org.consulo.css.lang.formatting.CssFormattingModelBuilder" />
     </extensions>
 </idea-plugin>
