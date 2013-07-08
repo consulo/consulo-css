@@ -4,6 +4,7 @@ import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase;
 import org.consulo.css.lang.psi.CssFile;
 import org.consulo.css.lang.psi.CssRule;
+import org.consulo.css.lang.psi.CssSelectorReference;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,7 +27,9 @@ public class CssStructureViewTreeElement extends PsiTreeElementBase<CssFile> {
   public Collection<StructureViewTreeElement> getChildrenBase() {
     List<StructureViewTreeElement> list = new ArrayList<StructureViewTreeElement>();
     for (CssRule cssRule : getElement().getRules()) {
-      list.add(new CssRuleStructureViewTreeElement(cssRule));
+      for (CssSelectorReference cssSelectorReference : cssRule.getSelectorReferences()) {
+        list.add(new CssSelectorReferenceStructureViewTreeElement(cssSelectorReference));
+      }
     }
     return list;
   }

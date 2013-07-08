@@ -7,10 +7,7 @@ import com.intellij.psi.tree.IElementType;
 import org.consulo.css.lang.CssPsiTokens;
 import org.consulo.css.lang.CssTokens;
 import org.consulo.css.lang.parser.CssParserDefinition;
-import org.consulo.css.lang.psi.CssBlock;
-import org.consulo.css.lang.psi.CssFile;
-import org.consulo.css.lang.psi.CssProperty;
-import org.consulo.css.lang.psi.CssRule;
+import org.consulo.css.lang.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,7 +35,11 @@ public class CssFormattingBlock extends AbstractBlock {
       }
     } else if (elementType == CssPsiTokens.RULE) {
       CssRule psi = getNode().getPsi(CssRule.class);
-      blocks.add(new CssFormattingBlock(psi.getSelectorReference().getNode(), null, null));
+      assert psi != null;
+      CssSelectorReferenceList selectorReferenceList = psi.getSelectorReferenceList();
+      if (selectorReferenceList != null) {
+        blocks.add(new CssFormattingBlock(selectorReferenceList.getNode(), null, null));
+      }
 
       CssBlock block = psi.getBlock();
       if (block != null) {
@@ -74,7 +75,7 @@ public class CssFormattingBlock extends AbstractBlock {
     IElementType elementType = getNode().getElementType();
     if (elementType == CssParserDefinition.FILE_ELEMENT) {
       return Indent.getAbsoluteNoneIndent();
-    } else if (elementType == CssPsiTokens.RULE || elementType == CssPsiTokens.BLOCK || elementType == CssPsiTokens.SELECTOR_REFERENCE) {
+    } else if (elementType == CssPsiTokens.RULE || elementType == CssPsiTokens.BLOCK || elementType == CssPsiTokens.SELECTOR_LIST_REFERENCE) {
       return Indent.getNoneIndent();
     } else if (elementType == CssTokens.LBRACE || elementType == CssTokens.RBRACE) {
       return Indent.getNoneIndent();

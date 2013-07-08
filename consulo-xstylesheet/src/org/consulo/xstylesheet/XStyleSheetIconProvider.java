@@ -4,7 +4,7 @@ import com.intellij.icons.AllIcons;
 import com.intellij.ide.IconProvider;
 import com.intellij.openapi.util.Iconable;
 import com.intellij.psi.PsiElement;
-import org.consulo.xstylesheet.psi.PsiXStyleSheetRule;
+import org.consulo.xstylesheet.psi.PsiXStyleSheetSelectorReference;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,11 +18,11 @@ public class XStyleSheetIconProvider extends IconProvider {
   @Nullable
   @Override
   public Icon getIcon(@NotNull PsiElement psiElement, @Iconable.IconFlags int i) {
-    if(psiElement instanceof PsiXStyleSheetRule) {
-      if(((PsiXStyleSheetRule) psiElement).isClassRule()) {
+    if(psiElement instanceof PsiXStyleSheetSelectorReference) {
+      if(((PsiXStyleSheetSelectorReference) psiElement).isClassRule()) {
         return XStyleSheetIcons.CssClass;
       }
-      else if(((PsiXStyleSheetRule) psiElement).isIdRule()) {
+      else if(((PsiXStyleSheetSelectorReference) psiElement).isIdRule()) {
         return XStyleSheetIcons.HtmlId;
       }
       else {

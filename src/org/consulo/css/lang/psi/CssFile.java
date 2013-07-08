@@ -40,9 +40,11 @@ public class CssFile extends PsiFileBase {
 
   @Nullable
   public CssRule findRule(@NotNull XStyleRuleCondition condition) {
-    for (CssRule o : findChildrenByClass(CssRule.class)) {
-      if(condition.isAccepted(o)) {
-        return o;
+    for (CssRule o : getRules()) {
+      for (CssSelectorReference reference : o.getSelectorReferences()) {
+        if (condition.isAccepted(reference)) {
+          return o;
+        }
       }
     }
     return null;
@@ -50,10 +52,12 @@ public class CssFile extends PsiFileBase {
 
   @NotNull
   public List<CssRule> findRules(@NotNull XStyleRuleCondition condition) {
-    List<CssRule> list = new ArrayList<CssRule>() ;
-    for (CssRule o : findChildrenByClass(CssRule.class)) {
-      if(condition.isAccepted(o)) {
-        list.add(o);
+    List<CssRule> list = new ArrayList<CssRule>();
+    for (CssRule o : getRules()) {
+      for (CssSelectorReference reference : o.getSelectorReferences()) {
+        if (condition.isAccepted(reference)) {
+          list.add(o);
+        }
       }
     }
     return list;
@@ -68,7 +72,8 @@ public class CssFile extends PsiFileBase {
   public XStyleSheetTable getXStyleSheetTable() {
     SmartList<XStyleSheetTable> list = new SmartList<XStyleSheetTable>();
     for (XStyleSheetTableExtension extension : XStyleSheetTableExtension.EP_NAME.getExtensions()) {
-      /*if (extension.condition == null || extension.condition.value(this)) */{
+      /*if (extension.condition == null || extension.condition.value(this)) */
+      {
         list.add(extension.getTable());
       }
     }

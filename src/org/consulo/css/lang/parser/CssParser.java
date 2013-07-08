@@ -22,7 +22,7 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens {
       if(builder.getTokenType() == IDENTIFIER || builder.getTokenType() == DOT || builder.getTokenType() == SHARP) {
         PsiBuilder.Marker marker = builder.mark();
 
-        parsAnySelector(builder);
+        parseSelectorList(builder);
 
         if(builder.getTokenType() == LBRACE) {
           PsiBuilder.Marker bodyMarker = builder.mark();
@@ -102,31 +102,40 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens {
     }
   }
 
-  private void parsAnySelector(PsiBuilder builder) {
-    PsiBuilder.Marker refMarker = builder.mark();
+  private void parseSelectorList(PsiBuilder builder) {
+    PsiBuilder.Marker listMarker = builder.mark();
+
+    while (parseSelectorReference(builder))
+    {
+      if(builder.getTokenType() == COMMA) {
+        builder.advanceLexer();
+      }
+      else {
+        break;
+      }
+    }
+
+    listMarker.done(SELECTOR_LIST_REFERENCE);
+  }
+
+  private boolean parseSelectorReference(PsiBuilder builder) {
+    PsiBuilder.Marker marker = builder.mark();
 
     if(builder.getTokenType() == IDENTIFIER) {
-      PsiBuilder.Marker marker = builder.mark();
       builder.advanceLexer();
-      marker.done(SELECTOR_ELEMENT);
+      marker.done(SELECTOR_REFERENCE);
+      return true;
     }
-    else if(builder.getTokenType() == DOT) {
-      PsiBuilder.Marker marker = builder.mark();
-      builder.advanceLexer();
-
-      expect(builder, IDENTIFIER, "Identifier expected");
-
-      marker.done(SELECTOR_CLASS);
-    }
-    else if(builder.getTokenType() == SHARP) {
-      PsiBuilder.Marker marker = builder.mark();
+    else if(builder.getTokenType() == DOT || builder.getTokenType() == SHARP) {
       builder.advanceLexer();
 
       expect(builder, IDENTIFIER, "Identifier expected");
 
-      marker.done(SELECTOR_ID);
+      marker.done(SELECTOR_REFERENCE);
+      return true;
     }
 
-    refMarker.done(SELECTOR_REFERENCE);
+    marker.drop();
+    return false;
   }
 }

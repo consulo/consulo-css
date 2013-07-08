@@ -8,21 +8,25 @@ import org.consulo.css.lang.parser.CssParserDefinition;
  * @since 02.07.13.
  */
 public class CssParsingTest extends ParsingTestCase {
-    public CssParsingTest() {
-        super("parsing", "css", new CssParserDefinition());
-    }
+  public CssParsingTest() {
+    super("parsing", "css", new CssParserDefinition());
+  }
 
-    public void testCssParsing1() {
-        doTest(true);
-    }
+  public void testCssParsing1() {
+    doTest(true);
+  }
 
-    @Override
-    protected String getTestDataPath() {
-        return "testData";
-    }
+  public void testCssParsingSelectorList() {
+    doTest(true);
+  }
 
-    @Override
-    protected boolean shouldContainTempFiles() {
-        return false;
-    }
+  @Override
+  protected String getTestDataPath() {
+    return "testData";
+  }
+
+  @Override
+  protected boolean shouldContainTempFiles() {
+    return false;
+  }
 }

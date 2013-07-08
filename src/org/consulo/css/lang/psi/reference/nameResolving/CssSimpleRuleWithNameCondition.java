@@ -1,10 +1,6 @@
 package org.consulo.css.lang.psi.reference.nameResolving;
 
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.IElementType;
-import org.consulo.css.lang.CssPsiTokens;
-import org.consulo.css.lang.psi.CssRule;
-import org.consulo.css.lang.psi.CssSelectorPart;
 import org.consulo.css.lang.psi.CssSelectorReference;
 import org.consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 
@@ -23,36 +19,22 @@ public class CssSimpleRuleWithNameCondition implements XStyleRuleCondition{
 
   @Override
   public boolean isAccepted(PsiElement psiElement) {
-    if(psiElement instanceof CssRule) {
-      CssSelectorReference selectorReference = ((CssRule) psiElement).getSelectorReference();
+    if (psiElement instanceof CssSelectorReference) {
+      CssSelectorReference selectorReference = (CssSelectorReference) psiElement;
 
-      CssSelectorPart selectorPart = selectorReference.getSelectorPart();
-      if(selectorPart == null) {
+      if(!myName.equals(selectorReference.getDisplayName())) {
         return false;
       }
 
-      String onlyName = selectorPart.getOnlyName();
-      if(onlyName == null) {
-        return false;
-      }
-
-      IElementType type = null;
-      switch (getConditionType()) {
+      switch (myConditionType) {
         case ID:
-          type = CssPsiTokens.SELECTOR_ID;
-          break;
+          return selectorReference.isIdRule();
         case CLASS:
-          type = CssPsiTokens.SELECTOR_CLASS;
-          break;
+          return selectorReference.isClassRule();
       }
-      if(selectorPart.getNode().getElementType() != type) {
-        return false;
-      }
-      return onlyName.equals(myName);
     }
-    else {
-      return false;
-    }
+
+    return false;
   }
 
   public CssSimpleRuleConditionType getConditionType() {

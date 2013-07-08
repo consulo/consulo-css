@@ -56,14 +56,14 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor {
           }
         }
         else if(element instanceof PsiXStyleSheetRule) {
-          PsiElement onlyNameIdentifier = ((PsiXStyleSheetRule) element).getOnlyNameIdentifier();
+          /*PsiElement onlyNameIdentifier = ((PsiXStyleSheetRule) element).getOnlyNameIdentifier();
           if(onlyNameIdentifier != null) {
             HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
             builder.textAttributes(XStyleSheetColors.SELECTOR_NAME);
             builder.range(onlyNameIdentifier);
 
             myHighlightInfoHolder.add(builder.create());
-          }
+          } */
         }
         element.acceptChildren(this);
       }

@@ -2,7 +2,7 @@ package org.consulo.css.editor.structureView;
 
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase;
-import org.consulo.css.lang.psi.CssRule;
+import org.consulo.css.lang.psi.CssSelectorReference;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,8 +13,8 @@ import java.util.Collections;
  * @author VISTALL
  * @since 08.07.13.
  */
-public class CssRuleStructureViewTreeElement extends PsiTreeElementBase<CssRule> {
-  public CssRuleStructureViewTreeElement(CssRule psiElement) {
+public class CssSelectorReferenceStructureViewTreeElement extends PsiTreeElementBase<CssSelectorReference> {
+  public CssSelectorReferenceStructureViewTreeElement(CssSelectorReference psiElement) {
     super(psiElement);
   }
 
@@ -27,6 +27,6 @@ public class CssRuleStructureViewTreeElement extends PsiTreeElementBase<CssRule>
   @Nullable
   @Override
   public String getPresentableText() {
-    return getElement().getSelectorReference().getSelectorPart().getOnlyName();
+    return getElement().getDisplayName();
   }
 }

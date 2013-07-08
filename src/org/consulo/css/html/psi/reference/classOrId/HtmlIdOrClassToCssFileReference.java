@@ -8,7 +8,7 @@ import com.intellij.util.PsiIconUtil;
 import org.consulo.css.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
 import org.consulo.css.lang.psi.CssFile;
 import org.consulo.css.lang.psi.CssRule;
-import org.consulo.css.lang.psi.CssSelectorPart;
+import org.consulo.css.lang.psi.CssSelectorReference;
 import org.consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleConditionType;
 import org.consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleOnlyTypeCondition;
 import org.consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleWithNameCondition;
@@ -50,12 +50,12 @@ public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase
 
     List<LookupElementBuilder> items = new ArrayList<LookupElementBuilder>(cssRules.size());
     for (CssRule cssRule : cssRules) {
-      CssSelectorPart selectorPart = cssRule.getSelectorReference().getSelectorPart();
-
-      LookupElementBuilder item = LookupElementBuilder.create(selectorPart.getOnlyName());
-      item = item.withIcon(PsiIconUtil.getProvidersIcon(cssRule, 0));
-      item = item.withTypeText(cssRule.getContainingFile().getName(), true);
-      items.add(item);
+      for (CssSelectorReference cssSelectorReference : cssRule.getSelectorReferences()) {
+        LookupElementBuilder item = LookupElementBuilder.create(cssSelectorReference.getDisplayName());
+        item = item.withIcon(PsiIconUtil.getProvidersIcon(cssSelectorReference, 0));
+        item = item.withTypeText(cssRule.getContainingFile().getName(), true);
+        items.add(item);
+      }
     }
     return ArrayUtil.toObjectArray(items);
   }
