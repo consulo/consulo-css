@@ -10,13 +10,13 @@
             <entry>
                 <color />
                 <colorKeyword />
-                <keyword>transient</keyword>
+                <keyword>transparent</keyword>
                 <keyword>inherit</keyword>
             </entry>
         </valid-values>
         <initial-values>
             <entry>
-                <keyword>transient</keyword>
+                <keyword>transparent</keyword>
             </entry>
         </initial-values>
         <doc>

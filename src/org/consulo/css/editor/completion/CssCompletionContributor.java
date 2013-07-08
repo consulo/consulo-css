@@ -2,11 +2,14 @@ package org.consulo.css.editor.completion;
 
 import com.intellij.codeInsight.completion.*;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.util.Function;
 import com.intellij.util.ProcessingContext;
 import org.consulo.css.lang.psi.CssFile;
 import org.consulo.xstylesheet.definition.XStyleSheetProperty;
+import org.consulo.xstylesheet.definition.XStyleSheetPropertyValueEntry;
 import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import org.consulo.xstylesheet.definition.XStyleSheetTable;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetProperty;
@@ -44,6 +47,22 @@ public class CssCompletionContributor extends CompletionContributor {
             continue;
           }
           LookupElementBuilder builder = LookupElementBuilder.create(property.getName());
+
+          String result = StringUtil.join(property.getInitialEntries(), new Function<XStyleSheetPropertyValueEntry, String>() {
+            @Override
+            public String fun(XStyleSheetPropertyValueEntry entry) {
+              XStyleSheetPropertyValuePart[] parts = entry.getParts();
+
+              if(parts.length > 0) {
+                return parts[0].getValue();
+              }
+              return "";
+            }
+          }, ", ");
+
+          if(!result.isEmpty()) {
+            builder = builder.withTypeText(result, true);
+          }
 
           completionResultSet.addElement(builder);
         }
