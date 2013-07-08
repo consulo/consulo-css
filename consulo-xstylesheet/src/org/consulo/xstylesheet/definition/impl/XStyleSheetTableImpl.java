@@ -29,4 +29,10 @@ public class XStyleSheetTableImpl implements XStyleSheetTable {
     }
     return null;
   }
+
+  @NotNull
+  @Override
+  public List<XStyleSheetProperty> getProperties() {
+    return myProperties;
+  }
 }

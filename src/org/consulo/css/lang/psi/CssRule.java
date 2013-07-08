@@ -4,6 +4,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetRule;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -17,6 +18,19 @@ public class CssRule extends CssElement implements PsiXStyleSheetRule {
   @NotNull
   public CssSelectorReference getSelectorReference() {
     return findNotNullChildByClass(CssSelectorReference.class);
+  }
+
+  @Nullable
+  @Override
+  public CssBlock getBlock() {
+    return findChildByClass(CssBlock.class);
+  }
+
+  @NotNull
+  @Override
+  public CssProperty[] getProperties() {
+    CssBlock block = getBlock();
+    return block == null ? CssProperty.EMPTY_ARRAY : block.getProperties();
   }
 
   @Override

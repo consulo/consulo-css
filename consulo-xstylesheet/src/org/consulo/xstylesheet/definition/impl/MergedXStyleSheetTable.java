@@ -5,6 +5,9 @@ import org.consulo.xstylesheet.definition.XStyleSheetTable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author VISTALL
  * @since 03.07.13.
@@ -27,4 +30,14 @@ public class MergedXStyleSheetTable implements XStyleSheetTable {
         }
         return null;
     }
+
+  @NotNull
+  @Override
+  public List<XStyleSheetProperty> getProperties() {
+    List<XStyleSheetProperty> list = new ArrayList<XStyleSheetProperty>();
+    for (XStyleSheetTable table : myTables) {
+      list.addAll(table.getProperties());
+    }
+    return list;
+  }
 }
