@@ -1,0 +1,7 @@
+.my a {
+	color: red;
+}
+
+#id a .string, #id div {
+	color: red;
+}

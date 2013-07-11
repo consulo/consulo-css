@@ -29,14 +29,14 @@ public class CssRule extends CssElement implements PsiXStyleSheetRule {
 
   @Nullable
   @Override
-  public CssSelectorReferenceList getSelectorReferenceList() {
-    return findChildByClass(CssSelectorReferenceList.class);
+  public CssSelectorDeclarationList getSelectorDeclarationList() {
+    return findChildByClass(CssSelectorDeclarationList.class);
   }
 
   @Override
   @NotNull
-  public CssSelectorReference[] getSelectorReferences() {
-    CssSelectorReferenceList selectorReferenceList = getSelectorReferenceList();
-    return selectorReferenceList == null ? CssSelectorReference.EMPTY_ARRAY : selectorReferenceList.getSelectorReferences();
+  public CssSelectorDeclaration[] getSelectorDeclarations() {
+    CssSelectorDeclarationList selectorReferenceList = getSelectorDeclarationList();
+    return selectorReferenceList == null ? CssSelectorDeclaration.EMPTY_ARRAY : selectorReferenceList.getSelectorDeclarations();
   }
 }

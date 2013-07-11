@@ -1,8 +1,9 @@
 CSS_FILE
   CssRule(RULE)
-    CssSelectorReferenceList(SELECTOR_LIST_REFERENCE)
-      CssSelectorReference(SELECTOR_REFERENCE)
-        PsiElement(IDENTIFIER)('body')
+    CssSelectorDeclarationList(SELECTOR_LIST_REFERENCE)
+      CssSelectorDeclaration(SELECTOR_DECLARATION)
+        CssSelectorReference(SELECTOR_REFERENCE)
+          PsiElement(IDENTIFIER)('body')
     PsiWhiteSpace(' ')
     CssBlock(BLOCK)
       PsiElement(LBRACE)('{')

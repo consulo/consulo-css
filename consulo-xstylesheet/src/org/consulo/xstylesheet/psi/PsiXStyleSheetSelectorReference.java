@@ -1,16 +1,12 @@
 package org.consulo.xstylesheet.psi;
 
-import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.psi.PsiNameIdentifierOwner;
 
 /**
  * @author VISTALL
  * @since 08.07.13.
  */
-public interface PsiXStyleSheetSelectorReference extends PsiElement {
-
-  @NotNull
-  String getDisplayName();
+public interface PsiXStyleSheetSelectorReference extends PsiXStyleSheetElement, PsiNameIdentifierOwner {
 
   boolean isClassRule();
 

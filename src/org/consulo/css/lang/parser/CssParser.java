@@ -14,128 +14,217 @@ import org.jetbrains.annotations.NotNull;
  * @since 03.07.13.
  */
 public class CssParser implements PsiParser, CssTokens, CssPsiTokens {
-  @NotNull
-  @Override
-  public ASTNode parse(@NotNull IElementType iElementType, @NotNull PsiBuilder builder, @NotNull LanguageVersion languageVersion) {
-    PsiBuilder.Marker mark = builder.mark();
-    while (!builder.eof()) {
-      if(builder.getTokenType() == IDENTIFIER || builder.getTokenType() == DOT || builder.getTokenType() == SHARP) {
-        PsiBuilder.Marker marker = builder.mark();
+	@NotNull
+	@Override
+	public ASTNode parse(@NotNull IElementType iElementType, @NotNull PsiBuilder builder, @NotNull LanguageVersion languageVersion) {
+		PsiBuilder.Marker mark = builder.mark();
+		while (!builder.eof()) {
+			PsiBuilder.Marker marker = builder.mark();
 
-        parseSelectorList(builder);
+			if (!parseSelectorList(builder)) {
+				builder.advanceLexer();
+			}
 
-        if(builder.getTokenType() == LBRACE) {
-          PsiBuilder.Marker bodyMarker = builder.mark();
-          builder.advanceLexer();
+			if (builder.getTokenType() == LBRACE) {
+				PsiBuilder.Marker bodyMarker = builder.mark();
+				builder.advanceLexer();
 
-          while (!builder.eof()) {
-            if(builder.getTokenType() == IDENTIFIER) {
-              PsiBuilder.Marker propertyMarker = builder.mark();
+				while (!builder.eof()) {
+					if (builder.getTokenType() == IDENTIFIER) {
+						PsiBuilder.Marker propertyMarker = builder.mark();
 
-              builder.advanceLexer();
+						builder.advanceLexer();
 
-              if(expect(builder, COLON, "':' expected")) {
-                PsiBuilder.Marker valueMarker = null;
+						if (expect(builder, COLON, "':' expected")) {
+							PsiBuilder.Marker valueMarker = null;
 
-                while (!builder.eof()) {
-                  if(builder.getTokenType() == COMMA) {
-                    if(valueMarker != null) {
-                      valueMarker.done(PROPERTY_VALUE_PART);
-                      valueMarker = null;
-                    }
+							while (!builder.eof()) {
+								if (builder.getTokenType() == COMMA) {
+									if (valueMarker != null) {
+										valueMarker.done(PROPERTY_VALUE_PART);
+										valueMarker = null;
+									}
 
-                    builder.advanceLexer();
-                  }
-                  else if(builder.getTokenType() == SEMICOLON || builder.getTokenType() == RBRACE) {
-                    break;
-                  }
-                  else {
-                    if(valueMarker == null) {
-                      valueMarker = builder.mark();
-                    }
-                    builder.advanceLexer();
-                  }
-                }
+									builder.advanceLexer();
+								} else if (builder.getTokenType() == SEMICOLON || builder.getTokenType() == RBRACE) {
+									break;
+								} else {
+									if (valueMarker == null) {
+										valueMarker = builder.mark();
+									}
+									builder.advanceLexer();
+								}
+							}
 
-                if(valueMarker != null) {
-                  valueMarker.done(PROPERTY_VALUE_PART);
-                }
-              }
+							if (valueMarker != null) {
+								valueMarker.done(PROPERTY_VALUE_PART);
+							}
+						}
 
-              if(builder.getTokenType() != RBRACE) {
-                expect(builder, SEMICOLON, "';' expected");
-              }
+						if (builder.getTokenType() != RBRACE) {
+							expect(builder, SEMICOLON, "';' expected");
+						}
 
-              propertyMarker.done(PROPERTY);
-            }
-            else {
-              break;
-            }
-          }
+						propertyMarker.done(PROPERTY);
+					} else {
+						break;
+					}
+				}
 
-          expect(builder, RBRACE, "'}' expected");
+				expect(builder, RBRACE, "'}' expected");
 
-          bodyMarker.done(BLOCK);
-        }
-        else {
-          builder.error("'{' expected");
-        }
+				bodyMarker.done(BLOCK);
+			} else {
+				builder.error("'{' expected");
+			}
 
-        marker.done(RULE);
-      }
-      else {
-        builder.advanceLexer();
-      }
-    }
-    mark.done(iElementType);
-    return builder.getTreeBuilt();
-  }
+			marker.done(RULE);
+		}
+		mark.done(iElementType);
+		return builder.getTreeBuilt();
+	}
 
-  private static boolean expect(PsiBuilder builder, IElementType elementType, String message) {
-    if(builder.getTokenType() != elementType) {
-      builder.error(message);
-      return false;
-    }
-    else {
-      builder.advanceLexer();
-      return true;
-    }
-  }
+	private static boolean expect(PsiBuilder builder, IElementType elementType, String message) {
+		if (builder.getTokenType() != elementType) {
+			builder.error(message);
+			return false;
+		} else {
+			builder.advanceLexer();
+			return true;
+		}
+	}
 
-  private void parseSelectorList(PsiBuilder builder) {
-    PsiBuilder.Marker listMarker = builder.mark();
 
-    while (parseSelectorReference(builder))
-    {
-      if(builder.getTokenType() == COMMA) {
-        builder.advanceLexer();
-      }
-      else {
-        break;
-      }
-    }
+	private boolean parseSelectorList(PsiBuilder builder) {
+		PsiBuilder.Marker listMarker = builder.mark();
 
-    listMarker.done(SELECTOR_LIST_REFERENCE);
-  }
+		boolean empty = true;
+		while (true) {
+			boolean b = parseSelectorDeclaration(builder);
+			if (!b) {
+				break;
+			} else {
+				empty = false;
+			}
 
-  private boolean parseSelectorReference(PsiBuilder builder) {
-    PsiBuilder.Marker marker = builder.mark();
+			if (builder.getTokenType() == COMMA) {
+				builder.advanceLexer();
+			}
+			else if(builder.getTokenType() == LBRACE) {
+				break;
+			}
+		}
 
-    if(builder.getTokenType() == IDENTIFIER) {
-      builder.advanceLexer();
-      marker.done(SELECTOR_REFERENCE);
-      return true;
-    }
-    else if(builder.getTokenType() == DOT || builder.getTokenType() == SHARP) {
-      builder.advanceLexer();
+		if (empty) {
+			builder.error("Expected '*', '.',  '#'. identifier or '['");
+		}
+		listMarker.done(SELECTOR_DECLARATION_LIST);
+		return !empty;
+	}
 
-      expect(builder, IDENTIFIER, "Identifier expected");
+	private boolean parseSelectorDeclaration(PsiBuilder builder) {
+		PsiBuilder.Marker marker = builder.mark();
 
-      marker.done(SELECTOR_REFERENCE);
-      return true;
-    }
+		boolean empty = true;
+		while (true) {
+			boolean b = parseSelectorReference(builder);
+			if (!b) {
+				break;
+			} else {
+				empty = false;
+			}
+		}
 
-    marker.drop();
-    return false;
-  }
+		if (empty) {
+			marker.drop();
+		} else {
+			marker.done(SELECTOR_DECLARATION);
+		}
+		return !empty;
+	}
+
+	private boolean parseSelectorReference(PsiBuilder builder) {
+		PsiBuilder.Marker marker = builder.mark();
+
+		if (builder.getTokenType() == IDENTIFIER || builder.getTokenType() == ASTERISK) {
+			builder.advanceLexer();
+
+			parseSelectorAttributeList(builder);
+
+			parseSelectorPseudoClass(builder);
+
+			marker.done(SELECTOR_REFERENCE);
+			return true;
+		} else if (builder.getTokenType() == DOT || builder.getTokenType() == SHARP || builder.getTokenType() == GE || builder.getTokenType() == PLUS) {
+			builder.advanceLexer();
+
+			expect(builder, IDENTIFIER, "Identifier expected");
+
+			parseSelectorAttributeList(builder);
+
+			parseSelectorPseudoClass(builder);
+
+			marker.done(SELECTOR_REFERENCE);
+			return true;
+		} else if (builder.getTokenType() == LBRACKET) {
+			parseSelectorAttributeList(builder);
+
+			marker.done(SELECTOR_REFERENCE);
+			return true;
+		}
+
+		marker.drop();
+		return false;
+	}
+
+	private void parseSelectorAttributeList(PsiBuilder builder) {
+		if (builder.getTokenType() == LBRACKET) {
+			PsiBuilder.Marker marker = builder.mark();
+
+			builder.advanceLexer();
+
+			while (parseSelectorAttribute(builder)) {
+				if (builder.getTokenType() == COMMA) {
+					builder.advanceLexer();
+				} else if (builder.getTokenType() == RBRACKET) {
+					break;
+				}
+			}
+
+			expect(builder, RBRACKET, "']' expected");
+
+			marker.done(SELECTOR_ATTRIBUTE_LIST);
+		}
+	}
+
+	private boolean parseSelectorAttribute(PsiBuilder builder) {
+		if (builder.getTokenType() == IDENTIFIER) {
+			PsiBuilder.Marker mark = builder.mark();
+
+			builder.advanceLexer();
+
+			if (expect(builder, EQ, "'=' expected")) {
+				expect(builder, STRING, "Attribute value expected");
+			}
+			mark.done(SELECTOR_ATTRIBUTE);
+			return true;
+		} else if (builder.getTokenType() == RBRACKET) {
+
+		} else {
+			builder.error("Identifier expected");
+		}
+		return false;
+	}
+
+	private void parseSelectorPseudoClass(PsiBuilder builder) {
+		if (builder.getTokenType() == COLON || builder.getTokenType() == COLONCOLON) {
+			PsiBuilder.Marker marker = builder.mark();
+
+			builder.advanceLexer();
+
+			expect(builder, IDENTIFIER, "Identifier expected");
+
+			marker.done(SELECTOR_PSEUDO_CLASS);
+		}
+	}
 }

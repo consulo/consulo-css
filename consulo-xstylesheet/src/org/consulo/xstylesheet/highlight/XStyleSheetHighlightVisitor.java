@@ -4,87 +4,97 @@ import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
 import com.intellij.codeInsight.daemon.impl.HighlightVisitor;
 import com.intellij.codeInsight.daemon.impl.analysis.HighlightInfoHolder;
+import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiNameIdentifierOwner;
 import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
 import org.consulo.xstylesheet.definition.value.impl.LikeKeywordXStyleSheetPropertyValuePartParser;
-import org.consulo.xstylesheet.psi.PsiXStyleSheetProperty;
-import org.consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
-import org.consulo.xstylesheet.psi.PsiXStyleSheetRule;
+import org.consulo.xstylesheet.psi.*;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * @author VISTALL
  * @since 03.07.13.
  */
-public class XStyleSheetHighlightVisitor implements HighlightVisitor {
-  private HighlightInfoHolder myHighlightInfoHolder;
+public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleSheetColors {
+	private HighlightInfoHolder myHighlightInfoHolder;
 
-  @Override
-  public boolean suitableForFile(@NotNull PsiFile psiFile) {
-    return true;
-  }
+	@Override
+	public boolean suitableForFile(@NotNull PsiFile psiFile) {
+		return true;
+	}
 
-  @Override
-  public void visit(@NotNull PsiElement psiElement) {
-    psiElement.accept(new PsiElementVisitor() {
-      @Override
-      public void visitElement(PsiElement element) {
-        if(element instanceof PsiXStyleSheetProperty) {
-          PsiElement nameIdentifier = ((PsiXStyleSheetProperty) element).getNameIdentifier();
-          if(nameIdentifier != null) {
-            HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
-            builder.textAttributes(XStyleSheetColors.PROPERTY_NAME);
-            builder.range(nameIdentifier);
+	@Override
+	public void visit(@NotNull PsiElement psiElement) {
+		psiElement.accept(new PsiElementVisitor() {
+			@Override
+			public void visitElement(PsiElement element) {
+				if (element instanceof PsiXStyleSheetProperty) {
+					highlightName((PsiNameIdentifierOwner) element, PROPERTY_NAME);
+				} else if (element instanceof PsiXStyleSheetPropertyValuePart) {
+					XStyleSheetPropertyValuePart valuePart = ((PsiXStyleSheetPropertyValuePart) element).getValuePart();
+					if (valuePart != null) {
+						XStyleSheetPropertyValuePartParser parser = valuePart.getParser();
+						if (parser instanceof LikeKeywordXStyleSheetPropertyValuePartParser) {
+							HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
+							builder.textAttributes(XStyleSheetColors.KEYWORD);
+							builder.range(element);
 
-            myHighlightInfoHolder.add(builder.create());
-          }
-        }
-        else if(element instanceof PsiXStyleSheetPropertyValuePart) {
-          XStyleSheetPropertyValuePart valuePart = ((PsiXStyleSheetPropertyValuePart) element).getValuePart();
-          if(valuePart != null) {
-            XStyleSheetPropertyValuePartParser parser = valuePart.getParser();
-            if(parser instanceof LikeKeywordXStyleSheetPropertyValuePartParser) {
-              HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
-              builder.textAttributes(XStyleSheetColors.KEYWORD);
-              builder.range(element);
+							myHighlightInfoHolder.add(builder.create());
+						}
+					}
+				} else if (element instanceof PsiXStyleSheetSelectorAttribute) {
+					highlightName((PsiNameIdentifierOwner) element, ATTRIBUTE_NAME);
+				} else if (element instanceof PsiXStyleSheetSelectorReference) {
+					TextAttributesKey key = null;
+					if (((PsiXStyleSheetSelectorReference) element).isClassRule()) {
+						key = XStyleSheetColors.SELECTOR_CLASS_NAME;
+					} else if (((PsiXStyleSheetSelectorReference) element).isIdRule()) {
+						key = XStyleSheetColors.SELECTOR_ID_NAME;
+					} else {
+						key = XStyleSheetColors.SELECTOR_ELEMENT_NAME;
+					}
 
-              myHighlightInfoHolder.add(builder.create());
-            }
-          }
-        }
-        else if(element instanceof PsiXStyleSheetRule) {
-          /*PsiElement onlyNameIdentifier = ((PsiXStyleSheetRule) element).getOnlyNameIdentifier();
-          if(onlyNameIdentifier != null) {
-            HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
-            builder.textAttributes(XStyleSheetColors.SELECTOR_NAME);
-            builder.range(onlyNameIdentifier);
+					highlightName((PsiNameIdentifierOwner) element, key);
+				}
+				else if(element instanceof PsiXStyleSheetSelectorPseudoClass) {
+					highlightName((PsiNameIdentifierOwner) element, PSEUDO_NAME);
+				}
 
-            myHighlightInfoHolder.add(builder.create());
-          } */
-        }
-        element.acceptChildren(this);
-      }
-    });
-  }
+				element.acceptChildren(this);
+			}
+		});
+	}
 
-  @Override
-  public boolean analyze(@NotNull PsiFile psiFile, boolean b, @NotNull HighlightInfoHolder highlightInfoHolder, @NotNull Runnable runnable) {
-    myHighlightInfoHolder = highlightInfoHolder;
-    runnable.run();
-    return true;
-  }
+	private void highlightName(PsiNameIdentifierOwner owner, TextAttributesKey key) {
+		PsiElement nameIdentifier = owner.getNameIdentifier();
+		if (nameIdentifier != null) {
+			HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
+			builder.textAttributes(key);
+			builder.range(nameIdentifier);
 
-  @NotNull
-  @Override
-  public HighlightVisitor clone() {
-    return new XStyleSheetHighlightVisitor();
-  }
+			myHighlightInfoHolder.add(builder.create());
+		}
+	}
 
-  @Override
-  public int order() {
-    return 0;
-  }
+	@Override
+	public boolean analyze(@NotNull PsiFile psiFile, boolean b, @NotNull HighlightInfoHolder highlightInfoHolder, @NotNull Runnable runnable) {
+		myHighlightInfoHolder = highlightInfoHolder;
+		runnable.run();
+		return true;
+	}
+
+	@NotNull
+	@Override
+	public HighlightVisitor clone() {
+		return new XStyleSheetHighlightVisitor();
+	}
+
+	@Override
+	public int order() {
+		return 0;
+	}
 }

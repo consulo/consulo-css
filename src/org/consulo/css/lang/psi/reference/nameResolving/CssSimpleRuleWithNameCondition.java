@@ -22,7 +22,7 @@ public class CssSimpleRuleWithNameCondition implements XStyleRuleCondition{
     if (psiElement instanceof CssSelectorReference) {
       CssSelectorReference selectorReference = (CssSelectorReference) psiElement;
 
-      if(!myName.equals(selectorReference.getDisplayName())) {
+      if(!myName.equals(selectorReference.getName())) {
         return false;
       }
 

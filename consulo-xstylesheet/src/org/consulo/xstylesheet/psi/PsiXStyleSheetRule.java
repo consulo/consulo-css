@@ -16,8 +16,8 @@ public interface PsiXStyleSheetRule extends PsiElement {
   PsiXStyleSheetProperty[] getProperties();
 
   @Nullable
-  PsiXStyleSheetSelectorReferenceList getSelectorReferenceList();
+  PsiXStyleSheetSelectorDeclarationList getSelectorDeclarationList();
 
   @NotNull
-  PsiXStyleSheetSelectorReference[] getSelectorReferences();
+  PsiXStyleSheetSelectorDeclaration[] getSelectorDeclarations();
 }

@@ -21,6 +21,7 @@ public interface CssTokens extends TokenType {
     IElementType COLON = new CssElementType("COLON");
     IElementType COLONCOLON = new CssElementType("COLONCOLON");
     IElementType EQ = new CssElementType("EQ");
+    IElementType GE = new CssElementType("GE");
     IElementType SEMICOLON = new CssElementType("SEMICOLON");
     IElementType COMMA = new CssElementType("COMMA");
     IElementType ASTERISK = new CssElementType("ASTERISK");

@@ -41,7 +41,7 @@ public class CssFile extends PsiFileBase {
   @Nullable
   public CssRule findRule(@NotNull XStyleRuleCondition condition) {
     for (CssRule o : getRules()) {
-      for (CssSelectorReference reference : o.getSelectorReferences()) {
+      for (CssSelectorDeclaration reference : o.getSelectorDeclarations()) {
         if (condition.isAccepted(reference)) {
           return o;
         }
@@ -54,7 +54,7 @@ public class CssFile extends PsiFileBase {
   public List<CssRule> findRules(@NotNull XStyleRuleCondition condition) {
     List<CssRule> list = new ArrayList<CssRule>();
     for (CssRule o : getRules()) {
-      for (CssSelectorReference reference : o.getSelectorReferences()) {
+      for (CssSelectorDeclaration reference : o.getSelectorDeclarations()) {
         if (condition.isAccepted(reference)) {
           list.add(o);
         }
