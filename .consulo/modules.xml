@@ -21,7 +21,7 @@
               <root url="jar://$APPLICATION_HOME_DIR$/plugins/xml/lib/xml-copyright.jar!/" />
               <root url="jar://$APPLICATION_HOME_DIR$/plugins/xml/lib/xml.jar!/" />
             </CLASSES>
-            <JAVADOC />
+            <DOCUMENTATION />
             <SOURCES />
           </library>
         </orderEntry>
