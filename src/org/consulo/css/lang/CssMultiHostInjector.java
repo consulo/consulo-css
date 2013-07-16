@@ -17,23 +17,27 @@ import java.util.List;
  * @since 08.07.13.
  */
 public class CssMultiHostInjector implements MultiHostInjector {
-  @Override
-  public void getLanguagesToInject(@NotNull MultiHostRegistrar multiHostRegistrar, @NotNull PsiElement psiElement) {
-    XmlAttribute parent = (XmlAttribute) psiElement.getParent();
-    if(!"style".equals(parent.getName())) {
-      return;
-    }
+	@Override
+	public void getLanguagesToInject(@NotNull MultiHostRegistrar multiHostRegistrar, @NotNull PsiElement psiElement) {
+		PsiElement parent = psiElement.getParent();
+		if(!(parent instanceof XmlAttribute)) {
+			return;
+		}
 
-    int textLength = psiElement.getTextLength();
-    if(textLength <= 2) {
-      return;
-    }
-    multiHostRegistrar.startInjecting(CssLanguage.INSTANCE).addPlace("style {", "}", (PsiLanguageInjectionHost) psiElement, new TextRange(1, textLength - 1)).doneInjecting();
-  }
+		if (!"style".equals(((XmlAttribute)parent).getName())) {
+			return;
+		}
 
-  @NotNull
-  @Override
-  public List<? extends Class<? extends PsiElement>> elementsToInjectIn() {
-    return Arrays.asList(XmlAttributeValue.class);
-  }
+		int textLength = psiElement.getTextLength();
+		if (textLength <= 2) {
+			return;
+		}
+		multiHostRegistrar.startInjecting(CssLanguage.INSTANCE).addPlace("style {", "}", (PsiLanguageInjectionHost) psiElement, new TextRange(1, textLength - 1)).doneInjecting();
+	}
+
+	@NotNull
+	@Override
+	public List<? extends Class<? extends PsiElement>> elementsToInjectIn() {
+		return Arrays.asList(XmlAttributeValue.class);
+	}
 }
