@@ -14,6 +14,8 @@ public interface CssTokens extends TokenType {
     IElementType STRING = new CssElementType("STRING");
     IElementType NUMBER = new CssElementType("NUMBER");
     IElementType SHARP = new CssElementType("SHARP");
+    IElementType LPAR = new CssElementType("LPAR");
+    IElementType RPAR = new CssElementType("RPAR");
     IElementType LBRACE = new CssElementType("LBRACE");
     IElementType RBRACE = new CssElementType("RBRACE");
     IElementType LBRACKET = new CssElementType("LBRACKET");
@@ -28,4 +30,7 @@ public interface CssTokens extends TokenType {
     IElementType DOT = new CssElementType("DOT");
     IElementType PLUS = new CssElementType("PLUS");
     IElementType PERC = new CssElementType("PERC");
+
+    IElementType URI = new CssElementType("URI");
+    IElementType URI_TEXT = new CssElementType("URI_TEXT");
 }

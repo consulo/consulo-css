@@ -1,40 +1,43 @@
 package org.consulo.xstylesheet;
 
 import com.intellij.icons.AllIcons;
-import com.intellij.ide.IconProvider;
-import com.intellij.openapi.util.Iconable;
+import com.intellij.ide.IconDescriptor;
+import com.intellij.ide.IconDescriptorUpdater;
 import com.intellij.psi.PsiElement;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetSelectorDeclaration;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetSelectorReference;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
 
 /**
  * @author VISTALL
  * @since 08.07.13.
  */
-public class XStyleSheetIconProvider extends IconProvider {
-	@Nullable
+public class XStyleSheetIconProvider implements IconDescriptorUpdater
+{
 	@Override
-	public Icon getIcon(@NotNull PsiElement psiElement, @Iconable.IconFlags int i) {
-		if (psiElement instanceof PsiXStyleSheetSelectorDeclaration) {
-			PsiXStyleSheetSelectorReference[] selectorReferences = ((PsiXStyleSheetSelectorDeclaration) psiElement).getSelectorReferences();
+	public void updateIcon(@NotNull IconDescriptor iconDescriptor, @NotNull PsiElement element, int i)
+	{
+		if (element instanceof PsiXStyleSheetSelectorDeclaration)
+		{
+			PsiXStyleSheetSelectorReference[] selectorReferences = ((PsiXStyleSheetSelectorDeclaration) element).getSelectorReferences();
 
-			if(selectorReferences.length == 0) {
-				return null;
+			if (selectorReferences.length == 0)
+			{
+				return;
 			}
 
 			PsiXStyleSheetSelectorReference selectorReference = selectorReferences[0];
-			if (selectorReference.isClassRule()) {
-				return XStyleSheetIcons.CssClass;
-			} else if (selectorReference.isIdRule()) {
-				return XStyleSheetIcons.HtmlId;
-			} else {
-				return AllIcons.Nodes.Tag;
+			if (selectorReference.isClassRule())
+			{
+				iconDescriptor.setMainIcon(XStyleSheetIcons.CssClass);
+			}
+			else if (selectorReference.isIdRule())
+			{
+				iconDescriptor.setMainIcon(XStyleSheetIcons.HtmlId);
+			} else
+			{
+				iconDescriptor.setMainIcon(AllIcons.Nodes.Tag);
 			}
 		}
-		return null;
 	}
 }

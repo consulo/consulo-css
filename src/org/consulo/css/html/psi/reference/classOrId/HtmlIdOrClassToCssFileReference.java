@@ -1,10 +1,10 @@
 package org.consulo.css.html.psi.reference.classOrId;
 
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
+import com.intellij.ide.IconDescriptorUpdaters;
 import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.ArrayUtil;
-import com.intellij.util.PsiIconUtil;
 import org.consulo.css.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
 import org.consulo.css.lang.psi.CssFile;
 import org.consulo.css.lang.psi.CssRule;
@@ -58,7 +58,7 @@ public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase
 				}
 
 				LookupElementBuilder item = LookupElementBuilder.create(selectorReferences[0].getName());
-				item = item.withIcon(PsiIconUtil.getProvidersIcon(cssSelectorDeclaration, 0));
+				item = item.withIcon(IconDescriptorUpdaters.getIcon(cssSelectorDeclaration, 0));
 				item = item.withTypeText(cssRule.getContainingFile().getName(), true);
 				items.add(item);
 			}

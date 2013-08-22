@@ -16,6 +16,6 @@
         <localInspection implementationClass="org.consulo.xstylesheet.codeInsight.PropertyValueIsNotValidInspection" displayName="Invalid property value" groupName="CSS" enabledByDefault="true"/>
         <highlightVisitor implementation="org.consulo.xstylesheet.highlight.XStyleSheetHighlightVisitor" />
         <colorProvider implementation="org.consulo.xstylesheet.editor.lineMarker.XStyleSheetElementColorProvider"/>
-        <iconProvider implementation="org.consulo.xstylesheet.XStyleSheetIconProvider" />
+        <iconDescriptorUpdater implementation="org.consulo.xstylesheet.XStyleSheetIconProvider" />
     </extensions>
 </idea-plugin>

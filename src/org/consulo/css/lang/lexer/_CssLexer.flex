@@ -16,6 +16,8 @@ import org.consulo.css.lang.CssTokens;
 %eof}
 
 %state BODY
+%state URI
+%state URI_BODY
 
 LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
@@ -36,6 +38,7 @@ NumberLiteral = [0-9]+ | [0-9]*\.[0-9]+
 NumberLiteralWithSufixes = {NumberLiteral} ("in" | "cm" | "mm" | "pt" | "pc" | "px" | "em" | "ex" | "%")?
 HexNumberLiteral = "#" ([_0-9A-Fa-f])+
 
+UriTextPart={AnySpace} | [:jletter:] | [:jletterdigit:]
 %%
 
 <YYINITIAL> {
@@ -79,6 +82,7 @@ HexNumberLiteral = "#" ([_0-9A-Fa-f])+
     "."                     { return CssTokens.DOT; }
     "+"                     { return CssTokens.PLUS; }
     "%"                     { return CssTokens.PERC; }
+    "url"                   { /*yybegin(URI); */return CssTokens.URI; }
     {NumberLiteralWithSufixes} { return CssTokens.NUMBER; }
     {HexNumberLiteral}      { return CssTokens.NUMBER; }
     {Identifier}            { return CssTokens.IDENTIFIER; }
@@ -87,4 +91,15 @@ HexNumberLiteral = "#" ([_0-9A-Fa-f])+
     {TraditionalComment}    { return CssTokens.BLOCK_COMMENT; }
     {AnySpace}+             { return CssTokens.WHITE_SPACE; }
     .                       { return CssTokens.BAD_CHARACTER; }
+}
+
+<URI> {
+    "("                     { yybegin(URI_BODY); return CssTokens.LPAR; }
+  //  {AnySpace}+             { return CssTokens.WHITE_SPACE; }
+    .                       { yybegin(BODY); return CssTokens.BAD_CHARACTER; }
+}
+
+<URI_BODY> {
+    ")"                     { yybegin(BODY); return CssTokens.RPAR; }
+    .                       { return CssTokens.URI_TEXT; }
 }
