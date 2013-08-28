@@ -7,7 +7,7 @@
         <completion.contributor language="CSS" implementationClass="org.consulo.css.editor.completion.CssCompletionContributor" />
         <fileTypeFactory implementation="org.consulo.css.lang.CssFileTypeFactory"/>
 
-        <multiHostInjector implementation="org.consulo.css.lang.CssMultiHostInjector" />
+        <multiHostInjector forClass="com.intellij.psi.xml.XmlAttributeValue" implementationClass="org.consulo.css.lang.CssMultiHostInjector" />
         <psi.referenceContributor language="HTML" implementation="org.consulo.css.html.CssToHtmlReferenceContributor" />
         <lang.parserDefinition language="CSS" implementationClass="org.consulo.css.lang.parser.CssParserDefinition"/>
         <lang.syntaxHighlighterFactory key="CSS" implementationClass="org.consulo.css.lang.CssSyntaxHighlighterFactory" />

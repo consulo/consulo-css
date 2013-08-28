@@ -6,11 +6,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiLanguageInjectionHost;
 import com.intellij.psi.xml.XmlAttribute;
-import com.intellij.psi.xml.XmlAttributeValue;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author VISTALL
@@ -18,8 +14,8 @@ import java.util.List;
  */
 public class CssMultiHostInjector implements MultiHostInjector {
 	@Override
-	public void getLanguagesToInject(@NotNull MultiHostRegistrar multiHostRegistrar, @NotNull PsiElement psiElement) {
-		PsiElement parent = psiElement.getParent();
+	public void injectLanguages(@NotNull MultiHostRegistrar multiHostRegistrar, @NotNull PsiElement element) {
+		PsiElement parent = element.getParent();
 		if(!(parent instanceof XmlAttribute)) {
 			return;
 		}
@@ -28,16 +24,10 @@ public class CssMultiHostInjector implements MultiHostInjector {
 			return;
 		}
 
-		int textLength = psiElement.getTextLength();
+		int textLength = element.getTextLength();
 		if (textLength <= 2) {
 			return;
 		}
-		multiHostRegistrar.startInjecting(CssLanguage.INSTANCE).addPlace("style {", "}", (PsiLanguageInjectionHost) psiElement, new TextRange(1, textLength - 1)).doneInjecting();
-	}
-
-	@NotNull
-	@Override
-	public List<? extends Class<? extends PsiElement>> elementsToInjectIn() {
-		return Arrays.asList(XmlAttributeValue.class);
+		multiHostRegistrar.startInjecting(CssLanguage.INSTANCE).addPlace("style {", "}", (PsiLanguageInjectionHost) element, new TextRange(1, textLength - 1)).doneInjecting();
 	}
 }
