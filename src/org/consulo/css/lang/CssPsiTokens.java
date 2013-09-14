@@ -28,5 +28,5 @@ public interface CssPsiTokens {
 
 	IElementType SELECTOR_ATTRIBUTE_LIST = new CssPsiElementType("SELECTOR_ATTRIBUTE_LIST", CssSelectorAttributeList.class);
 
-	IElementType URI = new CssPsiElementType("URI", CssUriLink.class);
+	//IElementType URI = new CssPsiElementType("URI", CssUriLink.class);
 }
