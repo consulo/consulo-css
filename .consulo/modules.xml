@@ -7,8 +7,8 @@
         <extension id="lombok" />
         <extension id="consulo-plugin" sdk-module-name="" sdk-name="Consulo 1.SNAPSHOT" />
         <content url="file://$MODULE_DIR$">
-          <content-folder type="SOURCE" url="file://$MODULE_DIR$/src" />
-          <content-folder type="RESOURCE" url="file://$MODULE_DIR$/rsc" />
+          <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src" />
+          <content-folder type="PRODUCTION_RESOURCE" url="file://$MODULE_DIR$/rsc" />
           <content-folder type="TEST" url="file://$MODULE_DIR$/testSrc" />
         </content>
         <orderEntry type="module-extension-sdk" extension-id="java" />
@@ -32,8 +32,8 @@
         <extension id="consulo-plugin" sdk-module-name="consulo-css" sdk-name="" />
         <extension id="lombok-pg" />
         <content url="file://$MODULE_DIR$">
-          <content-folder type="RESOURCE" url="file://$MODULE_DIR$/rsc" />
-          <content-folder type="SOURCE" url="file://$MODULE_DIR$/src" />
+          <content-folder type="PRODUCTION_RESOURCE" url="file://$MODULE_DIR$/rsc" />
+          <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src" />
         </content>
         <orderEntry type="sourceFolder" forTests="false" />
         <orderEntry type="module-extension-sdk" extension-id="java" />
