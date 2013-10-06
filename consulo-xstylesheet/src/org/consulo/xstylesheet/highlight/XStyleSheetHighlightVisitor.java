@@ -1,5 +1,14 @@
 package org.consulo.xstylesheet.highlight;
 
+import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
+import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
+import org.consulo.xstylesheet.definition.value.impl.LikeKeywordXStyleSheetPropertyValuePartParser;
+import org.consulo.xstylesheet.psi.PsiXStyleSheetProperty;
+import org.consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
+import org.consulo.xstylesheet.psi.PsiXStyleSheetSelectorAttribute;
+import org.consulo.xstylesheet.psi.PsiXStyleSheetSelectorPseudoClass;
+import org.consulo.xstylesheet.psi.PsiXStyleSheetSelectorReference;
+import org.jetbrains.annotations.NotNull;
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
 import com.intellij.codeInsight.daemon.impl.HighlightVisitor;
@@ -9,36 +18,41 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiNameIdentifierOwner;
-import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
-import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
-import org.consulo.xstylesheet.definition.value.impl.LikeKeywordXStyleSheetPropertyValuePartParser;
-import org.consulo.xstylesheet.psi.*;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author VISTALL
  * @since 03.07.13.
  */
-public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleSheetColors {
+public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleSheetColors
+{
 	private HighlightInfoHolder myHighlightInfoHolder;
 
 	@Override
-	public boolean suitableForFile(@NotNull PsiFile psiFile) {
+	public boolean suitableForFile(@NotNull PsiFile psiFile)
+	{
 		return true;
 	}
 
 	@Override
-	public void visit(@NotNull PsiElement psiElement) {
-		psiElement.accept(new PsiElementVisitor() {
+	public void visit(@NotNull PsiElement psiElement)
+	{
+		psiElement.accept(new PsiElementVisitor()
+		{
 			@Override
-			public void visitElement(PsiElement element) {
-				if (element instanceof PsiXStyleSheetProperty) {
+			public void visitElement(PsiElement element)
+			{
+				if(element instanceof PsiXStyleSheetProperty)
+				{
 					highlightName((PsiNameIdentifierOwner) element, PROPERTY_NAME);
-				} else if (element instanceof PsiXStyleSheetPropertyValuePart) {
+				}
+				else if(element instanceof PsiXStyleSheetPropertyValuePart)
+				{
 					XStyleSheetPropertyValuePart valuePart = ((PsiXStyleSheetPropertyValuePart) element).getValuePart();
-					if (valuePart != null) {
+					if(valuePart != null)
+					{
 						XStyleSheetPropertyValuePartParser parser = valuePart.getParser();
-						if (parser instanceof LikeKeywordXStyleSheetPropertyValuePartParser) {
+						if(parser instanceof LikeKeywordXStyleSheetPropertyValuePartParser)
+						{
 							HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
 							builder.textAttributes(XStyleSheetColors.KEYWORD);
 							builder.range(element);
@@ -46,21 +60,31 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 							myHighlightInfoHolder.add(builder.create());
 						}
 					}
-				} else if (element instanceof PsiXStyleSheetSelectorAttribute) {
+				}
+				else if(element instanceof PsiXStyleSheetSelectorAttribute)
+				{
 					highlightName((PsiNameIdentifierOwner) element, ATTRIBUTE_NAME);
-				} else if (element instanceof PsiXStyleSheetSelectorReference) {
+				}
+				else if(element instanceof PsiXStyleSheetSelectorReference)
+				{
 					TextAttributesKey key = null;
-					if (((PsiXStyleSheetSelectorReference) element).isClassRule()) {
+					if(((PsiXStyleSheetSelectorReference) element).isClassRule())
+					{
 						key = XStyleSheetColors.SELECTOR_CLASS_NAME;
-					} else if (((PsiXStyleSheetSelectorReference) element).isIdRule()) {
+					}
+					else if(((PsiXStyleSheetSelectorReference) element).isIdRule())
+					{
 						key = XStyleSheetColors.SELECTOR_ID_NAME;
-					} else {
+					}
+					else
+					{
 						key = XStyleSheetColors.SELECTOR_ELEMENT_NAME;
 					}
 
 					highlightName((PsiNameIdentifierOwner) element, key);
 				}
-				else if(element instanceof PsiXStyleSheetSelectorPseudoClass) {
+				else if(element instanceof PsiXStyleSheetSelectorPseudoClass)
+				{
 					highlightName((PsiNameIdentifierOwner) element, PSEUDO_NAME);
 				}
 
@@ -69,9 +93,11 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 		});
 	}
 
-	private void highlightName(PsiNameIdentifierOwner owner, TextAttributesKey key) {
+	private void highlightName(PsiNameIdentifierOwner owner, TextAttributesKey key)
+	{
 		PsiElement nameIdentifier = owner.getNameIdentifier();
-		if (nameIdentifier != null) {
+		if(nameIdentifier != null)
+		{
 			HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
 			builder.textAttributes(key);
 			builder.range(nameIdentifier);
@@ -81,7 +107,8 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 	}
 
 	@Override
-	public boolean analyze(@NotNull PsiFile psiFile, boolean b, @NotNull HighlightInfoHolder highlightInfoHolder, @NotNull Runnable runnable) {
+	public boolean analyze(@NotNull PsiFile psiFile, boolean b, @NotNull HighlightInfoHolder highlightInfoHolder, @NotNull Runnable runnable)
+	{
 		myHighlightInfoHolder = highlightInfoHolder;
 		runnable.run();
 		return true;
@@ -89,12 +116,14 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 
 	@NotNull
 	@Override
-	public HighlightVisitor clone() {
+	public HighlightVisitor clone()
+	{
 		return new XStyleSheetHighlightVisitor();
 	}
 
 	@Override
-	public int order() {
+	public int order()
+	{
 		return 0;
 	}
 }

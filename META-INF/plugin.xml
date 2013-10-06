@@ -1,19 +1,21 @@
 <idea-plugin>
-    <id>org.consulo.css</id>
-    <name>CSS</name>
-    <depends>org.consulo.xstylesheet</depends>
+	<id>org.consulo.css</id>
+	<name>CSS</name>
+	<version>1.0</version>
+	<category>Markup Languages</category>
+	<depends>org.consulo.xstylesheet</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <completion.contributor language="CSS" implementationClass="org.consulo.css.editor.completion.CssCompletionContributor" />
-        <fileTypeFactory implementation="org.consulo.css.lang.CssFileTypeFactory"/>
+	<extensions defaultExtensionNs="com.intellij">
+		<completion.contributor language="CSS" implementationClass="org.consulo.css.editor.completion.CssCompletionContributor"/>
+		<fileTypeFactory implementation="org.consulo.css.lang.CssFileTypeFactory"/>
 
-        <multiHostInjector forClass="com.intellij.psi.xml.XmlAttributeValue" implementationClass="org.consulo.css.lang.CssMultiHostInjector" />
-        <psi.referenceContributor language="HTML" implementation="org.consulo.css.html.CssToHtmlReferenceContributor" />
-        <lang.parserDefinition language="CSS" implementationClass="org.consulo.css.lang.parser.CssParserDefinition"/>
-        <lang.syntaxHighlighterFactory key="CSS" implementationClass="org.consulo.css.lang.CssSyntaxHighlighterFactory" />
-        <lang.commenter language="CSS" implementationClass="org.consulo.css.lang.CssCommenter" />
-        <lang.braceMatcher language="CSS" implementationClass="org.consulo.css.lang.CssPairedBraceMatcher" />
-        <lang.formatter language="CSS" implementationClass="org.consulo.css.lang.formatting.CssFormattingModelBuilder" />
-        <lang.psiStructureViewFactory language="CSS" implementationClass="org.consulo.css.editor.structureView.CssPsiStructureViewFactory" />
-    </extensions>
+		<multiHostInjector forClass="com.intellij.psi.xml.XmlAttributeValue" implementationClass="org.consulo.css.lang.CssMultiHostInjector"/>
+		<psi.referenceContributor language="HTML" implementation="org.consulo.css.html.CssToHtmlReferenceContributor"/>
+		<lang.parserDefinition language="CSS" implementationClass="org.consulo.css.lang.parser.CssParserDefinition"/>
+		<lang.syntaxHighlighterFactory key="CSS" implementationClass="org.consulo.css.lang.CssSyntaxHighlighterFactory"/>
+		<lang.commenter language="CSS" implementationClass="org.consulo.css.lang.CssCommenter"/>
+		<lang.braceMatcher language="CSS" implementationClass="org.consulo.css.lang.CssPairedBraceMatcher"/>
+		<lang.formatter language="CSS" implementationClass="org.consulo.css.lang.formatting.CssFormattingModelBuilder"/>
+		<lang.psiStructureViewFactory language="CSS" implementationClass="org.consulo.css.editor.structureView.CssPsiStructureViewFactory"/>
+	</extensions>
 </idea-plugin>

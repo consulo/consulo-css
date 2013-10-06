@@ -1,8 +1,9 @@
 <idea-plugin>
     <id>org.consulo.xstylesheet</id>
     <name>XStylesheet API</name>
+	<version>1.0</version>
+	<category>Markup Languages</category>
     <depends>com.intellij.xml</depends>
-
     <extensionPoints>
         <extensionPoint name="table" beanClass="org.consulo.xstylesheet.definition.XStyleSheetTableExtension"/>
     </extensionPoints>
