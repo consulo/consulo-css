@@ -1,0 +1,8 @@
+.text {
+	background-image1: url("string/image.png" );
+	background-image2: url(string/image.png, test);
+	background-image3: url(string/image.png, test);
+	background-image4: url(test));
+	background-image5: url(test,,);
+	background-image6: red;
+}

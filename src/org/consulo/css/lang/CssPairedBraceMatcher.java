@@ -1,11 +1,11 @@
 package org.consulo.css.lang;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.BracePair;
 import com.intellij.lang.PairedBraceMatcher;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.IElementType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class CssPairedBraceMatcher implements PairedBraceMatcher {
   private BracePair[] myPairs = new BracePair[] {
+      new BracePair(CssTokens.LPAR, CssTokens.RPAR, false),
       new BracePair(CssTokens.LBRACE, CssTokens.RBRACE, true),
       new BracePair(CssTokens.LBRACKET, CssTokens.RBRACKET, false),
   };

@@ -38,6 +38,9 @@ NumberLiteral = [0-9]+ | [0-9]*\.[0-9]+
 NumberLiteralWithSufixes = {NumberLiteral} ("in" | "cm" | "mm" | "pt" | "pc" | "px" | "em" | "ex" | "%")?
 HexNumberLiteral = "#" ([_0-9A-Fa-f])+
 
+FunctionName = ([:jletter:])*
+FunctionCall = {FunctionName} "(" .* ("," .*)? ")"
+
 UriTextPart={AnySpace} | [:jletter:] | [:jletterdigit:]
 %%
 
@@ -82,7 +85,7 @@ UriTextPart={AnySpace} | [:jletter:] | [:jletterdigit:]
     "."                     { return CssTokens.DOT; }
     "+"                     { return CssTokens.PLUS; }
     "%"                     { return CssTokens.PERC; }
-    "url"                   { /*yybegin(URI); */return CssTokens.URI; }
+    {FunctionCall}           { yybegin(URI); yypushback(yylength());  }
     {NumberLiteralWithSufixes} { return CssTokens.NUMBER; }
     {HexNumberLiteral}      { return CssTokens.NUMBER; }
     {Identifier}            { return CssTokens.IDENTIFIER; }
@@ -94,12 +97,32 @@ UriTextPart={AnySpace} | [:jletter:] | [:jletterdigit:]
 }
 
 <URI> {
+    {FunctionName}          { return CssTokens.FUNCTION_NAME; }
     "("                     { yybegin(URI_BODY); return CssTokens.LPAR; }
-  //  {AnySpace}+             { return CssTokens.WHITE_SPACE; }
-    .                       { yybegin(BODY); return CssTokens.BAD_CHARACTER; }
+     .                       { return CssTokens.BAD_CHARACTER; }
 }
 
 <URI_BODY> {
-    ")"                     { yybegin(BODY); return CssTokens.RPAR; }
-    .                       { return CssTokens.URI_TEXT; }
+    ")"                      { yybegin(BODY); return CssTokens.RPAR; }
+    ","                      { return CssTokens.COMMA; }
+    {StringLiteral}         { return CssTokens.STRING; }
+    {StringLiteral2}        { return CssTokens.STRING; }
+    .
+    {
+    	final int startPos = zzCurrentPosL;
+		while(true) {
+			char c = zzBufferL.charAt(zzCurrentPosL);
+			if(c == ')' || c == ',' || zzEndRead == zzCurrentPosL) {
+				break;
+			}
+			else {
+				zzCurrentPosL ++;
+			}
+		}
+		zzMarkedPos =  zzCurrentPosL;
+
+		if(startPos != zzCurrentPosL) {
+			return CssTokens.FUNCTION_ARGUMENT;
+		}
+	}
 }

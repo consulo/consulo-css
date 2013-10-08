@@ -1,48 +1,63 @@
 package org.consulo.css.parsing;
 
-import com.intellij.testFramework.ParsingTestCase;
 import org.consulo.css.lang.parser.CssParserDefinition;
+import com.intellij.testFramework.ParsingTestCase;
 
 /**
  * @author VISTALL
  * @since 02.07.13.
  */
-public class CssParsingTest extends ParsingTestCase {
-	public CssParsingTest() {
+public class CssParsingTest extends ParsingTestCase
+{
+	public CssParsingTest()
+	{
 		super("parsing", "css", new CssParserDefinition());
 	}
 
-	public void testCssParsing1() {
+	public void testCssParsing1()
+	{
 		doTest(true);
 	}
 
-	public void testCssParsingSelectorList() {
+	public void testCssParsingSelectorList()
+	{
 		doTest(true);
 	}
 
-	public void testAsterisk() {
+	public void testAsterisk()
+	{
 		doTest(true);
 	}
 
-	public void testMultiSelectors() {
+	public void testMultiSelectors()
+	{
 		doTest(true);
 	}
 
-	public void testSelectorAttribute() {
+	public void testSelectorAttribute()
+	{
 		doTest(true);
 	}
 
-	public void testWiki() {
+	public void testWiki()
+	{
+		doTest(true);
+	}
+
+	public void testUrl()
+	{
 		doTest(true);
 	}
 
 	@Override
-	protected String getTestDataPath() {
+	protected String getTestDataPath()
+	{
 		return "testData";
 	}
 
 	@Override
-	protected boolean shouldContainTempFiles() {
+	protected boolean shouldContainTempFiles()
+	{
 		return false;
 	}
 }

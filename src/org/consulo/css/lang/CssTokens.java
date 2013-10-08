@@ -31,6 +31,6 @@ public interface CssTokens extends TokenType {
     IElementType PLUS = new CssElementType("PLUS");
     IElementType PERC = new CssElementType("PERC");
 
-    IElementType URI = new CssElementType("URI");
-    IElementType URI_TEXT = new CssElementType("URI_TEXT");
+    IElementType FUNCTION_NAME = new CssElementType("FUNCTION_NAME");
+    IElementType FUNCTION_ARGUMENT = new CssElementType("FUNCTION_ARGUMENT");
 }

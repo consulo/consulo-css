@@ -1,7 +1,7 @@
 package org.consulo.css.lang;
 
-import com.intellij.psi.tree.IElementType;
 import org.consulo.css.lang.psi.*;
+import com.intellij.psi.tree.IElementType;
 
 /**
  * @author VISTALL
@@ -28,5 +28,7 @@ public interface CssPsiTokens {
 
 	IElementType SELECTOR_ATTRIBUTE_LIST = new CssPsiElementType("SELECTOR_ATTRIBUTE_LIST", CssSelectorAttributeList.class);
 
-	//IElementType URI = new CssPsiElementType("URI", CssUriLink.class);
+	IElementType FUNCTION_CALL = new CssPsiElementType("FUNCTION_CALL", CssFunctionCall.class);
+
+	IElementType FUNCTION_CALL_PARAMETER_LIST = new CssPsiElementType("FUNCTION_CALL_PARAMETER_LIST", CssFunctionCallParameterList.class);
 }
