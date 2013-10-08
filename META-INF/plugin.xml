@@ -4,6 +4,7 @@
 	<version>1.0</version>
 	<category>Markup Languages</category>
 	<depends>org.consulo.xstylesheet</depends>
+	<depends config-file="org.consulo.emmet" optional="true">org.consulo.emmet</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
 		<completion.contributor language="CSS" implementationClass="org.consulo.css.editor.completion.CssCompletionContributor"/>
