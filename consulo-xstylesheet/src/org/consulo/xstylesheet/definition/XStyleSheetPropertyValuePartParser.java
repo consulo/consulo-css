@@ -1,19 +1,25 @@
 package org.consulo.xstylesheet.definition;
 
-import com.intellij.codeInsight.lookup.LookupElement;
+import java.util.List;
+
+import org.consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
+import com.intellij.codeInsight.daemon.impl.HighlightInfo;
+import com.intellij.codeInsight.lookup.LookupElement;
 
 /**
  * @author VISTALL
  * @since 03.07.13.
  */
-public interface XStyleSheetPropertyValuePartParser {
-  @Nullable
-  Object fromString(@NotNull String stringValue, String value);
+public interface XStyleSheetPropertyValuePartParser
+{
+	@Nullable
+	HighlightInfo createHighlightInfo(@NotNull PsiXStyleSheetPropertyValuePart valuePart);
 
-  @NotNull
-  List<LookupElement> getLookupElements(String value);
+	@Nullable
+	Object getNativeValue(@NotNull PsiXStyleSheetPropertyValuePart valuePart, String value);
+
+	@NotNull
+	List<LookupElement> getLookupElements(String value);
 }

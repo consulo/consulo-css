@@ -21,6 +21,7 @@
       <xs:element type="xs:string" name="color" minOccurs="0"/>
       <xs:element type="xs:string" name="colorKeyword" minOccurs="0"/>
       <xs:element type="xs:string" name="keyword" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="xs:string" name="function" maxOccurs="unbounded" minOccurs="0"/>
       <xs:element name="percentNumber" maxOccurs="unbounded" minOccurs="0" />
       <xs:element name="relativeLengthNumber" maxOccurs="unbounded" minOccurs="0" />
       <xs:element name="absoluteLengthNumber" maxOccurs="unbounded" minOccurs="0" />

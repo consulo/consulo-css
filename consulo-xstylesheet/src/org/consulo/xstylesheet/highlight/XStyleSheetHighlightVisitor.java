@@ -1,8 +1,6 @@
 package org.consulo.xstylesheet.highlight;
 
 import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
-import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
-import org.consulo.xstylesheet.definition.value.impl.LikeKeywordXStyleSheetPropertyValuePartParser;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetSelectorAttribute;
@@ -50,15 +48,7 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 					XStyleSheetPropertyValuePart valuePart = ((PsiXStyleSheetPropertyValuePart) element).getValuePart();
 					if(valuePart != null)
 					{
-						XStyleSheetPropertyValuePartParser parser = valuePart.getParser();
-						if(parser instanceof LikeKeywordXStyleSheetPropertyValuePartParser)
-						{
-							HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
-							builder.textAttributes(XStyleSheetColors.KEYWORD);
-							builder.range(element);
-
-							myHighlightInfoHolder.add(builder.create());
-						}
+						myHighlightInfoHolder.add(valuePart.createHighlightInfo((PsiXStyleSheetPropertyValuePart) element));
 					}
 				}
 				else if(element instanceof PsiXStyleSheetSelectorAttribute)

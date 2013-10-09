@@ -1,13 +1,13 @@
 package org.consulo.css.lang.psi;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.util.ArrayUtil;
 import org.consulo.xstylesheet.definition.XStyleSheetProperty;
 import org.consulo.xstylesheet.definition.XStyleSheetPropertyValueEntry;
 import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import org.jetbrains.annotations.NotNull;
+import com.intellij.lang.ASTNode;
+import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
@@ -33,10 +33,9 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
 
     int i = ArrayUtil.indexOf(parts, this);
 
-    String text = getText().trim();
     XStyleSheetPropertyValueEntry validEntry = validEntries[i];
     for (XStyleSheetPropertyValuePart valuePart : validEntry.getParts()) {
-      Object o = valuePart.fromString(text);
+      Object o = valuePart.getNativeValue(this);
       if(o != null) {
         return o;
       }
@@ -59,10 +58,9 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
 
     int i = ArrayUtil.indexOf(parts, this);
 
-    String text = getText().trim();
     XStyleSheetPropertyValueEntry validEntry = validEntries[i];
     for (XStyleSheetPropertyValuePart valuePart : validEntry.getParts()) {
-      Object o = valuePart.fromString(text);
+      Object o = valuePart.getNativeValue(this);
       if(o != null) {
         return valuePart;
       }

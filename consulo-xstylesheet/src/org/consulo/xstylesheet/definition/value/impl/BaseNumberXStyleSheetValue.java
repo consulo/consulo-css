@@ -1,19 +1,18 @@
 package org.consulo.xstylesheet.definition.value.impl;
 
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.Collections;
 import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.intellij.codeInsight.lookup.LookupElement;
+import com.intellij.codeInsight.lookup.LookupElementBuilder;
 
 /**
  * @author VISTALL
  * @since 08.07.13.
  */
-public class BaseNumberXStyleSheetValue implements XStyleSheetPropertyValuePartParser {
+public class BaseNumberXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser {
   private String[] myPrefixes;
 
   public BaseNumberXStyleSheetValue(@NotNull String... prefixes) {
