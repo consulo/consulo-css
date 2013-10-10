@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.lookup.LookupElement;
 
@@ -18,8 +17,8 @@ public interface XStyleSheetPropertyValuePart
 
 	XStyleSheetPropertyValuePartParser getParser();
 
-	@Nullable
-	HighlightInfo createHighlightInfo(@NotNull PsiXStyleSheetPropertyValuePart valuePart);
+	@NotNull
+	List<HighlightInfo> createHighlights(@NotNull PsiXStyleSheetPropertyValuePart valuePart);
 
 	String getValue();
 

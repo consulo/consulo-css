@@ -14,8 +14,8 @@ import com.intellij.codeInsight.lookup.LookupElement;
  */
 public interface XStyleSheetPropertyValuePartParser
 {
-	@Nullable
-	HighlightInfo createHighlightInfo(@NotNull PsiXStyleSheetPropertyValuePart valuePart);
+	@NotNull
+	List<HighlightInfo> createHighlights(@NotNull PsiXStyleSheetPropertyValuePart valuePart);
 
 	@Nullable
 	Object getNativeValue(@NotNull PsiXStyleSheetPropertyValuePart valuePart, String value);

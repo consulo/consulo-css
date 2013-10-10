@@ -105,8 +105,17 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens
 
 				builder.advanceLexer();
 			}
+			else if(builder.getTokenType() == SEMICOLON || builder.getTokenType() == RBRACE)
+			{
+				break;
+			}
 			else if(builder.getTokenType() == FUNCTION_NAME)
 			{
+				if(valueMarker == null)
+				{
+					valueMarker = builder.mark();
+				}
+
 				PsiBuilder.Marker functionMarker = builder.mark();
 
 				builder.advanceLexer();
@@ -143,10 +152,6 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens
 				argumentList.done(FUNCTION_CALL_PARAMETER_LIST);
 
 				functionMarker.done(FUNCTION_CALL);
-			}
-			else if(builder.getTokenType() == SEMICOLON || builder.getTokenType() == RBRACE)
-			{
-				break;
 			}
 			else
 			{

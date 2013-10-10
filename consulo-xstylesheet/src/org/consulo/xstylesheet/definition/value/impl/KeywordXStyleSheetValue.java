@@ -29,14 +29,14 @@ public class KeywordXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePa
 		return null;
 	}
 
-	@Nullable
+	@NotNull
 	@Override
-	public HighlightInfo createHighlightInfo(@NotNull PsiXStyleSheetPropertyValuePart valuePart)
+	public List<HighlightInfo> createHighlights(@NotNull PsiXStyleSheetPropertyValuePart valuePart)
 	{
 		HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
 		builder.textAttributes(XStyleSheetColors.KEYWORD);
 		builder.range(valuePart);
-		return builder.create();
+		return Collections.singletonList(builder.create());
 	}
 
 	@NotNull

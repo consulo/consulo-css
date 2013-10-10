@@ -6,10 +6,13 @@
     <depends>com.intellij.xml</depends>
     <extensionPoints>
         <extensionPoint name="table" beanClass="org.consulo.xstylesheet.definition.XStyleSheetTableExtension"/>
+		<extensionPoint name="functionCallValidator" interface="org.consulo.xstylesheet.definition.value.impl.FunctionXStyleSheetValue$XStyleSheetFunctionCallDescriptor" />
     </extensionPoints>
 
     <extensions defaultExtensionNs="org.consulo.xstylesheet">
         <table file="/org/consulo/xstylesheet/defaultXStyleSheetTable.xml"/>
+
+		<functionCallValidator implementation="org.consulo.xstylesheet.definition.value.impl.FunctionXStyleSheetValue$UrlFunctionCallValidator" />
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">

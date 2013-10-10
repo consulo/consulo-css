@@ -6,7 +6,6 @@ import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import org.consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.lookup.LookupElement;
 
@@ -31,11 +30,11 @@ public class XStyleSheetPropertyValuePartImpl implements XStyleSheetPropertyValu
 		return myParser;
 	}
 
-	@Nullable
+	@NotNull
 	@Override
-	public HighlightInfo createHighlightInfo(@NotNull PsiXStyleSheetPropertyValuePart valuePart)
+	public List<HighlightInfo> createHighlights(@NotNull PsiXStyleSheetPropertyValuePart valuePart)
 	{
-		return myParser.createHighlightInfo(valuePart);
+		return myParser.createHighlights(valuePart);
 	}
 
 	@Override

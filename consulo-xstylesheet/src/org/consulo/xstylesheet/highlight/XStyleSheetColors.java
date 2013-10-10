@@ -14,7 +14,7 @@ public interface XStyleSheetColors {
 
 	TextAttributesKey BLOCK_COMMENT = TextAttributesKey.createTextAttributesKey("XSTYLESHEET_BLOCK_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT);
 
-	TextAttributesKey KEYWORD = TextAttributesKey.createTextAttributesKey("XSTYLESHEET_KEYWORD", DefaultLanguageHighlighterColors.STRING);
+	TextAttributesKey KEYWORD = TextAttributesKey.createTextAttributesKey("XSTYLESHEET_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
 
 	TextAttributesKey SELECTOR_ELEMENT_NAME = TextAttributesKey.createTextAttributesKey("XSTYLESHEET_SELECTOR_ELEMENT_NAME", DefaultLanguageHighlighterColors.KEYWORD);
 

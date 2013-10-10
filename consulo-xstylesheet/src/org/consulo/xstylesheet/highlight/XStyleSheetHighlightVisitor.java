@@ -48,7 +48,7 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 					XStyleSheetPropertyValuePart valuePart = ((PsiXStyleSheetPropertyValuePart) element).getValuePart();
 					if(valuePart != null)
 					{
-						myHighlightInfoHolder.add(valuePart.createHighlightInfo((PsiXStyleSheetPropertyValuePart) element));
+						myHighlightInfoHolder.addAll(valuePart.createHighlights((PsiXStyleSheetPropertyValuePart) element));
 					}
 				}
 				else if(element instanceof PsiXStyleSheetSelectorAttribute)

@@ -2,6 +2,7 @@ package org.consulo.xstylesheet.definition.value.impl;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,14 +47,14 @@ public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyVa
 		}
 	};
 
-	@Nullable
+	@NotNull
 	@Override
-	public HighlightInfo createHighlightInfo(@NotNull PsiXStyleSheetPropertyValuePart valuePart)
+	public List<HighlightInfo> createHighlights(@NotNull PsiXStyleSheetPropertyValuePart valuePart)
 	{
 		HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
 		builder.textAttributes(XStyleSheetColors.KEYWORD);
 		builder.range(valuePart);
-		return builder.create();
+		return Collections.singletonList(builder.create());
 	}
 
 	@Nullable

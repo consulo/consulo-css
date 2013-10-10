@@ -16,11 +16,11 @@ import com.intellij.codeInsight.lookup.LookupElement;
  */
 public class BaseXStyleSheetPropertyValuePartParser implements XStyleSheetPropertyValuePartParser
 {
-	@Nullable
+	@NotNull
 	@Override
-	public HighlightInfo createHighlightInfo(@NotNull PsiXStyleSheetPropertyValuePart valuePart)
+	public List<HighlightInfo> createHighlights(@NotNull PsiXStyleSheetPropertyValuePart valuePart)
 	{
-		return null;
+		return Collections.emptyList();
 	}
 
 	@Nullable

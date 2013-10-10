@@ -43,7 +43,7 @@
 	<property name="background-image">
 		<valid-values>
 			<entry>
-				<function>url(#)</function>
+				<function />
 				<keyword>inherit</keyword>
 				<keyword>none</keyword>
 			</entry>

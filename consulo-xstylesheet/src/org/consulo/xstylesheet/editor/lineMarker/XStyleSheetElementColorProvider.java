@@ -1,15 +1,12 @@
 package org.consulo.xstylesheet.editor.lineMarker;
 
-import com.intellij.openapi.editor.ElementColorProvider;
-import com.intellij.psi.PsiElement;
-import org.consulo.xstylesheet.definition.XStyleSheetProperty;
-import org.consulo.xstylesheet.definition.value.impl.ColorXStyleSheetValue;
-import org.consulo.xstylesheet.psi.PsiXStyleSheetProperty;
+import java.awt.Color;
+
 import org.consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.awt.*;
+import com.intellij.openapi.editor.ElementColorProvider;
+import com.intellij.psi.PsiElement;
 
 /**
  * @author VISTALL
@@ -20,8 +17,17 @@ public class XStyleSheetElementColorProvider implements ElementColorProvider {
     @Override
     public Color getColorFrom(@NotNull PsiElement psiElement) {
         if(psiElement instanceof PsiXStyleSheetPropertyValuePart) {
-          Object value = ((PsiXStyleSheetPropertyValuePart) psiElement).getValue();
-          if(value instanceof Color) {
+			Object value = null;
+			try
+			{
+				value = ((PsiXStyleSheetPropertyValuePart) psiElement).getValue();
+			}
+			catch(Exception e)
+			{
+				System.out.println(psiElement.getText());
+				e.printStackTrace();
+			}
+			if(value instanceof Color) {
             return (Color) value;
           }
         }

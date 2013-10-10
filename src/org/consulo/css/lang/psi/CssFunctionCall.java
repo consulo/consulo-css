@@ -1,6 +1,8 @@
 package org.consulo.css.lang.psi;
 
+import org.consulo.css.lang.CssTokens;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetFunctionCall;
+import org.consulo.xstylesheet.psi.PsiXStyleSheetFunctionCallParameterList;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
@@ -17,14 +19,33 @@ public class CssFunctionCall extends CssElement implements PsiXStyleSheetFunctio
 	}
 
 	@Override
-	public String getUriText()
+	public PsiElement getNameIdentifier()
 	{
-		return null;
+		return findNotNullChildByType(CssTokens.FUNCTION_NAME);
 	}
 
 	@Override
-	public PsiElement getUri()
+	public String getName()
 	{
-		return null;
+		PsiElement nameIdentifier = getNameIdentifier();
+
+		return nameIdentifier.getText();
+	}
+
+	@Override
+	public PsiXStyleSheetFunctionCallParameterList getParameterList()
+	{
+		return findChildByClass(PsiXStyleSheetFunctionCallParameterList.class);
+	}
+
+	@Override
+	public PsiElement[] getParameters()
+	{
+		PsiXStyleSheetFunctionCallParameterList parameterList = getParameterList();
+		if(parameterList == null)
+		{
+			return PsiElement.EMPTY_ARRAY;
+		}
+		return parameterList.getParameters();
 	}
 }

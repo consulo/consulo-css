@@ -7,7 +7,11 @@ import com.intellij.psi.PsiElement;
  * @since 17.07.13.
  */
 public interface PsiXStyleSheetFunctionCall extends PsiXStyleSheetElement{
-	String getUriText();
+	PsiElement getNameIdentifier();
 
-	PsiElement getUri();
+	String getName();
+
+	PsiXStyleSheetFunctionCallParameterList getParameterList();
+
+	PsiElement[] getParameters();
 }

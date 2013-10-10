@@ -13,77 +13,84 @@ import com.intellij.util.ArrayUtil;
  * @author VISTALL
  * @since 03.07.13.
  */
-public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPropertyValuePart {
-  public CssPropertyValuePart(@NotNull ASTNode node) {
-    super(node);
-  }
+public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPropertyValuePart
+{
+	public CssPropertyValuePart(@NotNull ASTNode node)
+	{
+		super(node);
+	}
 
-  @Override
-  public Object getValue() {
-    PsiXStyleSheetProperty parent = (PsiXStyleSheetProperty) getParent();
+	@Override
+	public Object getValue()
+	{
+		XStyleSheetPropertyValueEntry validEntry = findEntry();
+		if(validEntry == null)
+		{
+			return null;
+		}
 
-    XStyleSheetProperty xStyleSheetProperty = parent.getXStyleSheetProperty();
-    if(xStyleSheetProperty == null) {
-      return null;
-    }
- 
-    XStyleSheetPropertyValueEntry[] validEntries = xStyleSheetProperty.getValidEntries();
+		for(XStyleSheetPropertyValuePart valuePart : validEntry.getParts())
+		{
+			Object o = valuePart.getNativeValue(this);
+			if(o != null)
+			{
+				return o;
+			}
+		}
+		return null;
+	}
 
-    PsiXStyleSheetPropertyValuePart[] parts = parent.getParts();
+	@Override
+	public XStyleSheetPropertyValuePart getValuePart()
+	{
+		XStyleSheetPropertyValueEntry validEntry = findEntry();
+		if(validEntry == null)
+		{
+			return null;
+		}
 
-    int i = ArrayUtil.indexOf(parts, this);
+		for(XStyleSheetPropertyValuePart valuePart : validEntry.getParts())
+		{
+			Object o = valuePart.getNativeValue(this);
+			if(o != null)
+			{
+				return valuePart;
+			}
+		}
+		return null;
+	}
 
-    XStyleSheetPropertyValueEntry validEntry = validEntries[i];
-    for (XStyleSheetPropertyValuePart valuePart : validEntry.getParts()) {
-      Object o = valuePart.getNativeValue(this);
-      if(o != null) {
-        return o;
-      }
-    }
-    return null;
-  }
+	@Override
+	public XStyleSheetPropertyValuePart[] getValueParts()
+	{
+		XStyleSheetPropertyValueEntry validEntry = findEntry();
+		if(validEntry == null)
+		{
+			return XStyleSheetPropertyValuePart.EMPTY_ARRAY;
+		}
+		return validEntry.getParts();
+	}
 
-  @Override
-  public XStyleSheetPropertyValuePart getValuePart() {
-    PsiXStyleSheetProperty parent = (PsiXStyleSheetProperty) getParent();
+	private XStyleSheetPropertyValueEntry findEntry()
+	{
+		PsiXStyleSheetProperty parent = (PsiXStyleSheetProperty) getParent();
 
-    XStyleSheetProperty xStyleSheetProperty = parent.getXStyleSheetProperty();
-    if(xStyleSheetProperty == null) {
-      return null;
-    }
+		XStyleSheetProperty xStyleSheetProperty = parent.getXStyleSheetProperty();
+		if(xStyleSheetProperty == null)
+		{
+			return null;
+		}
 
-    XStyleSheetPropertyValueEntry[] validEntries = xStyleSheetProperty.getValidEntries();
+		XStyleSheetPropertyValueEntry[] validEntries = xStyleSheetProperty.getValidEntries();
 
-    PsiXStyleSheetPropertyValuePart[] parts = parent.getParts();
+		PsiXStyleSheetPropertyValuePart[] parts = parent.getParts();
+		if(parts.length == 0 || validEntries.length == 0)
+		{
+			return null;
+		}
 
-    int i = ArrayUtil.indexOf(parts, this);
+		int i = ArrayUtil.indexOf(parts, this);
 
-    XStyleSheetPropertyValueEntry validEntry = validEntries[i];
-    for (XStyleSheetPropertyValuePart valuePart : validEntry.getParts()) {
-      Object o = valuePart.getNativeValue(this);
-      if(o != null) {
-        return valuePart;
-      }
-    }
-    return null;
-  }
-
-  @Override
-  public XStyleSheetPropertyValuePart[] getValueParts() {
-    PsiXStyleSheetProperty parent = (PsiXStyleSheetProperty) getParent();
-
-    XStyleSheetProperty xStyleSheetProperty = parent.getXStyleSheetProperty();
-    if(xStyleSheetProperty == null) {
-      return XStyleSheetPropertyValuePart.EMPTY_ARRAY;
-    }
-
-    XStyleSheetPropertyValueEntry[] validEntries = xStyleSheetProperty.getValidEntries();
-
-    PsiXStyleSheetPropertyValuePart[] parts = parent.getParts();
-
-    int i = ArrayUtil.indexOf(parts, this);
-
-    XStyleSheetPropertyValueEntry validEntry = validEntries[i];
-    return validEntry.getParts();
-  }
+		return i >= 0 && i < validEntries.length ? validEntries[i] : null;
+	}
 }
