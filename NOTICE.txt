@@ -1,1 +1,2 @@
-Some icons is IntelliJ IDEA Community Edition
+Some icons is IntelliJ IDEA Community Edition. License AL2
+Emmet implementation from IntelliJ IDEA Community Edition. License AL2

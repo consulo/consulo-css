@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<!--<angle> | [[ left-side | far-left | left | center-left | center | center-right | right | far-right | right-side ] || behind ] | leftwards | rightwards | inherit-->
+	<propery name="azimuth">
+		<or>
+			<value>angle</value>
+			<any>
+				<or>
+					<keyword>left-side</keyword>
+					<keyword>far-left</keyword>
+					<keyword>left</keyword>
+					<keyword>center-left</keyword>
+					<keyword>center</keyword>
+					<keyword>center-right</keyword>
+					<keyword>right</keyword>
+					<keyword>far-right</keyword>
+					<keyword>right-side</keyword>
+				</or>
+				<keyword>behind</keyword>
+			</any>
+			<keyword>leftwards</keyword>
+			<keyword>rightwards</keyword>
+			<keyword>inherit</keyword>
+		</or>
+	</propery>
+</list>
