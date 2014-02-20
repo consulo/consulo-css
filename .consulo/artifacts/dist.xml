@@ -6,7 +6,7 @@
         <element id="directory" name="lib">
           <element id="zip-archive" name="css.jar">
             <element id="directory" name="META-INF">
-              <element id="dir-copy" path="$PROJECT_DIR$/META-INF" />
+              <element id="dir-copy" path="$PROJECT_DIR$/resources/META-INF" />
             </element>
             <element id="module-output" name="consulo-css" />
             <element id="module-production-resource-output" name="consulo-css" />
@@ -18,7 +18,7 @@
           <element id="zip-archive" name="xstylesheet.jar">
             <element id="module-output" name="consulo-xstylesheet" />
             <element id="directory" name="META-INF">
-              <element id="dir-copy" path="$PROJECT_DIR$/consulo-xstylesheet/META-INF" />
+              <element id="dir-copy" path="$PROJECT_DIR$/consulo-xstylesheet/resources/META-INF" />
             </element>
             <element id="module-production-resource-output" name="consulo-xstylesheet" />
           </element>
