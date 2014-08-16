@@ -107,8 +107,7 @@ public class CssEmmetOptions implements PersistentStateComponent<CssEmmetOptions
 		Map<String, Integer> result = new HashMap<String, Integer>();
 		try
 		{
-			Document document = JDOMUtil.loadDocument(CssEmmetOptions.class.getResourceAsStream
-					("emmet_default_options.xml"));
+			Document document = JDOMUtil.loadDocument(CssEmmetOptions.class.getResourceAsStream("emmet_default_options.xml"));
 			Element prefixesElement = document.getRootElement().getChild("prefixes");
 			if(prefixesElement != null)
 			{
