@@ -1,11 +1,7 @@
 <idea-plugin>
-	<extensions defaultExtensionNs="org.consulo.emmet">
-		<optionsProvider id="css.emmet.application.settings"
-						 displayName="CSS"
-						 instance="com.intellij.application.options.emmet.CssEmmetConfigurable"/>
-	</extensions>
-
 	<extensions defaultExtensionNs="com.intellij">
+		<applicationConfigurable id="editor.emmet.css" parentId="editor.emmet" displayName="CSS"
+								 instance="com.intellij.application.options.emmet.CssEmmetConfigurable"/>
 		<applicationService serviceInterface="com.intellij.application.options.emmet.CssEmmetOptions"
 							serviceImplementation="com.intellij.application.options.emmet.CssEmmetOptions"/>
 	</extensions>
