@@ -1,6 +1,6 @@
 CSS_FILE
   CssRule(RULE)
-    CssSelectorDeclarationList(SELECTOR_LIST_REFERENCE)
+    CssSelectorDeclarationList(SELECTOR_DECLARATION_LIST)
       CssSelectorDeclaration(SELECTOR_DECLARATION)
         CssSelectorReference(SELECTOR_REFERENCE)
           PsiElement(DOT)('.')
@@ -23,7 +23,7 @@ CSS_FILE
       PsiElement(RBRACE)('}')
   PsiWhiteSpace('\n\n')
   CssRule(RULE)
-    CssSelectorDeclarationList(SELECTOR_LIST_REFERENCE)
+    CssSelectorDeclarationList(SELECTOR_DECLARATION_LIST)
       CssSelectorDeclaration(SELECTOR_DECLARATION)
         CssSelectorReference(SELECTOR_REFERENCE)
           PsiElement(SHARP)('#')

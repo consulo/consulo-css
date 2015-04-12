@@ -1,6 +1,5 @@
 package org.consulo.css.parsing;
 
-import org.consulo.css.lang.parser.CssParserDefinition;
 import com.intellij.testFramework.ParsingTestCase;
 
 /**
@@ -11,7 +10,7 @@ public class CssParsingTest extends ParsingTestCase
 {
 	public CssParsingTest()
 	{
-		super("parsing", "css", new CssParserDefinition());
+		super("parsing", "css");
 	}
 
 	public void testCssParsing1()
@@ -52,7 +51,7 @@ public class CssParsingTest extends ParsingTestCase
 	@Override
 	protected String getTestDataPath()
 	{
-		return "testData";
+		return "/testData";
 	}
 
 	@Override
