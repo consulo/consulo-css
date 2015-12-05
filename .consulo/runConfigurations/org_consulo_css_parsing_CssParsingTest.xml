@@ -1,11 +1,13 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="org.consulo.css.parsing.CssParsingTest" type="#ConsuloTestRunConfigurationType" factoryName="Consulo In Sandbox (Test)" singleton="true">
+  <configuration default="false" name="org.consulo.css.parsing.CssParsingTest" type="#ConsuloTestRunConfigurationType" factoryName="Consulo In Sandbox (Test)" singleton="true" target-type="CLASS">
     <option name="PLUGIN_ID" value="org.consulo.css" />
     <option name="CLASS_NAME" value="org.consulo.css.parsing.CssParsingTest" />
+    <option name="PACKAGE_NAME" />
     <option name="VM_PARAMETERS" value="" />
     <option name="PROGRAM_PARAMETERS" value="" />
     <option name="USE_ALT_CONSULO_SDK" value="false" />
     <option name="ALT_CONSULO_SDK_PATH" />
+    <option name="INTERNAL_MODE" value="false" />
     <java-sdk name="1.6" />
     <consulo-sdk name="Consulo 1.SNAPSHOT" />
     <artifact name="pluginTest" />

@@ -22,6 +22,7 @@ import org.consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetSelectorAttribute;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetSelectorPseudoClass;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetSelectorReference;
+import org.consulo.xstylesheet.psi.XStyleSheetFile;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
@@ -44,7 +45,7 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 	@Override
 	public boolean suitableForFile(@NotNull PsiFile psiFile)
 	{
-		return true;
+		return psiFile instanceof XStyleSheetFile;
 	}
 
 	@Override
