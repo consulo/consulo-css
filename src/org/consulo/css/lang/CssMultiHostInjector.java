@@ -28,20 +28,25 @@ import com.intellij.psi.xml.XmlAttribute;
  * @author VISTALL
  * @since 08.07.13.
  */
-public class CssMultiHostInjector implements MultiHostInjector {
+public class CssMultiHostInjector implements MultiHostInjector
+{
 	@Override
-	public void injectLanguages(@NotNull MultiHostRegistrar multiHostRegistrar, @NotNull PsiElement element) {
+	public void injectLanguages(@NotNull MultiHostRegistrar multiHostRegistrar, @NotNull PsiElement element)
+	{
 		PsiElement parent = element.getParent();
-		if(!(parent instanceof XmlAttribute)) {
+		if(!(parent instanceof XmlAttribute))
+		{
 			return;
 		}
 
-		if (!"style".equals(((XmlAttribute)parent).getName())) {
+		if(!"style".equals(((XmlAttribute) parent).getName()))
+		{
 			return;
 		}
 
 		int textLength = element.getTextLength();
-		if (textLength <= 2) {
+		if(textLength <= 2)
+		{
 			return;
 		}
 		multiHostRegistrar.startInjecting(CssLanguage.INSTANCE).addPlace("style {", "}", (PsiLanguageInjectionHost) element, new TextRange(1, textLength - 1)).doneInjecting();

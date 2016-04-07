@@ -7,7 +7,6 @@
 	<depends config-file="org.consulo.emmet.xml" optional="true">org.consulo.emmet</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<codeInsight.lineMarkerProvider language="CSS" implementationClass="com.intellij.ui.ColorLineMarkerProvider" />
 		<completion.contributor language="CSS" implementationClass="org.consulo.css.editor.completion.CssCompletionContributor"/>
 		<fileTypeFactory implementation="org.consulo.css.lang.CssFileTypeFactory"/>
 
