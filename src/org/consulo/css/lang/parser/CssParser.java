@@ -19,6 +19,7 @@ package org.consulo.css.lang.parser;
 import org.consulo.css.lang.CssPsiTokens;
 import org.consulo.css.lang.CssTokens;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.LanguageVersion;
 import com.intellij.lang.PsiBuilder;
@@ -31,11 +32,14 @@ import com.intellij.psi.tree.IElementType;
  */
 public class CssParser implements PsiParser, CssTokens, CssPsiTokens
 {
-	private static boolean expect(PsiBuilder builder, IElementType elementType, String message)
+	private static boolean expect(PsiBuilder builder, IElementType elementType, @Nullable String message)
 	{
 		if(builder.getTokenType() != elementType)
 		{
-			builder.error(message);
+			if(message != null)
+			{
+				builder.error(message);
+			}
 			return false;
 		}
 		else
@@ -323,7 +327,7 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens
 
 			builder.advanceLexer();
 
-			if(expect(builder, EQ, "'=' expected"))
+			if(expect(builder, EQ, null))
 			{
 				expect(builder, STRING, "Attribute value expected");
 			}
@@ -332,7 +336,6 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens
 		}
 		else if(builder.getTokenType() == RBRACKET)
 		{
-
 		}
 		else
 		{
