@@ -346,7 +346,7 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens
 
 	private void parseSelectorPseudoClass(PsiBuilder builder)
 	{
-		if(builder.getTokenType() == COLON || builder.getTokenType() == COLONCOLON)
+		while(builder.getTokenType() == COLON || builder.getTokenType() == COLONCOLON)
 		{
 			PsiBuilder.Marker marker = builder.mark();
 
