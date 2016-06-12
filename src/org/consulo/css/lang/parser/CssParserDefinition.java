@@ -16,6 +16,13 @@
 
 package org.consulo.css.lang.parser;
 
+import org.consulo.css.lang.CssLanguage;
+import org.consulo.css.lang.CssPsiElementType;
+import org.consulo.css.lang.CssTokenSets;
+import org.consulo.css.lang.lexer._CssLexer;
+import org.consulo.css.lang.psi.CssFile;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.LanguageVersion;
@@ -29,13 +36,6 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
-import org.consulo.css.lang.CssLanguage;
-import org.consulo.css.lang.CssPsiElementType;
-import org.consulo.css.lang.CssTokenSets;
-import org.consulo.css.lang.lexer.CssLexer;
-import org.consulo.css.lang.psi.CssFile;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -47,7 +47,7 @@ public class CssParserDefinition implements ParserDefinition {
     @NotNull
     @Override
     public Lexer createLexer(@Nullable Project project, @NotNull LanguageVersion languageVersion) {
-        return new CssLexer();
+        return new _CssLexer();
     }
 
     @NotNull

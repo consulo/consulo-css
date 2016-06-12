@@ -19,7 +19,7 @@ package org.consulo.css.lang;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.consulo.css.lang.lexer.CssLexer;
+import org.consulo.css.lang.lexer._CssLexer;
 import org.consulo.xstylesheet.highlight.XStyleSheetColors;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.lexer.Lexer;
@@ -46,7 +46,7 @@ public class CssSyntaxHighlighter extends SyntaxHighlighterBase {
   @NotNull
   @Override
   public Lexer getHighlightingLexer() {
-    return new CssLexer();
+    return new _CssLexer();
   }
 
   @NotNull

@@ -1,16 +1,17 @@
 package org.consulo.css.lang.lexer;
 
-import com.intellij.lexer.FlexLexer;
+import com.intellij.lexer.LexerBase;
 import com.intellij.psi.tree.IElementType;
 import org.consulo.css.lang.CssTokens;
 
 %%
 
+%public
 %class _CssLexer
-%implements FlexLexer
+%extends LexerBase
 %final
 %unicode
-%function advance
+%function advanceImpl
 %type IElementType
 %eof{ return;
 %eof}
@@ -26,8 +27,8 @@ AnySpace = {LineTerminator} | {WhiteSpace} | [\f]
 
 EscapedCharacter = \\{InputCharacter}
 
-TraditionalComment   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
-CommentContent = ( [^*] | \*+ [^/*] )*
+TraditionalComment = ("/*"[^]{CommentContent})|"/*"
+CommentContent = ([^"*"]*("*"+[^"*""/"])?)*("*"+"/")?
 
 IdentifierPart = [:jletter:]? [:jletterdigit:]?
 Identifier=("-"? {IdentifierPart}*)*
