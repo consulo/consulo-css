@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.consulo.lombok.annotations.ApplicationService;
-import org.consulo.lombok.annotations.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
@@ -19,6 +17,8 @@ import com.intellij.openapi.components.StoragePathMacros;
 import com.intellij.openapi.util.JDOMUtil;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.xmlb.XmlSerializerUtil;
+import consulo.lombok.annotations.ApplicationService;
+import consulo.lombok.annotations.Logger;
 
 /**
  * @author VISTALL
