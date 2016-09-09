@@ -1,6 +1,6 @@
 package org.consulo.css.parsing;
 
-import com.intellij.testFramework.ParsingTestCase;
+import consulo.testFramework.ParsingTestCase;
 
 /**
  * @author VISTALL

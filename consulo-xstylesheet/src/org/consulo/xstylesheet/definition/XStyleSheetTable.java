@@ -16,11 +16,11 @@
 
 package org.consulo.xstylesheet.definition;
 
-import org.consulo.annotations.Immutable;
+import java.util.List;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
+import consulo.annotations.Immutable;
 
 /**
  * @author VISTALL

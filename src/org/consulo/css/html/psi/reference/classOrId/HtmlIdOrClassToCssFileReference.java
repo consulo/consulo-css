@@ -16,11 +16,9 @@
 
 package org.consulo.css.html.psi.reference.classOrId;
 
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.ide.IconDescriptorUpdaters;
-import com.intellij.psi.*;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.ArrayUtil;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.consulo.css.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
 import org.consulo.css.lang.psi.CssFile;
 import org.consulo.css.lang.psi.CssRule;
@@ -31,9 +29,15 @@ import org.consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleOnlyTypeCon
 import org.consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleWithNameCondition;
 import org.consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.intellij.codeInsight.lookup.LookupElementBuilder;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElementResolveResult;
+import com.intellij.psi.PsiPolyVariantReferenceBase;
+import com.intellij.psi.PsiReference;
+import com.intellij.psi.ResolveResult;
+import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.util.ArrayUtil;
+import consulo.ide.IconDescriptorUpdaters;
 
 /**
  * @author VISTALL

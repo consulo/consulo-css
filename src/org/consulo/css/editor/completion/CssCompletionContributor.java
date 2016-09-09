@@ -16,13 +16,9 @@
 
 package org.consulo.css.editor.completion;
 
-import com.intellij.codeInsight.completion.*;
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.patterns.PlatformPatterns;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.Function;
-import com.intellij.util.ProcessingContext;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.consulo.css.lang.psi.CssFile;
 import org.consulo.xstylesheet.definition.XStyleSheetProperty;
 import org.consulo.xstylesheet.definition.XStyleSheetPropertyValueEntry;
@@ -32,9 +28,17 @@ import org.consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetRule;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.intellij.codeInsight.completion.CompletionContributor;
+import com.intellij.codeInsight.completion.CompletionParameters;
+import com.intellij.codeInsight.completion.CompletionResultSet;
+import com.intellij.codeInsight.completion.CompletionType;
+import com.intellij.codeInsight.lookup.LookupElementBuilder;
+import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.patterns.PlatformPatterns;
+import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.util.Function;
+import com.intellij.util.ProcessingContext;
+import consulo.codeInsight.completion.CompletionProvider;
 
 /**
  * @author VISTALL
@@ -42,9 +46,9 @@ import java.util.List;
  */
 public class CssCompletionContributor extends CompletionContributor {
   public CssCompletionContributor() {
-    extend(CompletionType.BASIC, PlatformPatterns.psiElement().withParent(PsiXStyleSheetProperty.class), new CompletionProvider<CompletionParameters>() {
+    extend(CompletionType.BASIC, PlatformPatterns.psiElement().withParent(PsiXStyleSheetProperty.class), new CompletionProvider() {
       @Override
-      protected void addCompletions(@NotNull CompletionParameters completionParameters, ProcessingContext processingContext, @NotNull CompletionResultSet completionResultSet) {
+	  public void addCompletions(@NotNull CompletionParameters completionParameters, ProcessingContext processingContext, @NotNull CompletionResultSet completionResultSet) {
         PsiXStyleSheetRule rule = PsiTreeUtil.getParentOfType(completionParameters.getPosition(), PsiXStyleSheetRule.class);
         if(rule == null) {
           return;
@@ -93,9 +97,9 @@ public class CssCompletionContributor extends CompletionContributor {
       }
     });
 
-    extend(CompletionType.BASIC, PlatformPatterns.psiElement().withParent(PsiXStyleSheetPropertyValuePart.class), new CompletionProvider<CompletionParameters>() {
+    extend(CompletionType.BASIC, PlatformPatterns.psiElement().withParent(PsiXStyleSheetPropertyValuePart.class), new CompletionProvider() {
       @Override
-      protected void addCompletions(@NotNull CompletionParameters completionParameters, ProcessingContext processingContext, @NotNull CompletionResultSet completionResultSet) {
+	  public void addCompletions(@NotNull CompletionParameters completionParameters, ProcessingContext processingContext, @NotNull CompletionResultSet completionResultSet) {
 
         PsiXStyleSheetPropertyValuePart parent = (PsiXStyleSheetPropertyValuePart) completionParameters.getPosition().getParent();
         if(parent == null) {

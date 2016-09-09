@@ -36,7 +36,7 @@ public class CssFileType extends LanguageFileType {
 
     @NotNull
     @Override
-    public String getName() {
+    public String getId() {
         return "CSS";
     }
 

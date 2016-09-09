@@ -16,13 +16,13 @@
 
 package org.consulo.xstylesheet;
 
-import com.intellij.icons.AllIcons;
-import com.intellij.ide.IconDescriptor;
-import com.intellij.ide.IconDescriptorUpdater;
-import com.intellij.psi.PsiElement;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetSelectorDeclaration;
 import org.consulo.xstylesheet.psi.PsiXStyleSheetSelectorReference;
 import org.jetbrains.annotations.NotNull;
+import com.intellij.icons.AllIcons;
+import com.intellij.psi.PsiElement;
+import consulo.ide.IconDescriptor;
+import consulo.ide.IconDescriptorUpdater;
 
 /**
  * @author VISTALL

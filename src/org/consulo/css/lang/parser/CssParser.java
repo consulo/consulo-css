@@ -21,10 +21,10 @@ import org.consulo.css.lang.CssTokens;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.ASTNode;
-import com.intellij.lang.LanguageVersion;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiParser;
 import com.intellij.psi.tree.IElementType;
+import consulo.lang.LanguageVersion;
 
 /**
  * @author VISTALL
