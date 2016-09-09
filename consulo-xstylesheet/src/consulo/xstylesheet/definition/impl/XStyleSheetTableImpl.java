@@ -16,39 +16,45 @@
 
 package consulo.xstylesheet.definition.impl;
 
-import consulo.xstylesheet.definition.XStyleSheetProperty;
-import consulo.xstylesheet.definition.XStyleSheetTable;
+import java.util.List;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
+import consulo.xstylesheet.definition.XStyleSheetProperty;
+import consulo.xstylesheet.definition.XStyleSheetTable;
 
 /**
  * @author VISTALL
  * @since 03.07.13.
  */
-public class XStyleSheetTableImpl implements XStyleSheetTable {
+public class XStyleSheetTableImpl implements XStyleSheetTable
+{
 
-  private List<XStyleSheetProperty> myProperties;
+	private List<XStyleSheetProperty> myProperties;
 
-  public XStyleSheetTableImpl(List<XStyleSheetProperty> properties) {
-    myProperties = properties;
-  }
+	public XStyleSheetTableImpl(List<XStyleSheetProperty> properties)
+	{
+		myProperties = properties;
+	}
 
-  @Nullable
-  @Override
-  public XStyleSheetProperty findProperty(@NotNull String propertyName) {
-    for (XStyleSheetProperty property : myProperties) {
-      if(property.getName().equals(propertyName)) {
-        return property;
-      }
-    }
-    return null;
-  }
+	@Nullable
+	@Override
+	public XStyleSheetProperty findProperty(@NotNull String propertyName)
+	{
+		for(XStyleSheetProperty property : myProperties)
+		{
+			if(property.getName().equals(propertyName))
+			{
+				return property;
+			}
+		}
+		return null;
+	}
 
-  @NotNull
-  @Override
-  public List<XStyleSheetProperty> getProperties() {
-    return myProperties;
-  }
+	@NotNull
+	@Override
+	public List<XStyleSheetProperty> getProperties()
+	{
+		return myProperties;
+	}
 }

@@ -32,26 +32,29 @@ import consulo.xstylesheet.highlight.XStyleSheetColors;
  * @author VISTALL
  * @since 03.07.13.
  */
-public class CssSyntaxHighlighter extends SyntaxHighlighterBase {
-  private Map<IElementType, TextAttributesKey> myKeys = new HashMap<IElementType, TextAttributesKey>()
-  {
-    {
-      put(CssTokens.NUMBER, XStyleSheetColors.NUMBER);
-      put(CssTokens.STRING, XStyleSheetColors.STRING);
-      put(CssTokens.BLOCK_COMMENT, XStyleSheetColors.BLOCK_COMMENT);
-      put(CssTokens.BAD_CHARACTER, CodeInsightColors.UNMATCHED_BRACE_ATTRIBUTES);
-    }
-  };
+public class CssSyntaxHighlighter extends SyntaxHighlighterBase
+{
+	private Map<IElementType, TextAttributesKey> myKeys = new HashMap<IElementType, TextAttributesKey>()
+	{
+		{
+			put(CssTokens.NUMBER, XStyleSheetColors.NUMBER);
+			put(CssTokens.STRING, XStyleSheetColors.STRING);
+			put(CssTokens.BLOCK_COMMENT, XStyleSheetColors.BLOCK_COMMENT);
+			put(CssTokens.BAD_CHARACTER, CodeInsightColors.UNMATCHED_BRACE_ATTRIBUTES);
+		}
+	};
 
-  @NotNull
-  @Override
-  public Lexer getHighlightingLexer() {
-    return new _CssLexer();
-  }
+	@NotNull
+	@Override
+	public Lexer getHighlightingLexer()
+	{
+		return new _CssLexer();
+	}
 
-  @NotNull
-  @Override
-  public TextAttributesKey[] getTokenHighlights(IElementType elementType) {
-    return pack(myKeys.get(elementType));
-  }
+	@NotNull
+	@Override
+	public TextAttributesKey[] getTokenHighlights(IElementType elementType)
+	{
+		return pack(myKeys.get(elementType));
+	}
 }

@@ -16,14 +16,15 @@
 
 package consulo.css.lang;
 
-import consulo.css.lang.psi.*;
 import com.intellij.psi.tree.IElementType;
+import consulo.css.lang.psi.*;
 
 /**
  * @author VISTALL
  * @since 03.07.13.
  */
-public interface CssPsiTokens {
+public interface CssPsiTokens
+{
 	IElementType RULE = new CssPsiElementType("RULE", CssRule.class);
 
 	IElementType BLOCK = new CssPsiElementType("BLOCK", CssBlock.class);

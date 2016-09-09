@@ -26,13 +26,14 @@ import consulo.xstylesheet.definition.XStyleSheetProperty;
  * @author VISTALL
  * @since 03.07.13.
  */
-public interface PsiXStyleSheetProperty extends PsiElement, PsiNameIdentifierOwner {
+public interface PsiXStyleSheetProperty extends PsiElement, PsiNameIdentifierOwner
+{
 	@Nullable
 	XStyleSheetProperty getXStyleSheetProperty();
 
-  @NotNull
-  PsiXStyleSheetPropertyValuePart[] getParts();
+	@NotNull
+	PsiXStyleSheetPropertyValuePart[] getParts();
 
-  @Nullable
-  String getName();
+	@Nullable
+	String getName();
 }

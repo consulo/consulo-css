@@ -23,7 +23,8 @@ import com.intellij.openapi.editor.colors.TextAttributesKey;
  * @author VISTALL
  * @since 03.07.13.
  */
-public interface XStyleSheetColors {
+public interface XStyleSheetColors
+{
 	TextAttributesKey NUMBER = TextAttributesKey.createTextAttributesKey("XSTYLESHEET_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
 
 	TextAttributesKey STRING = TextAttributesKey.createTextAttributesKey("XSTYLESHEET_STRING", DefaultLanguageHighlighterColors.STRING);

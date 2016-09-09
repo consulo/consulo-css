@@ -16,29 +16,33 @@
 
 package consulo.xstylesheet.definition.impl;
 
-import consulo.xstylesheet.definition.XStyleSheetProperty;
-import consulo.xstylesheet.definition.XStyleSheetTable;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.Collections;
 import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import consulo.xstylesheet.definition.XStyleSheetProperty;
+import consulo.xstylesheet.definition.XStyleSheetTable;
 
 /**
  * @author VISTALL
  * @since 03.07.13.
  */
-public class EmptyXStyleSheetTable implements XStyleSheetTable {
-  public static final XStyleSheetTable INSTANCE = new EmptyXStyleSheetTable();
-  @Nullable
-  @Override
-  public XStyleSheetProperty findProperty(@NotNull String propertyName) {
-    return null;
-  }
+public class EmptyXStyleSheetTable implements XStyleSheetTable
+{
+	public static final XStyleSheetTable INSTANCE = new EmptyXStyleSheetTable();
 
-  @NotNull
-  @Override
-  public List<XStyleSheetProperty> getProperties() {
-    return Collections.emptyList();
-  }
+	@Nullable
+	@Override
+	public XStyleSheetProperty findProperty(@NotNull String propertyName)
+	{
+		return null;
+	}
+
+	@NotNull
+	@Override
+	public List<XStyleSheetProperty> getProperties()
+	{
+		return Collections.emptyList();
+	}
 }

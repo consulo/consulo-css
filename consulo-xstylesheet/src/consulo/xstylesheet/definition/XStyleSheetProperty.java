@@ -20,10 +20,11 @@ package consulo.xstylesheet.definition;
  * @author VISTALL
  * @since 03.07.13.
  */
-public interface XStyleSheetProperty {
-  String getName();
+public interface XStyleSheetProperty
+{
+	String getName();
 
-  XStyleSheetPropertyValueEntry[] getValidEntries();
+	XStyleSheetPropertyValueEntry[] getValidEntries();
 
-  XStyleSheetPropertyValueEntry[] getInitialEntries();
+	XStyleSheetPropertyValueEntry[] getInitialEntries();
 }

@@ -23,8 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import consulo.xstylesheet.highlight.XStyleSheetColors;
-import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
@@ -33,6 +31,8 @@ import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.ui.ColorUtil;
 import com.intellij.util.ui.ColorIcon;
+import consulo.xstylesheet.highlight.XStyleSheetColors;
+import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
 /**
  * @author VISTALL

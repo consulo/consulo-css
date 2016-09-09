@@ -26,14 +26,19 @@ import com.intellij.ui.ColorUtil;
  * @author VISTALL
  * @since 03.07.13.
  */
-public class ColorXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser {
-  @Nullable
-  @Override
-  public Color fromString(@NotNull String stringValue, String value) {
-    try {
-      return ColorUtil.fromHex(stringValue);
-    } catch (Exception e) {
-      return null;
-    }
-  }
+public class ColorXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser
+{
+	@Nullable
+	@Override
+	public Color fromString(@NotNull String stringValue, String value)
+	{
+		try
+		{
+			return ColorUtil.fromHex(stringValue);
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+	}
 }

@@ -23,10 +23,11 @@ import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
  * @author VISTALL
  * @since 03.07.13.
  */
-public interface PsiXStyleSheetPropertyValuePart extends PsiElement {
-  Object getValue();
+public interface PsiXStyleSheetPropertyValuePart extends PsiElement
+{
+	Object getValue();
 
-  XStyleSheetPropertyValuePart getValuePart();
+	XStyleSheetPropertyValuePart getValuePart();
 
-  XStyleSheetPropertyValuePart[] getValueParts();
+	XStyleSheetPropertyValuePart[] getValueParts();
 }

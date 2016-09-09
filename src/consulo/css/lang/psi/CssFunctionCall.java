@@ -16,12 +16,12 @@
 
 package consulo.css.lang.psi;
 
-import consulo.css.lang.CssTokens;
-import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCall;
-import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCallParameterList;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
+import consulo.css.lang.CssTokens;
+import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCall;
+import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCallParameterList;
 
 /**
  * @author VISTALL

@@ -27,98 +27,132 @@ import org.jetbrains.annotations.NotNull;
  * User: zolotov
  * Date: 2/20/13
  */
-public class CssPrefixInfo {
-  @NotNull
-  private final String myPropertyName;
-  @NotNull
-  private final Collection<CssPrefix> myEnabledPrefixes;
+public class CssPrefixInfo
+{
+	@NotNull
+	private final String myPropertyName;
+	@NotNull
+	private final Collection<CssPrefix> myEnabledPrefixes;
 
-  public CssPrefixInfo(@NotNull String propertyName, CssPrefix... enabledPrefixes) {
-    myPropertyName = propertyName;
-    myEnabledPrefixes = newHashSet(enabledPrefixes);
-    for (CssPrefix prefix : enabledPrefixes) {
-      setValue(prefix, true);
-    }
-  }
+	public CssPrefixInfo(@NotNull String propertyName, CssPrefix... enabledPrefixes)
+	{
+		myPropertyName = propertyName;
+		myEnabledPrefixes = newHashSet(enabledPrefixes);
+		for(CssPrefix prefix : enabledPrefixes)
+		{
+			setValue(prefix, true);
+		}
+	}
 
-  public CssPrefixInfo(@NotNull String propertyName, Collection<CssPrefix> enabledPrefixes) {
-    myPropertyName = propertyName;
-    myEnabledPrefixes = newHashSet(enabledPrefixes);
-    for (CssPrefix prefix : enabledPrefixes) {
-      setValue(prefix, true);
-    }
-  }
+	public CssPrefixInfo(@NotNull String propertyName, Collection<CssPrefix> enabledPrefixes)
+	{
+		myPropertyName = propertyName;
+		myEnabledPrefixes = newHashSet(enabledPrefixes);
+		for(CssPrefix prefix : enabledPrefixes)
+		{
+			setValue(prefix, true);
+		}
+	}
 
-  @NotNull
-  public Collection<CssPrefix> getEnabledPrefixes() {
-    return myEnabledPrefixes;
-  }
+	@NotNull
+	public Collection<CssPrefix> getEnabledPrefixes()
+	{
+		return myEnabledPrefixes;
+	}
 
-  public void setValue(CssPrefix prefix, boolean value) {
-    if (value) {
-      myEnabledPrefixes.add(prefix);
-    } else {
-      myEnabledPrefixes.remove(prefix);
-    }
-  }
+	public void setValue(CssPrefix prefix, boolean value)
+	{
+		if(value)
+		{
+			myEnabledPrefixes.add(prefix);
+		}
+		else
+		{
+			myEnabledPrefixes.remove(prefix);
+		}
+	}
 
-  public boolean getValue(CssPrefix prefix) {
-    return myEnabledPrefixes.contains(prefix);
-  }
+	public boolean getValue(CssPrefix prefix)
+	{
+		return myEnabledPrefixes.contains(prefix);
+	}
 
-  @NotNull
-  public String getPropertyName() {
-    return myPropertyName;
-  }
+	@NotNull
+	public String getPropertyName()
+	{
+		return myPropertyName;
+	}
 
-  public static CssPrefixInfo fromIntegerValue(String propertyName, Integer value) {
-    if (value == null) {
-      return new CssPrefixInfo(propertyName);
-    }
-    List<CssPrefix> enabledPrefixes = newArrayList();
-    for (CssPrefix prefix : CssPrefix.values()) {
-      if ((value & prefix.myIntMask) > 0) {
-        enabledPrefixes.add(prefix);
-      }
-    }
-    return new CssPrefixInfo(propertyName, enabledPrefixes);
-  }
+	public static CssPrefixInfo fromIntegerValue(String propertyName, Integer value)
+	{
+		if(value == null)
+		{
+			return new CssPrefixInfo(propertyName);
+		}
+		List<CssPrefix> enabledPrefixes = newArrayList();
+		for(CssPrefix prefix : CssPrefix.values())
+		{
+			if((value & prefix.myIntMask) > 0)
+			{
+				enabledPrefixes.add(prefix);
+			}
+		}
+		return new CssPrefixInfo(propertyName, enabledPrefixes);
+	}
 
-  public int toIntegerValue() {
-    int result = 0;
-    for (CssPrefix prefix : myEnabledPrefixes) {
-      if (getValue(prefix)) {
-        result |= prefix.myIntMask;
-      }
-    }
-    return result;
-  }
+	public int toIntegerValue()
+	{
+		int result = 0;
+		for(CssPrefix prefix : myEnabledPrefixes)
+		{
+			if(getValue(prefix))
+			{
+				result |= prefix.myIntMask;
+			}
+		}
+		return result;
+	}
 
-  @Override
-  public String toString() {
-    return "CssPrefixInfo{" +
-           "myPropertyName='" + myPropertyName + '\'' +
-           ", myEnabledPrefixes=" + myEnabledPrefixes +
-           '}';
-  }
+	@Override
+	public String toString()
+	{
+		return "CssPrefixInfo{" +
+				"myPropertyName='" + myPropertyName + '\'' +
+				", myEnabledPrefixes=" + myEnabledPrefixes +
+				'}';
+	}
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+	@Override
+	public boolean equals(Object o)
+	{
+		if(this == o)
+		{
+			return true;
+		}
+		if(o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
 
-    CssPrefixInfo that = (CssPrefixInfo)o;
+		CssPrefixInfo that = (CssPrefixInfo) o;
 
-    if (!myEnabledPrefixes.equals(that.myEnabledPrefixes)) return false;
-    if (!myPropertyName.equals(that.myPropertyName)) return false;
+		if(!myEnabledPrefixes.equals(that.myEnabledPrefixes))
+		{
+			return false;
+		}
+		if(!myPropertyName.equals(that.myPropertyName))
+		{
+			return false;
+		}
 
-    return true;
-  }
+		return true;
+	}
 
-  @Override
-  public int hashCode() {
-    int result = myPropertyName.hashCode();
-    result = 31 * result + myEnabledPrefixes.hashCode();
-    return result;
-  }
+	@Override
+	public int hashCode()
+	{
+		int result = myPropertyName.hashCode();
+		result = 31 * result + myEnabledPrefixes.hashCode();
+		return result;
+	}
 }

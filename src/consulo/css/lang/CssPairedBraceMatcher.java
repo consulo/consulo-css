@@ -27,25 +27,29 @@ import com.intellij.psi.tree.IElementType;
  * @author VISTALL
  * @since 08.07.13.
  */
-public class CssPairedBraceMatcher implements PairedBraceMatcher {
-  private BracePair[] myPairs = new BracePair[] {
-      new BracePair(CssTokens.LPAR, CssTokens.RPAR, false),
-      new BracePair(CssTokens.LBRACE, CssTokens.RBRACE, true),
-      new BracePair(CssTokens.LBRACKET, CssTokens.RBRACKET, false),
-  };
+public class CssPairedBraceMatcher implements PairedBraceMatcher
+{
+	private BracePair[] myPairs = new BracePair[]{
+			new BracePair(CssTokens.LPAR, CssTokens.RPAR, false),
+			new BracePair(CssTokens.LBRACE, CssTokens.RBRACE, true),
+			new BracePair(CssTokens.LBRACKET, CssTokens.RBRACKET, false),
+	};
 
-  @Override
-  public BracePair[] getPairs() {
-    return myPairs;
-  }
+	@Override
+	public BracePair[] getPairs()
+	{
+		return myPairs;
+	}
 
-  @Override
-  public boolean isPairedBracesAllowedBeforeType(@NotNull IElementType elementType, @Nullable IElementType elementType2) {
-    return false;
-  }
+	@Override
+	public boolean isPairedBracesAllowedBeforeType(@NotNull IElementType elementType, @Nullable IElementType elementType2)
+	{
+		return false;
+	}
 
-  @Override
-  public int getCodeConstructStart(PsiFile psiFile, int i) {
-    return i;
-  }
+	@Override
+	public int getCodeConstructStart(PsiFile psiFile, int i)
+	{
+		return i;
+	}
 }

@@ -16,38 +16,43 @@
 
 package consulo.css.lang.psi;
 
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.IncorrectOperationException;
 import consulo.css.lang.CssTokens;
 import consulo.xstylesheet.psi.PsiXStyleSheetSelectorPseudoClass;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author VISTALL
  * @since 11.07.13.
  */
-public class CssSelectorPseudoClass extends CssElement implements PsiXStyleSheetSelectorPseudoClass {
-	public CssSelectorPseudoClass(@NotNull ASTNode node) {
+public class CssSelectorPseudoClass extends CssElement implements PsiXStyleSheetSelectorPseudoClass
+{
+	public CssSelectorPseudoClass(@NotNull ASTNode node)
+	{
 		super(node);
 	}
 
 	@Nullable
 	@Override
-	public PsiElement getNameIdentifier() {
+	public PsiElement getNameIdentifier()
+	{
 		return findChildByType(CssTokens.IDENTIFIER);
 	}
 
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		PsiElement nameIdentifier = getNameIdentifier();
 		return nameIdentifier == null ? null : nameIdentifier.getText();
 	}
 
 	@Override
-	public PsiElement setName(@NonNls @NotNull String s) throws IncorrectOperationException {
+	public PsiElement setName(@NonNls @NotNull String s) throws IncorrectOperationException
+	{
 		return null;
 	}
 }

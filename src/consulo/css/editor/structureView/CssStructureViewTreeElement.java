@@ -16,44 +16,49 @@
 
 package consulo.css.editor.structureView;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase;
 import consulo.css.lang.psi.CssFile;
 import consulo.css.lang.psi.CssRule;
 import consulo.css.lang.psi.CssSelectorDeclaration;
-import consulo.css.lang.psi.CssSelectorReference;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * @author VISTALL
  * @since 08.07.13.
  */
-public class CssStructureViewTreeElement extends PsiTreeElementBase<CssFile> {
+public class CssStructureViewTreeElement extends PsiTreeElementBase<CssFile>
+{
 
-  public CssStructureViewTreeElement(CssFile psiElement) {
-    super(psiElement);
-  }
+	public CssStructureViewTreeElement(CssFile psiElement)
+	{
+		super(psiElement);
+	}
 
-  @NotNull
-  @Override
-  public Collection<StructureViewTreeElement> getChildrenBase() {
-    List<StructureViewTreeElement> list = new ArrayList<StructureViewTreeElement>();
-    for (CssRule cssRule : getElement().getRules()) {
-      for (CssSelectorDeclaration declaration : cssRule.getSelectorDeclarations()) {
-        list.add(new CssSelectorDeclarationStructureViewTreeElement(declaration));
-      }
-    }
-    return list;
-  }
+	@NotNull
+	@Override
+	public Collection<StructureViewTreeElement> getChildrenBase()
+	{
+		List<StructureViewTreeElement> list = new ArrayList<StructureViewTreeElement>();
+		for(CssRule cssRule : getElement().getRules())
+		{
+			for(CssSelectorDeclaration declaration : cssRule.getSelectorDeclarations())
+			{
+				list.add(new CssSelectorDeclarationStructureViewTreeElement(declaration));
+			}
+		}
+		return list;
+	}
 
-  @Nullable
-  @Override
-  public String getPresentableText() {
-    return getElement().getName();
-  }
+	@Nullable
+	@Override
+	public String getPresentableText()
+	{
+		return getElement().getName();
+	}
 }

@@ -19,6 +19,13 @@ package consulo.css.lang.psi;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.intellij.extapi.psi.PsiFileBase;
+import com.intellij.openapi.fileTypes.FileType;
+import com.intellij.psi.FileViewProvider;
+import com.intellij.psi.PsiElementVisitor;
+import com.intellij.util.SmartList;
 import consulo.css.lang.CssFileType;
 import consulo.css.lang.CssLanguage;
 import consulo.xstylesheet.definition.XStyleSheetTable;
@@ -27,13 +34,6 @@ import consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;
 import consulo.xstylesheet.definition.impl.MergedXStyleSheetTable;
 import consulo.xstylesheet.psi.XStyleSheetFile;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import com.intellij.extapi.psi.PsiFileBase;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElementVisitor;
-import com.intellij.util.SmartList;
 
 /**
  * @author VISTALL

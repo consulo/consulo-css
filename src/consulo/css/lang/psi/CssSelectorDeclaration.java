@@ -16,23 +16,26 @@
 
 package consulo.css.lang.psi;
 
+import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.ASTNode;
 import consulo.xstylesheet.psi.PsiXStyleSheetSelectorDeclaration;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author VISTALL
  * @since 11.07.13.
  */
-public class CssSelectorDeclaration extends CssElement implements PsiXStyleSheetSelectorDeclaration {
+public class CssSelectorDeclaration extends CssElement implements PsiXStyleSheetSelectorDeclaration
+{
 	public static final CssSelectorDeclaration[] EMPTY_ARRAY = new CssSelectorDeclaration[0];
 
-	public CssSelectorDeclaration(@NotNull ASTNode node) {
+	public CssSelectorDeclaration(@NotNull ASTNode node)
+	{
 		super(node);
 	}
 
 	@Override
-	public CssSelectorReference[] getSelectorReferences() {
+	public CssSelectorReference[] getSelectorReferences()
+	{
 		return findChildrenByClass(CssSelectorReference.class);
 	}
 }

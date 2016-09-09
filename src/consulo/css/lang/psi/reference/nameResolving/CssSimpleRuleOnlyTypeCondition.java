@@ -24,27 +24,32 @@ import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
  * @author VISTALL
  * @since 07.07.13.
  */
-public class CssSimpleRuleOnlyTypeCondition implements XStyleRuleCondition {
-  private CssSimpleRuleConditionType myConditionType;
+public class CssSimpleRuleOnlyTypeCondition implements XStyleRuleCondition
+{
+	private CssSimpleRuleConditionType myConditionType;
 
 
-  public CssSimpleRuleOnlyTypeCondition(CssSimpleRuleConditionType conditionType) {
-    myConditionType = conditionType;
-  }
+	public CssSimpleRuleOnlyTypeCondition(CssSimpleRuleConditionType conditionType)
+	{
+		myConditionType = conditionType;
+	}
 
-  @Override
-  public boolean isAccepted(PsiElement psiElement) {
-    if (psiElement instanceof CssSelectorReference) {
-      CssSelectorReference selectorReference = (CssSelectorReference) psiElement;
+	@Override
+	public boolean isAccepted(PsiElement psiElement)
+	{
+		if(psiElement instanceof CssSelectorReference)
+		{
+			CssSelectorReference selectorReference = (CssSelectorReference) psiElement;
 
-      switch (myConditionType) {
-        case ID:
-          return selectorReference.isIdRule();
-        case CLASS:
-          return selectorReference.isClassRule();
-      }
-    }
+			switch(myConditionType)
+			{
+				case ID:
+					return selectorReference.isIdRule();
+				case CLASS:
+					return selectorReference.isClassRule();
+			}
+		}
 
-    return false;
-  }
+		return false;
+	}
 }

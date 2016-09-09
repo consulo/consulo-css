@@ -24,36 +24,43 @@ import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
  * @author VISTALL
  * @since 07.07.13.
  */
-public class CssSimpleRuleWithNameCondition implements XStyleRuleCondition{
-  private CssSimpleRuleConditionType myConditionType;
-  private String myName;
+public class CssSimpleRuleWithNameCondition implements XStyleRuleCondition
+{
+	private CssSimpleRuleConditionType myConditionType;
+	private String myName;
 
-  public CssSimpleRuleWithNameCondition(CssSimpleRuleConditionType conditionType, String name) {
-    myConditionType = conditionType;
-    myName = name;
-  }
+	public CssSimpleRuleWithNameCondition(CssSimpleRuleConditionType conditionType, String name)
+	{
+		myConditionType = conditionType;
+		myName = name;
+	}
 
-  @Override
-  public boolean isAccepted(PsiElement psiElement) {
-    if (psiElement instanceof CssSelectorReference) {
-      CssSelectorReference selectorReference = (CssSelectorReference) psiElement;
+	@Override
+	public boolean isAccepted(PsiElement psiElement)
+	{
+		if(psiElement instanceof CssSelectorReference)
+		{
+			CssSelectorReference selectorReference = (CssSelectorReference) psiElement;
 
-      if(!myName.equals(selectorReference.getName())) {
-        return false;
-      }
+			if(!myName.equals(selectorReference.getName()))
+			{
+				return false;
+			}
 
-      switch (myConditionType) {
-        case ID:
-          return selectorReference.isIdRule();
-        case CLASS:
-          return selectorReference.isClassRule();
-      }
-    }
+			switch(myConditionType)
+			{
+				case ID:
+					return selectorReference.isIdRule();
+				case CLASS:
+					return selectorReference.isClassRule();
+			}
+		}
 
-    return false;
-  }
+		return false;
+	}
 
-  public CssSimpleRuleConditionType getConditionType() {
-    return myConditionType;
-  }
+	public CssSimpleRuleConditionType getConditionType()
+	{
+		return myConditionType;
+	}
 }

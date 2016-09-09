@@ -27,14 +27,16 @@ import consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleConditionType;
  * @author VISTALL
  * @since 07.07.13.
  */
-public class CssToHtmlReferenceContributor extends PsiReferenceContributor{
-  @Override
-  public void registerReferenceProviders(PsiReferenceRegistrar psiReferenceRegistrar) {
-    XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"id"}, null, false, new HtmlIdOrClassToCssFileReferenceProvider(CssSimpleRuleConditionType.ID));
+public class CssToHtmlReferenceContributor extends PsiReferenceContributor
+{
+	@Override
+	public void registerReferenceProviders(PsiReferenceRegistrar psiReferenceRegistrar)
+	{
+		XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"id"}, null, false, new HtmlIdOrClassToCssFileReferenceProvider(CssSimpleRuleConditionType.ID));
 
-    XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"class"}, null, false, new HtmlIdOrClassToCssFileReferenceProvider(CssSimpleRuleConditionType.CLASS));
+		XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"class"}, null, false, new HtmlIdOrClassToCssFileReferenceProvider(CssSimpleRuleConditionType.CLASS));
 
-    HtmlHrefToCssFileReferenceProvider provider = new HtmlHrefToCssFileReferenceProvider();
-    XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"href"}, provider.getElementFilter(), false, provider);
-  }
+		HtmlHrefToCssFileReferenceProvider provider = new HtmlHrefToCssFileReferenceProvider();
+		XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"href"}, provider.getElementFilter(), false, provider);
+	}
 }

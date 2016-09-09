@@ -16,18 +16,19 @@
 
 package consulo.xstylesheet;
 
-import com.intellij.openapi.util.IconLoader;
+import javax.swing.Icon;
 
-import javax.swing.*;
+import com.intellij.openapi.util.IconLoader;
 
 /**
  * @author VISTALL
  * @since 08.07.13.
  */
-public interface XStyleSheetIcons {
-  Icon AtRule = IconLoader.findIcon("/consulo/xstylesheet/icons/atrule.png");
-  Icon CssClass = IconLoader.findIcon("/consulo/xstylesheet/icons/css_class.png");
-  Icon HtmlId = IconLoader.findIcon("/consulo/xstylesheet/icons/html_id.png");
-  Icon Property = IconLoader.findIcon("/consulo/xstylesheet/icons/property.png");
-  Icon PseudoElement = IconLoader.findIcon("/consulo/xstylesheet/icons/pseudo-element.png");
+public interface XStyleSheetIcons
+{
+	Icon AtRule = IconLoader.findIcon("/consulo/xstylesheet/icons/atrule.png");
+	Icon CssClass = IconLoader.findIcon("/consulo/xstylesheet/icons/css_class.png");
+	Icon HtmlId = IconLoader.findIcon("/consulo/xstylesheet/icons/html_id.png");
+	Icon Property = IconLoader.findIcon("/consulo/xstylesheet/icons/property.png");
+	Icon PseudoElement = IconLoader.findIcon("/consulo/xstylesheet/icons/pseudo-element.png");
 }

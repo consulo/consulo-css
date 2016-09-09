@@ -16,14 +16,14 @@
 
 package consulo.css.lang.psi;
 
+import org.jetbrains.annotations.NotNull;
+import com.intellij.lang.ASTNode;
+import com.intellij.util.ArrayUtil;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValueEntry;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
-import org.jetbrains.annotations.NotNull;
-import com.intellij.lang.ASTNode;
-import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL

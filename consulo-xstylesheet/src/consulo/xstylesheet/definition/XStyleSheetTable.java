@@ -26,11 +26,12 @@ import consulo.annotations.Immutable;
  * @author VISTALL
  * @since 03.07.13.
  */
-public interface XStyleSheetTable {
-  @Nullable
-  XStyleSheetProperty findProperty(@NotNull String propertyName);
+public interface XStyleSheetTable
+{
+	@Nullable
+	XStyleSheetProperty findProperty(@NotNull String propertyName);
 
-  @NotNull
-  @Immutable
-  List<XStyleSheetProperty> getProperties();
+	@NotNull
+	@Immutable
+	List<XStyleSheetProperty> getProperties();
 }

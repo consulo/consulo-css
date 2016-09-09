@@ -33,24 +33,25 @@ public class XStyleSheetIconProvider implements IconDescriptorUpdater
 	@Override
 	public void updateIcon(@NotNull IconDescriptor iconDescriptor, @NotNull PsiElement element, int i)
 	{
-		if (element instanceof PsiXStyleSheetSelectorDeclaration)
+		if(element instanceof PsiXStyleSheetSelectorDeclaration)
 		{
 			PsiXStyleSheetSelectorReference[] selectorReferences = ((PsiXStyleSheetSelectorDeclaration) element).getSelectorReferences();
 
-			if (selectorReferences.length == 0)
+			if(selectorReferences.length == 0)
 			{
 				return;
 			}
 
 			PsiXStyleSheetSelectorReference selectorReference = selectorReferences[0];
-			if (selectorReference.isClassRule())
+			if(selectorReference.isClassRule())
 			{
 				iconDescriptor.setMainIcon(XStyleSheetIcons.CssClass);
 			}
-			else if (selectorReference.isIdRule())
+			else if(selectorReference.isIdRule())
 			{
 				iconDescriptor.setMainIcon(XStyleSheetIcons.HtmlId);
-			} else
+			}
+			else
 			{
 				iconDescriptor.setMainIcon(AllIcons.Nodes.Tag);
 			}

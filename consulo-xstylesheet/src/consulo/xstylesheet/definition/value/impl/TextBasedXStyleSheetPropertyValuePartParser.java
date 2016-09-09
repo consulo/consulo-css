@@ -16,9 +16,9 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
-import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
 /**
  * @author VISTALL

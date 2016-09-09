@@ -16,14 +16,14 @@
 
 package consulo.css.lang.parser;
 
-import consulo.css.lang.CssPsiTokens;
-import consulo.css.lang.CssTokens;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiParser;
 import com.intellij.psi.tree.IElementType;
+import consulo.css.lang.CssPsiTokens;
+import consulo.css.lang.CssTokens;
 import consulo.lang.LanguageVersion;
 
 /**
@@ -144,11 +144,14 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens
 				if(expect(builder, LPAR, "'(' expected"))
 				{
 					boolean noArgument = true;
-					while(true) {
+					while(true)
+					{
 						IElementType tokenType = builder.getTokenType();
-						if(tokenType == COMMA) {
+						if(tokenType == COMMA)
+						{
 
-							if(noArgument) {
+							if(noArgument)
+							{
 								builder.error("Argument expected");
 								break;
 							}
@@ -156,13 +159,16 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens
 							builder.advanceLexer();
 							noArgument = true;
 						}
-						else if(tokenType == RPAR) {
-							if(noArgument) {
+						else if(tokenType == RPAR)
+						{
+							if(noArgument)
+							{
 								builder.error("Argument expected");
 							}
 							break;
 						}
-						else {
+						else
+						{
 							builder.advanceLexer();
 							noArgument = false;
 						}

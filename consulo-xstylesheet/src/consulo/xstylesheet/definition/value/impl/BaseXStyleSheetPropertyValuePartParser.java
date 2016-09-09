@@ -19,12 +19,12 @@ package consulo.xstylesheet.definition.value.impl;
 import java.util.Collections;
 import java.util.List;
 
-import consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
-import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.lookup.LookupElement;
+import consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
+import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
 /**
  * @author VISTALL

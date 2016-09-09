@@ -29,24 +29,31 @@ import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
  * @author VISTALL
  * @since 03.07.13.
  */
-public class PropertyIsNotValidInspection extends LocalInspectionTool {
-  @NotNull
-  @Override
-  public PsiElementVisitor buildVisitor(@NotNull final ProblemsHolder holder, boolean isOnTheFly) {
-    return new PsiElementVisitor() {
-      @Override
-      public void visitElement(PsiElement element) {
-        if(element instanceof PsiXStyleSheetProperty) {
-          XStyleSheetProperty xStyleSheetProperty = ((PsiXStyleSheetProperty) element).getXStyleSheetProperty();
-          if(xStyleSheetProperty == null) {
-            PsiElement nameIdentifier = ((PsiXStyleSheetProperty) element).getNameIdentifier();
-            if(nameIdentifier == null) {
-              return;
-            }
-            holder.registerProblem(nameIdentifier, "Invalid property name", ProblemHighlightType.GENERIC_ERROR_OR_WARNING);
-          }
-        }
-      }
-    };
-  }
+public class PropertyIsNotValidInspection extends LocalInspectionTool
+{
+	@NotNull
+	@Override
+	public PsiElementVisitor buildVisitor(@NotNull final ProblemsHolder holder, boolean isOnTheFly)
+	{
+		return new PsiElementVisitor()
+		{
+			@Override
+			public void visitElement(PsiElement element)
+			{
+				if(element instanceof PsiXStyleSheetProperty)
+				{
+					XStyleSheetProperty xStyleSheetProperty = ((PsiXStyleSheetProperty) element).getXStyleSheetProperty();
+					if(xStyleSheetProperty == null)
+					{
+						PsiElement nameIdentifier = ((PsiXStyleSheetProperty) element).getNameIdentifier();
+						if(nameIdentifier == null)
+						{
+							return;
+						}
+						holder.registerProblem(nameIdentifier, "Invalid property name", ProblemHighlightType.GENERIC_ERROR_OR_WARNING);
+					}
+				}
+			}
+		};
+	}
 }

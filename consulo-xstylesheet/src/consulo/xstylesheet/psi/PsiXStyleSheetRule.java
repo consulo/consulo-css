@@ -16,24 +16,25 @@
 
 package consulo.xstylesheet.psi;
 
-import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import com.intellij.psi.PsiElement;
 
 /**
  * @author VISTALL
  * @since 08.07.13.
  */
-public interface PsiXStyleSheetRule extends PsiElement {
-  @Nullable
-  PsiXStyleSheetBlock getBlock();
+public interface PsiXStyleSheetRule extends PsiElement
+{
+	@Nullable
+	PsiXStyleSheetBlock getBlock();
 
-  @NotNull
-  PsiXStyleSheetProperty[] getProperties();
+	@NotNull
+	PsiXStyleSheetProperty[] getProperties();
 
-  @Nullable
-  PsiXStyleSheetSelectorDeclarationList getSelectorDeclarationList();
+	@Nullable
+	PsiXStyleSheetSelectorDeclarationList getSelectorDeclarationList();
 
-  @NotNull
-  PsiXStyleSheetSelectorDeclaration[] getSelectorDeclarations();
+	@NotNull
+	PsiXStyleSheetSelectorDeclaration[] getSelectorDeclarations();
 }

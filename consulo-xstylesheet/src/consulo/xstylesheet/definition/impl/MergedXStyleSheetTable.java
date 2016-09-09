@@ -16,44 +16,51 @@
 
 package consulo.xstylesheet.definition.impl;
 
-import consulo.xstylesheet.definition.XStyleSheetProperty;
-import consulo.xstylesheet.definition.XStyleSheetTable;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import consulo.xstylesheet.definition.XStyleSheetProperty;
+import consulo.xstylesheet.definition.XStyleSheetTable;
 
 /**
  * @author VISTALL
  * @since 03.07.13.
  */
-public class MergedXStyleSheetTable implements XStyleSheetTable {
-    private final XStyleSheetTable[] myTables;
+public class MergedXStyleSheetTable implements XStyleSheetTable
+{
+	private final XStyleSheetTable[] myTables;
 
-    public MergedXStyleSheetTable(XStyleSheetTable... myTables) {
-        this.myTables = myTables;
-    }
+	public MergedXStyleSheetTable(XStyleSheetTable... myTables)
+	{
+		this.myTables = myTables;
+	}
 
-    @Nullable
-    @Override
-    public XStyleSheetProperty findProperty(@NotNull String propertyName) {
-        for (XStyleSheetTable myTable : myTables) {
-            XStyleSheetProperty property = myTable.findProperty(propertyName);
-            if(property != null) {
-                return property;
-            }
-        }
-        return null;
-    }
+	@Nullable
+	@Override
+	public XStyleSheetProperty findProperty(@NotNull String propertyName)
+	{
+		for(XStyleSheetTable myTable : myTables)
+		{
+			XStyleSheetProperty property = myTable.findProperty(propertyName);
+			if(property != null)
+			{
+				return property;
+			}
+		}
+		return null;
+	}
 
-  @NotNull
-  @Override
-  public List<XStyleSheetProperty> getProperties() {
-    List<XStyleSheetProperty> list = new ArrayList<XStyleSheetProperty>();
-    for (XStyleSheetTable table : myTables) {
-      list.addAll(table.getProperties());
-    }
-    return list;
-  }
+	@NotNull
+	@Override
+	public List<XStyleSheetProperty> getProperties()
+	{
+		List<XStyleSheetProperty> list = new ArrayList<XStyleSheetProperty>();
+		for(XStyleSheetTable table : myTables)
+		{
+			list.addAll(table.getProperties());
+		}
+		return list;
+	}
 }
