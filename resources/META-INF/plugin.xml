@@ -1,10 +1,10 @@
 <idea-plugin>
-	<id>org.consulo.css</id>
+	<id>consulo.css</id>
 	<name>CSS</name>
 	<version>SNAPSHOT</version>
 	<category>Markup Languages</category>
 	<depends>org.consulo.xstylesheet</depends>
-	<depends config-file="org.consulo.emmet.xml" optional="true">org.consulo.emmet</depends>
+	<depends config-file="consulo.emmet.xml" optional="true">consulo.emmet</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
 		<completion.contributor language="CSS" implementationClass="org.consulo.css.editor.completion.CssCompletionContributor"/>

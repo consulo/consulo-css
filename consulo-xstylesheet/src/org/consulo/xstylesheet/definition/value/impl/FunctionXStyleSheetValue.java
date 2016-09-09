@@ -37,7 +37,7 @@ import com.intellij.util.SmartList;
  */
 public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartParser
 {
-	public static final ExtensionPointName<XStyleSheetFunctionCallDescriptor> EP_NAME = ExtensionPointName.create("org.consulo.xstylesheet.functionCallValidator");
+	public static final ExtensionPointName<XStyleSheetFunctionCallDescriptor> EP_NAME = ExtensionPointName.create("consulo.xstylesheet.functionCallValidator");
 
 
 	public static interface XStyleSheetFunctionCallDescriptor

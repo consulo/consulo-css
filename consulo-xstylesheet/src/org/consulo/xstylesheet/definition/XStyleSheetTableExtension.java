@@ -16,6 +16,21 @@
 
 package org.consulo.xstylesheet.definition;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;
+import org.consulo.xstylesheet.definition.impl.XStyleSheetPropertyImpl;
+import org.consulo.xstylesheet.definition.impl.XStyleSheetPropertyValueEntryImpl;
+import org.consulo.xstylesheet.definition.impl.XStyleSheetPropertyValuePartImpl;
+import org.consulo.xstylesheet.definition.impl.XStyleSheetTableImpl;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.extensions.AbstractExtensionPointBean;
 import com.intellij.openapi.extensions.ExtensionPointName;
@@ -24,13 +39,6 @@ import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.ReflectionUtil;
 import com.intellij.util.xmlb.annotations.Attribute;
-import org.consulo.xstylesheet.definition.impl.*;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-
-import java.io.InputStream;
-import java.util.*;
 
 /**
  * @author VISTALL
@@ -39,7 +47,7 @@ import java.util.*;
 public class XStyleSheetTableExtension extends AbstractExtensionPointBean {
   private static final Logger LOGGER = Logger.getInstance(XStyleSheetTableExtension.class);
 
-  public static final ExtensionPointName<XStyleSheetTableExtension> EP_NAME = ExtensionPointName.create("org.consulo.xstylesheet.table");
+  public static final ExtensionPointName<XStyleSheetTableExtension> EP_NAME = ExtensionPointName.create("consulo.xstylesheet.table");
 
   @Attribute("file")
   public String file;
