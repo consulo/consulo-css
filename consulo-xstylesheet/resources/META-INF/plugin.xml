@@ -5,24 +5,24 @@
 	<category>Markup Languages</category>
 	<depends>com.intellij.xml</depends>
 	<extensionPoints>
-		<extensionPoint name="table" beanClass="org.consulo.xstylesheet.definition.XStyleSheetTableExtension"/>
+		<extensionPoint name="table" beanClass="consulo.xstylesheet.definition.XStyleSheetTableExtension"/>
 		<extensionPoint name="functionCallValidator"
-						interface="org.consulo.xstylesheet.definition.value.impl.FunctionXStyleSheetValue$XStyleSheetFunctionCallDescriptor"/>
+						interface="consulo.xstylesheet.definition.value.impl.FunctionXStyleSheetValue$XStyleSheetFunctionCallDescriptor"/>
 	</extensionPoints>
 
 	<extensions defaultExtensionNs="consulo.xstylesheet">
-		<table file="/org/consulo/xstylesheet/defaultXStyleSheetTable.xml"/>
+		<table file="/consulo.xstylesheet/defaultXStyleSheetTable.xml"/>
 
-		<functionCallValidator implementation="org.consulo.xstylesheet.definition.value.impl.FunctionXStyleSheetValue$UrlFunctionCallValidator"/>
+		<functionCallValidator implementation="consulo.xstylesheet.definition.value.impl.FunctionXStyleSheetValue$UrlFunctionCallValidator"/>
 	</extensions>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<localInspection implementationClass="org.consulo.xstylesheet.codeInsight.PropertyIsNotValidInspection" displayName="Invalid property name"
+		<localInspection implementationClass="consulo.xstylesheet.codeInsight.PropertyIsNotValidInspection" displayName="Invalid property name"
 						 groupName="CSS" enabledByDefault="true"/>
-		<localInspection implementationClass="org.consulo.xstylesheet.codeInsight.PropertyValueIsNotValidInspection"
+		<localInspection implementationClass="consulo.xstylesheet.codeInsight.PropertyValueIsNotValidInspection"
 						 displayName="Invalid property value" groupName="CSS" enabledByDefault="true"/>
-		<highlightVisitor implementation="org.consulo.xstylesheet.highlight.XStyleSheetHighlightVisitor"/>
-		<colorProvider implementation="org.consulo.xstylesheet.editor.lineMarker.XStyleSheetElementColorProvider"/>
-		<iconDescriptorUpdater implementation="org.consulo.xstylesheet.XStyleSheetIconProvider"/>
+		<highlightVisitor implementation="consulo.xstylesheet.highlight.XStyleSheetHighlightVisitor"/>
+		<colorProvider implementation="consulo.xstylesheet.editor.lineMarker.XStyleSheetElementColorProvider"/>
+		<iconDescriptorUpdater implementation="consulo.xstylesheet.XStyleSheetIconProvider"/>
 	</extensions>
 </idea-plugin>

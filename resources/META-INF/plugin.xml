@@ -3,20 +3,20 @@
 	<name>CSS</name>
 	<version>SNAPSHOT</version>
 	<category>Markup Languages</category>
-	<depends>org.consulo.xstylesheet</depends>
+	<depends>consulo.xstylesheet</depends>
 	<depends config-file="consulo.emmet.xml" optional="true">consulo.emmet</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<completion.contributor language="CSS" implementationClass="org.consulo.css.editor.completion.CssCompletionContributor"/>
-		<fileTypeFactory implementation="org.consulo.css.lang.CssFileTypeFactory"/>
+		<completion.contributor language="CSS" implementationClass="consulo.css.editor.completion.CssCompletionContributor"/>
+		<fileTypeFactory implementation="consulo.css.lang.CssFileTypeFactory"/>
 
-		<multiHostInjector forClass="com.intellij.psi.xml.XmlAttributeValue" implementationClass="org.consulo.css.lang.CssMultiHostInjector"/>
-		<psi.referenceContributor language="HTML" implementation="org.consulo.css.html.CssToHtmlReferenceContributor"/>
-		<lang.parserDefinition language="CSS" implementationClass="org.consulo.css.lang.parser.CssParserDefinition"/>
-		<lang.syntaxHighlighterFactory key="CSS" implementationClass="org.consulo.css.lang.CssSyntaxHighlighterFactory"/>
-		<lang.commenter language="CSS" implementationClass="org.consulo.css.lang.CssCommenter"/>
-		<lang.braceMatcher language="CSS" implementationClass="org.consulo.css.lang.CssPairedBraceMatcher"/>
-		<lang.formatter language="CSS" implementationClass="org.consulo.css.lang.formatting.CssFormattingModelBuilder"/>
-		<lang.psiStructureViewFactory language="CSS" implementationClass="org.consulo.css.editor.structureView.CssPsiStructureViewFactory"/>
+		<multiHostInjector forClass="com.intellij.psi.xml.XmlAttributeValue" implementationClass="consulo.css.lang.CssMultiHostInjector"/>
+		<psi.referenceContributor language="HTML" implementation="consulo.css.html.CssToHtmlReferenceContributor"/>
+		<lang.parserDefinition language="CSS" implementationClass="consulo.css.lang.parser.CssParserDefinition"/>
+		<lang.syntaxHighlighterFactory key="CSS" implementationClass="consulo.css.lang.CssSyntaxHighlighterFactory"/>
+		<lang.commenter language="CSS" implementationClass="consulo.css.lang.CssCommenter"/>
+		<lang.braceMatcher language="CSS" implementationClass="consulo.css.lang.CssPairedBraceMatcher"/>
+		<lang.formatter language="CSS" implementationClass="consulo.css.lang.formatting.CssFormattingModelBuilder"/>
+		<lang.psiStructureViewFactory language="CSS" implementationClass="consulo.css.editor.structureView.CssPsiStructureViewFactory"/>
 	</extensions>
 </idea-plugin>
