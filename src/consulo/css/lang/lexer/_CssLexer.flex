@@ -9,7 +9,6 @@ import consulo.css.lang.CssTokens;
 %public
 %class _CssLexer
 %extends LexerBase
-%final
 %unicode
 %function advanceImpl
 %type IElementType

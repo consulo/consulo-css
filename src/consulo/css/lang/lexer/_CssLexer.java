@@ -13,7 +13,7 @@ import consulo.css.lang.CssTokens;
  * on 9/9/16 8:03 PM from the specification file
  * <tt>R:/_github.com/consulo/consulo-css/src/consulo/css/lang/lexer/_CssLexer.flex</tt>
  */
-public final class _CssLexer extends LexerBase
+public class _CssLexer extends LexerBase
 {
 	/**
 	 * initial size of the lookahead buffer

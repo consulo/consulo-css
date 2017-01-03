@@ -22,11 +22,10 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.extapi.psi.PsiFileBase;
-import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.PsiFile;
 import com.intellij.util.SmartList;
-import consulo.css.lang.CssFileType;
 import consulo.css.lang.CssLanguage;
 import consulo.xstylesheet.definition.XStyleSheetTable;
 import consulo.xstylesheet.definition.XStyleSheetTableExtension;
@@ -44,13 +43,6 @@ public class CssFile extends PsiFileBase implements XStyleSheetFile
 	public CssFile(@NotNull FileViewProvider provider)
 	{
 		super(provider, CssLanguage.INSTANCE);
-	}
-
-	@NotNull
-	@Override
-	public FileType getFileType()
-	{
-		return CssFileType.INSTANCE;
 	}
 
 	@Override
@@ -99,9 +91,9 @@ public class CssFile extends PsiFileBase implements XStyleSheetFile
 	}
 
 	@NotNull
-	public XStyleSheetTable getXStyleSheetTable()
+	public static XStyleSheetTable getXStyleSheetTable(@NotNull PsiFile file)
 	{
-		SmartList<XStyleSheetTable> list = new SmartList<XStyleSheetTable>();
+		SmartList<XStyleSheetTable> list = new SmartList<>();
 		for(XStyleSheetTableExtension extension : XStyleSheetTableExtension.EP_NAME.getExtensions())
 		{
 	  /*if (extension.condition == null || extension.condition.value(this)) */

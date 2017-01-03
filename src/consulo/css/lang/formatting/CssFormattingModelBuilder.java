@@ -18,15 +18,16 @@ package consulo.css.lang.formatting;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import com.intellij.formatting.Block;
 import com.intellij.formatting.FormattingModel;
 import com.intellij.formatting.FormattingModelBuilder;
-import com.intellij.formatting.FormattingModelProvider;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
-import consulo.css.lang.CssLanguage;
+import com.intellij.psi.formatter.FormattingDocumentModelImpl;
+import com.intellij.psi.formatter.PsiBasedFormattingModel;
 
 /**
  * @author VISTALL
@@ -36,16 +37,12 @@ public class CssFormattingModelBuilder implements FormattingModelBuilder
 {
 	@NotNull
 	@Override
-	public FormattingModel createModel(PsiElement psiElement, CodeStyleSettings codeStyleSettings)
+	public FormattingModel createModel(PsiElement element, CodeStyleSettings codeStyleSettings)
 	{
-		ASTNode node = psiElement.getNode();
-		assert node != null;
-		PsiFile containingFile = psiElement.getContainingFile().getViewProvider().getPsi(CssLanguage.INSTANCE);
-		assert containingFile != null : psiElement.getContainingFile();
-		ASTNode fileNode = containingFile.getNode();
-		assert fileNode != null;
-		CssFormattingBlock block = new CssFormattingBlock(fileNode, null, null);
-		return FormattingModelProvider.createFormattingModelForPsiFile(containingFile, block, codeStyleSettings);
+		final PsiFile file = element.getContainingFile();
+		FormattingDocumentModelImpl model = FormattingDocumentModelImpl.createOn(element.getContainingFile());
+		Block rootBlock = new CssFormattingBlock(element.getNode(), null, null);
+		return new PsiBasedFormattingModel(file, rootBlock, model);
 	}
 
 	@Nullable

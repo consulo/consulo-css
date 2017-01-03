@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 must-be.org
+ * Copyright 2013-2017 must-be.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,33 @@
  * limitations under the License.
  */
 
-package consulo.css.lang.psi;
+package consulo.css.html;
 
-import org.jetbrains.annotations.NotNull;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
+import com.intellij.lexer.HtmlEmbeddedTokenTypesProvider;
+import com.intellij.psi.tree.IElementType;
+import consulo.css.html.psi.CssHtmlTokens;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 03-Jan-17
  */
-public abstract class CssElement extends ASTWrapperPsiElement
+public class CssHtmlEmbeddedTokenTypesProvider implements HtmlEmbeddedTokenTypesProvider
 {
-	public CssElement(@NotNull ASTNode node)
+	@Override
+	public String getName()
 	{
-		super(node);
+		return "style";
+	}
+
+	@Override
+	public IElementType getElementType()
+	{
+		return CssHtmlTokens.HTML_CSS_ELEMENT;
+	}
+
+	@Override
+	public IElementType getInlineElementType()
+	{
+		return CssHtmlTokens.INLINE_HTML_CSS_ELEMENT;
 	}
 }

@@ -10,7 +10,6 @@
 		<completion.contributor language="CSS" implementationClass="consulo.css.editor.completion.CssCompletionContributor"/>
 		<fileTypeFactory implementation="consulo.css.lang.CssFileTypeFactory"/>
 
-		<multiHostInjector forClass="com.intellij.psi.xml.XmlAttributeValue" implementationClass="consulo.css.lang.CssMultiHostInjector"/>
 		<psi.referenceContributor language="HTML" implementation="consulo.css.html.CssToHtmlReferenceContributor"/>
 		<lang.parserDefinition language="CSS" implementationClass="consulo.css.lang.parser.CssParserDefinition"/>
 		<lang.syntaxHighlighterFactory key="CSS" implementationClass="consulo.css.lang.CssSyntaxHighlighterFactory"/>
@@ -18,5 +17,9 @@
 		<lang.braceMatcher language="CSS" implementationClass="consulo.css.lang.CssPairedBraceMatcher"/>
 		<lang.formatter language="CSS" implementationClass="consulo.css.lang.formatting.CssFormattingModelBuilder"/>
 		<lang.psiStructureViewFactory language="CSS" implementationClass="consulo.css.editor.structureView.CssPsiStructureViewFactory"/>
+	</extensions>
+
+	<extensions defaultExtensionNs="com.intellij.xml">
+		<html.embeddedTokenTypesProvider implementation="consulo.css.html.CssHtmlEmbeddedTokenTypesProvider"/>
 	</extensions>
 </idea-plugin>

@@ -32,7 +32,6 @@ import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import consulo.xstylesheet.psi.PsiXStyleSheetSelectorAttribute;
 import consulo.xstylesheet.psi.PsiXStyleSheetSelectorPseudoClass;
 import consulo.xstylesheet.psi.PsiXStyleSheetSelectorReference;
-import consulo.xstylesheet.psi.XStyleSheetFile;
 
 /**
  * @author VISTALL
@@ -45,7 +44,7 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 	@Override
 	public boolean suitableForFile(@NotNull PsiFile psiFile)
 	{
-		return psiFile instanceof XStyleSheetFile;
+		return true;
 	}
 
 	@Override

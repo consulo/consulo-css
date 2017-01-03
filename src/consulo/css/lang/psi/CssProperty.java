@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.util.IncorrectOperationException;
 import consulo.css.lang.CssTokens;
@@ -63,8 +64,8 @@ public class CssProperty extends CssElement implements PsiNameIdentifierOwner, P
 		{
 			return null;
 		}
-		CssFile containingFile = getContainingFile();
-		XStyleSheetTable xStyleSheetTable = containingFile.getXStyleSheetTable();
+		PsiFile containingFile = getContainingFile();
+		XStyleSheetTable xStyleSheetTable = CssFile.getXStyleSheetTable(containingFile);
 		return xStyleSheetTable.findProperty(name);
 	}
 

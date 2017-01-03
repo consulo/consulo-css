@@ -29,6 +29,7 @@ import com.intellij.formatting.Wrap;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.formatter.common.AbstractBlock;
 import com.intellij.psi.tree.IElementType;
+import consulo.css.html.psi.CssHtmlTokens;
 import consulo.css.lang.CssPsiTokens;
 import consulo.css.lang.CssTokens;
 import consulo.css.lang.parser.CssParserDefinition;
@@ -43,7 +44,6 @@ import consulo.css.lang.psi.CssSelectorDeclarationList;
  */
 public class CssFormattingBlock extends AbstractBlock
 {
-
 	public CssFormattingBlock(@NotNull ASTNode node, @Nullable Wrap wrap, @Nullable Alignment alignment)
 	{
 		super(node, wrap, alignment);
@@ -53,8 +53,8 @@ public class CssFormattingBlock extends AbstractBlock
 	protected List<Block> buildChildren()
 	{
 		IElementType elementType = getNode().getElementType();
-		List<Block> blocks = new ArrayList<Block>();
-		if(elementType == CssParserDefinition.FILE_ELEMENT)
+		List<Block> blocks = new ArrayList<>();
+		if(elementType == CssParserDefinition.FILE_ELEMENT || elementType == CssHtmlTokens.HTML_CSS_ELEMENT)
 		{
 			ASTNode child = getNode().getFirstChildNode();
 			while(child != null)

@@ -11,7 +11,7 @@
 	</extensionPoints>
 
 	<extensions defaultExtensionNs="consulo.xstylesheet">
-		<table file="/consulo.xstylesheet/defaultXStyleSheetTable.xml"/>
+		<table file="/consulo/xstylesheet/defaultXStyleSheetTable.xml"/>
 
 		<functionCallValidator implementation="consulo.xstylesheet.definition.value.impl.FunctionXStyleSheetValue$UrlFunctionCallValidator"/>
 	</extensions>

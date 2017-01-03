@@ -27,6 +27,7 @@ import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.patterns.PlatformPatterns;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.ProcessingContext;
@@ -59,15 +60,15 @@ public class CssCompletionContributor extends CompletionContributor
 					return;
 				}
 
-				CssFile containingFile = (CssFile) completionParameters.getOriginalFile();
+				PsiFile containingFile = completionParameters.getOriginalFile();
 
-				List<String> alreadyExists = new ArrayList<String>();
+				List<String> alreadyExists = new ArrayList<>();
 				for(PsiXStyleSheetProperty property : rule.getProperties())
 				{
 					alreadyExists.add(property.getName());
 				}
 
-				XStyleSheetTable xStyleSheetTable = containingFile.getXStyleSheetTable();
+				XStyleSheetTable xStyleSheetTable = CssFile.getXStyleSheetTable(containingFile);
 				for(XStyleSheetProperty property : xStyleSheetTable.getProperties())
 				{
 					if(alreadyExists.contains(property.getName()))

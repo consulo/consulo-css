@@ -32,7 +32,7 @@ import consulo.lang.LanguageVersion;
  */
 public class CssParser implements PsiParser, CssTokens, CssPsiTokens
 {
-	private static boolean expect(PsiBuilder builder, IElementType elementType, @Nullable String message)
+	public static boolean expect(PsiBuilder builder, IElementType elementType, @Nullable String message)
 	{
 		if(builder.getTokenType() != elementType)
 		{
@@ -109,13 +109,14 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens
 		return builder.getTreeBuilt();
 	}
 
-	private void parsePropertyValue(PsiBuilder builder)
+	public void parsePropertyValue(PsiBuilder builder)
 	{
 		PsiBuilder.Marker valueMarker = null;
 
 		while(!builder.eof())
 		{
-			if(builder.getTokenType() == COMMA)
+			IElementType type = builder.getTokenType();
+			if(type == COMMA)
 			{
 				if(valueMarker != null)
 				{
@@ -125,11 +126,11 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens
 
 				builder.advanceLexer();
 			}
-			else if(builder.getTokenType() == SEMICOLON || builder.getTokenType() == RBRACE)
+			else if(type == SEMICOLON || type == RBRACE || type == BAD_CHARACTER)
 			{
 				break;
 			}
-			else if(builder.getTokenType() == FUNCTION_NAME)
+			else if(type == FUNCTION_NAME)
 			{
 				if(valueMarker == null)
 				{
