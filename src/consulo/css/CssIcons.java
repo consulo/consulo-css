@@ -26,5 +26,5 @@ import com.intellij.openapi.util.IconLoader;
  */
 public interface CssIcons
 {
-	Icon CssFile = IconLoader.findIcon("/org/consulo/css/icons/cssFile.png");
+	Icon CssFile = IconLoader.findIcon("/consulo/css/icons/cssFile.png");
 }
