@@ -11,21 +11,19 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.Sets;
 import com.intellij.openapi.components.PersistentStateComponent;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.components.StoragePathMacros;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.JDOMUtil;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.xmlb.XmlSerializerUtil;
-import consulo.lombok.annotations.ApplicationService;
-import consulo.lombok.annotations.Logger;
 
 /**
  * @author VISTALL
  * @since 23.08.13.
  */
-@ApplicationService
-@Logger
 @State(
 		name = "CssEmmetOptions",
 		storages = {
@@ -36,6 +34,14 @@ import consulo.lombok.annotations.Logger;
 )
 public class CssEmmetOptions implements PersistentStateComponent<CssEmmetOptions>
 {
+	@NotNull
+	public static CssEmmetOptions getInstance()
+	{
+		return ServiceManager.getService(CssEmmetOptions.class);
+	}
+
+	private static final Logger LOGGER = Logger.getInstance(CssEmmetOptions.class);
+
 	private boolean myFuzzySearchEnabled = true;
 	private boolean myAutoInsertCssPrefixedEnabled = true;
 	@Nullable
