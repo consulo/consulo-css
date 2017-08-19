@@ -33,7 +33,7 @@ import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.psi.xml.XmlTokenType;
 import com.intellij.util.ProcessingContext;
-import consulo.css.lang.psi.CssFile;
+import consulo.xstylesheet.psi.XStyleSheetFile;
 
 
 /**
@@ -62,15 +62,9 @@ public class HtmlHrefToCssFileReferenceProvider extends PsiReferenceProvider
 			if("link".equalsIgnoreCase(xmlTag.getName()))
 			{
 				String rel = xmlTag.getAttributeValue("rel");
-				if(!"stylesheet".equalsIgnoreCase(rel))
+				if("stylesheet".equalsIgnoreCase(rel))
 				{
-					return false;
-				}
-
-				String type = xmlTag.getAttributeValue("type");
-				if(!"text/css".equalsIgnoreCase(type))
-				{
-					return false;
+					return true;
 				}
 			}
 			return true;
@@ -98,14 +92,7 @@ public class HtmlHrefToCssFileReferenceProvider extends PsiReferenceProvider
 			@Override
 			protected Condition<PsiFileSystemItem> getReferenceCompletionFilter()
 			{
-				return new Condition<PsiFileSystemItem>()
-				{
-					@Override
-					public boolean value(PsiFileSystemItem psiFileSystemItem)
-					{
-						return psiFileSystemItem instanceof CssFile || psiFileSystemItem instanceof PsiDirectory;
-					}
-				};
+				return item -> item instanceof XStyleSheetFile || item instanceof PsiDirectory;
 			}
 		};
 		fileReferenceSet.setEmptyPathAllowed(false);

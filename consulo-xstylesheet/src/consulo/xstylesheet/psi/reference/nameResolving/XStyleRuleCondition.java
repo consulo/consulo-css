@@ -16,7 +16,6 @@
 
 package consulo.xstylesheet.psi.reference.nameResolving;
 
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiElementFilter;
 
 /**
@@ -25,12 +24,5 @@ import com.intellij.psi.util.PsiElementFilter;
  */
 public interface XStyleRuleCondition extends PsiElementFilter
 {
-	XStyleRuleCondition ANY = new XStyleRuleCondition()
-	{
-		@Override
-		public boolean isAccepted(PsiElement psiElement)
-		{
-			return true;
-		}
-	};
+	XStyleRuleCondition ANY = psiElement -> true;
 }

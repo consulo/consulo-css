@@ -17,6 +17,7 @@
 package consulo.css.lang.psi.reference.nameResolving;
 
 import com.intellij.psi.PsiElement;
+import consulo.css.lang.psi.CssSelectorDeclaration;
 import consulo.css.lang.psi.CssSelectorReference;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 
@@ -53,6 +54,18 @@ public class CssSimpleRuleWithNameCondition implements XStyleRuleCondition
 					return selectorReference.isIdRule();
 				case CLASS:
 					return selectorReference.isClassRule();
+			}
+		}
+
+		if(psiElement instanceof CssSelectorDeclaration)
+		{
+			CssSelectorReference[] selectorReferences = ((CssSelectorDeclaration) psiElement).getSelectorReferences();
+			for(CssSelectorReference selectorReference : selectorReferences)
+			{
+				if(isAccepted(selectorReference))
+				{
+					return true;
+				}
 			}
 		}
 

@@ -32,7 +32,6 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.ProcessingContext;
 import consulo.codeInsight.completion.CompletionProvider;
-import consulo.css.lang.psi.CssFile;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValueEntry;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
@@ -40,6 +39,7 @@ import consulo.xstylesheet.definition.XStyleSheetTable;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import consulo.xstylesheet.psi.PsiXStyleSheetRule;
+import consulo.xstylesheet.psi.XStyleSheetFile;
 
 /**
  * @author VISTALL
@@ -68,7 +68,7 @@ public class CssCompletionContributor extends CompletionContributor
 					alreadyExists.add(property.getName());
 				}
 
-				XStyleSheetTable xStyleSheetTable = CssFile.getXStyleSheetTable(containingFile);
+				XStyleSheetTable xStyleSheetTable = XStyleSheetFile.getXStyleSheetTable(containingFile);
 				for(XStyleSheetProperty property : xStyleSheetTable.getProperties())
 				{
 					if(alreadyExists.contains(property.getName()))

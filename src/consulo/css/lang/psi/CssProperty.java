@@ -29,6 +29,7 @@ import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetTable;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
+import consulo.xstylesheet.psi.XStyleSheetFile;
 
 /**
  * @author VISTALL
@@ -65,7 +66,7 @@ public class CssProperty extends CssElement implements PsiNameIdentifierOwner, P
 			return null;
 		}
 		PsiFile containingFile = getContainingFile();
-		XStyleSheetTable xStyleSheetTable = CssFile.getXStyleSheetTable(containingFile);
+		XStyleSheetTable xStyleSheetTable = XStyleSheetFile.getXStyleSheetTable(containingFile);
 		return xStyleSheetTable.findProperty(name);
 	}
 

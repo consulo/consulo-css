@@ -16,7 +16,6 @@
 
 package consulo.css.lang.psi;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,13 +24,9 @@ import org.jetbrains.annotations.Nullable;
 import com.intellij.extapi.psi.PsiFileBase;
 import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElementVisitor;
-import com.intellij.psi.PsiFile;
-import com.intellij.util.SmartList;
+import consulo.annotations.RequiredReadAction;
 import consulo.css.lang.CssLanguage;
-import consulo.xstylesheet.definition.XStyleSheetTable;
-import consulo.xstylesheet.definition.XStyleSheetTableExtension;
-import consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;
-import consulo.xstylesheet.definition.impl.MergedXStyleSheetTable;
+import consulo.xstylesheet.psi.PsiXStyleSheetRule;
 import consulo.xstylesheet.psi.XStyleSheetFile;
 import consulo.xstylesheet.psi.XStyleSheetRoot;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
@@ -54,56 +49,17 @@ public class CssFile extends PsiFileBase implements XStyleSheetFile
 	}
 
 	@Nullable
-	public CssRule findRule(@NotNull XStyleRuleCondition condition)
+	@RequiredReadAction
+	public PsiXStyleSheetRule findRule(@NotNull XStyleRuleCondition condition)
 	{
-		for(CssRule o : getRules())
-		{
-			for(CssSelectorDeclaration reference : o.getSelectorDeclarations())
-			{
-				if(condition.isAccepted(reference))
-				{
-					return o;
-				}
-			}
-		}
-		return null;
+		return getRoot().findRule(condition);
 	}
 
 	@NotNull
-	public List<CssRule> findRules(@NotNull XStyleRuleCondition condition)
+	@RequiredReadAction
+	public List<PsiXStyleSheetRule> findRules(@NotNull XStyleRuleCondition condition)
 	{
-		List<CssRule> list = new ArrayList<CssRule>();
-		for(CssRule o : getRules())
-		{
-			for(CssSelectorDeclaration reference : o.getSelectorDeclarations())
-			{
-				if(condition.isAccepted(reference))
-				{
-					list.add(o);
-				}
-			}
-		}
-		return list;
-	}
-
-	@NotNull
-	public CssRule[] getRules()
-	{
-		return findChildrenByClass(CssRule.class);
-	}
-
-	@NotNull
-	public static XStyleSheetTable getXStyleSheetTable(@NotNull PsiFile file)
-	{
-		SmartList<XStyleSheetTable> list = new SmartList<>();
-		for(XStyleSheetTableExtension extension : XStyleSheetTableExtension.EP_NAME.getExtensions())
-		{
-	  /*if (extension.condition == null || extension.condition.value(this)) */
-			{
-				list.add(extension.getTable());
-			}
-		}
-		return list.isEmpty() ? EmptyXStyleSheetTable.INSTANCE : new MergedXStyleSheetTable(list.toArray(new XStyleSheetTable[list.size()]));
+		return getRoot().findRules(condition);
 	}
 
 	@NotNull

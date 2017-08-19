@@ -25,8 +25,8 @@ import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase;
 import consulo.css.lang.psi.CssFile;
-import consulo.css.lang.psi.CssRule;
-import consulo.css.lang.psi.CssSelectorDeclaration;
+import consulo.xstylesheet.psi.PsiXStyleSheetRule;
+import consulo.xstylesheet.psi.PsiXStyleSheetSelectorDeclaration;
 
 /**
  * @author VISTALL
@@ -34,7 +34,6 @@ import consulo.css.lang.psi.CssSelectorDeclaration;
  */
 public class CssStructureViewTreeElement extends PsiTreeElementBase<CssFile>
 {
-
 	public CssStructureViewTreeElement(CssFile psiElement)
 	{
 		super(psiElement);
@@ -44,10 +43,10 @@ public class CssStructureViewTreeElement extends PsiTreeElementBase<CssFile>
 	@Override
 	public Collection<StructureViewTreeElement> getChildrenBase()
 	{
-		List<StructureViewTreeElement> list = new ArrayList<StructureViewTreeElement>();
-		for(CssRule cssRule : getElement().getRules())
+		List<StructureViewTreeElement> list = new ArrayList<>();
+		for(PsiXStyleSheetRule cssRule : getElement().getRoot().getRules())
 		{
-			for(CssSelectorDeclaration declaration : cssRule.getSelectorDeclarations())
+			for(PsiXStyleSheetSelectorDeclaration declaration : cssRule.getSelectorDeclarations())
 			{
 				list.add(new CssSelectorDeclarationStructureViewTreeElement(declaration));
 			}

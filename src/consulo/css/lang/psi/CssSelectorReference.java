@@ -32,8 +32,6 @@ import consulo.xstylesheet.psi.PsiXStyleSheetSelectorReference;
  */
 public class CssSelectorReference extends CssElement implements PsiXStyleSheetSelectorReference, PsiNameIdentifierOwner
 {
-	public static final CssSelectorReference[] EMPTY_ARRAY = new CssSelectorReference[0];
-
 	public CssSelectorReference(@NotNull ASTNode node)
 	{
 		super(node);

@@ -28,15 +28,16 @@ import com.intellij.psi.PsiReference;
 import com.intellij.psi.ResolveResult;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.ArrayUtil;
+import consulo.annotations.RequiredReadAction;
 import consulo.css.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
 import consulo.css.lang.psi.CssFile;
-import consulo.css.lang.psi.CssRule;
-import consulo.css.lang.psi.CssSelectorDeclaration;
-import consulo.css.lang.psi.CssSelectorReference;
 import consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleConditionType;
 import consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleOnlyTypeCondition;
 import consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleWithNameCondition;
 import consulo.ide.IconDescriptorUpdaters;
+import consulo.xstylesheet.psi.PsiXStyleSheetRule;
+import consulo.xstylesheet.psi.PsiXStyleSheetSelectorDeclaration;
+import consulo.xstylesheet.psi.PsiXStyleSheetSelectorReference;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 
 /**
@@ -45,22 +46,23 @@ import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
  */
 public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase<PsiElement>
 {
-	private CssSimpleRuleWithNameCondition myCondition;
+	private final CssSimpleRuleConditionType myConditionType;
 
-	public HtmlIdOrClassToCssFileReference(@NotNull PsiElement element, CssSimpleRuleConditionType cssRefTo)
+	public HtmlIdOrClassToCssFileReference(@NotNull PsiElement element, CssSimpleRuleConditionType conditionType)
 	{
 		super(element);
-		myCondition = new CssSimpleRuleWithNameCondition(cssRefTo, element.getText().trim());
+		myConditionType = conditionType;
 	}
 
+	@RequiredReadAction
 	@NotNull
 	@Override
 	public ResolveResult[] multiResolve(boolean b)
 	{
-		List<CssRule> rules = resolveRules(myCondition);
+		List<PsiXStyleSheetRule> rules = resolveRules(new CssSimpleRuleWithNameCondition(myConditionType, getElement().getText()));
 
-		List<ResolveResult> resolveResults = new ArrayList<ResolveResult>(rules.size());
-		for(CssRule rule : rules)
+		List<ResolveResult> resolveResults = new ArrayList<>(rules.size());
+		for(PsiXStyleSheetRule rule : rules)
 		{
 			resolveResults.add(new PsiElementResolveResult(rule));
 		}
@@ -70,16 +72,17 @@ public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase
 
 	@NotNull
 	@Override
+	@RequiredReadAction
 	public Object[] getVariants()
 	{
-		List<CssRule> cssRules = resolveRules(new CssSimpleRuleOnlyTypeCondition(myCondition.getConditionType()));
+		List<PsiXStyleSheetRule> cssRules = resolveRules(new CssSimpleRuleOnlyTypeCondition(myConditionType));
 
 		List<LookupElementBuilder> items = new ArrayList<LookupElementBuilder>(cssRules.size());
-		for(CssRule cssRule : cssRules)
+		for(PsiXStyleSheetRule cssRule : cssRules)
 		{
-			for(CssSelectorDeclaration cssSelectorDeclaration : cssRule.getSelectorDeclarations())
+			for(PsiXStyleSheetSelectorDeclaration cssSelectorDeclaration : cssRule.getSelectorDeclarations())
 			{
-				CssSelectorReference[] selectorReferences = cssSelectorDeclaration.getSelectorReferences();
+				PsiXStyleSheetSelectorReference[] selectorReferences = cssSelectorDeclaration.getSelectorReferences();
 				if(selectorReferences.length != 1)
 				{
 					continue;
@@ -94,9 +97,10 @@ public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase
 		return ArrayUtil.toObjectArray(items);
 	}
 
-	private List<CssRule> resolveRules(XStyleRuleCondition condition)
+	@RequiredReadAction
+	private List<PsiXStyleSheetRule> resolveRules(XStyleRuleCondition condition)
 	{
-		List<CssRule> resolveResults = new ArrayList<CssRule>();
+		List<PsiXStyleSheetRule> resolveResults = new ArrayList<>();
 		PsiElement[] psiElements = PsiTreeUtil.collectElements(getElement().getContainingFile(), new HtmlHrefToCssFileReferenceProvider.CssFileHrefFilter());
 		for(PsiElement temp : psiElements)
 		{
@@ -106,8 +110,8 @@ public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase
 				PsiElement resolve = reference.resolve();
 				if(resolve instanceof CssFile)
 				{
-					List<CssRule> rules = ((CssFile) resolve).findRules(condition);
-					for(CssRule rule : rules)
+					List<PsiXStyleSheetRule> rules = ((CssFile) resolve).findRules(condition);
+					for(PsiXStyleSheetRule rule : rules)
 					{
 						resolveResults.add(rule);
 					}
