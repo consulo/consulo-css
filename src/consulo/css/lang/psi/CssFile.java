@@ -18,6 +18,7 @@ package consulo.css.lang.psi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -32,6 +33,7 @@ import consulo.xstylesheet.definition.XStyleSheetTableExtension;
 import consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;
 import consulo.xstylesheet.definition.impl.MergedXStyleSheetTable;
 import consulo.xstylesheet.psi.XStyleSheetFile;
+import consulo.xstylesheet.psi.XStyleSheetRoot;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 
 /**
@@ -102,5 +104,12 @@ public class CssFile extends PsiFileBase implements XStyleSheetFile
 			}
 		}
 		return list.isEmpty() ? EmptyXStyleSheetTable.INSTANCE : new MergedXStyleSheetTable(list.toArray(new XStyleSheetTable[list.size()]));
+	}
+
+	@NotNull
+	@Override
+	public XStyleSheetRoot getRoot()
+	{
+		return Objects.requireNonNull(findChildByClass(XStyleSheetRoot.class));
 	}
 }

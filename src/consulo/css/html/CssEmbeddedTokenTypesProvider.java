@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import com.intellij.lexer.EmbeddedTokenTypesProvider;
 import com.intellij.lexer.HtmlLexer;
 import com.intellij.psi.tree.IElementType;
-import consulo.css.html.psi.CssHtmlTokens;
+import consulo.css.html.psi.CssHtmlElements;
 import consulo.lang.LanguageVersion;
 import consulo.lang.util.LanguageVersionUtil;
 
@@ -41,7 +41,7 @@ public class CssEmbeddedTokenTypesProvider implements EmbeddedTokenTypesProvider
 	@Override
 	public IElementType getElementType()
 	{
-		return CssHtmlTokens.MORPH_HTML_CSS_ELEMENT;
+		return CssHtmlElements.MORPH_HTML_CSS_ELEMENT;
 	}
 
 	@Override

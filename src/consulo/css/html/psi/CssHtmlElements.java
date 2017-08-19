@@ -26,22 +26,18 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.ILazyParseableElementType;
 import consulo.css.html.lexer.CssInlineLexer;
-import consulo.css.html.psi.impl.HtmlCssStypeSheetRootImpl;
 import consulo.css.lang.CssLanguage;
-import consulo.css.lang.CssPsiTokens;
+import consulo.css.lang.CssElements;
 import consulo.css.lang.CssTokens;
 import consulo.css.lang.parser.CssParser;
 import consulo.lang.LanguageVersion;
-import consulo.psi.tree.ElementTypeAsPsiFactory;
 
 /**
  * @author VISTALL
  * @since 03-Jan-17
  */
-public interface CssHtmlTokens
+public interface CssHtmlElements
 {
-	IElementType HTML_CSS_ROOT = new ElementTypeAsPsiFactory("HTML_CSS_ROOT", CssLanguage.INSTANCE, HtmlCssStypeSheetRootImpl.class);
-
 	IElementType MORPH_HTML_CSS_ELEMENT = new ILazyParseableElementType("MORPH_HTML_CSS_ELEMENT", CssLanguage.INSTANCE)
 	{
 		@Override
@@ -71,11 +67,11 @@ public interface CssHtmlTokens
 			{
 				PsiBuilder.Marker rootMark = builder.mark();
 				parseInlineRule(parser, builder);
-				rootMark.done(HTML_CSS_ROOT);
+				rootMark.done(CssElements.ROOT);
 			}
 			else
 			{
-				parser.parse(HTML_CSS_ROOT, builder, languageVersion);
+				parser.parseRoot(builder);
 			}
 
 			return builder.getTreeBuilt();
@@ -102,7 +98,7 @@ public interface CssHtmlTokens
 
 					CssParser.expect(builder, CssTokens.SEMICOLON, builder.lookAhead(1) == CssTokens.IDENTIFIER ? "';' expected" : null);
 
-					propertyMarker.done(CssPsiTokens.PROPERTY);
+					propertyMarker.done(CssElements.PROPERTY);
 				}
 				else
 				{
@@ -111,9 +107,9 @@ public interface CssHtmlTokens
 				}
 			}
 
-			bodyMarker.done(CssPsiTokens.BLOCK);
+			bodyMarker.done(CssElements.BLOCK);
 
-			marker.done(CssPsiTokens.RULE);
+			marker.done(CssElements.RULE);
 		}
 
 		@Override

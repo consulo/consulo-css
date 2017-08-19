@@ -17,19 +17,15 @@
 package consulo.css.lang.parser;
 
 import org.jetbrains.annotations.NotNull;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
 import com.intellij.lexer.Lexer;
 import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import consulo.css.lang.CssLanguage;
-import consulo.css.lang.CssPsiElementType;
 import consulo.css.lang.CssTokenSets;
 import consulo.css.lang.lexer._CssLexer;
 import consulo.css.lang.psi.CssFile;
@@ -85,24 +81,13 @@ public class CssParserDefinition implements ParserDefinition
 		return CssTokenSets.STRINGS;
 	}
 
-	@NotNull
 	@Override
-	public PsiElement createElement(ASTNode astNode)
-	{
-		IElementType elementType = astNode.getElementType();
-		if(elementType instanceof CssPsiElementType)
-		{
-			return ((CssPsiElementType) elementType).createPsi(astNode);
-		}
-		return new ASTWrapperPsiElement(astNode);
-	}
-
-	@Override
-	public PsiFile createFile(FileViewProvider fileViewProvider)
+	public PsiFile createFile(@NotNull FileViewProvider fileViewProvider)
 	{
 		return new CssFile(fileViewProvider);
 	}
 
+	@NotNull
 	@Override
 	public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode astNode, ASTNode astNode2)
 	{

@@ -27,15 +27,12 @@ import com.intellij.formatting.Indent;
 import com.intellij.formatting.Spacing;
 import com.intellij.formatting.Wrap;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.formatter.FormatterUtil;
 import com.intellij.psi.formatter.common.AbstractBlock;
 import com.intellij.psi.tree.IElementType;
-import consulo.css.lang.CssPsiTokens;
+import consulo.css.lang.CssElements;
 import consulo.css.lang.CssTokens;
 import consulo.css.lang.parser.CssParserDefinition;
-import consulo.css.lang.psi.CssBlock;
-import consulo.css.lang.psi.CssProperty;
-import consulo.css.lang.psi.CssRule;
-import consulo.css.lang.psi.CssSelectorDeclarationList;
 
 /**
  * @author VISTALL
@@ -51,55 +48,15 @@ public class CssFormattingBlock extends AbstractBlock
 	@Override
 	protected List<Block> buildChildren()
 	{
-		IElementType elementType = getNode().getElementType();
 		List<Block> blocks = new ArrayList<>();
-		if(elementType == CssParserDefinition.FILE_ELEMENT)
+		ASTNode child = getNode().getFirstChildNode();
+		while(child != null)
 		{
-			ASTNode child = getNode().getFirstChildNode();
-			while(child != null)
+			if(!FormatterUtil.containsWhiteSpacesOnly(child))
 			{
-				if(child.getElementType() == CssPsiTokens.RULE || child.getElementType() == CssTokens.BLOCK_COMMENT)
-				{
-					blocks.add(new CssFormattingBlock(child, null, null));
-				}
-				child = child.getTreeNext();
+				blocks.add(new CssFormattingBlock(child, null, null));
 			}
-		}
-		else if(elementType == CssPsiTokens.RULE)
-		{
-			CssRule psi = getNode().getPsi(CssRule.class);
-			assert psi != null;
-			CssSelectorDeclarationList selectorReferenceList = psi.getSelectorDeclarationList();
-			if(selectorReferenceList != null)
-			{
-				blocks.add(new CssFormattingBlock(selectorReferenceList.getNode(), null, null));
-			}
-
-			CssBlock block = psi.getBlock();
-			if(block != null)
-			{
-				blocks.add(new CssFormattingBlock(block.getNode(), null, null));
-			}
-		}
-		else if(elementType == CssPsiTokens.BLOCK)
-		{
-			CssBlock psi = getNode().getPsi(CssBlock.class);
-			ASTNode temp = getNode().findChildByType(CssTokens.LBRACE);
-			if(temp != null)
-			{
-				blocks.add(new CssFormattingBlock(temp, null, null));
-			}
-
-			for(CssProperty cssProperty : psi.getProperties())
-			{
-				blocks.add(new CssFormattingBlock(cssProperty.getNode(), null, null));
-			}
-
-			temp = getNode().findChildByType(CssTokens.RBRACE);
-			if(temp != null)
-			{
-				blocks.add(new CssFormattingBlock(temp, null, null));
-			}
+			child = child.getTreeNext();
 		}
 		return blocks;
 	}
@@ -123,7 +80,7 @@ public class CssFormattingBlock extends AbstractBlock
 		} else if (elementType == CssTokens.LBRACE || elementType == CssTokens.RBRACE) {
 			return Indent.getNoneIndent();
 		}*/
-		else if(elementType == CssPsiTokens.PROPERTY)
+		else if(elementType == CssElements.PROPERTY)
 		{
 			return Indent.getNormalIndent();
 		}
@@ -139,11 +96,11 @@ public class CssFormattingBlock extends AbstractBlock
 	protected Indent getChildIndent()
 	{
 		IElementType elementType = getNode().getElementType();
-		if(elementType == CssPsiTokens.BLOCK)
+		if(elementType == CssElements.BLOCK)
 		{
 			return Indent.getNormalIndent();
 		}
-		else if(elementType == CssParserDefinition.FILE_ELEMENT)
+		else if(elementType == CssElements.ROOT)
 		{
 			return Indent.getAbsoluteNoneIndent();
 		}
