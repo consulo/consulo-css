@@ -29,7 +29,6 @@ import com.intellij.formatting.Wrap;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.formatter.common.AbstractBlock;
 import com.intellij.psi.tree.IElementType;
-import consulo.css.html.psi.CssHtmlTokens;
 import consulo.css.lang.CssPsiTokens;
 import consulo.css.lang.CssTokens;
 import consulo.css.lang.parser.CssParserDefinition;
@@ -54,7 +53,7 @@ public class CssFormattingBlock extends AbstractBlock
 	{
 		IElementType elementType = getNode().getElementType();
 		List<Block> blocks = new ArrayList<>();
-		if(elementType == CssParserDefinition.FILE_ELEMENT || elementType == CssHtmlTokens.HTML_CSS_ELEMENT)
+		if(elementType == CssParserDefinition.FILE_ELEMENT)
 		{
 			ASTNode child = getNode().getFirstChildNode();
 			while(child != null)

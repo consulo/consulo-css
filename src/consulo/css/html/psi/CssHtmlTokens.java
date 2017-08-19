@@ -26,11 +26,13 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.ILazyParseableElementType;
 import consulo.css.html.lexer.CssInlineLexer;
+import consulo.css.html.psi.impl.HtmlCssStypeSheetRootImpl;
 import consulo.css.lang.CssLanguage;
 import consulo.css.lang.CssPsiTokens;
 import consulo.css.lang.CssTokens;
 import consulo.css.lang.parser.CssParser;
 import consulo.lang.LanguageVersion;
+import consulo.psi.tree.ElementTypeAsPsiFactory;
 
 /**
  * @author VISTALL
@@ -38,16 +40,9 @@ import consulo.lang.LanguageVersion;
  */
 public interface CssHtmlTokens
 {
-	IElementType HTML_CSS_ELEMENT = new ILazyParseableElementType("HTML_CSS_ELEMENT", CssLanguage.INSTANCE)
-	{
-		@Override
-		protected Language getLanguageForParser(PsiElement psi)
-		{
-			return CssLanguage.INSTANCE;
-		}
-	};
+	IElementType HTML_CSS_ROOT = new ElementTypeAsPsiFactory("HTML_CSS_ROOT", CssLanguage.INSTANCE, HtmlCssStypeSheetRootImpl.class);
 
-	IElementType INLINE_HTML_CSS_ELEMENT = new ILazyParseableElementType("INLINE_HTML_CSS_ELEMENT", CssLanguage.INSTANCE)
+	IElementType MORPH_HTML_CSS_ELEMENT = new ILazyParseableElementType("MORPH_HTML_CSS_ELEMENT", CssLanguage.INSTANCE)
 	{
 		@Override
 		protected ASTNode doParseContents(@NotNull ASTNode chameleon, @NotNull PsiElement psi)
@@ -60,7 +55,29 @@ public interface CssHtmlTokens
 
 			final PsiBuilder builder = PsiBuilderFactory.getInstance().createBuilder(project, chameleon, lexer, languageForParser, languageVersion, chameleon.getChars());
 			final CssParser parser = new CssParser();
-			parseInlineRule(parser, builder);
+
+			PsiBuilder.Marker mark = builder.mark();
+
+			boolean inline = true;
+			// if we can't parse as selector - rollback
+			if(parser.parseSelectorDeclaration(builder) && builder.getTokenType() == CssTokens.LBRACE)
+			{
+				inline = false;
+			}
+
+			mark.rollbackTo();
+
+			if(inline)
+			{
+				PsiBuilder.Marker rootMark = builder.mark();
+				parseInlineRule(parser, builder);
+				rootMark.done(HTML_CSS_ROOT);
+			}
+			else
+			{
+				parser.parse(HTML_CSS_ROOT, builder, languageVersion);
+			}
+
 			return builder.getTreeBuilt();
 		}
 

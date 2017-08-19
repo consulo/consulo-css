@@ -51,7 +51,7 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens
 
 	@NotNull
 	@Override
-	public ASTNode parse(@NotNull IElementType iElementType, @NotNull PsiBuilder builder, @NotNull LanguageVersion languageVersion)
+	public ASTNode parse(@NotNull IElementType rootElementType, @NotNull PsiBuilder builder, @NotNull LanguageVersion languageVersion)
 	{
 		PsiBuilder.Marker mark = builder.mark();
 		while(!builder.eof())
@@ -105,7 +105,7 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens
 
 			marker.done(RULE);
 		}
-		mark.done(iElementType);
+		mark.done(rootElementType);
 		return builder.getTreeBuilt();
 	}
 
@@ -231,7 +231,7 @@ public class CssParser implements PsiParser, CssTokens, CssPsiTokens
 		return !empty;
 	}
 
-	private boolean parseSelectorDeclaration(PsiBuilder builder)
+	public boolean parseSelectorDeclaration(PsiBuilder builder)
 	{
 		PsiBuilder.Marker marker = builder.mark();
 

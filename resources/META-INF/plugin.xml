@@ -20,6 +20,6 @@
 	</extensions>
 
 	<extensions defaultExtensionNs="com.intellij.xml">
-		<html.embeddedTokenTypesProvider implementation="consulo.css.html.CssHtmlEmbeddedTokenTypesProvider"/>
+		<embeddedTokenTypesProvider implementation="consulo.css.html.CssEmbeddedTokenTypesProvider"/>
 	</extensions>
 </idea-plugin>
