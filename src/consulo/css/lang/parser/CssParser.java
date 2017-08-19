@@ -94,10 +94,9 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 							builder.advanceLexer();
 						}
 
-						if(builder.getTokenType() != RBRACE)
-						{
-							expect(builder, SEMICOLON, "';' expected");
-						}
+						boolean last = builder.lookAhead(1) == null || builder.lookAhead(1) == CssTokens.RBRACE;
+
+						expect(builder, SEMICOLON, last ? null : "';' expected");
 
 						propertyMarker.done(PROPERTY);
 					}
@@ -139,7 +138,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 
 				builder.advanceLexer();
 			}
-			else if(type == SEMICOLON || type == RBRACE || type == BAD_CHARACTER || type == IMPORTANT)
+			else if(type == SEMICOLON || type == RBRACE || type == IMPORTANT)
 			{
 				break;
 			}
@@ -199,7 +198,17 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 				{
 					valueMarker = builder.mark();
 				}
-				builder.advanceLexer();
+
+				if(type == CssTokens.BAD_CHARACTER)
+				{
+					PsiBuilder.Marker mark = builder.mark();
+					builder.advanceLexer();
+					mark.error("Bad token");
+				}
+				else
+				{
+					builder.advanceLexer();
+				}
 			}
 		}
 
