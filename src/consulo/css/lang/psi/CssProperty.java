@@ -24,6 +24,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.util.IncorrectOperationException;
+import consulo.annotations.RequiredReadAction;
 import consulo.css.lang.CssTokens;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetTable;
@@ -82,6 +83,13 @@ public class CssProperty extends CssElement implements PsiNameIdentifierOwner, P
 	{
 		PsiElement nameIdentifier = getNameIdentifier();
 		return nameIdentifier == null ? null : nameIdentifier.getText();
+	}
+
+	@RequiredReadAction
+	@Override
+	public boolean isImportant()
+	{
+		return findChildByType(CssTokens.IMPORTANT) != null;
 	}
 
 	@Override

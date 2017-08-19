@@ -89,6 +89,11 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 							parsePropertyValue(builder);
 						}
 
+						if(builder.getTokenType() == IMPORTANT)
+						{
+							builder.advanceLexer();
+						}
+
 						if(builder.getTokenType() != RBRACE)
 						{
 							expect(builder, SEMICOLON, "';' expected");
@@ -134,7 +139,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 
 				builder.advanceLexer();
 			}
-			else if(type == SEMICOLON || type == RBRACE || type == BAD_CHARACTER)
+			else if(type == SEMICOLON || type == RBRACE || type == BAD_CHARACTER || type == IMPORTANT)
 			{
 				break;
 			}

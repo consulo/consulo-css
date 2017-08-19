@@ -40,6 +40,7 @@ public class CssSyntaxHighlighter extends SyntaxHighlighterBase
 			put(CssTokens.NUMBER, XStyleSheetColors.NUMBER);
 			put(CssTokens.STRING, XStyleSheetColors.STRING);
 			put(CssTokens.BLOCK_COMMENT, XStyleSheetColors.BLOCK_COMMENT);
+			put(CssTokens.IMPORTANT, XStyleSheetColors.KEYWORD);
 			put(CssTokens.BAD_CHARACTER, CodeInsightColors.UNMATCHED_BRACE_ATTRIBUTES);
 		}
 	};

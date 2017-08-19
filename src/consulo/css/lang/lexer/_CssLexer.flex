@@ -85,6 +85,7 @@ UriTextPart={AnySpace} | [:jletter:] | [:jletterdigit:]
     "."                     { return CssTokens.DOT; }
     "+"                     { return CssTokens.PLUS; }
     "%"                     { return CssTokens.PERC; }
+    "!"({TraditionalComment}+|{WhiteSpace}+)?"important"   { return CssTokens.IMPORTANT;  }
     {FunctionCall}           { yybegin(URI); yypushback(yylength());  }
     {NumberLiteralWithSufixes} { return CssTokens.NUMBER; }
     {HexNumberLiteral}      { return CssTokens.NUMBER; }

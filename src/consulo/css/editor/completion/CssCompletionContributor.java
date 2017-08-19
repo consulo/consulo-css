@@ -19,21 +19,14 @@ package consulo.css.editor.completion;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
 import com.intellij.codeInsight.completion.CompletionContributor;
-import com.intellij.codeInsight.completion.CompletionParameters;
-import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.Function;
-import com.intellij.util.ProcessingContext;
-import consulo.codeInsight.completion.CompletionProvider;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
-import consulo.xstylesheet.definition.XStyleSheetPropertyValueEntry;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import consulo.xstylesheet.definition.XStyleSheetTable;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
@@ -49,85 +42,77 @@ public class CssCompletionContributor extends CompletionContributor
 {
 	public CssCompletionContributor()
 	{
-		extend(CompletionType.BASIC, PlatformPatterns.psiElement().withParent(PsiXStyleSheetProperty.class), new CompletionProvider()
+		extend(CompletionType.BASIC, PlatformPatterns.psiElement().withParent(PsiXStyleSheetProperty.class), (completionParameters, processingContext, completionResultSet) ->
 		{
-			@Override
-			public void addCompletions(@NotNull CompletionParameters completionParameters, ProcessingContext processingContext, @NotNull CompletionResultSet completionResultSet)
+			PsiXStyleSheetRule rule = PsiTreeUtil.getParentOfType(completionParameters.getPosition(), PsiXStyleSheetRule.class);
+			if(rule == null)
 			{
-				PsiXStyleSheetRule rule = PsiTreeUtil.getParentOfType(completionParameters.getPosition(), PsiXStyleSheetRule.class);
-				if(rule == null)
+				return;
+			}
+
+			PsiFile containingFile = completionParameters.getOriginalFile();
+
+			List<String> alreadyExists = new ArrayList<>();
+			for(PsiXStyleSheetProperty property : rule.getProperties())
+			{
+				alreadyExists.add(property.getName());
+			}
+
+			XStyleSheetTable xStyleSheetTable = XStyleSheetFile.getXStyleSheetTable(containingFile);
+			for(XStyleSheetProperty property : xStyleSheetTable.getProperties())
+			{
+				if(alreadyExists.contains(property.getName()))
 				{
-					return;
+					continue;
 				}
 
-				PsiFile containingFile = completionParameters.getOriginalFile();
 
-				List<String> alreadyExists = new ArrayList<>();
-				for(PsiXStyleSheetProperty property : rule.getProperties())
+				String defaultText = StringUtil.join(property.getInitialEntries(), entry ->
 				{
-					alreadyExists.add(property.getName());
+					XStyleSheetPropertyValuePart[] parts = entry.getParts();
+
+					if(parts.length > 0)
+					{
+						return parts[0].getValue();
+					}
+					return "";
+				}, ", ");
+
+				StringBuilder b = new StringBuilder(property.getName());
+				if(!defaultText.isEmpty())
+				{
+					b.append(": ");
+					b.append(defaultText);
+					b.append(";");
 				}
 
-				XStyleSheetTable xStyleSheetTable = XStyleSheetFile.getXStyleSheetTable(containingFile);
-				for(XStyleSheetProperty property : xStyleSheetTable.getProperties())
+				LookupElementBuilder builder = LookupElementBuilder.create(b.toString());
+				builder = builder.withPresentableText(property.getName());
+				if(!defaultText.isEmpty())
 				{
-					if(alreadyExists.contains(property.getName()))
-					{
-						continue;
-					}
-
-
-					String defaultText = StringUtil.join(property.getInitialEntries(), new Function<XStyleSheetPropertyValueEntry, String>()
-					{
-						@Override
-						public String fun(XStyleSheetPropertyValueEntry entry)
-						{
-							XStyleSheetPropertyValuePart[] parts = entry.getParts();
-
-							if(parts.length > 0)
-							{
-								return parts[0].getValue();
-							}
-							return "";
-						}
-					}, ", ");
-
-					StringBuilder b = new StringBuilder(property.getName());
-					if(!defaultText.isEmpty())
-					{
-						b.append(": ");
-						b.append(defaultText);
-						b.append(";");
-					}
-
-					LookupElementBuilder builder = LookupElementBuilder.create(b.toString());
-					builder = builder.withPresentableText(property.getName());
-					if(!defaultText.isEmpty())
-					{
-						builder = builder.withTypeText(defaultText, true);
-					}
-					completionResultSet.addElement(builder);
+					builder = builder.withTypeText(defaultText, true);
 				}
+				completionResultSet.addElement(builder);
 			}
 		});
 
-		extend(CompletionType.BASIC, PlatformPatterns.psiElement().withParent(PsiXStyleSheetPropertyValuePart.class), new CompletionProvider()
+		extend(CompletionType.BASIC, PlatformPatterns.psiElement().withParent(PsiXStyleSheetPropertyValuePart.class), (completionParameters, processingContext, completionResultSet) ->
 		{
-			@Override
-			public void addCompletions(@NotNull CompletionParameters completionParameters, ProcessingContext processingContext, @NotNull CompletionResultSet completionResultSet)
+			PsiXStyleSheetPropertyValuePart parent = (PsiXStyleSheetPropertyValuePart) completionParameters.getPosition().getParent();
+			if(parent == null)
 			{
-
-				PsiXStyleSheetPropertyValuePart parent = (PsiXStyleSheetPropertyValuePart) completionParameters.getPosition().getParent();
-				if(parent == null)
-				{
-					return;
-				}
-
-				for(XStyleSheetPropertyValuePart o : parent.getValueParts())
-				{
-					completionResultSet.addAllElements(o.getLookupElements());
-				}
+				return;
 			}
+
+			for(XStyleSheetPropertyValuePart o : parent.getValueParts())
+			{
+				completionResultSet.addAllElements(o.getLookupElements());
+			}
+		});
+
+		extend(CompletionType.BASIC, PlatformPatterns.psiElement().withParent(PsiXStyleSheetPropertyValuePart.class), (completionParameters, processingContext, completionResultSet) ->
+		{
+			completionResultSet.addElement(LookupElementBuilder.create("!important").withLookupString("important").withPresentableText("important").bold());
 		});
 	}
 }

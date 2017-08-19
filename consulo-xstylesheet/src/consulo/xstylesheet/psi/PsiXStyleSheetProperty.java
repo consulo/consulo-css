@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNameIdentifierOwner;
+import consulo.annotations.RequiredReadAction;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 
 /**
@@ -36,4 +37,7 @@ public interface PsiXStyleSheetProperty extends PsiElement, PsiNameIdentifierOwn
 
 	@Nullable
 	String getName();
+
+	@RequiredReadAction
+	boolean isImportant();
 }
