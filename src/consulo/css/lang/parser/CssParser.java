@@ -289,7 +289,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 			return null;
 		}
 
-		if(builder.getTokenType() == CssTokens.IDENTIFIER)
+		while(builder.getTokenType() == CssTokens.IDENTIFIER)
 		{
 			parseSimpleSelector(builder);
 		}
@@ -316,7 +316,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 		{
 			builder.advanceLexer();
 
-			PsiBuilder.Marker suffixMarker = builder.mark();
+			PsiBuilder.Marker suffixListMarker = builder.mark();
 
 			parseSelectorAttributeList(builder);
 
@@ -326,16 +326,20 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 			{
 				if(builder.getTokenType() == CssTokens.SELECTOR_CLASS || builder.getTokenType() == CssTokens.SELECTOR_ID)
 				{
+					PsiBuilder.Marker suffixMarker = builder.mark();
+
 					builder.advanceLexer();
 
 					parseSelectorPseudoClass(builder);
+
+					suffixMarker.done(CssElements.SIMPLE_SELECTOR);
 				}
 				else
 				{
 					break;
 				}
 			}
-			suffixMarker.done(CssElements.SELECTOR_SUFFIX_LIST);
+			suffixListMarker.done(CssElements.SELECTOR_SUFFIX_LIST);
 
 			marker.done(CssElements.SIMPLE_SELECTOR);
 			return true;
