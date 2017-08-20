@@ -188,11 +188,11 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 								noArgument = false;
 							}
 						}
+						expect(builder, RPAR, "')' expected");
 					}
-					expect(builder, RPAR, "')' expected");
 					argumentList.done(FUNCTION_CALL_PARAMETER_LIST);
-
 					functionMarker.done(FUNCTION_CALL);
+					continue;
 				}
 
 				if(type == CssTokens.BAD_CHARACTER)
