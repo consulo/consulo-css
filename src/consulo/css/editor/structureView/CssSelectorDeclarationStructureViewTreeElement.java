@@ -23,15 +23,15 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase;
-import consulo.xstylesheet.psi.PsiXStyleSheetSelectorDeclaration;
+import consulo.xstylesheet.psi.XStyleSheetSelector;
 
 /**
  * @author VISTALL
  * @since 08.07.13.
  */
-public class CssSelectorDeclarationStructureViewTreeElement extends PsiTreeElementBase<PsiXStyleSheetSelectorDeclaration>
+public class CssSelectorDeclarationStructureViewTreeElement extends PsiTreeElementBase<XStyleSheetSelector>
 {
-	public CssSelectorDeclarationStructureViewTreeElement(PsiXStyleSheetSelectorDeclaration psiElement)
+	public CssSelectorDeclarationStructureViewTreeElement(XStyleSheetSelector psiElement)
 	{
 		super(psiElement);
 	}

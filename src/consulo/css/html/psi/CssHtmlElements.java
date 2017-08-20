@@ -56,7 +56,7 @@ public interface CssHtmlElements
 
 			boolean inline = true;
 			// if we can't parse as selector - rollback
-			if(parser.parseSelectorDeclaration(builder) && builder.getTokenType() == CssTokens.LBRACE)
+			if(parser.parseSelectorListNew(builder) && builder.getTokenType() == CssTokens.LBRACE)
 			{
 				inline = false;
 			}

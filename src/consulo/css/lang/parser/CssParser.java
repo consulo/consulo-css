@@ -66,9 +66,9 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 		{
 			PsiBuilder.Marker marker = builder.mark();
 
-			if(!parseSelectorList(builder))
+			if(!parseSelectorListNew(builder))
 			{
-				builder.advanceLexer();
+				builder.error("Selector expected");
 			}
 
 			if(builder.getTokenType() == LBRACE)
@@ -214,108 +214,153 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 		}
 	}
 
-	private boolean parseSelectorList(PsiBuilder builder)
+	public boolean parseSelectorListNew(PsiBuilder builder)
 	{
 		PsiBuilder.Marker listMarker = builder.mark();
 
-		boolean empty = true;
-		while(true)
+		boolean errorSelector = false;
+
+		PsiBuilder.Marker current = null;
+		boolean first = true;
+		boolean comma = false;
+		while(!builder.eof())
 		{
-			boolean b = parseSelectorDeclaration(builder);
-			if(!b)
+			if(builder.getTokenType() == LBRACE)
 			{
+				if(first)
+				{
+					errorSelector = true;
+				}
 				break;
 			}
-			else
+
+			if(!first)
 			{
-				empty = false;
+				comma = expect(builder, CssTokens.COMMA, "Comma expected");
 			}
 
-			if(builder.getTokenType() == COMMA)
+			PsiBuilder.Marker marker = parseSelector(builder);
+
+			current = marker;
+
+			if(marker == null)
 			{
-				builder.advanceLexer();
+				if(first)
+				{
+					errorSelector = true;
+				}
 			}
-			else if(builder.getTokenType() == LBRACE)
+
+			if(marker == null)
 			{
-				break;
+				if(builder.getTokenType() == CssTokens.LBRACE)
+				{
+					break;
+				}
+				else
+				{
+					markError(builder, "Unexpected token");
+				}
 			}
+			first = false;
 		}
-
-		if(empty)
+		if(comma && current == null)
 		{
-			builder.error("Expected '*', '.',  '#'. identifier or '['");
+			builder.error("Selector expected");
 		}
-		listMarker.done(SELECTOR_DECLARATION_LIST);
-		return !empty;
+		listMarker.done(SELECTOR_LIST);
+		return !errorSelector;
 	}
 
-	public boolean parseSelectorDeclaration(PsiBuilder builder)
+	private void markError(PsiBuilder builder, String message)
 	{
-		PsiBuilder.Marker marker = builder.mark();
-
-		boolean empty = true;
-		while(true)
-		{
-			boolean b = parseSelectorReference(builder);
-			if(!b)
-			{
-				break;
-			}
-			else
-			{
-				empty = false;
-			}
-		}
-
-		if(empty)
-		{
-			marker.drop();
-		}
-		else
-		{
-			marker.done(SELECTOR_DECLARATION);
-		}
-		return !empty;
+		PsiBuilder.Marker mark = builder.mark();
+		builder.advanceLexer();
+		mark.error(message);
 	}
 
-	private boolean parseSelectorReference(PsiBuilder builder)
+	@Nullable
+	public PsiBuilder.Marker parseSelector(PsiBuilder builder)
 	{
-		PsiBuilder.Marker marker = builder.mark();
+		PsiBuilder.Marker mark = builder.mark();
+		if(!parseSimpleSelector(builder))
+		{
+			mark.drop();
+			return null;
+		}
 
-		if(builder.getTokenType() == IDENTIFIER || builder.getTokenType() == ASTERISK)
+		if(builder.getTokenType() == CssTokens.IDENTIFIER)
+		{
+			parseSimpleSelector(builder);
+		}
+
+		if(builder.getTokenType() == CssTokens.PLUS || builder.getTokenType() == CssTokens.TILDE || builder.getTokenType() == CssTokens.GT)
 		{
 			builder.advanceLexer();
+
+			if(!parseSimpleSelector(builder))
+			{
+				builder.error("Selector expected");
+			}
+		}
+
+		mark.done(SELECTOR);
+		return mark;
+	}
+
+	private boolean parseSimpleSelector(PsiBuilder builder)
+	{
+		PsiBuilder.Marker marker = builder.mark();
+		if(builder.getTokenType() == CssTokens.SELECTOR_CLASS || builder.getTokenType() == CssTokens.SELECTOR_ID || builder.getTokenType() == CssTokens.ASTERISK || builder.getTokenType() ==
+				CssTokens.IDENTIFIER)
+		{
+			builder.advanceLexer();
+
+			PsiBuilder.Marker suffixMarker = builder.mark();
 
 			parseSelectorAttributeList(builder);
 
 			parseSelectorPseudoClass(builder);
 
-			marker.done(SELECTOR_REFERENCE);
-			return true;
-		}
-		else if(builder.getTokenType() == DOT || builder.getTokenType() == SHARP || builder.getTokenType() == GE || builder.getTokenType() == PLUS)
-		{
-			builder.advanceLexer();
+			while(!builder.eof())
+			{
+				if(builder.getTokenType() == CssTokens.SELECTOR_CLASS || builder.getTokenType() == CssTokens.SELECTOR_ID)
+				{
+					builder.advanceLexer();
 
-			expect(builder, IDENTIFIER, "Identifier expected");
+					parseSelectorPseudoClass(builder);
+				}
+				else
+				{
+					break;
+				}
+			}
+			suffixMarker.done(CssElements.SELECTOR_SUFFIX_LIST);
 
-			parseSelectorAttributeList(builder);
-
-			parseSelectorPseudoClass(builder);
-
-			marker.done(SELECTOR_REFERENCE);
+			marker.done(CssElements.SIMPLE_SELECTOR);
 			return true;
 		}
 		else if(builder.getTokenType() == LBRACKET)
 		{
 			parseSelectorAttributeList(builder);
 
-			marker.done(SELECTOR_REFERENCE);
+			parseSelectorPseudoClass(builder);
+
+			marker.done(CssElements.SIMPLE_SELECTOR);
 			return true;
 		}
+		else if(builder.getTokenType() == CssTokens.COLON || builder.getTokenType() == CssTokens.COLONCOLON)
+		{
+			parseSelectorPseudoClass(builder);
 
-		marker.drop();
-		return false;
+			marker.done(CssElements.SIMPLE_SELECTOR);
+			return true;
+		}
+		else
+		{
+			marker.drop();
+			return false;
+		}
 	}
 
 	private void parseSelectorAttributeList(PsiBuilder builder)

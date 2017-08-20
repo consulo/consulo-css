@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 must-be.org
+ * Copyright 2013-2017 must-be.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package consulo.css.lang.psi.reference.nameResolving;
+package consulo.xstylesheet.psi;
 
 /**
  * @author VISTALL
- * @since 07.07.13.
+ * @since 20-Aug-17
  */
-public enum CssSimpleRuleConditionType
+public interface XStyleSheetSelectorSuffixList extends PsiXStyleSheetElement
 {
-	ID,
-	CLASS
 }

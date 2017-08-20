@@ -26,7 +26,7 @@ import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase;
 import consulo.css.lang.psi.CssFile;
 import consulo.xstylesheet.psi.PsiXStyleSheetRule;
-import consulo.xstylesheet.psi.PsiXStyleSheetSelectorDeclaration;
+import consulo.xstylesheet.psi.XStyleSheetSelector;
 
 /**
  * @author VISTALL
@@ -46,7 +46,7 @@ public class CssStructureViewTreeElement extends PsiTreeElementBase<CssFile>
 		List<StructureViewTreeElement> list = new ArrayList<>();
 		for(PsiXStyleSheetRule cssRule : getElement().getRoot().getRules())
 		{
-			for(PsiXStyleSheetSelectorDeclaration declaration : cssRule.getSelectorDeclarations())
+			for(XStyleSheetSelector declaration : cssRule.getSelectors())
 			{
 				list.add(new CssSelectorDeclarationStructureViewTreeElement(declaration));
 			}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 must-be.org
+ * Copyright 2013-2017 must-be.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,20 @@
  * limitations under the License.
  */
 
-package consulo.xstylesheet.psi;
+package consulo.css.lang.psi;
+
+import org.jetbrains.annotations.NotNull;
+import com.intellij.lang.ASTNode;
+import consulo.xstylesheet.psi.XStyleSheetSelectorSuffixList;
 
 /**
  * @author VISTALL
- * @since 11.07.13.
+ * @since 20-Aug-17
  */
-public interface PsiXStyleSheetSelectorDeclaration extends PsiXStyleSheetElement
+public class CssSelectorSuffixListImpl extends CssElement implements XStyleSheetSelectorSuffixList
 {
-	PsiXStyleSheetSelectorReference[] getSelectorReferences();
+	public CssSelectorSuffixListImpl(@NotNull ASTNode node)
+	{
+		super(node);
+	}
 }

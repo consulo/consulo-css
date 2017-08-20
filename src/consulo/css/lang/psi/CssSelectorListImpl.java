@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 must-be.org
+ * Copyright 2013-2017 must-be.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,24 +18,26 @@ package consulo.css.lang.psi;
 
 import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.ASTNode;
-import consulo.xstylesheet.psi.PsiXStyleSheetSelectorDeclaration;
+import consulo.annotations.RequiredReadAction;
+import consulo.xstylesheet.psi.XStyleSheetSelector;
+import consulo.xstylesheet.psi.XStyleSheetSelectorList;
 
 /**
  * @author VISTALL
- * @since 11.07.13.
+ * @since 20-Aug-17
  */
-public class CssSelectorDeclaration extends CssElement implements PsiXStyleSheetSelectorDeclaration
+public class CssSelectorListImpl extends CssElement implements XStyleSheetSelectorList
 {
-	public static final CssSelectorDeclaration[] EMPTY_ARRAY = new CssSelectorDeclaration[0];
-
-	public CssSelectorDeclaration(@NotNull ASTNode node)
+	public CssSelectorListImpl(@NotNull ASTNode node)
 	{
 		super(node);
 	}
 
+	@RequiredReadAction
+	@NotNull
 	@Override
-	public CssSelectorReference[] getSelectorReferences()
+	public XStyleSheetSelector[] getSelectors()
 	{
-		return findChildrenByClass(CssSelectorReference.class);
+		return findChildrenByClass(XStyleSheetSelector.class);
 	}
 }

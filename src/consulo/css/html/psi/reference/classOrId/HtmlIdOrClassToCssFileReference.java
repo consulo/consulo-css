@@ -31,13 +31,12 @@ import com.intellij.util.ArrayUtil;
 import consulo.annotations.RequiredReadAction;
 import consulo.css.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
 import consulo.css.lang.psi.CssFile;
-import consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleConditionType;
-import consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleOnlyTypeCondition;
-import consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleWithNameCondition;
+import consulo.css.lang.psi.reference.nameResolving.XStyleSheetRuleTypeCondition;
 import consulo.ide.IconDescriptorUpdaters;
 import consulo.xstylesheet.psi.PsiXStyleSheetRule;
-import consulo.xstylesheet.psi.PsiXStyleSheetSelectorDeclaration;
-import consulo.xstylesheet.psi.PsiXStyleSheetSelectorReference;
+import consulo.xstylesheet.psi.XStyleSheetSelector;
+import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
+import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 
 /**
@@ -46,9 +45,9 @@ import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
  */
 public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase<PsiElement>
 {
-	private final CssSimpleRuleConditionType myConditionType;
+	private final XStyleSheetSimpleSelectorType myConditionType;
 
-	public HtmlIdOrClassToCssFileReference(@NotNull PsiElement element, CssSimpleRuleConditionType conditionType)
+	public HtmlIdOrClassToCssFileReference(@NotNull PsiElement element, XStyleSheetSimpleSelectorType conditionType)
 	{
 		super(element);
 		myConditionType = conditionType;
@@ -59,7 +58,7 @@ public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase
 	@Override
 	public ResolveResult[] multiResolve(boolean b)
 	{
-		List<PsiXStyleSheetRule> rules = resolveRules(new CssSimpleRuleWithNameCondition(myConditionType, getElement().getText()));
+		List<PsiXStyleSheetRule> rules = resolveRules(new XStyleSheetRuleTypeCondition(myConditionType, getElement().getText()));
 
 		List<ResolveResult> resolveResults = new ArrayList<>(rules.size());
 		for(PsiXStyleSheetRule rule : rules)
@@ -75,20 +74,26 @@ public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase
 	@RequiredReadAction
 	public Object[] getVariants()
 	{
-		List<PsiXStyleSheetRule> cssRules = resolveRules(new CssSimpleRuleOnlyTypeCondition(myConditionType));
+		List<PsiXStyleSheetRule> cssRules = resolveRules(new XStyleSheetRuleTypeCondition(myConditionType, null));
 
-		List<LookupElementBuilder> items = new ArrayList<LookupElementBuilder>(cssRules.size());
+		List<LookupElementBuilder> items = new ArrayList<>(cssRules.size());
 		for(PsiXStyleSheetRule cssRule : cssRules)
 		{
-			for(PsiXStyleSheetSelectorDeclaration cssSelectorDeclaration : cssRule.getSelectorDeclarations())
+			for(XStyleSheetSelector cssSelectorDeclaration : cssRule.getSelectors())
 			{
-				PsiXStyleSheetSelectorReference[] selectorReferences = cssSelectorDeclaration.getSelectorReferences();
-				if(selectorReferences.length != 1)
+				XStyleSheetSimpleSelector[] simpleSelectors = cssSelectorDeclaration.getSimpleSelectors();
+				if(simpleSelectors.length == 0)
 				{
 					continue;
 				}
 
-				LookupElementBuilder item = LookupElementBuilder.create(selectorReferences[0].getName());
+				XStyleSheetSimpleSelector first = simpleSelectors[0];
+				if(first.getType() == XStyleSheetSimpleSelectorType.ANY)
+				{
+					continue;
+				}
+
+				LookupElementBuilder item = LookupElementBuilder.create(first.getName());
 				item = item.withIcon(IconDescriptorUpdaters.getIcon(cssSelectorDeclaration, 0));
 				item = item.withTypeText(cssRule.getContainingFile().getName(), true);
 				items.add(item);

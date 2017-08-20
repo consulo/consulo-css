@@ -23,7 +23,7 @@ import com.intellij.psi.PsiReference;
 import com.intellij.psi.PsiReferenceProvider;
 import com.intellij.psi.xml.XmlTokenType;
 import com.intellij.util.ProcessingContext;
-import consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleConditionType;
+import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
 
 /**
  * @author VISTALL
@@ -31,9 +31,9 @@ import consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleConditionType;
  */
 public class HtmlIdOrClassToCssFileReferenceProvider extends PsiReferenceProvider
 {
-	private final CssSimpleRuleConditionType myCssRefTo;
+	private final XStyleSheetSimpleSelectorType myCssRefTo;
 
-	public HtmlIdOrClassToCssFileReferenceProvider(CssSimpleRuleConditionType cssRefTo)
+	public HtmlIdOrClassToCssFileReferenceProvider(XStyleSheetSimpleSelectorType cssRefTo)
 	{
 		myCssRefTo = cssRefTo;
 	}

@@ -19,6 +19,7 @@ package consulo.xstylesheet.psi;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.psi.PsiElement;
+import consulo.annotations.RequiredReadAction;
 
 /**
  * @author VISTALL
@@ -33,8 +34,9 @@ public interface PsiXStyleSheetRule extends PsiElement
 	PsiXStyleSheetProperty[] getProperties();
 
 	@Nullable
-	PsiXStyleSheetSelectorDeclarationList getSelectorDeclarationList();
+	@RequiredReadAction
+	XStyleSheetSelectorList getSelectorList();
 
-	@NotNull
-	PsiXStyleSheetSelectorDeclaration[] getSelectorDeclarations();
+	@RequiredReadAction
+	XStyleSheetSelector[] getSelectors();
 }

@@ -19,10 +19,10 @@ package consulo.xstylesheet;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.icons.AllIcons;
 import com.intellij.psi.PsiElement;
+import consulo.annotations.RequiredReadAction;
 import consulo.ide.IconDescriptor;
 import consulo.ide.IconDescriptorUpdater;
-import consulo.xstylesheet.psi.PsiXStyleSheetSelectorDeclaration;
-import consulo.xstylesheet.psi.PsiXStyleSheetSelectorReference;
+import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
 
 /**
  * @author VISTALL
@@ -30,30 +30,23 @@ import consulo.xstylesheet.psi.PsiXStyleSheetSelectorReference;
  */
 public class XStyleSheetIconProvider implements IconDescriptorUpdater
 {
+	@RequiredReadAction
 	@Override
 	public void updateIcon(@NotNull IconDescriptor iconDescriptor, @NotNull PsiElement element, int i)
 	{
-		if(element instanceof PsiXStyleSheetSelectorDeclaration)
+		if(element instanceof XStyleSheetSimpleSelector)
 		{
-			PsiXStyleSheetSelectorReference[] selectorReferences = ((PsiXStyleSheetSelectorDeclaration) element).getSelectorReferences();
-
-			if(selectorReferences.length == 0)
+			switch(((XStyleSheetSimpleSelector) element).getType())
 			{
-				return;
-			}
-
-			PsiXStyleSheetSelectorReference selectorReference = selectorReferences[0];
-			if(selectorReference.isClassRule())
-			{
-				iconDescriptor.setMainIcon(XStyleSheetIcons.CssClass);
-			}
-			else if(selectorReference.isIdRule())
-			{
-				iconDescriptor.setMainIcon(XStyleSheetIcons.HtmlId);
-			}
-			else
-			{
-				iconDescriptor.setMainIcon(AllIcons.Nodes.Tag);
+				case ID:
+					iconDescriptor.setMainIcon(XStyleSheetIcons.HtmlId);
+					break;
+				case CLASS:
+					iconDescriptor.setMainIcon(XStyleSheetIcons.CssClass);
+					break;
+				case TAG:
+					iconDescriptor.setMainIcon(AllIcons.Nodes.Tag);
+					break;
 			}
 		}
 	}

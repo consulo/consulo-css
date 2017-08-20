@@ -19,7 +19,10 @@ package consulo.css.lang.psi;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.ASTNode;
+import consulo.annotations.RequiredReadAction;
 import consulo.xstylesheet.psi.PsiXStyleSheetRule;
+import consulo.xstylesheet.psi.XStyleSheetSelector;
+import consulo.xstylesheet.psi.XStyleSheetSelectorList;
 
 /**
  * @author VISTALL
@@ -47,18 +50,19 @@ public class CssRule extends CssElement implements PsiXStyleSheetRule
 		return block == null ? CssProperty.EMPTY_ARRAY : block.getProperties();
 	}
 
+	@RequiredReadAction
 	@Nullable
 	@Override
-	public CssSelectorDeclarationList getSelectorDeclarationList()
+	public XStyleSheetSelectorList getSelectorList()
 	{
-		return findChildByClass(CssSelectorDeclarationList.class);
+		return findChildByClass(XStyleSheetSelectorList.class);
 	}
 
+	@RequiredReadAction
 	@Override
-	@NotNull
-	public CssSelectorDeclaration[] getSelectorDeclarations()
+	public XStyleSheetSelector[] getSelectors()
 	{
-		CssSelectorDeclarationList selectorReferenceList = getSelectorDeclarationList();
-		return selectorReferenceList == null ? CssSelectorDeclaration.EMPTY_ARRAY : selectorReferenceList.getSelectorDeclarations();
+		XStyleSheetSelectorList selectorList = getSelectorList();
+		return selectorList == null ? XStyleSheetSelector.EMPTY_ARRAY : selectorList.getSelectors();
 	}
 }

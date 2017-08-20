@@ -21,7 +21,7 @@ public interface XStyleSheetRoot extends PsiElement
 	{
 		for(PsiXStyleSheetRule o : getRules())
 		{
-			for(PsiXStyleSheetSelectorDeclaration reference : o.getSelectorDeclarations())
+			for(XStyleSheetSelector reference : o.getSelectors())
 			{
 				if(condition.isAccepted(reference))
 				{
@@ -39,7 +39,7 @@ public interface XStyleSheetRoot extends PsiElement
 		List<PsiXStyleSheetRule> list = new ArrayList<>();
 		for(PsiXStyleSheetRule o : getRules())
 		{
-			for(PsiXStyleSheetSelectorDeclaration reference : o.getSelectorDeclarations())
+			for(XStyleSheetSelector reference : o.getSelectors())
 			{
 				if(condition.isAccepted(reference))
 				{

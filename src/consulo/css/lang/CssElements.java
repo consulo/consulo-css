@@ -37,11 +37,13 @@ public interface CssElements
 
 	IElementType PROPERTY_VALUE_PART = new ElementTypeAsPsiFactory("PROPERTY_VALUE_PART", CssLanguage.INSTANCE, CssPropertyValuePart.class);
 
-	IElementType SELECTOR_DECLARATION_LIST = new ElementTypeAsPsiFactory("SELECTOR_DECLARATION_LIST", CssLanguage.INSTANCE, CssSelectorDeclarationList.class);
+	IElementType SELECTOR_SUFFIX_LIST = new ElementTypeAsPsiFactory("SELECTOR_SUFFIX_LIST", CssLanguage.INSTANCE, CssSelectorSuffixListImpl.class);
 
-	IElementType SELECTOR_DECLARATION = new ElementTypeAsPsiFactory("SELECTOR_DECLARATION", CssLanguage.INSTANCE, CssSelectorDeclaration.class);
+	IElementType SELECTOR_LIST = new ElementTypeAsPsiFactory("SELECTOR_LIST", CssLanguage.INSTANCE, CssSelectorListImpl.class);
 
-	IElementType SELECTOR_REFERENCE = new ElementTypeAsPsiFactory("SELECTOR_REFERENCE", CssLanguage.INSTANCE, CssSelectorReference.class);
+	IElementType SELECTOR = new ElementTypeAsPsiFactory("SELECTOR", CssLanguage.INSTANCE, CssSelectorImpl.class);
+
+	IElementType SIMPLE_SELECTOR = new ElementTypeAsPsiFactory("SIMPLE_SELECTOR", CssLanguage.INSTANCE, CssSimpleSelectorImpl.class);
 
 	IElementType SELECTOR_PSEUDO_CLASS = new ElementTypeAsPsiFactory("SELECTOR_PSEUDO_CLASS", CssLanguage.INSTANCE, CssSelectorPseudoClass.class);
 

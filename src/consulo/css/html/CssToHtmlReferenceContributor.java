@@ -21,7 +21,7 @@ import com.intellij.psi.PsiReferenceRegistrar;
 import com.intellij.xml.util.XmlUtil;
 import consulo.css.html.psi.reference.classOrId.HtmlIdOrClassToCssFileReferenceProvider;
 import consulo.css.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
-import consulo.css.lang.psi.reference.nameResolving.CssSimpleRuleConditionType;
+import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
 
 /**
  * @author VISTALL
@@ -32,9 +32,9 @@ public class CssToHtmlReferenceContributor extends PsiReferenceContributor
 	@Override
 	public void registerReferenceProviders(PsiReferenceRegistrar psiReferenceRegistrar)
 	{
-		XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"id"}, null, false, new HtmlIdOrClassToCssFileReferenceProvider(CssSimpleRuleConditionType.ID));
+		XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"id"}, null, false, new HtmlIdOrClassToCssFileReferenceProvider(XStyleSheetSimpleSelectorType.ID));
 
-		XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"class"}, null, false, new HtmlIdOrClassToCssFileReferenceProvider(CssSimpleRuleConditionType.CLASS));
+		XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"class"}, null, false, new HtmlIdOrClassToCssFileReferenceProvider(XStyleSheetSimpleSelectorType.CLASS));
 
 		HtmlHrefToCssFileReferenceProvider provider = new HtmlHrefToCssFileReferenceProvider();
 		XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"href"}, provider.getElementFilter(), false, provider);

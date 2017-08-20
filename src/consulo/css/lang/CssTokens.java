@@ -27,6 +27,9 @@ public interface CssTokens extends TokenType
 {
 	IElementType BLOCK_COMMENT = new CssElementType("BLOCK_COMMENT");
 
+	IElementType SELECTOR_ID = new CssElementType("SELECTOR_ID");
+	IElementType SELECTOR_CLASS = new CssElementType("SELECTOR_CLASS");
+
 	IElementType IDENTIFIER = new CssElementType("IDENTIFIER");
 	IElementType STRING = new CssElementType("STRING");
 	IElementType NUMBER = new CssElementType("NUMBER");
@@ -40,12 +43,13 @@ public interface CssTokens extends TokenType
 	IElementType COLON = new CssElementType("COLON");
 	IElementType COLONCOLON = new CssElementType("COLONCOLON");
 	IElementType EQ = new CssElementType("EQ");
-	IElementType GE = new CssElementType("GE");
+	IElementType GT = new CssElementType("GT");
 	IElementType SEMICOLON = new CssElementType("SEMICOLON");
 	IElementType COMMA = new CssElementType("COMMA");
 	IElementType ASTERISK = new CssElementType("ASTERISK");
 	IElementType DOT = new CssElementType("DOT");
 	IElementType PLUS = new CssElementType("PLUS");
+	IElementType TILDE = new CssElementType("TILDE");
 	IElementType PERC = new CssElementType("PERC");
 
 	IElementType IMPORTANT = new CssElementType("IMPORTANT");

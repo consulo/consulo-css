@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 must-be.org
+ * Copyright 2013-2017 must-be.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,25 @@
 
 package consulo.xstylesheet.psi;
 
-import com.intellij.psi.PsiNameIdentifierOwner;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.intellij.psi.PsiElement;
+import consulo.annotations.RequiredReadAction;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 20-Aug-17
  */
-public interface PsiXStyleSheetSelectorReference extends PsiXStyleSheetElement, PsiNameIdentifierOwner
+public interface XStyleSheetSimpleSelector extends PsiXStyleSheetElement
 {
+	@Nullable
+	@RequiredReadAction
+	PsiElement getElement();
 
-	boolean isClassRule();
+	@NotNull
+	String getName();
 
-	boolean isIdRule();
+	@NotNull
+	@RequiredReadAction
+	XStyleSheetSimpleSelectorType getType();
 }

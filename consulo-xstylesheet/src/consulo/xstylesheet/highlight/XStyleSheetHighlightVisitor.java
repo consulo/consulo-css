@@ -34,7 +34,8 @@ import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import consulo.xstylesheet.psi.PsiXStyleSheetSelectorAttribute;
 import consulo.xstylesheet.psi.PsiXStyleSheetSelectorPseudoClass;
-import consulo.xstylesheet.psi.PsiXStyleSheetSelectorReference;
+import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
+import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
 import consulo.xstylesheet.psi.reference.impl.BuildInSymbolElement;
 
 /**
@@ -76,23 +77,31 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 				{
 					highlightName((PsiNameIdentifierOwner) element, ATTRIBUTE_NAME);
 				}
-				else if(element instanceof PsiXStyleSheetSelectorReference)
+				else if(element instanceof XStyleSheetSimpleSelector)
 				{
-					TextAttributesKey key;
-					if(((PsiXStyleSheetSelectorReference) element).isClassRule())
+					PsiElement target = ((XStyleSheetSimpleSelector) element).getElement();
+					if(target != null)
 					{
-						key = XStyleSheetColors.SELECTOR_CLASS_NAME;
-					}
-					else if(((PsiXStyleSheetSelectorReference) element).isIdRule())
-					{
-						key = XStyleSheetColors.SELECTOR_ID_NAME;
-					}
-					else
-					{
-						key = XStyleSheetColors.SELECTOR_ELEMENT_NAME;
-					}
+						TextAttributesKey key;
+						XStyleSheetSimpleSelectorType type = ((XStyleSheetSimpleSelector) element).getType();
+						if(type == XStyleSheetSimpleSelectorType.CLASS)
+						{
+							key = XStyleSheetColors.SELECTOR_CLASS_NAME;
+						}
+						else if(type == XStyleSheetSimpleSelectorType.ID)
+						{
+							key = XStyleSheetColors.SELECTOR_ID_NAME;
+						}
+						else
+						{
+							key = XStyleSheetColors.SELECTOR_ELEMENT_NAME;
+						}
 
-					highlightName((PsiNameIdentifierOwner) element, key);
+						HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
+						builder.textAttributes(key);
+						builder.range(target);
+						myHighlightInfoHolder.add(builder.create());
+					}
 				}
 				else if(element instanceof PsiXStyleSheetSelectorPseudoClass)
 				{

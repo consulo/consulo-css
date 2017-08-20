@@ -16,10 +16,18 @@
 
 package consulo.xstylesheet.psi;
 
+import org.jetbrains.annotations.NotNull;
+import consulo.annotations.RequiredReadAction;
+
 /**
  * @author VISTALL
  * @since 19-Aug-17
  */
 public interface XStyleSheetSelector extends PsiXStyleSheetElement
 {
+	XStyleSheetSelector[] EMPTY_ARRAY = new XStyleSheetSelector[0];
+
+	@NotNull
+	@RequiredReadAction
+	XStyleSheetSimpleSelector[] getSimpleSelectors();
 }

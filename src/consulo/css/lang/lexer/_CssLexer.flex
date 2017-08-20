@@ -40,8 +40,8 @@ UriTextPart={AnySpace} | [:jletter:] | [:jletterdigit:]
 %%
 
 <YYINITIAL> {
-    "#"                     { return CssTokens.SHARP; }
-    "."                     { return CssTokens.DOT; }
+    "#"{Identifier}         { return CssTokens.SELECTOR_ID; }
+    "."{Identifier}         { return CssTokens.SELECTOR_CLASS; }
     "{"                     { yybegin(BODY); return CssTokens.LBRACE; }
     "}"                     { return CssTokens.RBRACE; }
     "["                     { return CssTokens.LBRACKET; }
@@ -49,13 +49,12 @@ UriTextPart={AnySpace} | [:jletter:] | [:jletterdigit:]
     ":"                     { return CssTokens.COLON; }
     "::"                    { return CssTokens.COLONCOLON; }
     "="                     { return CssTokens.EQ; }
-    ">"                     { return CssTokens.GE; }
-    //";"                     { return CssTokens.SEMICOLON; }
+    ">"                     { return CssTokens.GT; }
     ","                     { return CssTokens.COMMA; }
     "*"                     { return CssTokens.ASTERISK; }
     "."                     { return CssTokens.DOT; }
     "+"                     { return CssTokens.PLUS; }
-    //"%"                     { return CssTokens.PERC; }
+    "~"                     { return CssTokens.TILDE; }
     {Identifier}            { return CssTokens.IDENTIFIER; }
     {StringLiteral}         { return CssTokens.STRING; }
     {StringLiteral2}         { return CssTokens.STRING; }
