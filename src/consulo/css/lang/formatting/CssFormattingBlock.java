@@ -96,11 +96,11 @@ public class CssFormattingBlock extends AbstractBlock
 	protected Indent getChildIndent()
 	{
 		IElementType elementType = getNode().getElementType();
-		if(elementType == CssElements.BLOCK)
+		if(elementType == CssElements.BLOCK )
 		{
 			return Indent.getNormalIndent();
 		}
-		else if(elementType == CssElements.ROOT)
+		else if(elementType == CssElements.ROOT || elementType == CssParserDefinition.FILE_ELEMENT)
 		{
 			return Indent.getAbsoluteNoneIndent();
 		}
