@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 must-be.org
+ * Copyright 2013-2017 must-be.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,39 @@
  * limitations under the License.
  */
 
-package consulo.xstylesheet.psi;
+package consulo.xstylesheet.psi.reference.impl;
 
-import org.jetbrains.annotations.NotNull;
 import com.intellij.psi.PsiElement;
-import consulo.annotations.RequiredReadAction;
+import com.intellij.psi.impl.FakePsiElement;
 
 /**
  * @author VISTALL
- * @since 08.10.13.
+ * @since 20-Aug-17
  */
-public interface PsiXStyleSheetFunctionCallParameterList extends PsiXStyleSheetElement
+public class BuildInSymbolElement extends FakePsiElement
 {
-	@RequiredReadAction
-	@NotNull
-	PsiElement[] getParameters();
+	private final PsiElement myParent;
+
+	public BuildInSymbolElement(PsiElement parent)
+	{
+		myParent = parent;
+	}
+
+	@Override
+	public boolean canNavigate()
+	{
+		return false;
+	}
+
+	@Override
+	public boolean canNavigateToSource()
+	{
+		return false;
+	}
+
+	@Override
+	public PsiElement getParent()
+	{
+		return myParent;
+	}
 }

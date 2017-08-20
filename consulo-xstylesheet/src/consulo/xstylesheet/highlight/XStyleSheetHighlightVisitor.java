@@ -26,12 +26,16 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiNameIdentifierOwner;
+import com.intellij.psi.PsiReference;
+import consulo.annotations.RequiredReadAction;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
+import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCall;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import consulo.xstylesheet.psi.PsiXStyleSheetSelectorAttribute;
 import consulo.xstylesheet.psi.PsiXStyleSheetSelectorPseudoClass;
 import consulo.xstylesheet.psi.PsiXStyleSheetSelectorReference;
+import consulo.xstylesheet.psi.reference.impl.BuildInSymbolElement;
 
 /**
  * @author VISTALL
@@ -53,6 +57,7 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 		psiElement.accept(new PsiElementVisitor()
 		{
 			@Override
+			@RequiredReadAction
 			public void visitElement(PsiElement element)
 			{
 				if(element instanceof PsiXStyleSheetProperty)
@@ -73,7 +78,7 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 				}
 				else if(element instanceof PsiXStyleSheetSelectorReference)
 				{
-					TextAttributesKey key = null;
+					TextAttributesKey key;
 					if(((PsiXStyleSheetSelectorReference) element).isClassRule())
 					{
 						key = XStyleSheetColors.SELECTOR_CLASS_NAME;
@@ -93,12 +98,31 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 				{
 					highlightName((PsiNameIdentifierOwner) element, PSEUDO_NAME);
 				}
+				else if(element instanceof PsiXStyleSheetFunctionCall)
+				{
+					PsiElement callElement = ((PsiXStyleSheetFunctionCall) element).getCallElement();
+
+					PsiReference[] references = element.getReferences();
+					for(PsiReference reference : references)
+					{
+						PsiElement resolvedElement = reference.resolve();
+						if(resolvedElement instanceof BuildInSymbolElement)
+						{
+							HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
+							builder.textAttributes(XStyleSheetColors.KEYWORD);
+							builder.range(callElement);
+
+							myHighlightInfoHolder.add(builder.create());
+						}
+					}
+				}
 
 				element.acceptChildren(this);
 			}
 		});
 	}
 
+	@RequiredReadAction
 	private void highlightName(PsiNameIdentifierOwner owner, TextAttributesKey key)
 	{
 		PsiElement nameIdentifier = owner.getNameIdentifier();

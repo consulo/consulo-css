@@ -142,61 +142,57 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 			{
 				break;
 			}
-			else if(type == FUNCTION_NAME)
-			{
-				if(valueMarker == null)
-				{
-					valueMarker = builder.mark();
-				}
-
-				PsiBuilder.Marker functionMarker = builder.mark();
-
-				builder.advanceLexer();
-
-				PsiBuilder.Marker argumentList = builder.mark();
-				if(expect(builder, LPAR, "'(' expected"))
-				{
-					boolean noArgument = true;
-					while(true)
-					{
-						IElementType tokenType = builder.getTokenType();
-						if(tokenType == COMMA)
-						{
-
-							if(noArgument)
-							{
-								builder.error("Argument expected");
-								break;
-							}
-
-							builder.advanceLexer();
-							noArgument = true;
-						}
-						else if(tokenType == RPAR)
-						{
-							if(noArgument)
-							{
-								builder.error("Argument expected");
-							}
-							break;
-						}
-						else
-						{
-							builder.advanceLexer();
-							noArgument = false;
-						}
-					}
-				}
-				expect(builder, RPAR, "')' expected");
-				argumentList.done(FUNCTION_CALL_PARAMETER_LIST);
-
-				functionMarker.done(FUNCTION_CALL);
-			}
 			else
 			{
 				if(valueMarker == null)
 				{
 					valueMarker = builder.mark();
+				}
+
+				if(type == CssTokens.IDENTIFIER && builder.lookAhead(1) == CssTokens.LPAR)
+				{
+					PsiBuilder.Marker functionMarker = builder.mark();
+
+					builder.advanceLexer();
+
+					PsiBuilder.Marker argumentList = builder.mark();
+					if(expect(builder, LPAR, "'(' expected"))
+					{
+						boolean noArgument = true;
+						while(!builder.eof())
+						{
+							IElementType tokenType = builder.getTokenType();
+							if(tokenType == COMMA)
+							{
+
+								if(noArgument)
+								{
+									builder.error("Argument expected");
+									break;
+								}
+
+								builder.advanceLexer();
+								noArgument = true;
+							}
+							else if(tokenType == RPAR)
+							{
+								if(noArgument)
+								{
+									builder.error("Argument expected");
+								}
+								break;
+							}
+							else
+							{
+								builder.advanceLexer();
+								noArgument = false;
+							}
+						}
+					}
+					expect(builder, RPAR, "')' expected");
+					argumentList.done(FUNCTION_CALL_PARAMETER_LIST);
+
+					functionMarker.done(FUNCTION_CALL);
 				}
 
 				if(type == CssTokens.BAD_CHARACTER)

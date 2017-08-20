@@ -17,11 +17,17 @@
 package consulo.css.lang.psi;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.ASTNode;
+import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiReference;
+import com.intellij.psi.PsiReferenceBase;
+import consulo.annotations.RequiredReadAction;
 import consulo.css.lang.CssTokens;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCall;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCallParameterList;
+import consulo.xstylesheet.psi.reference.impl.BuildInSymbolElement;
 
 /**
  * @author VISTALL
@@ -29,31 +35,61 @@ import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCallParameterList;
  */
 public class CssFunctionCall extends CssElement implements PsiXStyleSheetFunctionCall
 {
+	private static class Ref extends PsiReferenceBase<PsiElement>
+	{
+		@RequiredReadAction
+		public Ref(@NotNull CssFunctionCall element)
+		{
+			super(element, new TextRange(0, element.getCallElement().getTextLength()));
+		}
+
+		@RequiredReadAction
+		@Nullable
+		@Override
+		public PsiElement resolve()
+		{
+			return new BuildInSymbolElement(getElement());
+		}
+	}
+
 	public CssFunctionCall(@NotNull ASTNode node)
 	{
 		super(node);
 	}
 
 	@Override
-	public PsiElement getNameIdentifier()
+	@RequiredReadAction
+	public PsiReference getReference()
 	{
-		return findNotNullChildByType(CssTokens.FUNCTION_NAME);
+		return new Ref(this);
 	}
 
+	@NotNull
 	@Override
-	public String getName()
+	@RequiredReadAction
+	public PsiElement getCallElement()
 	{
-		PsiElement nameIdentifier = getNameIdentifier();
+		return findNotNullChildByType(CssTokens.IDENTIFIER);
+	}
+
+	@NotNull
+	@RequiredReadAction
+	@Override
+	public String getCallName()
+	{
+		PsiElement nameIdentifier = getCallElement();
 
 		return nameIdentifier.getText();
 	}
 
+	@RequiredReadAction
 	@Override
 	public PsiXStyleSheetFunctionCallParameterList getParameterList()
 	{
 		return findChildByClass(PsiXStyleSheetFunctionCallParameterList.class);
 	}
 
+	@RequiredReadAction
 	@Override
 	public PsiElement[] getParameters()
 	{

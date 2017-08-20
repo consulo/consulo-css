@@ -16,8 +16,6 @@ import consulo.css.lang.CssTokens;
 %eof}
 
 %state BODY
-%state URI
-%state URI_BODY
 
 LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
@@ -37,9 +35,6 @@ StringLiteral2 = \' ( \\\' | [^\'\n\r] )* \'
 NumberLiteral = [0-9]+ | [0-9]*\.[0-9]+
 NumberLiteralWithSufixes = {NumberLiteral} ("in" | "cm" | "mm" | "pt" | "pc" | "px" | "em" | "ex" | "%")?
 HexNumberLiteral = "#" ([_0-9A-Fa-f])+
-
-FunctionName = ([:jletter:])*
-FunctionCall = {FunctionName} "(" .* ("," .*)? ")"
 
 UriTextPart={AnySpace} | [:jletter:] | [:jletterdigit:]
 %%
@@ -76,6 +71,8 @@ UriTextPart={AnySpace} | [:jletter:] | [:jletterdigit:]
     "}"                     { yybegin(YYINITIAL); return CssTokens.RBRACE; }
     "["                     { return CssTokens.LBRACKET; }
     "]"                     { return CssTokens.RBRACKET; }
+    "("                     { return CssTokens.LPAR; }
+    ")"                     { return CssTokens.RPAR; }
     ":"                     { return CssTokens.COLON; }
     "::"                    { return CssTokens.COLONCOLON; }
     "="                     { return CssTokens.EQ; }
@@ -86,7 +83,6 @@ UriTextPart={AnySpace} | [:jletter:] | [:jletterdigit:]
     "+"                     { return CssTokens.PLUS; }
     "%"                     { return CssTokens.PERC; }
     "!"({TraditionalComment}+|{WhiteSpace}+)?"important"   { return CssTokens.IMPORTANT;  }
-    {FunctionCall}           { yybegin(URI); yypushback(yylength());  }
     {NumberLiteralWithSufixes} { return CssTokens.NUMBER; }
     {HexNumberLiteral}      { return CssTokens.NUMBER; }
     {Identifier}            { return CssTokens.IDENTIFIER; }
@@ -95,35 +91,4 @@ UriTextPart={AnySpace} | [:jletter:] | [:jletterdigit:]
     {TraditionalComment}    { return CssTokens.BLOCK_COMMENT; }
     {AnySpace}+             { return CssTokens.WHITE_SPACE; }
     .                       { return CssTokens.BAD_CHARACTER; }
-}
-
-<URI> {
-    {FunctionName}          { return CssTokens.FUNCTION_NAME; }
-    "("                     { yybegin(URI_BODY); return CssTokens.LPAR; }
-     .                       { return CssTokens.BAD_CHARACTER; }
-}
-
-<URI_BODY> {
-    ")"                      { yybegin(BODY); return CssTokens.RPAR; }
-    ","                      { return CssTokens.COMMA; }
-    {StringLiteral}         { return CssTokens.STRING; }
-    {StringLiteral2}        { return CssTokens.STRING; }
-    .
-    {
-    	final int startPos = zzCurrentPosL;
-		while(true) {
-			char c = zzBufferL.charAt(zzCurrentPosL);
-			if(c == ')' || c == ',' || zzEndRead == zzCurrentPosL) {
-				break;
-			}
-			else {
-				zzCurrentPosL ++;
-			}
-		}
-		zzMarkedPos =  zzCurrentPosL;
-
-		if(startPos != zzCurrentPosL) {
-			return CssTokens.FUNCTION_ARGUMENT;
-		}
-	}
 }

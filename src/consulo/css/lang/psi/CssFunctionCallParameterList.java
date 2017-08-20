@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.TokenSet;
+import consulo.annotations.RequiredReadAction;
 import consulo.css.lang.CssTokens;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCallParameterList;
 
@@ -34,9 +35,11 @@ public class CssFunctionCallParameterList extends CssElement implements PsiXStyl
 		super(node);
 	}
 
+	@NotNull
+	@RequiredReadAction
 	@Override
 	public PsiElement[] getParameters()
 	{
-		return findChildrenByType(TokenSet.create(CssTokens.STRING, CssTokens.FUNCTION_ARGUMENT, CssTokens.NUMBER), PsiElement.class);
+		return findChildrenByType(TokenSet.create(CssTokens.STRING, CssTokens.NUMBER, CssTokens.IDENTIFIER), PsiElement.class);
 	}
 }

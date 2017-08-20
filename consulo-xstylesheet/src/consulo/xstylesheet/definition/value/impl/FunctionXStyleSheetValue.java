@@ -52,14 +52,14 @@ public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartPa
 		@Override
 		public boolean isMyFunction(PsiXStyleSheetFunctionCall functionCall)
 		{
-			return functionCall.getName().equals("url");
+			return functionCall.getCallName().equals("url");
 		}
 
 		@Override
 		public List<HighlightInfo> createHighlights(@NotNull PsiXStyleSheetFunctionCall functionCall)
 		{
 			List<HighlightInfo> list = new SmartList<HighlightInfo>();
-			list.add(HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION).range(functionCall.getNameIdentifier()).textAttributes(XStyleSheetColors.KEYWORD).create());
+			list.add(HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION).range(functionCall.getCallElement()).textAttributes(XStyleSheetColors.KEYWORD).create());
 
 			for(PsiElement psiElement : functionCall.getParameters())
 			{
