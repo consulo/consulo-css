@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package consulo.css.html.psi.reference.classOrId;
+package consulo.xstylesheet.html.psi.reference.classOrId;
 
 import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.ASTNode;

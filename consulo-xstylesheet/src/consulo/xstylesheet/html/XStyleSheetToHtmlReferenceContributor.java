@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package consulo.css.html;
+package consulo.xstylesheet.html;
 
 import com.intellij.psi.PsiReferenceContributor;
 import com.intellij.psi.PsiReferenceRegistrar;
 import com.intellij.xml.util.XmlUtil;
-import consulo.css.html.psi.reference.classOrId.HtmlIdOrClassToCssFileReferenceProvider;
-import consulo.css.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
+import consulo.xstylesheet.html.psi.reference.classOrId.HtmlIdOrClassToCssFileReferenceProvider;
+import consulo.xstylesheet.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
 
 /**
  * @author VISTALL
  * @since 07.07.13.
  */
-public class CssToHtmlReferenceContributor extends PsiReferenceContributor
+public class XStyleSheetToHtmlReferenceContributor extends PsiReferenceContributor
 {
 	@Override
 	public void registerReferenceProviders(PsiReferenceRegistrar psiReferenceRegistrar)
@@ -37,6 +37,7 @@ public class CssToHtmlReferenceContributor extends PsiReferenceContributor
 		XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"class"}, null, false, new HtmlIdOrClassToCssFileReferenceProvider(XStyleSheetSimpleSelectorType.CLASS));
 
 		HtmlHrefToCssFileReferenceProvider provider = new HtmlHrefToCssFileReferenceProvider();
+
 		XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"href"}, provider.getElementFilter(), false, provider);
 	}
 }

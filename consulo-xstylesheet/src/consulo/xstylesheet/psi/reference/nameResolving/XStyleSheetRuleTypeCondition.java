@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package consulo.css.lang.psi.reference.nameResolving;
+package consulo.xstylesheet.psi.reference.nameResolving;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,7 +23,6 @@ import consulo.annotations.RequiredReadAction;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
-import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 
 /**
  * @author VISTALL

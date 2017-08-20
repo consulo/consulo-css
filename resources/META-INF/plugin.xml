@@ -7,10 +7,11 @@
 	<depends config-file="consulo.emmet.xml" optional="true">consulo.emmet</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
+		<psi.referenceContributor language="HTML" implementation="consulo.xstylesheet.html.XStyleSheetToHtmlReferenceContributor"/>
+
 		<completion.contributor language="CSS" implementationClass="consulo.css.editor.completion.CssCompletionContributor"/>
 		<fileTypeFactory implementation="consulo.css.lang.CssFileTypeFactory"/>
 
-		<psi.referenceContributor language="HTML" implementation="consulo.css.html.CssToHtmlReferenceContributor"/>
 		<lang.parserDefinition language="CSS" implementationClass="consulo.css.lang.parser.CssParserDefinition"/>
 		<lang.syntaxHighlighterFactory key="CSS" implementationClass="consulo.css.lang.CssSyntaxHighlighterFactory"/>
 		<lang.commenter language="CSS" implementationClass="consulo.css.lang.CssCommenter"/>

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package consulo.css.html.psi.reference.classOrId;
+package consulo.xstylesheet.html.psi.reference.classOrId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,15 +29,15 @@ import com.intellij.psi.ResolveResult;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.ArrayUtil;
 import consulo.annotations.RequiredReadAction;
-import consulo.css.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
-import consulo.css.lang.psi.CssFile;
-import consulo.css.lang.psi.reference.nameResolving.XStyleSheetRuleTypeCondition;
 import consulo.ide.IconDescriptorUpdaters;
+import consulo.xstylesheet.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
 import consulo.xstylesheet.psi.PsiXStyleSheetRule;
+import consulo.xstylesheet.psi.XStyleSheetFile;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
+import consulo.xstylesheet.psi.reference.nameResolving.XStyleSheetRuleTypeCondition;
 
 /**
  * @author VISTALL
@@ -113,9 +113,9 @@ public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase
 			for(PsiReference reference : references)
 			{
 				PsiElement resolve = reference.resolve();
-				if(resolve instanceof CssFile)
+				if(resolve instanceof XStyleSheetFile)
 				{
-					List<PsiXStyleSheetRule> rules = ((CssFile) resolve).findRules(condition);
+					List<PsiXStyleSheetRule> rules = ((XStyleSheetFile) resolve).getRoot().findRules(condition);
 					for(PsiXStyleSheetRule rule : rules)
 					{
 						resolveResults.add(rule);
