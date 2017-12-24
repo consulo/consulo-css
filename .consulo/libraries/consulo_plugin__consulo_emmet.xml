@@ -1,7 +1,0 @@
-<component name="libraryTable">
-  <library name="consulo-plugin: consulo.emmet">
-    <binaries>
-      <root url="jar://$PROJECT_DIR$/dep/consulo.emmet/lib/consulo.emmet-2-SNAPSHOT.jar!/" />
-    </binaries>
-  </library>
-</component>
