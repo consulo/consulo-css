@@ -13,7 +13,7 @@
 		<fileTypeFactory implementation="consulo.css.lang.CssFileTypeFactory"/>
 
 		<lang.parserDefinition language="CSS" implementationClass="consulo.css.lang.parser.CssParserDefinition"/>
-		<lang.syntaxHighlighterFactory key="CSS" implementationClass="consulo.css.lang.CssSyntaxHighlighterFactory"/>
+		<lang.syntaxHighlighterFactory language="CSS" implementationClass="consulo.css.lang.CssSyntaxHighlighterFactory"/>
 		<lang.commenter language="CSS" implementationClass="consulo.css.lang.CssCommenter"/>
 		<lang.braceMatcher language="CSS" implementationClass="consulo.css.lang.CssPairedBraceMatcher"/>
 		<lang.formatter language="CSS" implementationClass="consulo.css.lang.formatting.CssFormattingModelBuilder"/>

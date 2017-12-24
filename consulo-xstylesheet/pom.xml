@@ -50,9 +50,7 @@
 				<configuration>
 					<repositoryChannel>nightly</repositoryChannel>
 					<dependencies>
-						<dependency>com.intellij.spellchecker</dependency>
-						<dependency>org.intellij.intelliLang</dependency>
-						<dependency>com.intellij.regexp</dependency>
+						<dependency>com.intellij.xml</dependency>
 					</dependencies>
 					<packaging>
 						<skip>${dev.mode}</skip>
@@ -72,6 +70,16 @@
 	</build>
 
 	<dependencies>
-	
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>consulo.css-xstylesheet.api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>com.intellij.xml</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 </project>

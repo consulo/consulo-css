@@ -42,6 +42,8 @@
 	<packaging>pom</packaging>
 
 	<modules>
-	
+		<module>xstylesheet-api</module>
+		<module>consulo-xstylesheet</module>
+		<module>css-impl</module>
 	</modules>
 </project>
