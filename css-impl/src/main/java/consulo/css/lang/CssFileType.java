@@ -18,10 +18,10 @@ package consulo.css.lang;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import consulo.css.CssIcons;
+import consulo.ui.image.Image;
 
 /**
  * @author VISTALL
@@ -59,7 +59,7 @@ public class CssFileType extends LanguageFileType
 
 	@Nullable
 	@Override
-	public Icon getIcon()
+	public Image getIcon()
 	{
 		return CssIcons.CssFile;
 	}
