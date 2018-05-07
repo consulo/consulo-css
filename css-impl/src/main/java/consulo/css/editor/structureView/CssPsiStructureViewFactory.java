@@ -16,8 +16,8 @@
 
 package consulo.css.editor.structureView;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.ide.structureView.StructureViewBuilder;
 import com.intellij.ide.structureView.StructureViewModel;
 import com.intellij.ide.structureView.StructureViewModelBase;
@@ -39,7 +39,7 @@ public class CssPsiStructureViewFactory implements PsiStructureViewFactory
 	{
 		return new TreeBasedStructureViewBuilder()
 		{
-			@NotNull
+			@Nonnull
 			@Override
 			public StructureViewModel createStructureViewModel(Editor editor)
 			{

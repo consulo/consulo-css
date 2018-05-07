@@ -16,7 +16,7 @@
 
 package consulo.css.lang.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.lang.ASTNode;
 import consulo.annotations.RequiredReadAction;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
@@ -28,13 +28,13 @@ import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
  */
 public class CssSelectorImpl extends CssElement implements XStyleSheetSelector
 {
-	public CssSelectorImpl(@NotNull ASTNode node)
+	public CssSelectorImpl(@Nonnull ASTNode node)
 	{
 		super(node);
 	}
 
 	@RequiredReadAction
-	@NotNull
+	@Nonnull
 	@Override
 	public XStyleSheetSimpleSelector[] getSimpleSelectors()
 	{

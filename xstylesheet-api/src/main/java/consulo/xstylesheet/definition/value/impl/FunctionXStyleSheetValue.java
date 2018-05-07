@@ -19,8 +19,9 @@ package consulo.xstylesheet.definition.value.impl;
 import java.util.Collections;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
 import com.intellij.codeInsight.lookup.LookupElement;
@@ -44,7 +45,7 @@ public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartPa
 	{
 		boolean isMyFunction(PsiXStyleSheetFunctionCall functionCall);
 
-		List<HighlightInfo> createHighlights(@NotNull PsiXStyleSheetFunctionCall functionCall);
+		List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetFunctionCall functionCall);
 	}
 
 	public static class UrlFunctionCallValidator implements XStyleSheetFunctionCallDescriptor
@@ -56,7 +57,7 @@ public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartPa
 		}
 
 		@Override
-		public List<HighlightInfo> createHighlights(@NotNull PsiXStyleSheetFunctionCall functionCall)
+		public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetFunctionCall functionCall)
 		{
 			List<HighlightInfo> list = new SmartList<HighlightInfo>();
 			list.add(HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION).range(functionCall.getCallElement()).textAttributes(XStyleSheetColors.KEYWORD).create());
@@ -69,9 +70,9 @@ public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartPa
 		}
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public List<HighlightInfo> createHighlights(@NotNull PsiXStyleSheetPropertyValuePart valuePart)
+	public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart)
 	{
 		Object nativeValue = getNativeValue(valuePart, null);
 		if(nativeValue instanceof XStyleSheetFunctionCallDescriptor)
@@ -83,7 +84,7 @@ public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartPa
 
 	@Nullable
 	@Override
-	public Object getNativeValue(@NotNull PsiXStyleSheetPropertyValuePart valuePart, String value)
+	public Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value)
 	{
 		PsiElement firstChild = valuePart.getFirstChild();
 		if(firstChild instanceof PsiXStyleSheetFunctionCall)
@@ -99,7 +100,7 @@ public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartPa
 		return null;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public List<LookupElement> getLookupElements(String value)
 	{

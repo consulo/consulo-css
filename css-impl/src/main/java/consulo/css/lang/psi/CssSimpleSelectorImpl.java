@@ -16,8 +16,8 @@
 
 package consulo.css.lang.psi;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
@@ -36,7 +36,7 @@ public class CssSimpleSelectorImpl extends CssElement implements XStyleSheetSimp
 {
 	private static final TokenSet nameSet = TokenSet.create(CssTokens.IDENTIFIER, CssTokens.SELECTOR_CLASS, CssTokens.SELECTOR_ID, CssTokens.ASTERISK);
 
-	public CssSimpleSelectorImpl(@NotNull ASTNode node)
+	public CssSimpleSelectorImpl(@Nonnull ASTNode node)
 	{
 		super(node);
 	}
@@ -68,7 +68,7 @@ public class CssSimpleSelectorImpl extends CssElement implements XStyleSheetSimp
 	}
 
 	@RequiredReadAction
-	@NotNull
+	@Nonnull
 	@Override
 	public XStyleSheetSimpleSelectorType getType()
 	{

@@ -19,7 +19,8 @@ package consulo.css.lang;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.colors.CodeInsightColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
@@ -45,14 +46,14 @@ public class CssSyntaxHighlighter extends SyntaxHighlighterBase
 		}
 	};
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Lexer getHighlightingLexer()
 	{
 		return new _CssLexer();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public TextAttributesKey[] getTokenHighlights(IElementType elementType)
 	{

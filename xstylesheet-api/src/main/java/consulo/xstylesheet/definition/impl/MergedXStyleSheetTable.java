@@ -19,8 +19,9 @@ package consulo.xstylesheet.definition.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetTable;
 
@@ -39,7 +40,7 @@ public class MergedXStyleSheetTable implements XStyleSheetTable
 
 	@Nullable
 	@Override
-	public XStyleSheetProperty findProperty(@NotNull String propertyName)
+	public XStyleSheetProperty findProperty(@Nonnull String propertyName)
 	{
 		for(XStyleSheetTable myTable : myTables)
 		{
@@ -52,7 +53,7 @@ public class MergedXStyleSheetTable implements XStyleSheetTable
 		return null;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public List<XStyleSheetProperty> getProperties()
 	{

@@ -23,9 +23,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import org.jdom.Document;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.extensions.AbstractExtensionPointBean;
 import com.intellij.openapi.extensions.ExtensionPointName;
@@ -58,7 +59,7 @@ public class XStyleSheetTableExtension extends AbstractExtensionPointBean
 
 	private NotNullLazyValue<XStyleSheetTable> myLazyTableValue = new NotNullLazyValue<XStyleSheetTable>()
 	{
-		@NotNull
+		@Nonnull
 		@Override
 		protected XStyleSheetTable compute()
 		{

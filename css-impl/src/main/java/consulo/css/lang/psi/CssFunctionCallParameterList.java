@@ -16,7 +16,8 @@
 
 package consulo.css.lang.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.TokenSet;
@@ -30,12 +31,12 @@ import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCallParameterList;
  */
 public class CssFunctionCallParameterList extends CssElement implements PsiXStyleSheetFunctionCallParameterList
 {
-	public CssFunctionCallParameterList(@NotNull ASTNode node)
+	public CssFunctionCallParameterList(@Nonnull ASTNode node)
 	{
 		super(node);
 	}
 
-	@NotNull
+	@Nonnull
 	@RequiredReadAction
 	@Override
 	public PsiElement[] getParameters()

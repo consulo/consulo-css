@@ -19,8 +19,9 @@ package consulo.xstylesheet.definition.value.impl;
 import java.util.Collections;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.lookup.LookupElement;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
@@ -32,21 +33,21 @@ import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
  */
 public class BaseXStyleSheetPropertyValuePartParser implements XStyleSheetPropertyValuePartParser
 {
-	@NotNull
+	@Nonnull
 	@Override
-	public List<HighlightInfo> createHighlights(@NotNull PsiXStyleSheetPropertyValuePart valuePart)
+	public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart)
 	{
 		return Collections.emptyList();
 	}
 
 	@Nullable
 	@Override
-	public Object getNativeValue(@NotNull PsiXStyleSheetPropertyValuePart valuePart, String value)
+	public Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value)
 	{
 		return null;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public List<LookupElement> getLookupElements(String value)
 	{

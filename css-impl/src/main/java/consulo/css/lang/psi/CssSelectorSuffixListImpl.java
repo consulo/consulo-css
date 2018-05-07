@@ -16,7 +16,7 @@
 
 package consulo.css.lang.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.lang.ASTNode;
 import consulo.xstylesheet.psi.XStyleSheetSelectorSuffixList;
 
@@ -26,7 +26,7 @@ import consulo.xstylesheet.psi.XStyleSheetSelectorSuffixList;
  */
 public class CssSelectorSuffixListImpl extends CssElement implements XStyleSheetSelectorSuffixList
 {
-	public CssSelectorSuffixListImpl(@NotNull ASTNode node)
+	public CssSelectorSuffixListImpl(@Nonnull ASTNode node)
 	{
 		super(node);
 	}

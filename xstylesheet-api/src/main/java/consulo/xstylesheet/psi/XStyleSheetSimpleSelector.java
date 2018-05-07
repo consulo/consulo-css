@@ -16,8 +16,8 @@
 
 package consulo.xstylesheet.psi;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.psi.PsiElement;
 import consulo.annotations.RequiredReadAction;
 
@@ -31,10 +31,10 @@ public interface XStyleSheetSimpleSelector extends PsiXStyleSheetElement
 	@RequiredReadAction
 	PsiElement getElement();
 
-	@NotNull
+	@Nonnull
 	String getName();
 
-	@NotNull
+	@Nonnull
 	@RequiredReadAction
 	XStyleSheetSimpleSelectorType getType();
 }

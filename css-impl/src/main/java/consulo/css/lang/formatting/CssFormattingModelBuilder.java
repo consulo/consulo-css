@@ -16,8 +16,8 @@
 
 package consulo.css.lang.formatting;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.formatting.Block;
 import com.intellij.formatting.FormattingModel;
 import com.intellij.formatting.FormattingModelBuilder;
@@ -35,7 +35,7 @@ import com.intellij.psi.formatter.PsiBasedFormattingModel;
  */
 public class CssFormattingModelBuilder implements FormattingModelBuilder
 {
-	@NotNull
+	@Nonnull
 	@Override
 	public FormattingModel createModel(PsiElement element, CodeStyleSettings codeStyleSettings)
 	{

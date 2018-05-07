@@ -22,14 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.ui.AnActionButton;
 import com.intellij.ui.AnActionButtonRunnable;
@@ -72,7 +72,7 @@ public class CssEditPrefixesListPanel
 		new TableViewSpeedSearch<CssPrefixInfo>(myPrefixesTableView)
 		{
 			@Override
-			protected String getItemText(@NotNull CssPrefixInfo element)
+			protected String getItemText(@Nonnull CssPrefixInfo element)
 			{
 				return element.getPropertyName();
 			}

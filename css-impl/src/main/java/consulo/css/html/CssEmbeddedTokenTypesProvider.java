@@ -16,7 +16,8 @@
 
 package consulo.css.html;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lexer.EmbeddedTokenTypesProvider;
 import com.intellij.lexer.HtmlLexer;
 import com.intellij.psi.tree.IElementType;
@@ -30,14 +31,14 @@ import consulo.lang.util.LanguageVersionUtil;
  */
 public class CssEmbeddedTokenTypesProvider implements EmbeddedTokenTypesProvider
 {
-	@NotNull
+	@Nonnull
 	@Override
 	public String getName()
 	{
 		return HtmlLexer.INLINE_STYLE_NAME;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public IElementType getElementType()
 	{
@@ -45,7 +46,7 @@ public class CssEmbeddedTokenTypesProvider implements EmbeddedTokenTypesProvider
 	}
 
 	@Override
-	public boolean isMyVersion(@NotNull LanguageVersion languageVersion)
+	public boolean isMyVersion(@Nonnull LanguageVersion languageVersion)
 	{
 		//noinspection RequiredXAction
 		return languageVersion == LanguageVersionUtil.findDefaultVersion(languageVersion.getLanguage());

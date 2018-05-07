@@ -19,8 +19,9 @@ package consulo.css.editor.structureView;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
@@ -36,7 +37,7 @@ public class CssSelectorDeclarationStructureViewTreeElement extends PsiTreeEleme
 		super(psiElement);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Collection<StructureViewTreeElement> getChildrenBase()
 	{

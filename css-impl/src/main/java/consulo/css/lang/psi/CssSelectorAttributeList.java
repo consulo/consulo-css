@@ -16,7 +16,8 @@
 
 package consulo.css.lang.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 
 /**
@@ -25,7 +26,7 @@ import com.intellij.lang.ASTNode;
  */
 public class CssSelectorAttributeList extends CssElement
 {
-	public CssSelectorAttributeList(@NotNull ASTNode node)
+	public CssSelectorAttributeList(@Nonnull ASTNode node)
 	{
 		super(node);
 	}

@@ -19,7 +19,8 @@ package consulo.xstylesheet.html.psi.reference.classOrId;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementResolveResult;
@@ -47,14 +48,14 @@ public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase
 {
 	private final XStyleSheetSimpleSelectorType myConditionType;
 
-	public HtmlIdOrClassToCssFileReference(@NotNull PsiElement element, XStyleSheetSimpleSelectorType conditionType)
+	public HtmlIdOrClassToCssFileReference(@Nonnull PsiElement element, XStyleSheetSimpleSelectorType conditionType)
 	{
 		super(element);
 		myConditionType = conditionType;
 	}
 
 	@RequiredReadAction
-	@NotNull
+	@Nonnull
 	@Override
 	public ResolveResult[] multiResolve(boolean b)
 	{
@@ -69,7 +70,7 @@ public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase
 		return resolveResults.isEmpty() ? ResolveResult.EMPTY_ARRAY : resolveResults.toArray(new ResolveResult[resolveResults.size()]);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	@RequiredReadAction
 	public Object[] getVariants()

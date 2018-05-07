@@ -16,7 +16,8 @@
 
 package consulo.xstylesheet.html.psi.reference.file;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiDirectory;
@@ -77,9 +78,9 @@ public class HtmlHrefToCssFileReferenceProvider extends PsiReferenceProvider
 		}
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public PsiReference[] getReferencesByElement(@NotNull PsiElement psiElement, @NotNull ProcessingContext processingContext)
+	public PsiReference[] getReferencesByElement(@Nonnull PsiElement psiElement, @Nonnull ProcessingContext processingContext)
 	{
 		XmlAttributeValue xmlAttributeValue = (XmlAttributeValue) psiElement;
 		ASTNode value = xmlAttributeValue.getNode().findChildByType(XmlTokenType.XML_ATTRIBUTE_VALUE_TOKEN);

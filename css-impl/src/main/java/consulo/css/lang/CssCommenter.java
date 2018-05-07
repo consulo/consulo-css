@@ -16,7 +16,7 @@
 
 package consulo.css.lang;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.lang.Commenter;
 
 /**

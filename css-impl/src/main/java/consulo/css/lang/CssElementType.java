@@ -16,8 +16,9 @@
 
 package consulo.css.lang;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.psi.tree.IElementType;
 
 /**
@@ -26,7 +27,7 @@ import com.intellij.psi.tree.IElementType;
  */
 public class CssElementType extends IElementType
 {
-	public CssElementType(@NotNull @NonNls String debugName)
+	public CssElementType(@Nonnull @NonNls String debugName)
 	{
 		super(debugName, CssLanguage.INSTANCE);
 	}

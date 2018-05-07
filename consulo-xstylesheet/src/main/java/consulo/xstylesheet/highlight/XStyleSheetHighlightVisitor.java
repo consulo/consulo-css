@@ -16,7 +16,7 @@
 
 package consulo.xstylesheet.highlight;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
 import com.intellij.codeInsight.daemon.impl.HighlightVisitor;
@@ -47,13 +47,13 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 	private HighlightInfoHolder myHighlightInfoHolder;
 
 	@Override
-	public boolean suitableForFile(@NotNull PsiFile psiFile)
+	public boolean suitableForFile(@Nonnull PsiFile psiFile)
 	{
 		return true;
 	}
 
 	@Override
-	public void visit(@NotNull PsiElement psiElement)
+	public void visit(@Nonnull PsiElement psiElement)
 	{
 		psiElement.accept(new PsiElementVisitor()
 		{
@@ -146,14 +146,14 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 	}
 
 	@Override
-	public boolean analyze(@NotNull PsiFile psiFile, boolean b, @NotNull HighlightInfoHolder highlightInfoHolder, @NotNull Runnable runnable)
+	public boolean analyze(@Nonnull PsiFile psiFile, boolean b, @Nonnull HighlightInfoHolder highlightInfoHolder, @Nonnull Runnable runnable)
 	{
 		myHighlightInfoHolder = highlightInfoHolder;
 		runnable.run();
 		return true;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public HighlightVisitor clone()
 	{

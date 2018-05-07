@@ -18,8 +18,8 @@ package consulo.xstylesheet.editor.lineMarker;
 
 import java.awt.Color;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.openapi.editor.ElementColorProvider;
 import com.intellij.psi.PsiElement;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
@@ -32,7 +32,7 @@ public class XStyleSheetElementColorProvider implements ElementColorProvider
 {
 	@Nullable
 	@Override
-	public Color getColorFrom(@NotNull PsiElement psiElement)
+	public Color getColorFrom(@Nonnull PsiElement psiElement)
 	{
 		if(psiElement instanceof PsiXStyleSheetPropertyValuePart)
 		{
@@ -55,7 +55,7 @@ public class XStyleSheetElementColorProvider implements ElementColorProvider
 	}
 
 	@Override
-	public void setColorTo(@NotNull PsiElement psiElement, @NotNull Color color)
+	public void setColorTo(@Nonnull PsiElement psiElement, @Nonnull Color color)
 	{
 		//TODO [VISTALL] !
 	}

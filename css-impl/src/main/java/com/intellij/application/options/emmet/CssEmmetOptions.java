@@ -7,8 +7,9 @@ import java.util.Set;
 
 import org.jdom.Document;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.google.common.collect.Sets;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
@@ -34,7 +35,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
 )
 public class CssEmmetOptions implements PersistentStateComponent<CssEmmetOptions>
 {
-	@NotNull
+	@Nonnull
 	public static CssEmmetOptions getInstance()
 	{
 		return ServiceManager.getService(CssEmmetOptions.class);
@@ -92,7 +93,7 @@ public class CssEmmetOptions implements PersistentStateComponent<CssEmmetOptions
 		return myFuzzySearchEnabled;
 	}
 
-	@NotNull
+	@Nonnull
 	public Map<String, Integer> getPrefixes()
 	{
 		if(prefixes == null)

@@ -7,7 +7,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.ui.components.JBCheckBox;

@@ -1,6 +1,7 @@
 package consulo.css.lang.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import consulo.annotations.RequiredReadAction;
@@ -13,13 +14,13 @@ import consulo.xstylesheet.psi.XStyleSheetRoot;
  */
 public class CssRoot extends ASTWrapperPsiElement implements XStyleSheetRoot
 {
-	public CssRoot(@NotNull ASTNode node)
+	public CssRoot(@Nonnull ASTNode node)
 	{
 		super(node);
 	}
 
 	@RequiredReadAction
-	@NotNull
+	@Nonnull
 	@Override
 	public PsiXStyleSheetRule[] getRules()
 	{

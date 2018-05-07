@@ -16,8 +16,9 @@
 
 package consulo.xstylesheet.psi.reference.nameResolving;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.psi.PsiElement;
 import consulo.annotations.RequiredReadAction;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
@@ -33,7 +34,7 @@ public class XStyleSheetRuleTypeCondition implements XStyleRuleCondition
 	private final XStyleSheetSimpleSelectorType myConditionType;
 	private final String myName;
 
-	public XStyleSheetRuleTypeCondition(@NotNull XStyleSheetSimpleSelectorType conditionType, @Nullable String name)
+	public XStyleSheetRuleTypeCondition(@Nonnull XStyleSheetSimpleSelectorType conditionType, @Nullable String name)
 	{
 		myConditionType = conditionType;
 		myName = name;

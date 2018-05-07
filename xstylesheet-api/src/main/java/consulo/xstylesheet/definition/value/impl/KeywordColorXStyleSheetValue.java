@@ -23,8 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
 import com.intellij.codeInsight.lookup.LookupElement;
@@ -63,9 +64,9 @@ public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyVa
 		}
 	};
 
-	@NotNull
+	@Nonnull
 	@Override
-	public List<HighlightInfo> createHighlights(@NotNull PsiXStyleSheetPropertyValuePart valuePart)
+	public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart)
 	{
 		HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
 		builder.textAttributes(XStyleSheetColors.KEYWORD);
@@ -75,7 +76,7 @@ public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyVa
 
 	@Nullable
 	@Override
-	public Color fromString(@NotNull String stringValue, String value)
+	public Color fromString(@Nonnull String stringValue, String value)
 	{
 		stringValue = stringValue.toLowerCase();
 		stringValue = myDefaultColors.get(stringValue);
@@ -94,7 +95,7 @@ public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyVa
 		}
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public List<LookupElement> getLookupElements(String value)
 	{

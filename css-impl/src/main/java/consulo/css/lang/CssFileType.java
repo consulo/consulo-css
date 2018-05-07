@@ -16,10 +16,10 @@
 
 package consulo.css.lang;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.Icon;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import consulo.css.CssIcons;
 
@@ -36,21 +36,21 @@ public class CssFileType extends LanguageFileType
 		super(CssLanguage.INSTANCE);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getId()
 	{
 		return "CSS";
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getDescription()
 	{
 		return "CSS";
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getDefaultExtension()
 	{

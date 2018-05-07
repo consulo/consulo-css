@@ -16,8 +16,9 @@
 
 package consulo.css.lang.psi;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
@@ -38,7 +39,7 @@ public class CssFunctionCall extends CssElement implements PsiXStyleSheetFunctio
 	private static class Ref extends PsiReferenceBase<PsiElement>
 	{
 		@RequiredReadAction
-		public Ref(@NotNull CssFunctionCall element)
+		public Ref(@Nonnull CssFunctionCall element)
 		{
 			super(element, new TextRange(0, element.getCallElement().getTextLength()));
 		}
@@ -52,7 +53,7 @@ public class CssFunctionCall extends CssElement implements PsiXStyleSheetFunctio
 		}
 	}
 
-	public CssFunctionCall(@NotNull ASTNode node)
+	public CssFunctionCall(@Nonnull ASTNode node)
 	{
 		super(node);
 	}
@@ -64,7 +65,7 @@ public class CssFunctionCall extends CssElement implements PsiXStyleSheetFunctio
 		return new Ref(this);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	@RequiredReadAction
 	public PsiElement getCallElement()
@@ -72,7 +73,7 @@ public class CssFunctionCall extends CssElement implements PsiXStyleSheetFunctio
 		return findNotNullChildByType(CssTokens.IDENTIFIER);
 	}
 
-	@NotNull
+	@Nonnull
 	@RequiredReadAction
 	@Override
 	public String getCallName()

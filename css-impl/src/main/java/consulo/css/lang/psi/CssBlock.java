@@ -16,7 +16,8 @@
 
 package consulo.css.lang.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import consulo.xstylesheet.psi.PsiXStyleSheetBlock;
 
@@ -26,7 +27,7 @@ import consulo.xstylesheet.psi.PsiXStyleSheetBlock;
  */
 public class CssBlock extends CssElement implements PsiXStyleSheetBlock
 {
-	public CssBlock(@NotNull ASTNode node)
+	public CssBlock(@Nonnull ASTNode node)
 	{
 		super(node);
 	}

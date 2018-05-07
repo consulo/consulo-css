@@ -16,8 +16,8 @@
 
 package consulo.css.lang.psi;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.lang.ASTNode;
 import consulo.annotations.RequiredReadAction;
 import consulo.xstylesheet.psi.PsiXStyleSheetRule;
@@ -30,7 +30,7 @@ import consulo.xstylesheet.psi.XStyleSheetSelectorList;
  */
 public class CssRule extends CssElement implements PsiXStyleSheetRule
 {
-	public CssRule(@NotNull ASTNode node)
+	public CssRule(@Nonnull ASTNode node)
 	{
 		super(node);
 	}
@@ -42,7 +42,7 @@ public class CssRule extends CssElement implements PsiXStyleSheetRule
 		return findChildByClass(CssBlock.class);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public CssProperty[] getProperties()
 	{

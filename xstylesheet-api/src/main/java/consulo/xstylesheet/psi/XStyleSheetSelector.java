@@ -16,7 +16,7 @@
 
 package consulo.xstylesheet.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import consulo.annotations.RequiredReadAction;
 
 /**
@@ -27,7 +27,7 @@ public interface XStyleSheetSelector extends PsiXStyleSheetElement
 {
 	XStyleSheetSelector[] EMPTY_ARRAY = new XStyleSheetSelector[0];
 
-	@NotNull
+	@Nonnull
 	@RequiredReadAction
 	XStyleSheetSimpleSelector[] getSimpleSelectors();
 }

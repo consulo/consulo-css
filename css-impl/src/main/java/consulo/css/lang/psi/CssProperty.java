@@ -16,9 +16,11 @@
 
 package consulo.css.lang.psi;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
@@ -40,7 +42,7 @@ public class CssProperty extends CssElement implements PsiNameIdentifierOwner, P
 {
 	public static final CssProperty[] EMPTY_ARRAY = new CssProperty[0];
 
-	public CssProperty(@NotNull ASTNode node)
+	public CssProperty(@Nonnull ASTNode node)
 	{
 		super(node);
 	}
@@ -71,7 +73,7 @@ public class CssProperty extends CssElement implements PsiNameIdentifierOwner, P
 		return xStyleSheetTable.findProperty(name);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public PsiXStyleSheetPropertyValuePart[] getParts()
 	{
@@ -93,7 +95,7 @@ public class CssProperty extends CssElement implements PsiNameIdentifierOwner, P
 	}
 
 	@Override
-	public PsiElement setName(@NonNls @NotNull String s) throws IncorrectOperationException
+	public PsiElement setName(@NonNls @Nonnull String s) throws IncorrectOperationException
 	{
 		return null;
 	}

@@ -18,8 +18,9 @@ package consulo.xstylesheet.definition.value.impl;
 
 import java.awt.Color;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.ui.ColorUtil;
 
 /**
@@ -30,7 +31,7 @@ public class ColorXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePart
 {
 	@Nullable
 	@Override
-	public Color fromString(@NotNull String stringValue, String value)
+	public Color fromString(@Nonnull String stringValue, String value)
 	{
 		try
 		{

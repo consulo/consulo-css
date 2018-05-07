@@ -16,8 +16,9 @@
 
 package consulo.css.lang;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.lang.BracePair;
 import com.intellij.lang.PairedBraceMatcher;
 import com.intellij.psi.PsiFile;
@@ -42,7 +43,7 @@ public class CssPairedBraceMatcher implements PairedBraceMatcher
 	}
 
 	@Override
-	public boolean isPairedBracesAllowedBeforeType(@NotNull IElementType elementType, @Nullable IElementType elementType2)
+	public boolean isPairedBracesAllowedBeforeType(@Nonnull IElementType elementType, @Nullable IElementType elementType2)
 	{
 		return false;
 	}

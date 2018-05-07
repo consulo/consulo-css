@@ -16,7 +16,8 @@
 
 package consulo.xstylesheet.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.psi.PsiElement;
 import consulo.annotations.RequiredReadAction;
 
@@ -26,11 +27,11 @@ import consulo.annotations.RequiredReadAction;
  */
 public interface PsiXStyleSheetFunctionCall extends PsiXStyleSheetElement
 {
-	@NotNull
+	@Nonnull
 	@RequiredReadAction
 	PsiElement getCallElement();
 
-	@NotNull
+	@Nonnull
 	@RequiredReadAction
 	String getCallName();
 

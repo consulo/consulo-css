@@ -19,8 +19,9 @@ package consulo.xstylesheet.definition.value.impl;
 import java.util.Collections;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 
@@ -32,14 +33,14 @@ public class BaseNumberXStyleSheetValue extends TextBasedXStyleSheetPropertyValu
 {
 	private String[] myPrefixes;
 
-	public BaseNumberXStyleSheetValue(@NotNull String... prefixes)
+	public BaseNumberXStyleSheetValue(@Nonnull String... prefixes)
 	{
 		myPrefixes = prefixes;
 	}
 
 	@Nullable
 	@Override
-	public Object fromString(@NotNull String stringValue, String value)
+	public Object fromString(@Nonnull String stringValue, String value)
 	{
 		if(value != null && !stringValue.equals(value))
 		{
@@ -76,7 +77,7 @@ public class BaseNumberXStyleSheetValue extends TextBasedXStyleSheetPropertyValu
 		return null;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public List<LookupElement> getLookupElements(String value)
 	{

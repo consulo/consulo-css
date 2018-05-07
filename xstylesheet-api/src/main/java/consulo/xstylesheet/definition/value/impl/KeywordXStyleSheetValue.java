@@ -19,8 +19,8 @@ package consulo.xstylesheet.definition.value.impl;
 import java.util.Collections;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
 import com.intellij.codeInsight.lookup.LookupElement;
@@ -36,7 +36,7 @@ public class KeywordXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePa
 {
 	@Nullable
 	@Override
-	public String fromString(@NotNull String stringValue, String value)
+	public String fromString(@Nonnull String stringValue, String value)
 	{
 		if(stringValue.equals(value))
 		{
@@ -45,9 +45,9 @@ public class KeywordXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePa
 		return null;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public List<HighlightInfo> createHighlights(@NotNull PsiXStyleSheetPropertyValuePart valuePart)
+	public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart)
 	{
 		HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
 		builder.textAttributes(XStyleSheetColors.KEYWORD);
@@ -55,7 +55,7 @@ public class KeywordXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePa
 		return Collections.singletonList(builder.create());
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public List<LookupElement> getLookupElements(String value)
 	{

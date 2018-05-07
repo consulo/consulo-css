@@ -18,7 +18,7 @@ package consulo.xstylesheet.definition.impl;
 
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.lookup.LookupElement;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
@@ -46,9 +46,9 @@ public class XStyleSheetPropertyValuePartImpl implements XStyleSheetPropertyValu
 		return myParser;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public List<HighlightInfo> createHighlights(@NotNull PsiXStyleSheetPropertyValuePart valuePart)
+	public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart)
 	{
 		return myParser.createHighlights(valuePart);
 	}

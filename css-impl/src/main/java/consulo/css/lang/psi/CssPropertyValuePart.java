@@ -16,7 +16,8 @@
 
 package consulo.css.lang.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.util.ArrayUtil;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
@@ -31,7 +32,7 @@ import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
  */
 public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPropertyValuePart
 {
-	public CssPropertyValuePart(@NotNull ASTNode node)
+	public CssPropertyValuePart(@Nonnull ASTNode node)
 	{
 		super(node);
 	}

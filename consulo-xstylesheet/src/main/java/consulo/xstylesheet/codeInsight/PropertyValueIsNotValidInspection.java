@@ -16,7 +16,8 @@
 
 package consulo.xstylesheet.codeInsight;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.codeInspection.LocalInspectionTool;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
@@ -32,9 +33,9 @@ import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
  */
 public class PropertyValueIsNotValidInspection extends LocalInspectionTool
 {
-	@NotNull
+	@Nonnull
 	@Override
-	public com.intellij.psi.PsiElementVisitor buildVisitor(@NotNull final ProblemsHolder holder, boolean isOnTheFly)
+	public com.intellij.psi.PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, boolean isOnTheFly)
 	{
 		return new PsiElementVisitor()
 		{

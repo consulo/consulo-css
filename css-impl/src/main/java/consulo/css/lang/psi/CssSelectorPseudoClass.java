@@ -16,9 +16,10 @@
 
 package consulo.css.lang.psi;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.IncorrectOperationException;
@@ -31,7 +32,7 @@ import consulo.xstylesheet.psi.PsiXStyleSheetSelectorPseudoClass;
  */
 public class CssSelectorPseudoClass extends CssElement implements PsiXStyleSheetSelectorPseudoClass
 {
-	public CssSelectorPseudoClass(@NotNull ASTNode node)
+	public CssSelectorPseudoClass(@Nonnull ASTNode node)
 	{
 		super(node);
 	}
@@ -51,7 +52,7 @@ public class CssSelectorPseudoClass extends CssElement implements PsiXStyleSheet
 	}
 
 	@Override
-	public PsiElement setName(@NonNls @NotNull String s) throws IncorrectOperationException
+	public PsiElement setName(@NonNls @Nonnull String s) throws IncorrectOperationException
 	{
 		return null;
 	}

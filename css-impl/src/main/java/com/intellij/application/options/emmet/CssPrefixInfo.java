@@ -21,7 +21,7 @@ import static com.google.common.collect.Sets.newHashSet;
 import java.util.Collection;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * User: zolotov
@@ -29,12 +29,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class CssPrefixInfo
 {
-	@NotNull
+	@Nonnull
 	private final String myPropertyName;
-	@NotNull
+	@Nonnull
 	private final Collection<CssPrefix> myEnabledPrefixes;
 
-	public CssPrefixInfo(@NotNull String propertyName, CssPrefix... enabledPrefixes)
+	public CssPrefixInfo(@Nonnull String propertyName, CssPrefix... enabledPrefixes)
 	{
 		myPropertyName = propertyName;
 		myEnabledPrefixes = newHashSet(enabledPrefixes);
@@ -44,7 +44,7 @@ public class CssPrefixInfo
 		}
 	}
 
-	public CssPrefixInfo(@NotNull String propertyName, Collection<CssPrefix> enabledPrefixes)
+	public CssPrefixInfo(@Nonnull String propertyName, Collection<CssPrefix> enabledPrefixes)
 	{
 		myPropertyName = propertyName;
 		myEnabledPrefixes = newHashSet(enabledPrefixes);
@@ -54,7 +54,7 @@ public class CssPrefixInfo
 		}
 	}
 
-	@NotNull
+	@Nonnull
 	public Collection<CssPrefix> getEnabledPrefixes()
 	{
 		return myEnabledPrefixes;
@@ -77,7 +77,7 @@ public class CssPrefixInfo
 		return myEnabledPrefixes.contains(prefix);
 	}
 
-	@NotNull
+	@Nonnull
 	public String getPropertyName()
 	{
 		return myPropertyName;

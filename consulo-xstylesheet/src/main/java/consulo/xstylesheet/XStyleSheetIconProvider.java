@@ -16,7 +16,7 @@
 
 package consulo.xstylesheet;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.icons.AllIcons;
 import com.intellij.psi.PsiElement;
 import consulo.annotations.RequiredReadAction;
@@ -33,7 +33,7 @@ public class XStyleSheetIconProvider implements IconDescriptorUpdater
 {
 	@RequiredReadAction
 	@Override
-	public void updateIcon(@NotNull IconDescriptor iconDescriptor, @NotNull PsiElement element, int i)
+	public void updateIcon(@Nonnull IconDescriptor iconDescriptor, @Nonnull PsiElement element, int i)
 	{
 		if(element instanceof XStyleSheetSelector)
 		{

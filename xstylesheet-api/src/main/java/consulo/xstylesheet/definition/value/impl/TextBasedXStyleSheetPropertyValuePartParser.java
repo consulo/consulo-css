@@ -16,8 +16,8 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
 /**
@@ -28,10 +28,10 @@ public abstract class TextBasedXStyleSheetPropertyValuePartParser extends BaseXS
 {
 	@Nullable
 	@Override
-	public Object getNativeValue(@NotNull PsiXStyleSheetPropertyValuePart valuePart, String value)
+	public Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value)
 	{
 		return fromString(valuePart.getText().trim(), value);
 	}
 
-	public abstract Object fromString(@NotNull String valuePart, String value);
+	public abstract Object fromString(@Nonnull String valuePart, String value);
 }

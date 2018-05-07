@@ -19,8 +19,8 @@ package consulo.css.lang.formatting;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.formatting.Alignment;
 import com.intellij.formatting.Block;
 import com.intellij.formatting.Indent;
@@ -40,7 +40,7 @@ import consulo.css.lang.parser.CssParserDefinition;
  */
 public class CssFormattingBlock extends AbstractBlock
 {
-	public CssFormattingBlock(@NotNull ASTNode node, @Nullable Wrap wrap, @Nullable Alignment alignment)
+	public CssFormattingBlock(@Nonnull ASTNode node, @Nullable Wrap wrap, @Nullable Alignment alignment)
 	{
 		super(node, wrap, alignment);
 	}
@@ -63,7 +63,7 @@ public class CssFormattingBlock extends AbstractBlock
 
 	@Nullable
 	@Override
-	public Spacing getSpacing(@Nullable Block block, @NotNull Block block2)
+	public Spacing getSpacing(@Nullable Block block, @Nonnull Block block2)
 	{
 		return null;
 	}

@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase;
 import consulo.css.lang.psi.CssFile;
@@ -39,7 +39,7 @@ public class CssStructureViewTreeElement extends PsiTreeElementBase<CssFile>
 		super(psiElement);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Collection<StructureViewTreeElement> getChildrenBase()
 	{

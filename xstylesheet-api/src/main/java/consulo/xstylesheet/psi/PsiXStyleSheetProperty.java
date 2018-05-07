@@ -16,8 +16,9 @@
 
 package consulo.xstylesheet.psi;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNameIdentifierOwner;
 import consulo.annotations.RequiredReadAction;
@@ -32,7 +33,7 @@ public interface PsiXStyleSheetProperty extends PsiElement, PsiNameIdentifierOwn
 	@Nullable
 	XStyleSheetProperty getXStyleSheetProperty();
 
-	@NotNull
+	@Nonnull
 	PsiXStyleSheetPropertyValuePart[] getParts();
 
 	@Nullable

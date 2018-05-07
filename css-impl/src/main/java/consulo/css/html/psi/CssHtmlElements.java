@@ -16,7 +16,8 @@
 
 package consulo.css.html.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.Language;
 import com.intellij.lang.PsiBuilder;
@@ -41,7 +42,7 @@ public interface CssHtmlElements
 	IElementType MORPH_HTML_CSS_ELEMENT = new ILazyParseableElementType("MORPH_HTML_CSS_ELEMENT", CssLanguage.INSTANCE)
 	{
 		@Override
-		protected ASTNode doParseContents(@NotNull ASTNode chameleon, @NotNull PsiElement psi)
+		protected ASTNode doParseContents(@Nonnull ASTNode chameleon, @Nonnull PsiElement psi)
 		{
 			final Project project = psi.getProject();
 			final Language languageForParser = getLanguageForParser(psi);
@@ -77,7 +78,7 @@ public interface CssHtmlElements
 			return builder.getTreeBuilt();
 		}
 
-		private void parseInlineRule(@NotNull CssParser cssParser, @NotNull PsiBuilder builder)
+		private void parseInlineRule(@Nonnull CssParser cssParser, @Nonnull PsiBuilder builder)
 		{
 			PsiBuilder.Marker marker = builder.mark();
 

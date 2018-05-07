@@ -18,8 +18,8 @@ package consulo.xstylesheet.definition;
 
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import consulo.annotations.Immutable;
 
 /**
@@ -29,9 +29,9 @@ import consulo.annotations.Immutable;
 public interface XStyleSheetTable
 {
 	@Nullable
-	XStyleSheetProperty findProperty(@NotNull String propertyName);
+	XStyleSheetProperty findProperty(@Nonnull String propertyName);
 
-	@NotNull
+	@Nonnull
 	@Immutable
 	List<XStyleSheetProperty> getProperties();
 }

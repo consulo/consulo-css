@@ -16,7 +16,7 @@
 
 package consulo.css.lang.psi;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 
@@ -26,7 +26,7 @@ import com.intellij.lang.ASTNode;
  */
 public abstract class CssElement extends ASTWrapperPsiElement
 {
-	public CssElement(@NotNull ASTNode node)
+	public CssElement(@Nonnull ASTNode node)
 	{
 		super(node);
 	}
