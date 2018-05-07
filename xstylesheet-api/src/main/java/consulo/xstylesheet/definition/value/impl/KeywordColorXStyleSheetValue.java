@@ -25,6 +25,7 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.swing.Icon;
 
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
@@ -103,7 +104,7 @@ public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyVa
 		for(Map.Entry<String, String> entry : myDefaultColors.entrySet())
 		{
 			LookupElementBuilder builder = LookupElementBuilder.create(entry.getKey());
-			builder = builder.withIcon(new ColorIcon(12, ColorUtil.fromHex(entry.getValue())));
+			builder = builder.withIcon((Icon) new ColorIcon(12, ColorUtil.fromHex(entry.getValue())));
 			builder = builder.withTypeText(entry.getValue(), true);
 			list.add(builder);
 		}
