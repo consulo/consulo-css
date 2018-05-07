@@ -95,7 +95,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 							builder.advanceLexer();
 						}
 
-						boolean last = builder.lookAhead(1) == null || builder.lookAhead(1) == CssTokens.RBRACE;
+						boolean last = builder.getTokenType() == null || builder.getTokenType() == CssTokens.RBRACE;
 
 						expect(builder, SEMICOLON, last ? null : "';' expected");
 

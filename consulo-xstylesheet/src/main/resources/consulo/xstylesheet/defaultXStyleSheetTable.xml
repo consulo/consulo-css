@@ -237,4 +237,20 @@
 			</entry>
 		</valid-values>
 	</property>
+	<property name="vertical-align">
+		<valid-values>
+			<entry>
+				<keyword>baseline</keyword>
+				<keyword>sub</keyword>
+				<keyword>super</keyword>
+				<keyword>top</keyword>
+				<keyword>text-top</keyword>
+				<keyword>middle</keyword>
+				<keyword>bottom</keyword>
+				<keyword>text-bottom</keyword>
+				<keyword>initial</keyword>
+				<keyword>inherit</keyword>
+			</entry>
+		</valid-values>
+	</property>
 </xstyle-sheet-table>
