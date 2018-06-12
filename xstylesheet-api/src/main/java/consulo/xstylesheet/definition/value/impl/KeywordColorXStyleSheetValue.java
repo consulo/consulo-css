@@ -16,7 +16,6 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,7 +24,6 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
 
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
@@ -33,6 +31,9 @@ import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.ui.ColorUtil;
 import com.intellij.util.ui.ColorIcon;
+import com.intellij.util.ui.JBUI;
+import consulo.ui.shared.ColorValue;
+import consulo.ui.util.ColorValueUtil;
 import consulo.xstylesheet.highlight.XStyleSheetColors;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
@@ -77,7 +78,7 @@ public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyVa
 
 	@Nullable
 	@Override
-	public Color fromString(@Nonnull String stringValue, String value)
+	public ColorValue fromString(@Nonnull String stringValue, String value)
 	{
 		stringValue = stringValue.toLowerCase();
 		stringValue = myDefaultColors.get(stringValue);
@@ -88,7 +89,7 @@ public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyVa
 
 		try
 		{
-			return ColorUtil.fromHex(stringValue);
+			return ColorValueUtil.fromHex(stringValue);
 		}
 		catch(Exception e)
 		{
@@ -100,11 +101,11 @@ public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyVa
 	@Override
 	public List<LookupElement> getLookupElements(String value)
 	{
-		List<LookupElement> list = new ArrayList<LookupElement>();
+		List<LookupElement> list = new ArrayList<>();
 		for(Map.Entry<String, String> entry : myDefaultColors.entrySet())
 		{
 			LookupElementBuilder builder = LookupElementBuilder.create(entry.getKey());
-			builder = builder.withIcon((Icon) new ColorIcon(12, ColorUtil.fromHex(entry.getValue())));
+			builder = builder.withIcon((javax.swing.Icon) new ColorIcon(JBUI.scale(12), ColorUtil.fromHex(entry.getValue())));
 			builder = builder.withTypeText(entry.getValue(), true);
 			list.add(builder);
 		}

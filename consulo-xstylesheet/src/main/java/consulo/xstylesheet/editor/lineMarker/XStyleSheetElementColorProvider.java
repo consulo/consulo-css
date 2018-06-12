@@ -16,12 +16,14 @@
 
 package consulo.xstylesheet.editor.lineMarker;
 
-import java.awt.Color;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import com.intellij.openapi.editor.ElementColorProvider;
 import com.intellij.psi.PsiElement;
+import consulo.annotations.RequiredReadAction;
+import consulo.annotations.RequiredWriteAction;
+import consulo.ui.shared.ColorValue;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
 /**
@@ -30,9 +32,10 @@ import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
  */
 public class XStyleSheetElementColorProvider implements ElementColorProvider
 {
+	@RequiredReadAction
 	@Nullable
 	@Override
-	public Color getColorFrom(@Nonnull PsiElement psiElement)
+	public ColorValue getColorFrom(@Nonnull PsiElement psiElement)
 	{
 		if(psiElement instanceof PsiXStyleSheetPropertyValuePart)
 		{
@@ -46,16 +49,18 @@ public class XStyleSheetElementColorProvider implements ElementColorProvider
 				System.out.println(psiElement.getText());
 				e.printStackTrace();
 			}
-			if(value instanceof Color)
+
+			if(value instanceof ColorValue)
 			{
-				return (Color) value;
+				return (ColorValue) value;
 			}
 		}
 		return null;
 	}
 
+	@RequiredWriteAction
 	@Override
-	public void setColorTo(@Nonnull PsiElement psiElement, @Nonnull Color color)
+	public void setColorTo(@Nonnull PsiElement psiElement, @Nonnull ColorValue color)
 	{
 		//TODO [VISTALL] !
 	}

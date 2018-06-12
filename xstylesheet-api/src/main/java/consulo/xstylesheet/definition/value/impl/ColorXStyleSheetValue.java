@@ -16,12 +16,11 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
-import java.awt.Color;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.intellij.ui.ColorUtil;
+import consulo.ui.shared.ColorValue;
+import consulo.ui.util.ColorValueUtil;
 
 /**
  * @author VISTALL
@@ -31,11 +30,11 @@ public class ColorXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePart
 {
 	@Nullable
 	@Override
-	public Color fromString(@Nonnull String stringValue, String value)
+	public ColorValue fromString(@Nonnull String stringValue, String value)
 	{
 		try
 		{
-			return ColorUtil.fromHex(stringValue);
+			return ColorValueUtil.fromHex(stringValue);
 		}
 		catch(Exception e)
 		{
