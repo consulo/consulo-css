@@ -72,7 +72,7 @@ public class CssSimpleSelectorImpl extends CssElement implements XStyleSheetSimp
 	@Override
 	public XStyleSheetSimpleSelectorType getType()
 	{
-		PsiElement element = findNotNullChildByType(nameSet);
+		PsiElement element = findChildByType(nameSet);
 		IElementType type = PsiUtilCore.getElementType(element);
 		if(type == CssTokens.IDENTIFIER)
 		{
@@ -90,6 +90,6 @@ public class CssSimpleSelectorImpl extends CssElement implements XStyleSheetSimp
 		{
 			return XStyleSheetSimpleSelectorType.ANY;
 		}
-		throw new UnsupportedOperationException();
+		return XStyleSheetSimpleSelectorType.ANY;
 	}
 }
