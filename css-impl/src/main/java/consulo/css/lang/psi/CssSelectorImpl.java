@@ -16,11 +16,12 @@
 
 package consulo.css.lang.psi;
 
-import javax.annotation.Nonnull;
 import com.intellij.lang.ASTNode;
-import consulo.annotations.RequiredReadAction;
+import consulo.annotation.access.RequiredReadAction;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL

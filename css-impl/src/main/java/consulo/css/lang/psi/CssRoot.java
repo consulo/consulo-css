@@ -1,12 +1,12 @@
 package consulo.css.lang.psi;
 
-import javax.annotation.Nonnull;
-
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import consulo.annotations.RequiredReadAction;
+import consulo.annotation.access.RequiredReadAction;
 import consulo.xstylesheet.psi.PsiXStyleSheetRule;
 import consulo.xstylesheet.psi.XStyleSheetRoot;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL

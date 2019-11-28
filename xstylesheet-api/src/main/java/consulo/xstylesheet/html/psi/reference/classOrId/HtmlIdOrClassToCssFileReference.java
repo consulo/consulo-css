@@ -16,29 +16,20 @@
 
 package consulo.xstylesheet.html.psi.reference.classOrId;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementResolveResult;
-import com.intellij.psi.PsiPolyVariantReferenceBase;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.ResolveResult;
+import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.ArrayUtil;
-import consulo.annotations.RequiredReadAction;
+import consulo.annotation.access.RequiredReadAction;
 import consulo.ide.IconDescriptorUpdaters;
 import consulo.xstylesheet.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
-import consulo.xstylesheet.psi.PsiXStyleSheetRule;
-import consulo.xstylesheet.psi.XStyleSheetFile;
-import consulo.xstylesheet.psi.XStyleSheetSelector;
-import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
-import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
+import consulo.xstylesheet.psi.*;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleSheetRuleTypeCondition;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author VISTALL

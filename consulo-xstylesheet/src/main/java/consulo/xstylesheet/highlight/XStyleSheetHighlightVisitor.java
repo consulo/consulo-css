@@ -16,27 +16,18 @@
 
 package consulo.xstylesheet.highlight;
 
-import javax.annotation.Nonnull;
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
 import com.intellij.codeInsight.daemon.impl.HighlightVisitor;
 import com.intellij.codeInsight.daemon.impl.analysis.HighlightInfoHolder;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementVisitor;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiNameIdentifierOwner;
-import com.intellij.psi.PsiReference;
-import consulo.annotations.RequiredReadAction;
+import com.intellij.psi.*;
+import consulo.annotation.access.RequiredReadAction;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
-import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCall;
-import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
-import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
-import consulo.xstylesheet.psi.PsiXStyleSheetSelectorAttribute;
-import consulo.xstylesheet.psi.PsiXStyleSheetSelectorPseudoClass;
-import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
-import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
+import consulo.xstylesheet.psi.*;
 import consulo.xstylesheet.psi.reference.impl.BuildInSymbolElement;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL

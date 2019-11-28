@@ -16,11 +16,9 @@
 
 package consulo.xstylesheet.definition;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import consulo.annotations.Immutable;
+import java.util.List;
 
 /**
  * @author VISTALL
@@ -32,6 +30,5 @@ public interface XStyleSheetTable
 	XStyleSheetProperty findProperty(@Nonnull String propertyName);
 
 	@Nonnull
-	@Immutable
 	List<XStyleSheetProperty> getProperties();
 }

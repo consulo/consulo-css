@@ -1,14 +1,13 @@
 package consulo.xstylesheet.psi;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.intellij.psi.PsiElement;
+import consulo.annotation.access.RequiredReadAction;
+import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.intellij.psi.PsiElement;
-import consulo.annotations.RequiredReadAction;
-import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author VISTALL

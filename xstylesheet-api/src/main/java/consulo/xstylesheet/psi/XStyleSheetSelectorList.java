@@ -16,9 +16,9 @@
 
 package consulo.xstylesheet.psi;
 
-import javax.annotation.Nonnull;
+import consulo.annotation.access.RequiredReadAction;
 
-import consulo.annotations.RequiredReadAction;
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
