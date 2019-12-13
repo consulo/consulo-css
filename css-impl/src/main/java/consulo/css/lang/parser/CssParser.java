@@ -295,7 +295,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 			parseSimpleSelector(builder);
 		}
 
-		if(builder.getTokenType() == CssTokens.PLUS || builder.getTokenType() == CssTokens.TILDE || builder.getTokenType() == CssTokens.GT)
+		while(builder.getTokenType() == CssTokens.PLUS || builder.getTokenType() == CssTokens.TILDE || builder.getTokenType() == CssTokens.GT)
 		{
 			builder.advanceLexer();
 

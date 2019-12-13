@@ -98,7 +98,7 @@ public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyVa
 		for(Map.Entry<String, String> entry : myDefaultColors.entrySet())
 		{
 			LookupElementBuilder builder = LookupElementBuilder.create(entry.getKey());
-			builder = builder.withIcon(ImageEffects.colorFilled(12, 12, ColorValueUtil.fromHex(entry.getValue())));
+			builder = builder.withIcon(ImageEffects.colorFilled(16, 16, ColorValueUtil.fromHex(entry.getValue())));
 			builder = builder.withTypeText(entry.getValue(), true);
 			list.add(builder);
 		}
