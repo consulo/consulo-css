@@ -16,6 +16,7 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
+import com.google.common.collect.ImmutableMap;
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
 import com.intellij.codeInsight.lookup.LookupElement;
@@ -28,7 +29,10 @@ import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author VISTALL
@@ -36,28 +40,25 @@ import java.util.*;
  */
 public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser
 {
-	private Map<String, String> myDefaultColors = new HashMap<String, String>()
-	{
-		{
-			put("maroon", "#800000");
-			put("red", "#ff0000");
-			put("orange", "#ffA500");
-			put("yellow", "#ffff00");
-			put("olive", "#808000");
-			put("purple", "#800080");
-			put("fuchsia", "#ff00ff");
-			put("white", "#ffffff");
-			put("lime", "#00ff00");
-			put("green", "#008000");
-			put("navy", "#000080");
-			put("blue", "#0000f0");
-			put("faqua", "#00ffff");
-			put("teal", "#008080");
-			put("black", "#000000");
-			put("silver", "#c0c0c0");
-			put("gray", "#808080");
-		}
-	};
+	private final Map<String, String> myDefaultColors = ImmutableMap.<String, String>builder()
+			.put("maroon", "#800000")
+			.put("red", "#ff0000")
+			.put("orange", "#ffA500")
+			.put("yellow", "#ffff00")
+			.put("olive", "#808000")
+			.put("purple", "#800080")
+			.put("fuchsia", "#ff00ff")
+			.put("white", "#ffffff")
+			.put("lime", "#00ff00")
+			.put("green", "#008000")
+			.put("navy", "#000080")
+			.put("blue", "#0000f0")
+			.put("faqua", "#00ffff")
+			.put("teal", "#008080")
+			.put("black", "#000000")
+			.put("silver", "#c0c0c0")
+			.put("gray", "#808080")
+			.build();
 
 	@Nonnull
 	@Override
