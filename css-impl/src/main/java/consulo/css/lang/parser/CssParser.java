@@ -16,9 +16,6 @@
 
 package consulo.css.lang.parser;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiParser;
@@ -26,6 +23,9 @@ import com.intellij.psi.tree.IElementType;
 import consulo.css.lang.CssElements;
 import consulo.css.lang.CssTokens;
 import consulo.lang.LanguageVersion;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
@@ -404,7 +404,14 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 
 			if(expect(builder, EQ, null))
 			{
-				expect(builder, STRING, "Attribute value expected");
+				if(builder.getTokenType() == STRING || builder.getTokenType() == IDENTIFIER)
+				{
+					builder.advanceLexer();
+				}
+				else
+				{
+					builder.error("Attribute value expected");
+				}
 			}
 			mark.done(SELECTOR_ATTRIBUTE);
 			return true;

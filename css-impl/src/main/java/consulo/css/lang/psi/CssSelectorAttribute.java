@@ -16,15 +16,18 @@
 
 package consulo.css.lang.psi;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.jetbrains.annotations.NonNls;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.util.PsiUtilCore;
 import com.intellij.util.IncorrectOperationException;
+import consulo.annotation.access.RequiredReadAction;
+import consulo.annotation.access.RequiredWriteAction;
 import consulo.css.lang.CssTokens;
 import consulo.xstylesheet.psi.PsiXStyleSheetSelectorAttribute;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
@@ -37,12 +40,25 @@ public class CssSelectorAttribute extends CssElement implements PsiXStyleSheetSe
 		super(node);
 	}
 
+	@RequiredReadAction
 	@Override
 	public PsiElement getValue()
 	{
-		return findChildByType(CssTokens.STRING);
+		PsiElement asString = findChildByType(CssTokens.STRING);
+		if(asString != null)
+		{
+			return asString;
+		}
+
+		PsiElement[] children = getChildren();
+		if(children.length == 2 && PsiUtilCore.getElementType(children[1]) == CssTokens.IDENTIFIER)
+		{
+			return children[1];
+		}
+		return null;
 	}
 
+	@RequiredReadAction
 	@Nullable
 	@Override
 	public PsiElement getNameIdentifier()
@@ -50,6 +66,7 @@ public class CssSelectorAttribute extends CssElement implements PsiXStyleSheetSe
 		return getFirstChild();
 	}
 
+	@RequiredWriteAction
 	@Override
 	public PsiElement setName(@NonNls @Nonnull String s) throws IncorrectOperationException
 	{

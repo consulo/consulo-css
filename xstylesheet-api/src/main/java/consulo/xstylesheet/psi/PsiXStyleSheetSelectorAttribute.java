@@ -18,6 +18,9 @@ package consulo.xstylesheet.psi;
 
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNameIdentifierOwner;
+import consulo.annotation.access.RequiredReadAction;
+
+import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
@@ -25,5 +28,7 @@ import com.intellij.psi.PsiNameIdentifierOwner;
  */
 public interface PsiXStyleSheetSelectorAttribute extends PsiXStyleSheetElement, PsiNameIdentifierOwner
 {
+	@RequiredReadAction
+	@Nullable
 	PsiElement getValue();
 }
