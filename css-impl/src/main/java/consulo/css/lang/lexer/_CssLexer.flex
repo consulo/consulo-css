@@ -12,8 +12,6 @@ import consulo.css.lang.CssTokens;
 %unicode
 %function advanceImpl
 %type IElementType
-%eof{ return;
-%eof}
 
 %state BODY
 
@@ -89,5 +87,5 @@ UriTextPart={AnySpace} | [:jletter:] | [:jletterdigit:]
 	{StringLiteral2}        { return CssTokens.STRING; }
     {TraditionalComment}    { return CssTokens.BLOCK_COMMENT; }
     {AnySpace}+             { return CssTokens.WHITE_SPACE; }
-    .                       { return CssTokens.BAD_CHARACTER; }
+    [^]                     { return CssTokens.BAD_CHARACTER; }
 }
