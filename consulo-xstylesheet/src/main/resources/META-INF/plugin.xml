@@ -1,4 +1,4 @@
-<idea-plugin>
+<consulo-plugin>
 	<id>consulo.xstylesheet</id>
 	<name>XStylesheet API</name>
 	<version>SNAPSHOT</version>
@@ -25,4 +25,4 @@
 		<colorProvider implementation="consulo.xstylesheet.editor.lineMarker.XStyleSheetElementColorProvider"/>
 		<iconDescriptorUpdater implementation="consulo.xstylesheet.XStyleSheetIconProvider"/>
 	</extensions>
-</idea-plugin>
+</consulo-plugin>

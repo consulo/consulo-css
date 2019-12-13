@@ -1,4 +1,4 @@
-<idea-plugin>
+<consulo-plugin>
 	<id>consulo.css</id>
 	<name>CSS</name>
 	<version>SNAPSHOT</version>
@@ -23,4 +23,4 @@
 	<extensions defaultExtensionNs="com.intellij.xml">
 		<embeddedTokenTypesProvider implementation="consulo.css.html.CssEmbeddedTokenTypesProvider"/>
 	</extensions>
-</idea-plugin>
+</consulo-plugin>
