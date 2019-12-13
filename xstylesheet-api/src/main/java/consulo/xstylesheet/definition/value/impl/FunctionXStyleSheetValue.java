@@ -16,12 +16,6 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
 import com.intellij.codeInsight.lookup.LookupElement;
@@ -31,6 +25,11 @@ import com.intellij.util.SmartList;
 import consulo.xstylesheet.highlight.XStyleSheetColors;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCall;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author VISTALL
@@ -89,7 +88,7 @@ public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartPa
 		PsiElement firstChild = valuePart.getFirstChild();
 		if(firstChild instanceof PsiXStyleSheetFunctionCall)
 		{
-			for(XStyleSheetFunctionCallDescriptor descriptor : EP_NAME.getExtensions())
+			for(XStyleSheetFunctionCallDescriptor descriptor : EP_NAME.getExtensionList())
 			{
 				if(descriptor.isMyFunction((PsiXStyleSheetFunctionCall) firstChild))
 				{

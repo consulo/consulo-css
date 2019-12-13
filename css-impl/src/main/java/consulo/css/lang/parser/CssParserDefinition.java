@@ -16,9 +16,6 @@
 
 package consulo.css.lang.parser;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.lang.ASTNode;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
 import com.intellij.lexer.Lexer;
@@ -31,6 +28,8 @@ import consulo.css.lang.CssTokenSets;
 import consulo.css.lang.lexer._CssLexer;
 import consulo.css.lang.psi.CssFile;
 import consulo.lang.LanguageVersion;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -86,12 +85,5 @@ public class CssParserDefinition implements ParserDefinition
 	public PsiFile createFile(@Nonnull FileViewProvider fileViewProvider)
 	{
 		return new CssFile(fileViewProvider);
-	}
-
-	@Nonnull
-	@Override
-	public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode astNode, ASTNode astNode2)
-	{
-		return SpaceRequirements.MAY;
 	}
 }

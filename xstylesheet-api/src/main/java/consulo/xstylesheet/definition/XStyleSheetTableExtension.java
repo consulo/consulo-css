@@ -16,18 +16,6 @@
 
 package consulo.xstylesheet.definition;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
-import org.jdom.Document;
-import org.jdom.Element;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.extensions.AbstractExtensionPointBean;
 import com.intellij.openapi.extensions.ExtensionPointName;
 import com.intellij.openapi.util.JDOMUtil;
@@ -35,11 +23,14 @@ import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.ReflectionUtil;
 import com.intellij.util.xmlb.annotations.Attribute;
-import consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;
-import consulo.xstylesheet.definition.impl.XStyleSheetPropertyImpl;
-import consulo.xstylesheet.definition.impl.XStyleSheetPropertyValueEntryImpl;
-import consulo.xstylesheet.definition.impl.XStyleSheetPropertyValuePartImpl;
-import consulo.xstylesheet.definition.impl.XStyleSheetTableImpl;
+import consulo.logging.Logger;
+import consulo.xstylesheet.definition.impl.*;
+import org.jdom.Document;
+import org.jdom.Element;
+
+import javax.annotation.Nonnull;
+import java.io.InputStream;
+import java.util.*;
 
 /**
  * @author VISTALL

@@ -16,26 +16,19 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.ui.ColorUtil;
-import com.intellij.util.ui.ColorIcon;
-import com.intellij.util.ui.JBUI;
+import consulo.ui.image.ImageEffects;
 import consulo.ui.shared.ColorValue;
 import consulo.ui.util.ColorValueUtil;
 import consulo.xstylesheet.highlight.XStyleSheetColors;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.*;
 
 /**
  * @author VISTALL
@@ -105,7 +98,7 @@ public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyVa
 		for(Map.Entry<String, String> entry : myDefaultColors.entrySet())
 		{
 			LookupElementBuilder builder = LookupElementBuilder.create(entry.getKey());
-			builder = builder.withIcon((javax.swing.Icon) new ColorIcon(JBUI.scale(12), ColorUtil.fromHex(entry.getValue())));
+			builder = builder.withIcon(ImageEffects.colorFilled(12, 12, ColorValueUtil.fromHex(entry.getValue())));
 			builder = builder.withTypeText(entry.getValue(), true);
 			list.add(builder);
 		}

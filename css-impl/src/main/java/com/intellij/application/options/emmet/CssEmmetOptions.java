@@ -1,25 +1,20 @@
 package com.intellij.application.options.emmet;
 
+import com.google.common.collect.Sets;
+import com.intellij.openapi.components.*;
+import com.intellij.openapi.util.JDOMUtil;
+import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.util.xmlb.XmlSerializerUtil;
+import consulo.logging.Logger;
+import org.jdom.Document;
+import org.jdom.Element;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-import org.jdom.Document;
-import org.jdom.Element;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.google.common.collect.Sets;
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.components.StoragePathMacros;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.util.JDOMUtil;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.util.xmlb.XmlSerializerUtil;
 
 /**
  * @author VISTALL

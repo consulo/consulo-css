@@ -1,12 +1,13 @@
 package consulo.xstylesheet.psi;
 
-import javax.annotation.Nonnull;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.SmartList;
 import consulo.xstylesheet.definition.XStyleSheetTable;
 import consulo.xstylesheet.definition.XStyleSheetTableExtension;
 import consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;
 import consulo.xstylesheet.definition.impl.MergedXStyleSheetTable;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -18,7 +19,7 @@ public interface XStyleSheetFile extends PsiFile
 	static XStyleSheetTable getXStyleSheetTable(@Nonnull PsiFile file)
 	{
 		SmartList<XStyleSheetTable> list = new SmartList<>();
-		for(XStyleSheetTableExtension extension : XStyleSheetTableExtension.EP_NAME.getExtensions())
+		for(XStyleSheetTableExtension extension : XStyleSheetTableExtension.EP_NAME.getExtensionList())
 		{
 	  /*if (extension.condition == null || extension.condition.value(this)) */
 			{

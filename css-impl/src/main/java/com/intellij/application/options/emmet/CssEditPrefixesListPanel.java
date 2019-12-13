@@ -15,32 +15,24 @@
  */
 package com.intellij.application.options.emmet;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Sets.newHashSet;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
-
-import javax.annotation.Nullable;
 import com.intellij.openapi.ui.Messages;
-import com.intellij.ui.AnActionButton;
-import com.intellij.ui.AnActionButtonRunnable;
-import com.intellij.ui.BooleanTableCellRenderer;
-import com.intellij.ui.TableUtil;
-import com.intellij.ui.TableViewSpeedSearch;
-import com.intellij.ui.ToolbarDecorator;
+import com.intellij.ui.*;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.table.TableView;
 import com.intellij.util.ui.ColumnInfo;
 import com.intellij.util.ui.ListTableModel;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
 
 /**
  * User: zolotov
@@ -99,72 +91,62 @@ public class CssEditPrefixesListPanel
 		final ToolbarDecorator decorator = ToolbarDecorator.createDecorator(myPrefixesTableView);
 		decorator.disableUpDownActions();
 		final JPanel panel = decorator.createPanel();
-		decorator.setAddAction(new AnActionButtonRunnable()
-		{
-			@Override
-			public void run(AnActionButton button)
+		decorator.setAddAction(e -> {
+			TableUtil.stopEditing(myPrefixesTableView);
+			String propertyName = Messages.showInputDialog(myPrefixesTableView, "Property name:", "New Css Property", null);
+			if(propertyName != null && !propertyName.isEmpty())
 			{
-				TableUtil.stopEditing(myPrefixesTableView);
-				String propertyName = Messages.showInputDialog(myPrefixesTableView, "Property name:", "New Css Property", null);
-				if(propertyName != null && !propertyName.isEmpty())
+				List<CssPrefixInfo> items = myPrefixesModel.getItems();
+				for(CssPrefixInfo state : items)
 				{
-					List<CssPrefixInfo> items = myPrefixesModel.getItems();
-					for(CssPrefixInfo state : items)
+					if(propertyName.equals(state.getPropertyName()))
 					{
-						if(propertyName.equals(state.getPropertyName()))
-						{
-							myPrefixesTableView.clearSelection();
-							myPrefixesTableView.addSelection(state);
-							scrollToSelection();
-							return;
-						}
-					}
-					CssPrefixInfo newPrefixInfo = new CssPrefixInfo(propertyName);
-					myPrefixesModel.addRow(newPrefixInfo);
-					myPrefixesTableView.clearSelection();
-					myPrefixesTableView.addSelection(newPrefixInfo);
-					scrollToSelection();
-				}
-				myPrefixesTableView.requestFocus();
-			}
-
-			private void scrollToSelection()
-			{
-				int selectedRow = myPrefixesTableView.getSelectedRow();
-				if(selectedRow >= 0)
-				{
-					myPrefixesTableView.scrollRectToVisible(myPrefixesTableView.getCellRect(selectedRow, 0, true));
-				}
-			}
-		}).setRemoveAction(new AnActionButtonRunnable()
-		{
-			@Override
-			public void run(AnActionButton button)
-			{
-				TableUtil.stopEditing(myPrefixesTableView);
-				CssPrefixInfo selectedObject = myPrefixesTableView.getSelectedObject();
-				int selectedRow = myPrefixesTableView.getSelectedRow();
-				int index = myPrefixesModel.indexOf(selectedObject);
-				if(0 <= index && index < myPrefixesModel.getRowCount())
-				{
-					myPrefixesModel.removeRow(index);
-					if(selectedRow < myPrefixesTableView.getRowCount())
-					{
-						myPrefixesTableView.setRowSelectionInterval(selectedRow, selectedRow);
-					}
-					else
-					{
-						if(selectedRow > 0)
-						{
-							myPrefixesTableView.setRowSelectionInterval(selectedRow - 1, selectedRow - 1);
-						}
+						myPrefixesTableView.clearSelection();
+						myPrefixesTableView.addSelection(state);
+						scrollToSelection();
+						return;
 					}
 				}
-				myPrefixesTableView.getParent().repaint();
-				myPrefixesTableView.requestFocus();
+				CssPrefixInfo newPrefixInfo = new CssPrefixInfo(propertyName);
+				myPrefixesModel.addRow(newPrefixInfo);
+				myPrefixesTableView.clearSelection();
+				myPrefixesTableView.addSelection(newPrefixInfo);
+				scrollToSelection();
 			}
+			myPrefixesTableView.requestFocus();
+		}).setRemoveAction(e -> {
+			TableUtil.stopEditing(myPrefixesTableView);
+			CssPrefixInfo selectedObject = myPrefixesTableView.getSelectedObject();
+			int selectedRow = myPrefixesTableView.getSelectedRow();
+			int index = myPrefixesModel.indexOf(selectedObject);
+			if(0 <= index && index < myPrefixesModel.getRowCount())
+			{
+				myPrefixesModel.removeRow(index);
+				if(selectedRow < myPrefixesTableView.getRowCount())
+				{
+					myPrefixesTableView.setRowSelectionInterval(selectedRow, selectedRow);
+				}
+				else
+				{
+					if(selectedRow > 0)
+					{
+						myPrefixesTableView.setRowSelectionInterval(selectedRow - 1, selectedRow - 1);
+					}
+				}
+			}
+			myPrefixesTableView.getParent().repaint();
+			myPrefixesTableView.requestFocus();
 		});
 		return panel;
+	}
+
+	private void scrollToSelection()
+	{
+		int selectedRow = myPrefixesTableView.getSelectedRow();
+		if(selectedRow >= 0)
+		{
+			myPrefixesTableView.scrollRectToVisible(myPrefixesTableView.getCellRect(selectedRow, 0, true));
+		}
 	}
 
 	private static class PropertyColumn extends ColumnInfo<CssPrefixInfo, String>
