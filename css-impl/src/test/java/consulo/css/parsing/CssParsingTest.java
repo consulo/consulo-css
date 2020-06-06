@@ -6,7 +6,7 @@ import consulo.testFramework.ParsingTestCase;
  * @author VISTALL
  * @since 02.07.13.
  */
-public class CssParsingTest extends ParsingTestCase
+public abstract class CssParsingTest extends ParsingTestCase
 {
 	public CssParsingTest()
 	{
