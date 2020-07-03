@@ -16,14 +16,15 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
-import com.google.common.collect.ImmutableMap;
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
+import com.intellij.openapi.util.text.StringUtil;
 import consulo.ui.image.ImageEffects;
 import consulo.ui.shared.ColorValue;
 import consulo.ui.util.ColorValueUtil;
+import consulo.xstylesheet.definition.XStyleSheetColor;
 import consulo.xstylesheet.highlight.XStyleSheetColors;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
@@ -32,7 +33,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author VISTALL
@@ -40,26 +40,6 @@ import java.util.Map;
  */
 public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser
 {
-	private final Map<String, String> myDefaultColors = ImmutableMap.<String, String>builder()
-			.put("maroon", "#800000")
-			.put("red", "#ff0000")
-			.put("orange", "#ffA500")
-			.put("yellow", "#ffff00")
-			.put("olive", "#808000")
-			.put("purple", "#800080")
-			.put("fuchsia", "#ff00ff")
-			.put("white", "#ffffff")
-			.put("lime", "#00ff00")
-			.put("green", "#008000")
-			.put("navy", "#000080")
-			.put("blue", "#0000f0")
-			.put("faqua", "#00ffff")
-			.put("teal", "#008080")
-			.put("black", "#000000")
-			.put("silver", "#c0c0c0")
-			.put("gray", "#808080")
-			.build();
-
 	@Nonnull
 	@Override
 	public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart)
@@ -74,16 +54,15 @@ public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyVa
 	@Override
 	public ColorValue fromString(@Nonnull String stringValue, String value)
 	{
-		stringValue = stringValue.toLowerCase();
-		stringValue = myDefaultColors.get(stringValue);
-		if(stringValue == null)
+		XStyleSheetColor xStyleSheetColor = XStyleSheetColor.getColor(StringUtil.toLowerCase(stringValue));
+		if(xStyleSheetColor == null)
 		{
 			return null;
 		}
 
 		try
 		{
-			return ColorValueUtil.fromHex(stringValue);
+			return ColorValueUtil.fromHex("#" + xStyleSheetColor.colorCode());
 		}
 		catch(Exception e)
 		{
@@ -96,11 +75,12 @@ public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyVa
 	public List<LookupElement> getLookupElements(String value)
 	{
 		List<LookupElement> list = new ArrayList<>();
-		for(Map.Entry<String, String> entry : myDefaultColors.entrySet())
+		for(XStyleSheetColor entry : XStyleSheetColor.values())
 		{
-			LookupElementBuilder builder = LookupElementBuilder.create(entry.getKey());
-			builder = builder.withIcon(ImageEffects.colorFilled(16, 16, ColorValueUtil.fromHex(entry.getValue())));
-			builder = builder.withTypeText(entry.getValue(), true);
+			LookupElementBuilder builder = LookupElementBuilder.create(entry.name());
+			String hex = "#" + entry.colorCode();
+			builder = builder.withIcon(ImageEffects.colorFilled(16, 16, ColorValueUtil.fromHex(hex)));
+			builder = builder.withTypeText(hex, true);
 			list.add(builder);
 		}
 		return list;
