@@ -16,8 +16,6 @@
 
 package consulo.css.lang.psi;
 
-import javax.annotation.Nonnull;
-
 import com.intellij.lang.ASTNode;
 import com.intellij.util.ArrayUtil;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
@@ -25,6 +23,8 @@ import consulo.xstylesheet.definition.XStyleSheetPropertyValueEntry;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -55,6 +55,24 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void setValue(@Nonnull Object value)
+	{
+		XStyleSheetPropertyValueEntry validEntry = findEntry();
+		if(validEntry == null)
+		{
+			return;
+		}
+
+		for(XStyleSheetPropertyValuePart valuePart : validEntry.getParts())
+		{
+			if(valuePart.setNativeValue(valuePart, value))
+			{
+				break;
+			}
+		}
 	}
 
 	@Override

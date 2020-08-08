@@ -18,7 +18,7 @@ package consulo.xstylesheet.definition;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * @author VISTALL
@@ -30,5 +30,5 @@ public interface XStyleSheetTable
 	XStyleSheetProperty findProperty(@Nonnull String propertyName);
 
 	@Nonnull
-	List<XStyleSheetProperty> getProperties();
+	Collection<XStyleSheetProperty> getProperties();
 }

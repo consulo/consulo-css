@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 must-be.org
+ * Copyright 2013-2020 consulo.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,35 +14,45 @@
  * limitations under the License.
  */
 
-package consulo.xstylesheet.definition.impl;
+package consulo.xstylesheet.table;
 
 import consulo.xstylesheet.definition.XStyleSheetProperty;
-import consulo.xstylesheet.definition.XStyleSheetTable;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.Collections;
+import consulo.xstylesheet.definition.XStyleSheetPropertyValueEntry;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2020-08-08
  */
-public class EmptyXStyleSheetTable implements XStyleSheetTable
+public class UnparsedXStyleSheetProperty implements XStyleSheetProperty
 {
-	public static final XStyleSheetTable INSTANCE = new EmptyXStyleSheetTable();
+	private final String myName;
 
-	@Nullable
-	@Override
-	public XStyleSheetProperty findProperty(@Nonnull String propertyName)
+	public UnparsedXStyleSheetProperty(String name)
 	{
-		return null;
+		myName = name;
 	}
 
-	@Nonnull
 	@Override
-	public Collection<XStyleSheetProperty> getProperties()
+	public String getName()
 	{
-		return Collections.emptyList();
+		return myName;
+	}
+
+	@Override
+	public XStyleSheetPropertyValueEntry[] getValidEntries()
+	{
+		return XStyleSheetPropertyValueEntry.EMPTY_ARRAY;
+	}
+
+	@Override
+	public XStyleSheetPropertyValueEntry[] getInitialEntries()
+	{
+		return XStyleSheetPropertyValueEntry.EMPTY_ARRAY;
+	}
+
+	@Override
+	public boolean isUnknown()
+	{
+		return true;
 	}
 }

@@ -19,6 +19,8 @@ package consulo.xstylesheet.psi;
 import com.intellij.psi.PsiElement;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author VISTALL
  * @since 03.07.13.
@@ -26,6 +28,10 @@ import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 public interface PsiXStyleSheetPropertyValuePart extends PsiElement
 {
 	Object getValue();
+
+	default void setValue(@Nonnull Object value)
+	{
+	}
 
 	XStyleSheetPropertyValuePart getValuePart();
 

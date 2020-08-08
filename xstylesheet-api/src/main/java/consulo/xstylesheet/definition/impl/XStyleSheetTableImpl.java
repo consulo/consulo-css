@@ -16,12 +16,13 @@
 
 package consulo.xstylesheet.definition.impl;
 
-import java.util.List;
+import consulo.xstylesheet.definition.XStyleSheetProperty;
+import consulo.xstylesheet.definition.XStyleSheetTable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import consulo.xstylesheet.definition.XStyleSheetProperty;
-import consulo.xstylesheet.definition.XStyleSheetTable;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author VISTALL
@@ -53,7 +54,7 @@ public class XStyleSheetTableImpl implements XStyleSheetTable
 
 	@Nonnull
 	@Override
-	public List<XStyleSheetProperty> getProperties()
+	public Collection<XStyleSheetProperty> getProperties()
 	{
 		return myProperties;
 	}

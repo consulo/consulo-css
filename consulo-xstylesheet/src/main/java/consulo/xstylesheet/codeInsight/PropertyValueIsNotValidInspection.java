@@ -16,8 +16,6 @@
 
 package consulo.xstylesheet.codeInsight;
 
-import javax.annotation.Nonnull;
-
 import com.intellij.codeInspection.LocalInspectionTool;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
@@ -26,6 +24,8 @@ import com.intellij.psi.PsiElementVisitor;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -44,8 +44,8 @@ public class PropertyValueIsNotValidInspection extends LocalInspectionTool
 			{
 				if(element instanceof PsiXStyleSheetProperty)
 				{
-					XStyleSheetProperty xStyleSheetProperty = ((PsiXStyleSheetProperty) element).getXStyleSheetProperty();
-					if(xStyleSheetProperty == null)
+					XStyleSheetProperty property = ((PsiXStyleSheetProperty) element).getXStyleSheetProperty();
+					if(property == null || property.isUnknown())
 					{
 						return;
 					}

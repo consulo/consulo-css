@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 must-be.org
+ * Copyright 2013-2020 consulo.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-package consulo.xstylesheet.definition;
+package consulo.xstylesheet.table;
+
+import consulo.xstylesheet.definition.XStyleSheetXmlTableProvider;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2020-08-08
  */
-public interface XStyleSheetPropertyValueEntry
+public class DefaultXStyleSheetTableProvider extends XStyleSheetXmlTableProvider
 {
-	XStyleSheetPropertyValueEntry[] EMPTY_ARRAY = new XStyleSheetPropertyValueEntry[0];
-
-	XStyleSheetPropertyValuePart[] getParts();
+	public DefaultXStyleSheetTableProvider()
+	{
+		super("/consulo/xstylesheet/defaultXStyleSheetTable.xml");
+	}
 }

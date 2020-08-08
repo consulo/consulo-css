@@ -27,4 +27,9 @@ public interface XStyleSheetProperty
 	XStyleSheetPropertyValueEntry[] getValidEntries();
 
 	XStyleSheetPropertyValueEntry[] getInitialEntries();
+
+	default boolean isUnknown()
+	{
+		return false;
+	}
 }

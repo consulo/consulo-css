@@ -16,19 +16,19 @@
 
 package consulo.xstylesheet.definition;
 
-import com.intellij.openapi.extensions.AbstractExtensionPointBean;
 import com.intellij.openapi.extensions.ExtensionPointName;
 import com.intellij.openapi.util.JDOMUtil;
 import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.ReflectionUtil;
-import com.intellij.util.xmlb.annotations.Attribute;
 import consulo.logging.Logger;
 import consulo.xstylesheet.definition.impl.*;
+import consulo.xstylesheet.psi.XStyleSheetFile;
 import org.jdom.Document;
 import org.jdom.Element;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.InputStream;
 import java.util.*;
 
@@ -36,39 +36,41 @@ import java.util.*;
  * @author VISTALL
  * @since 03.07.13.
  */
-public class XStyleSheetTableExtension extends AbstractExtensionPointBean
+public class XStyleSheetXmlTableProvider implements XStyleSheetTableProvider
 {
-	private static final Logger LOGGER = Logger.getInstance(XStyleSheetTableExtension.class);
+	private static final Logger LOGGER = Logger.getInstance(XStyleSheetXmlTableProvider.class);
 
-	public static final ExtensionPointName<XStyleSheetTableExtension> EP_NAME = ExtensionPointName.create("consulo.xstylesheet.table");
+	public static final ExtensionPointName<XStyleSheetXmlTableProvider> EP_NAME = ExtensionPointName.create("consulo.xstylesheet.table");
 
-	@Attribute("file")
-	public String file;
+	private NotNullLazyValue<XStyleSheetTable> myLazyTableValue;
 
-	//@Attribute("condition")
-	// public Condition<PsiFile> condition = Condition.TRUE;
-
-	private NotNullLazyValue<XStyleSheetTable> myLazyTableValue = new NotNullLazyValue<XStyleSheetTable>()
+	public XStyleSheetXmlTableProvider(@Nullable String pathToResource)
 	{
-		@Nonnull
-		@Override
-		protected XStyleSheetTable compute()
+		myLazyTableValue = NotNullLazyValue.createValue(() ->
 		{
-			InputStream stream = getLoaderForClass().getResourceAsStream(file);
+			InputStream stream = getClass().getResourceAsStream(pathToResource);
 			if(stream == null)
 			{
-				LOGGER.error("File " + file + " not found for loader: " + getLoaderForClass());
+				LOGGER.error("File " + pathToResource + " not found for loader: " + getClass().getClass());
 				return EmptyXStyleSheetTable.INSTANCE;
 			}
 			return loadDocument(stream);
-		}
-	};
+		});
+	}
+
+	@Nullable
+	@Override
+	public XStyleSheetTable getTableForFile(@Nonnull XStyleSheetFile file)
+	{
+		return myLazyTableValue.get();
+	}
 
 	public XStyleSheetTable getTable()
 	{
 		return myLazyTableValue.getValue();
 	}
 
+	@SuppressWarnings("unchecked")
 	private XStyleSheetTable loadDocument(InputStream stream)
 	{
 		try
@@ -83,7 +85,7 @@ public class XStyleSheetTableExtension extends AbstractExtensionPointBean
 				if("value-definition".equals(name))
 				{
 					String tempName = element.getAttributeValue("name");
-					Class<? extends XStyleSheetPropertyValuePartParser> clazz = findClass(element.getAttributeValue("implClass"));
+					Class<? extends XStyleSheetPropertyValuePartParser> clazz = (Class<? extends XStyleSheetPropertyValuePartParser>) Class.forName(element.getAttributeValue("implClass"), true, getClass().getClassLoader());
 
 					valueDefinitions.put(tempName, ReflectionUtil.createInstance(ReflectionUtil.getDefaultConstructor(clazz)));
 				}

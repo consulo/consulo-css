@@ -1,13 +1,15 @@
 package consulo.xstylesheet.psi;
 
 import com.intellij.psi.PsiFile;
-import com.intellij.util.SmartList;
+import com.intellij.util.containers.ContainerUtil;
 import consulo.xstylesheet.definition.XStyleSheetTable;
-import consulo.xstylesheet.definition.XStyleSheetTableExtension;
+import consulo.xstylesheet.definition.XStyleSheetTableProvider;
 import consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;
 import consulo.xstylesheet.definition.impl.MergedXStyleSheetTable;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author VISTALL
@@ -18,13 +20,15 @@ public interface XStyleSheetFile extends PsiFile
 	@Nonnull
 	static XStyleSheetTable getXStyleSheetTable(@Nonnull PsiFile file)
 	{
-		SmartList<XStyleSheetTable> list = new SmartList<>();
-		for(XStyleSheetTableExtension extension : XStyleSheetTableExtension.EP_NAME.getExtensionList())
+		if(!(file instanceof XStyleSheetFile))
 		{
-	  /*if (extension.condition == null || extension.condition.value(this)) */
-			{
-				list.add(extension.getTable());
-			}
+			return EmptyXStyleSheetTable.INSTANCE;
+		}
+
+		List<XStyleSheetTable> list = new ArrayList<>();
+		for(XStyleSheetTableProvider extension : XStyleSheetTableProvider.EP_NAME.getExtensionList())
+		{
+			ContainerUtil.addIfNotNull(list, extension.getTableForFile((XStyleSheetFile) file));
 		}
 		return list.isEmpty() ? EmptyXStyleSheetTable.INSTANCE : new MergedXStyleSheetTable(list.toArray(new XStyleSheetTable[list.size()]));
 	}

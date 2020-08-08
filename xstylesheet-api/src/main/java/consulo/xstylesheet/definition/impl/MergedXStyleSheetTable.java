@@ -16,14 +16,14 @@
 
 package consulo.xstylesheet.definition.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import consulo.xstylesheet.definition.XStyleSheetProperty;
+import consulo.xstylesheet.definition.XStyleSheetTable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import consulo.xstylesheet.definition.XStyleSheetProperty;
-import consulo.xstylesheet.definition.XStyleSheetTable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author VISTALL
@@ -33,9 +33,9 @@ public class MergedXStyleSheetTable implements XStyleSheetTable
 {
 	private final XStyleSheetTable[] myTables;
 
-	public MergedXStyleSheetTable(XStyleSheetTable... myTables)
+	public MergedXStyleSheetTable(XStyleSheetTable... tables)
 	{
-		this.myTables = myTables;
+		myTables = tables;
 	}
 
 	@Nullable
@@ -55,9 +55,9 @@ public class MergedXStyleSheetTable implements XStyleSheetTable
 
 	@Nonnull
 	@Override
-	public List<XStyleSheetProperty> getProperties()
+	public Collection<XStyleSheetProperty> getProperties()
 	{
-		List<XStyleSheetProperty> list = new ArrayList<XStyleSheetProperty>();
+		List<XStyleSheetProperty> list = new ArrayList<>();
 		for(XStyleSheetTable table : myTables)
 		{
 			list.addAll(table.getProperties());

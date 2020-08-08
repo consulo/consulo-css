@@ -16,9 +16,6 @@
 
 package consulo.css.editor.completion;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
@@ -26,6 +23,7 @@ import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
+import consulo.xstylesheet.XStyleSheetIcons;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import consulo.xstylesheet.definition.XStyleSheetTable;
@@ -33,6 +31,9 @@ import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import consulo.xstylesheet.psi.PsiXStyleSheetRule;
 import consulo.xstylesheet.psi.XStyleSheetFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author VISTALL
@@ -66,7 +67,6 @@ public class CssCompletionContributor extends CompletionContributor
 					continue;
 				}
 
-
 				String defaultText = StringUtil.join(property.getInitialEntries(), entry ->
 				{
 					XStyleSheetPropertyValuePart[] parts = entry.getParts();
@@ -78,16 +78,16 @@ public class CssCompletionContributor extends CompletionContributor
 					return "";
 				}, ", ");
 
-				StringBuilder b = new StringBuilder(property.getName());
+				StringBuilder b = new StringBuilder(property.getName()).append(": ");
 				if(!defaultText.isEmpty())
 				{
-					b.append(": ");
 					b.append(defaultText);
 					b.append(";");
 				}
 
 				LookupElementBuilder builder = LookupElementBuilder.create(b.toString());
 				builder = builder.withPresentableText(property.getName());
+				builder = builder.withIcon(XStyleSheetIcons.Property);
 				if(!defaultText.isEmpty())
 				{
 					builder = builder.withTypeText(defaultText, true);

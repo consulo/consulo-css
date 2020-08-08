@@ -16,14 +16,14 @@
 
 package consulo.xstylesheet.definition.impl;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
 import com.intellij.codeInsight.lookup.LookupElement;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 /**
  * @author VISTALL
@@ -63,6 +63,12 @@ public class XStyleSheetPropertyValuePartImpl implements XStyleSheetPropertyValu
 	public Object getNativeValue(PsiXStyleSheetPropertyValuePart part)
 	{
 		return myParser.getNativeValue(part, myValue);
+	}
+
+	@Override
+	public boolean setNativeValue(@Nonnull XStyleSheetPropertyValuePart part, Object value)
+	{
+		return false;
 	}
 
 	@Override

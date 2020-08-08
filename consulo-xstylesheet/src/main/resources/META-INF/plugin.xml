@@ -5,13 +5,15 @@
 	<category>Markup Languages</category>
 	<depends>com.intellij.xml</depends>
 	<extensionPoints>
-		<extensionPoint name="table" beanClass="consulo.xstylesheet.definition.XStyleSheetTableExtension"/>
+		<extensionPoint name="tableProvider" interface="consulo.xstylesheet.definition.XStyleSheetTableProvider"/>
+
 		<extensionPoint name="functionCallValidator"
 						interface="consulo.xstylesheet.definition.value.impl.FunctionXStyleSheetValue$XStyleSheetFunctionCallDescriptor"/>
 	</extensionPoints>
 
 	<extensions defaultExtensionNs="consulo.xstylesheet">
-		<table file="/consulo/xstylesheet/defaultXStyleSheetTable.xml"/>
+		<tableProvider implementation="consulo.xstylesheet.table.DefaultXStyleSheetTableProvider"/>
+		<tableProvider implementation="consulo.xstylesheet.table.UnparsedXStyleSheetTableProvider"/>
 
 		<functionCallValidator implementation="consulo.xstylesheet.definition.value.impl.FunctionXStyleSheetValue$UrlFunctionCallValidator"/>
 	</extensions>

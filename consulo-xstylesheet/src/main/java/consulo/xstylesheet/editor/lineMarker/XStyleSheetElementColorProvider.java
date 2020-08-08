@@ -16,6 +16,7 @@
 
 package consulo.xstylesheet.editor.lineMarker;
 
+import com.intellij.openapi.application.WriteAction;
 import com.intellij.psi.PsiElement;
 import consulo.annotation.access.RequiredReadAction;
 import consulo.annotation.access.RequiredWriteAction;
@@ -44,10 +45,8 @@ public class XStyleSheetElementColorProvider implements ElementColorProvider
 			{
 				value = ((PsiXStyleSheetPropertyValuePart) psiElement).getValue();
 			}
-			catch(Exception e)
+			catch(Exception ignored)
 			{
-				System.out.println(psiElement.getText());
-				e.printStackTrace();
 			}
 
 			if(value instanceof ColorValue)
@@ -62,6 +61,9 @@ public class XStyleSheetElementColorProvider implements ElementColorProvider
 	@Override
 	public void setColorTo(@Nonnull PsiElement psiElement, @Nonnull ColorValue color)
 	{
-		//TODO [VISTALL] !
+		if(psiElement instanceof PsiXStyleSheetPropertyValuePart)
+		{
+			WriteAction.run(() -> ((PsiXStyleSheetPropertyValuePart) psiElement).setValue(color));
+		}
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 must-be.org
+ * Copyright 2013-2020 consulo.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,35 +14,42 @@
  * limitations under the License.
  */
 
-package consulo.xstylesheet.definition.impl;
+package consulo.xstylesheet.table;
 
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetTable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2020-08-08
  */
-public class EmptyXStyleSheetTable implements XStyleSheetTable
+public class UnparsedXStyleSheetTable implements XStyleSheetTable
 {
-	public static final XStyleSheetTable INSTANCE = new EmptyXStyleSheetTable();
+	private final Map<String, XStyleSheetProperty> myNames = new HashMap<>();
+
+	public UnparsedXStyleSheetTable(String[] names)
+	{
+		for(String name : names)
+		{
+			myNames.put(name, new UnparsedXStyleSheetProperty(name));
+		}
+	}
 
 	@Nullable
 	@Override
 	public XStyleSheetProperty findProperty(@Nonnull String propertyName)
 	{
-		return null;
+		return myNames.get(propertyName);
 	}
 
 	@Nonnull
 	@Override
 	public Collection<XStyleSheetProperty> getProperties()
 	{
-		return Collections.emptyList();
+		return myNames.values();
 	}
 }

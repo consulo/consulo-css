@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 must-be.org
+ * Copyright 2013-2020 consulo.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,37 @@
  * limitations under the License.
  */
 
-package consulo.xstylesheet.definition;
+package consulo.xstylesheet.grammar;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2020-07-03
  */
-public interface XStyleSheetPropertyValueEntry
+public class CssPropery
 {
-	XStyleSheetPropertyValueEntry[] EMPTY_ARRAY = new XStyleSheetPropertyValueEntry[0];
+	private String name;
+	private String documentation;
+	private final String myHref;
 
-	XStyleSheetPropertyValuePart[] getParts();
+	public CssPropery(String name, String documentation, String href)
+	{
+		this.name = name;
+		this.documentation = documentation;
+		myHref = href;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+	public String getDocumentation()
+	{
+		return documentation;
+	}
+
+	public String getHref()
+	{
+		return myHref;
+	}
 }
