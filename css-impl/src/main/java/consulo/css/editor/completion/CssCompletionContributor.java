@@ -23,10 +23,10 @@ import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
-import consulo.xstylesheet.XStyleSheetIcons;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import consulo.xstylesheet.definition.XStyleSheetTable;
+import consulo.xstylesheet.icon.XStyleSheetIconGroup;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import consulo.xstylesheet.psi.PsiXStyleSheetRule;
@@ -87,7 +87,7 @@ public class CssCompletionContributor extends CompletionContributor
 
 				LookupElementBuilder builder = LookupElementBuilder.create(b.toString());
 				builder = builder.withPresentableText(property.getName());
-				builder = builder.withIcon(XStyleSheetIcons.Property);
+				builder = builder.withIcon(XStyleSheetIconGroup.property());
 				if(!defaultText.isEmpty())
 				{
 					builder = builder.withTypeText(defaultText, true);

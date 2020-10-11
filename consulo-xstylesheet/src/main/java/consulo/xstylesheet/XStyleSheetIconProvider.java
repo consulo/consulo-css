@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement;
 import consulo.annotation.access.RequiredReadAction;
 import consulo.ide.IconDescriptor;
 import consulo.ide.IconDescriptorUpdater;
+import consulo.xstylesheet.icon.XStyleSheetIconGroup;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
 
@@ -49,10 +50,10 @@ public class XStyleSheetIconProvider implements IconDescriptorUpdater
 			switch(selector.getType())
 			{
 				case ID:
-					iconDescriptor.setMainIcon(XStyleSheetIcons.HtmlId);
+					iconDescriptor.setMainIcon(XStyleSheetIconGroup.html_id());
 					break;
 				case CLASS:
-					iconDescriptor.setMainIcon(XStyleSheetIcons.CssClass);
+					iconDescriptor.setMainIcon(XStyleSheetIconGroup.css_class());
 					break;
 				case TAG:
 					iconDescriptor.setMainIcon(AllIcons.Nodes.Tag);
