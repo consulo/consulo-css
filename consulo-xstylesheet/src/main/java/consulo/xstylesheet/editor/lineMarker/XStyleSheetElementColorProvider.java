@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement;
 import consulo.annotation.access.RequiredReadAction;
 import consulo.annotation.access.RequiredWriteAction;
 import consulo.language.editor.ElementColorProvider;
-import consulo.ui.shared.ColorValue;
+import consulo.ui.color.ColorValue;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
 import javax.annotation.Nonnull;

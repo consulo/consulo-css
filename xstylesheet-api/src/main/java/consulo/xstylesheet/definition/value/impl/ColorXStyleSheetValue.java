@@ -16,11 +16,11 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
+import consulo.ui.color.ColorValue;
+import consulo.ui.util.ColorValueUtil;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import consulo.ui.shared.ColorValue;
-import consulo.ui.util.ColorValueUtil;
 
 /**
  * @author VISTALL
