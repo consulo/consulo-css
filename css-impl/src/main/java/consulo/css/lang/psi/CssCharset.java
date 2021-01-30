@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2017 must-be.org
+ * Copyright 2013-2021 consulo.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
-package consulo.css.html.lexer;
+package consulo.css.lang.psi;
 
-import consulo.css.lang.lexer._CssLexer;
+import com.intellij.lang.ASTNode;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 03-Jan-17
+ * @since 30/01/2021
  */
-public class CssInlineLexer extends _CssLexer
+public class CssCharset extends CssElement
 {
+	public CssCharset(@Nonnull ASTNode node)
+	{
+		super(node);
+	}
 }

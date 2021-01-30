@@ -81,6 +81,7 @@ public class CssParserDefinition implements ParserDefinition
 		return CssTokenSets.STRINGS;
 	}
 
+	@Nonnull
 	@Override
 	public PsiFile createFile(@Nonnull FileViewProvider fileViewProvider)
 	{

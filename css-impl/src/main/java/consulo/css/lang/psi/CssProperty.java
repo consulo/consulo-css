@@ -22,6 +22,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.util.IncorrectOperationException;
 import consulo.annotation.access.RequiredReadAction;
+import consulo.annotation.access.RequiredWriteAction;
 import consulo.css.lang.CssTokens;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetTable;
@@ -46,6 +47,7 @@ public class CssProperty extends CssElement implements PsiNameIdentifierOwner, P
 		super(node);
 	}
 
+	@RequiredReadAction
 	@Nullable
 	@Override
 	public PsiElement getNameIdentifier()
@@ -79,6 +81,7 @@ public class CssProperty extends CssElement implements PsiNameIdentifierOwner, P
 		return findChildrenByClass(PsiXStyleSheetPropertyValuePart.class);
 	}
 
+	@RequiredReadAction
 	@Override
 	public String getName()
 	{
@@ -90,11 +93,12 @@ public class CssProperty extends CssElement implements PsiNameIdentifierOwner, P
 	@Override
 	public boolean isImportant()
 	{
-		return findChildByType(CssTokens.IMPORTANT) != null;
+		return findChildByType(CssTokens.IMPORTANT_KEYWORD) != null;
 	}
 
+	@RequiredWriteAction
 	@Override
-	public PsiElement setName(@NonNls @Nonnull String s) throws IncorrectOperationException
+	public PsiElement setName(@Nonnull String s) throws IncorrectOperationException
 	{
 		return null;
 	}

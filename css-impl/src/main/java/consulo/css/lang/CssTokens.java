@@ -52,5 +52,13 @@ public interface CssTokens extends TokenType
 	IElementType TILDE = new CssElementType("TILDE");
 	IElementType PERC = new CssElementType("PERC");
 
-	IElementType IMPORTANT = new CssElementType("IMPORTANT");
+	IElementType URL_TOKEN = new CssElementType("URL_TOKEN");
+
+	IElementType IMPORTANT_KEYWORD = new CssElementType("IMPORTANT_KEYWORD");
+	IElementType PAGE_KEYWORD = new CssElementType("PAGE_KEYWORD");
+	IElementType MEDIA_KEYWORD = new CssElementType("MEDIA_KEYWORD");
+	IElementType IMPORT_KEYWORD = new CssElementType("IMPORT_KEYWORD");
+	IElementType CHARSET_KEYWORD = new CssElementType("CHARSET_KEYWORD");
+	IElementType NAMESPACE_KEYWORD = new CssElementType("NAMESPACE_KEYWORD");
+	IElementType FONT_FACE_KEYWORD = new CssElementType("FONT_FACE_KEYWORD");
 }

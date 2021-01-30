@@ -54,4 +54,8 @@ public interface CssElements
 	IElementType FUNCTION_CALL = new ElementTypeAsPsiFactory("FUNCTION_CALL", CssLanguage.INSTANCE, CssFunctionCall.class);
 
 	IElementType FUNCTION_CALL_PARAMETER_LIST = new ElementTypeAsPsiFactory("FUNCTION_CALL_PARAMETER_LIST", CssLanguage.INSTANCE, CssFunctionCallParameterList.class);
+
+	IElementType CHARSET = new ElementTypeAsPsiFactory("CHARSET", CssLanguage.INSTANCE, CssCharset.class);
+
+	IElementType IMPORT = new ElementTypeAsPsiFactory("IMPORT", CssLanguage.INSTANCE, CssImport.class);
 }
