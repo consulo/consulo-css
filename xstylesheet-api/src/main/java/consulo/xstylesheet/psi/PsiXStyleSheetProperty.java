@@ -31,6 +31,7 @@ import javax.annotation.Nullable;
 public interface PsiXStyleSheetProperty extends PsiElement, PsiNameIdentifierOwner
 {
 	@Nullable
+	@RequiredReadAction
 	XStyleSheetProperty getXStyleSheetProperty();
 
 	@Nonnull

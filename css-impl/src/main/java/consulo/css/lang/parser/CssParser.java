@@ -104,29 +104,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 
 					while(!builder.eof())
 					{
-						if(builder.getTokenType() == IDENTIFIER)
-						{
-							PsiBuilder.Marker propertyMarker = builder.mark();
-
-							builder.advanceLexer();
-
-							if(expect(builder, COLON, "':' expected"))
-							{
-								parsePropertyValue(builder);
-							}
-
-							if(builder.getTokenType() == IMPORTANT_KEYWORD)
-							{
-								builder.advanceLexer();
-							}
-
-							boolean last = builder.getTokenType() == null || builder.getTokenType() == CssTokens.RBRACE;
-
-							expect(builder, SEMICOLON, last ? null : "';' expected");
-
-							propertyMarker.done(PROPERTY);
-						}
-						else
+						if(parseProperty(builder, null) == null)
 						{
 							break;
 						}
@@ -146,6 +124,52 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 		}
 
 		rootMarker.done(CssElements.ROOT);
+	}
+
+	@Nullable
+	private PsiBuilder.Marker parseProperty(@Nonnull PsiBuilder builder, @Nullable PsiBuilder.Marker marker)
+	{
+		if(builder.getTokenType() == IDENTIFIER)
+		{
+			PsiBuilder.Marker propertyMarker = marker == null ? builder.mark() : marker;
+
+			builder.advanceLexer();
+
+			if(expect(builder, COLON, "':' expected"))
+			{
+				parsePropertyValue(builder);
+			}
+
+			if(builder.getTokenType() == IMPORTANT_KEYWORD)
+			{
+				builder.advanceLexer();
+			}
+
+			boolean last = builder.getTokenType() == null || builder.getTokenType() == CssTokens.RBRACE;
+
+			expect(builder, SEMICOLON, last ? null : "';' expected");
+
+			propertyMarker.done(PROPERTY);
+
+			return propertyMarker;
+		}
+		else if(builder.getTokenType() == CssTokens.ASTERISK)
+		{
+			PsiBuilder.Marker propertyMarker = builder.mark();
+
+			builder.advanceLexer();
+
+			if(parseProperty(builder, propertyMarker) == null)
+			{
+				propertyMarker.error("Expected name");
+				return null;
+			}
+			return propertyMarker;
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	public void parsePropertyValue(PsiBuilder builder)

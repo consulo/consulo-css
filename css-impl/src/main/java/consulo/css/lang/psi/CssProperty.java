@@ -52,14 +52,10 @@ public class CssProperty extends CssElement implements PsiNameIdentifierOwner, P
 	@Override
 	public PsiElement getNameIdentifier()
 	{
-		PsiElement firstChild = getFirstChild();
-		if(firstChild.getNode().getElementType() == CssTokens.IDENTIFIER)
-		{
-			return firstChild;
-		}
-		return null;
+		return findChildByType(CssTokens.IDENTIFIER);
 	}
 
+	@RequiredReadAction
 	@Nullable
 	@Override
 	public XStyleSheetProperty getXStyleSheetProperty()
