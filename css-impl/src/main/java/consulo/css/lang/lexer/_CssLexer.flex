@@ -32,7 +32,7 @@ StringLiteral = \" ( \\\" | [^\"\n\r] )* \"
 StringLiteral2 = \' ( \\\' | [^\'\n\r] )* \'
 AnyStringLiteral = {StringLiteral} | {StringLiteral2}
 NumberLiteral = [0-9]+ | [0-9]*\.[0-9]+
-NumberLiteralWithSufixes = {NumberLiteral} ("in" | "cm" | "mm" | "pt" | "pc" | "px" | "em" | "ex" | "%")?
+NumberLiteralWithSufixes = {NumberLiteral} ("in" | "cm" | "mm" | "pt" | "pc" | "px" | "em" | "ex" | "deg" | "%")?
 HexNumberLiteral = "#" ([_0-9A-Fa-f])+
 
 // test url part
@@ -76,12 +76,16 @@ URL_PATTERN = ([!#$%&*-~]|{nonascii}|{escape})*
 
     "url("                  { yypushback(yylength()); yybegin(URL_START);}
 
+    {NumberLiteralWithSufixes}  { return CssTokens.NUMBER; }
+
     {Identifier}            { return CssTokens.IDENTIFIER; }
-    {StringLiteral}         { return CssTokens.STRING; }
-    {StringLiteral2}        { return CssTokens.STRING; }
+
+    {AnyStringLiteral}      { return CssTokens.STRING; }
 
     {TraditionalComment}    { return CssTokens.BLOCK_COMMENT; }
+
     {AnySpace}+             { return CssTokens.WHITE_SPACE; }
+
     [^]                     { return CssTokens.BAD_CHARACTER; }
 }
 
