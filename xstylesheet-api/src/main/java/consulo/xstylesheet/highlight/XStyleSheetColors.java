@@ -41,7 +41,7 @@ public interface XStyleSheetColors
 
 	TextAttributesKey ATTRIBUTE_NAME = TextAttributesKey.createTextAttributesKey("XSTYLESHEET_ATTRIBUTE_NAME", DefaultLanguageHighlighterColors.MARKUP_ATTRIBUTE);
 
-	TextAttributesKey PROPERTY_NAME = TextAttributesKey.createTextAttributesKey("XSTYLESHEET_PROPERTY_NAME", DefaultLanguageHighlighterColors.MARKUP_ATTRIBUTE);
+	TextAttributesKey PROPERTY_NAME = TextAttributesKey.createTextAttributesKey("XSTYLESHEET_PROPERTY_NAME", DefaultLanguageHighlighterColors.INSTANCE_FIELD);
 
 	TextAttributesKey PSEUDO_NAME = TextAttributesKey.createTextAttributesKey("XSTYLESHEET_PSEUDO_NAME", DefaultLanguageHighlighterColors.MARKUP_ATTRIBUTE);
 }
