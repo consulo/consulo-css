@@ -32,7 +32,7 @@ StringLiteral = \" ( \\\" | [^\"\n\r] )* \"
 StringLiteral2 = \' ( \\\' | [^\'\n\r] )* \'
 AnyStringLiteral = {StringLiteral} | {StringLiteral2}
 NumberLiteral = [0-9]+ | [0-9]*\.[0-9]+
-NumberLiteralWithSufixes = {NumberLiteral} ("in" | "cm" | "mm" | "pt" | "pc" | "px" | "em" | "ex" | "deg" | "%")?
+NumberLiteralWithSufixes = "-"? {NumberLiteral} ("in" | "cm" | "mm" | "pt" | "pc" | "px" | "em" | "ex" | "deg" | "%")?
 HexNumberLiteral = "#" ([_0-9A-Fa-f])+
 
 // test url part
