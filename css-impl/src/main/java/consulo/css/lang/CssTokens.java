@@ -43,6 +43,11 @@ public interface CssTokens extends TokenType
 	IElementType COLON = new CssElementType("COLON");
 	IElementType COLONCOLON = new CssElementType("COLONCOLON");
 	IElementType EQ = new CssElementType("EQ");
+	IElementType TILDE_EQ = new CssElementType("TILDE_EQ");
+	IElementType MUL_EQ = new CssElementType("MUL_EQ");
+	IElementType OR_EQ = new CssElementType("OR_EQ");
+	IElementType XOR_EQ = new CssElementType("XOR_EQ");
+	IElementType DOL_EQ = new CssElementType("DOL_EQ");
 	IElementType GT = new CssElementType("GT");
 	IElementType SEMICOLON = new CssElementType("SEMICOLON");
 	IElementType COMMA = new CssElementType("COMMA");

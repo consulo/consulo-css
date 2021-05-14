@@ -62,6 +62,11 @@ URL_PATTERN = ([!#$%&*-~]|{nonascii}|{escape})*
     ","                     { return CssTokens.COMMA; }
     "*"                     { return CssTokens.ASTERISK; }
     "#"                     { return CssTokens.SHARP; }
+    "~="                    { return CssTokens.TILDE_EQ; }
+    "*="                    { return CssTokens.MUL_EQ; }
+    "|="                    { return CssTokens.OR_EQ; }
+    "^="                    { return CssTokens.XOR_EQ; }
+    "$="                    { return CssTokens.DOL_EQ; }
     "."                     { return CssTokens.DOT; }
     "+"                     { return CssTokens.PLUS; }
     "~"                     { return CssTokens.TILDE; }

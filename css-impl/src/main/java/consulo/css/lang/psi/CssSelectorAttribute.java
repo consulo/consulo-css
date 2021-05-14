@@ -68,7 +68,7 @@ public class CssSelectorAttribute extends CssElement implements PsiXStyleSheetSe
 
 	@RequiredWriteAction
 	@Override
-	public PsiElement setName(@NonNls @Nonnull String s) throws IncorrectOperationException
+	public PsiElement setName(@Nonnull String s) throws IncorrectOperationException
 	{
 		return null;
 	}

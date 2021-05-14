@@ -21,6 +21,7 @@ import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiParser;
 import com.intellij.psi.tree.IElementType;
 import consulo.css.lang.CssElements;
+import consulo.css.lang.CssTokenSets;
 import consulo.css.lang.CssTokens;
 import consulo.lang.LanguageVersion;
 import consulo.util.lang.StringUtil;
@@ -499,8 +500,10 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 
 			builder.advanceLexer();
 
-			if(expect(builder, EQ, null))
+			if(CssTokenSets.SELECTOR_ATTRIBUTE_LIST_EQ.contains(builder.getTokenType()))
 			{
+				builder.advanceLexer();
+
 				if(builder.getTokenType() == STRING || builder.getTokenType() == IDENTIFIER)
 				{
 					builder.advanceLexer();
