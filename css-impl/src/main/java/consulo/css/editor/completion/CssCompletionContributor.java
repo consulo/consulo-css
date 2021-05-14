@@ -112,7 +112,7 @@ public class CssCompletionContributor extends CompletionContributor
 
 		extend(CompletionType.BASIC, PlatformPatterns.psiElement().withParent(PsiXStyleSheetPropertyValuePart.class), (completionParameters, processingContext, completionResultSet) ->
 		{
-			completionResultSet.addElement(LookupElementBuilder.create("!important").withLookupString("important").withPresentableText("important").bold());
+			completionResultSet.addElement(LookupElementBuilder.create("!important").withLookupString("important").withPresentableText("!important").bold());
 		});
 	}
 }

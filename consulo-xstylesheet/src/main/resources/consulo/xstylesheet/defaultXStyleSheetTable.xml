@@ -26,6 +26,22 @@
 			</entry>
 		</initial-values>
 	</property>
+	<property name="position">
+		<valid-values>
+			<entry>
+				<keyword>absolute</keyword>
+				<keyword>fixed</keyword>
+				<keyword>relative</keyword>
+				<keyword>static</keyword>
+				<keyword>inherit</keyword>
+			</entry>
+		</valid-values>
+		<initial-values>
+			<entry>
+				<keyword>inherit</keyword>
+			</entry>
+		</initial-values>
+	</property>
 	<property name="color">
 		<valid-values>
 			<entry>
@@ -43,7 +59,7 @@
 	<property name="background-image">
 		<valid-values>
 			<entry>
-				<function />
+				<function/>
 				<keyword>inherit</keyword>
 				<keyword>none</keyword>
 			</entry>
