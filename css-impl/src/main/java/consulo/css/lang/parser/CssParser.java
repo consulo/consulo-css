@@ -23,6 +23,7 @@ import com.intellij.psi.tree.IElementType;
 import consulo.css.lang.CssElements;
 import consulo.css.lang.CssTokens;
 import consulo.lang.LanguageVersion;
+import consulo.util.lang.StringUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -530,7 +531,29 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 
 			builder.advanceLexer();
 
-			expect(builder, IDENTIFIER, "Identifier expected");
+			CharSequence name = builder.getTokenType() == IDENTIFIER ? builder.getTokenSequence() : null;
+
+			if(expect(builder, IDENTIFIER, "Identifier expected"))
+			{
+				if(builder.getTokenType() == LPAR)
+				{
+					PsiBuilder.Marker argsMarker = builder.mark();
+					
+					builder.advanceLexer();
+
+					if(StringUtil.equals(name, "not"))
+					{
+						if(parseSelector(builder) == null)
+						{
+							builder.error("Selector expected");
+						}
+					}
+
+					expect(builder, RPAR, "')' expected");
+
+					argsMarker.done(SELECTOR_PSEUDO_CLASS_ARGUMENT_LIST);
+				}
+			}
 
 			marker.done(SELECTOR_PSEUDO_CLASS);
 		}

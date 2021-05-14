@@ -47,6 +47,8 @@ public interface CssElements
 
 	IElementType SELECTOR_PSEUDO_CLASS = new ElementTypeAsPsiFactory("SELECTOR_PSEUDO_CLASS", CssLanguage.INSTANCE, CssSelectorPseudoClass.class);
 
+	IElementType SELECTOR_PSEUDO_CLASS_ARGUMENT_LIST = new ElementTypeAsPsiFactory("SELECTOR_PSEUDO_CLASS_ARGUMENT_LIST", CssLanguage.INSTANCE, CssSelectorPseudoClassArgumentList.class);
+
 	IElementType SELECTOR_ATTRIBUTE = new ElementTypeAsPsiFactory("SELECTOR_ATTRIBUTE", CssLanguage.INSTANCE, CssSelectorAttribute.class);
 
 	IElementType SELECTOR_ATTRIBUTE_LIST = new ElementTypeAsPsiFactory("SELECTOR_ATTRIBUTE_LIST", CssLanguage.INSTANCE, CssSelectorAttributeList.class);
