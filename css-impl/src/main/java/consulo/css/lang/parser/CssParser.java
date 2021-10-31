@@ -528,6 +528,15 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 
 	private void parseSelectorPseudoClass(PsiBuilder builder)
 	{
+		if(builder.getTokenType() == COLON && builder.lookAhead(1) == IDENTIFIER && builder.lookAhead(2) == LPAR)
+		{
+			builder.advanceLexer();
+
+			parseFunctionCall(builder);
+
+			return;
+		}
+
 		while(builder.getTokenType() == COLON || builder.getTokenType() == COLONCOLON)
 		{
 			PsiBuilder.Marker marker = builder.mark();
