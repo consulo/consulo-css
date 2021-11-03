@@ -3,6 +3,9 @@
 	<name>CSS</name>
 	<version>SNAPSHOT</version>
 	<category>Markup Languages</category>
+	<tags>
+		<tag>markup.language</tag>
+	</tags>
 	<depends>consulo.xstylesheet</depends>
 	<depends config-file="consulo.emmet.xml" optional="true">consulo.emmet</depends>
 

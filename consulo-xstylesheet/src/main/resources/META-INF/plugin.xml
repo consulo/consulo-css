@@ -4,6 +4,10 @@
 	<version>SNAPSHOT</version>
 	<category>Markup Languages</category>
 	<depends>com.intellij.xml</depends>
+	<tags>
+		<tag>markup.language</tag>
+	</tags>
+
 	<extensionPoints>
 		<extensionPoint name="tableProvider" interface="consulo.xstylesheet.definition.XStyleSheetTableProvider"/>
 
