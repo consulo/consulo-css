@@ -352,18 +352,18 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 			return null;
 		}
 
-		while(builder.getTokenType() == CssTokens.IDENTIFIER)
+		while(parseSimpleSelector(builder))
 		{
-			parseSimpleSelector(builder);
 		}
 
 		while(builder.getTokenType() == CssTokens.PLUS || builder.getTokenType() == CssTokens.TILDE || builder.getTokenType() == CssTokens.GT)
 		{
 			builder.advanceLexer();
 
-			if(!parseSimpleSelector(builder))
+			if(parseSelector(builder) == null)
 			{
 				builder.error("Selector expected");
+				break;
 			}
 		}
 
