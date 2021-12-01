@@ -40,7 +40,7 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 	@Override
 	public boolean suitableForFile(@Nonnull PsiFile psiFile)
 	{
-		return true;
+		return psiFile instanceof XStyleSheetFile;
 	}
 
 	@Override
@@ -149,11 +149,5 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 	public HighlightVisitor clone()
 	{
 		return new XStyleSheetHighlightVisitor();
-	}
-
-	@Override
-	public int order()
-	{
-		return 0;
 	}
 }
