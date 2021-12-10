@@ -18,6 +18,7 @@ package consulo.css.lang;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import consulo.css.icon.CssIconGroup;
+import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
 
 import javax.annotation.Nonnull;
@@ -45,9 +46,9 @@ public class CssFileType extends LanguageFileType
 
 	@Nonnull
 	@Override
-	public String getDescription()
+	public LocalizeValue getDescription()
 	{
-		return "CSS";
+		return LocalizeValue.localizeTODO("CSS");
 	}
 
 	@Nonnull
