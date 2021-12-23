@@ -1,4 +1,4 @@
-<consulo-plugin>
+<consulo-plugin url="https://github.com/consulo/consulo-css">
 	<id>consulo.xstylesheet</id>
 	<name>XStylesheet API</name>
 	<version>SNAPSHOT</version>

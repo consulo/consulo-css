@@ -1,4 +1,4 @@
-<consulo-plugin>
+<consulo-plugin url="https://github.com/consulo/consulo-css">
 	<id>consulo.css</id>
 	<name>CSS</name>
 	<version>SNAPSHOT</version>
