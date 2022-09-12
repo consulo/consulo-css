@@ -16,15 +16,15 @@
 
 package consulo.xstylesheet.html.psi.reference.classOrId;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.PsiReferenceProvider;
-import com.intellij.psi.xml.XmlTokenType;
-import com.intellij.util.ProcessingContext;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.PsiReferenceProvider;
+import consulo.language.util.ProcessingContext;
+import consulo.xml.psi.xml.XmlTokenType;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL

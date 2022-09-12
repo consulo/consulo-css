@@ -16,9 +16,10 @@
 
 package consulo.css.lang.psi;
 
-import javax.annotation.Nonnull;
-import com.intellij.lang.ASTNode;
+import consulo.language.ast.ASTNode;
 import consulo.xstylesheet.psi.XStyleSheetSelectorSuffixList;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL

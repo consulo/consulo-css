@@ -16,21 +16,26 @@
 
 package consulo.css.editor.structureView;
 
+import consulo.annotation.component.ExtensionImpl;
+import consulo.codeEditor.Editor;
+import consulo.css.lang.CssLanguage;
+import consulo.css.lang.psi.CssFile;
+import consulo.fileEditor.structureView.StructureViewBuilder;
+import consulo.fileEditor.structureView.StructureViewModel;
+import consulo.fileEditor.structureView.TreeBasedStructureViewBuilder;
+import consulo.language.Language;
+import consulo.language.editor.structureView.PsiStructureViewFactory;
+import consulo.language.editor.structureView.StructureViewModelBase;
+import consulo.language.psi.PsiFile;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.intellij.ide.structureView.StructureViewBuilder;
-import com.intellij.ide.structureView.StructureViewModel;
-import com.intellij.ide.structureView.StructureViewModelBase;
-import com.intellij.ide.structureView.TreeBasedStructureViewBuilder;
-import com.intellij.lang.PsiStructureViewFactory;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.psi.PsiFile;
-import consulo.css.lang.psi.CssFile;
 
 /**
  * @author VISTALL
  * @since 08.07.13.
  */
+@ExtensionImpl
 public class CssPsiStructureViewFactory implements PsiStructureViewFactory
 {
 	@Nullable
@@ -46,5 +51,12 @@ public class CssPsiStructureViewFactory implements PsiStructureViewFactory
 				return new StructureViewModelBase(psiFile, new CssStructureViewTreeElement((CssFile) psiFile));
 			}
 		};
+	}
+
+	@Nonnull
+	@Override
+	public Language getLanguage()
+	{
+		return CssLanguage.INSTANCE;
 	}
 }

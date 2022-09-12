@@ -16,7 +16,7 @@
 
 package consulo.css.lang;
 
-import com.intellij.psi.tree.TokenSet;
+import consulo.language.ast.TokenSet;
 
 /**
  * @author VISTALL

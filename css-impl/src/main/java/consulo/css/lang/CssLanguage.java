@@ -16,7 +16,7 @@
 
 package consulo.css.lang;
 
-import com.intellij.lang.Language;
+import consulo.language.Language;
 
 /**
  * @author VISTALL

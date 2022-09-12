@@ -16,12 +16,12 @@
 
 package consulo.xstylesheet.html.psi.reference.classOrId;
 
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.psi.*;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.ArrayUtil;
 import consulo.annotation.access.RequiredReadAction;
-import consulo.ide.IconDescriptorUpdaters;
+import consulo.language.editor.completion.lookup.LookupElementBuilder;
+import consulo.language.icon.IconDescriptorUpdaters;
+import consulo.language.psi.*;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.util.collection.ArrayUtil;
 import consulo.xstylesheet.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
 import consulo.xstylesheet.psi.*;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;

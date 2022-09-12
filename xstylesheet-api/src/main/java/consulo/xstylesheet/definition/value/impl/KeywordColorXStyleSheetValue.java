@@ -16,14 +16,14 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
-import com.intellij.codeInsight.daemon.impl.HighlightInfo;
-import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.openapi.util.text.StringUtil;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.editor.completion.lookup.LookupElementBuilder;
+import consulo.language.editor.rawHighlight.HighlightInfo;
+import consulo.language.editor.rawHighlight.HighlightInfoType;
 import consulo.ui.color.ColorValue;
 import consulo.ui.image.ImageEffects;
 import consulo.ui.util.ColorValueUtil;
+import consulo.util.lang.StringUtil;
 import consulo.xstylesheet.definition.XStyleSheetColor;
 import consulo.xstylesheet.highlight.XStyleSheetColors;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;

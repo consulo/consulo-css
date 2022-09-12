@@ -16,8 +16,8 @@
 
 package consulo.css.lang.psi;
 
-import com.intellij.lang.ASTNode;
 import consulo.annotation.access.RequiredReadAction;
+import consulo.language.ast.ASTNode;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
 

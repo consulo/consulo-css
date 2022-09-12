@@ -16,11 +16,12 @@
 
 package consulo.xstylesheet.editor.lineMarker;
 
-import com.intellij.openapi.application.WriteAction;
-import com.intellij.psi.PsiElement;
 import consulo.annotation.access.RequiredReadAction;
 import consulo.annotation.access.RequiredWriteAction;
-import consulo.language.editor.ElementColorProvider;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.application.WriteAction;
+import consulo.language.psi.ElementColorProvider;
+import consulo.language.psi.PsiElement;
 import consulo.ui.color.ColorValue;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
@@ -31,6 +32,7 @@ import javax.annotation.Nullable;
  * @author VISTALL
  * @since 03.07.13.
  */
+@ExtensionImpl
 public class XStyleSheetElementColorProvider implements ElementColorProvider
 {
 	@RequiredReadAction

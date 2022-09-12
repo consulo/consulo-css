@@ -16,9 +16,10 @@
 
 package consulo.xstylesheet.table;
 
-import com.intellij.openapi.util.NotNullLazyValue;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.util.text.StringUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.application.util.NotNullLazyValue;
+import consulo.util.io.FileUtil;
+import consulo.util.lang.StringUtil;
 import consulo.xstylesheet.definition.XStyleSheetTable;
 import consulo.xstylesheet.definition.XStyleSheetTableProvider;
 import consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;
@@ -33,6 +34,7 @@ import java.io.InputStream;
  * @author VISTALL
  * @since 2020-08-08
  */
+@ExtensionImpl(order = "last")
 public class UnparsedXStyleSheetTableProvider implements XStyleSheetTableProvider
 {
 	private NotNullLazyValue<XStyleSheetTable> myTable = NotNullLazyValue.createValue(this::initialize);

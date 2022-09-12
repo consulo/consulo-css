@@ -16,20 +16,23 @@
 
 package consulo.xstylesheet.codeInsight;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.codeInspection.LocalInspectionTool;
-import com.intellij.codeInspection.ProblemHighlightType;
-import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementVisitor;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.inspection.LocalInspectionTool;
+import consulo.language.editor.inspection.ProblemHighlightType;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.editor.rawHighlight.HighlightDisplayLevel;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiElementVisitor;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 03.07.13.
  */
+@ExtensionImpl
 public class PropertyIsNotValidInspection extends LocalInspectionTool
 {
 	@Nonnull
@@ -56,5 +59,26 @@ public class PropertyIsNotValidInspection extends LocalInspectionTool
 				}
 			}
 		};
+	}
+
+	@Nonnull
+	@Override
+	public String getGroupDisplayName()
+	{
+		return "CSS";
+	}
+
+	@Nonnull
+	@Override
+	public String getDisplayName()
+	{
+		return "Invalid property name";
+	}
+
+	@Nonnull
+	@Override
+	public HighlightDisplayLevel getDefaultLevel()
+	{
+		return HighlightDisplayLevel.ERROR;
 	}
 }

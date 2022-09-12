@@ -16,18 +16,18 @@
 
 package consulo.css.lang;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.BracePair;
+import consulo.language.Language;
+import consulo.language.PairedBraceMatcher;
 
-import com.intellij.lang.BracePair;
-import com.intellij.lang.PairedBraceMatcher;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.tree.IElementType;
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 08.07.13.
  */
+@ExtensionImpl
 public class CssPairedBraceMatcher implements PairedBraceMatcher
 {
 	private BracePair[] myPairs = new BracePair[]{
@@ -42,15 +42,10 @@ public class CssPairedBraceMatcher implements PairedBraceMatcher
 		return myPairs;
 	}
 
+	@Nonnull
 	@Override
-	public boolean isPairedBracesAllowedBeforeType(@Nonnull IElementType elementType, @Nullable IElementType elementType2)
+	public Language getLanguage()
 	{
-		return false;
-	}
-
-	@Override
-	public int getCodeConstructStart(PsiFile psiFile, int i)
-	{
-		return i;
+		return CssLanguage.INSTANCE;
 	}
 }

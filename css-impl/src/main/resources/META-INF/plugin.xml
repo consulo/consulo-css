@@ -8,22 +8,4 @@
 	</tags>
 	<depends>consulo.xstylesheet</depends>
 	<depends config-file="consulo.emmet.xml" optional="true">consulo.emmet</depends>
-
-	<extensions defaultExtensionNs="com.intellij">
-		<psi.referenceContributor language="HTML" implementation="consulo.xstylesheet.html.XStyleSheetToHtmlReferenceContributor"/>
-
-		<completion.contributor language="CSS" implementationClass="consulo.css.editor.completion.CssCompletionContributor"/>
-		<fileTypeFactory implementation="consulo.css.lang.CssFileTypeFactory"/>
-
-		<lang.parserDefinition language="CSS" implementationClass="consulo.css.lang.parser.CssParserDefinition"/>
-		<lang.syntaxHighlighterFactory language="CSS" implementationClass="consulo.css.lang.CssSyntaxHighlighterFactory"/>
-		<lang.commenter language="CSS" implementationClass="consulo.css.lang.CssCommenter"/>
-		<lang.braceMatcher language="CSS" implementationClass="consulo.css.lang.CssPairedBraceMatcher"/>
-		<lang.formatter language="CSS" implementationClass="consulo.css.lang.formatting.CssFormattingModelBuilder"/>
-		<lang.psiStructureViewFactory language="CSS" implementationClass="consulo.css.editor.structureView.CssPsiStructureViewFactory"/>
-	</extensions>
-
-	<extensions defaultExtensionNs="com.intellij.xml">
-		<embeddedTokenTypesProvider implementation="consulo.css.html.CssEmbeddedTokenTypesProvider"/>
-	</extensions>
 </consulo-plugin>

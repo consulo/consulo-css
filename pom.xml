@@ -21,7 +21,7 @@
 	<parent>
 		<groupId>consulo</groupId>
 		<artifactId>arch.managment</artifactId>
-		<version>2-SNAPSHOT</version>
+		<version>3-SNAPSHOT</version>
 		<relativePath/>
 	</parent>
 
@@ -38,12 +38,13 @@
 
 	<groupId>consulo.plugin</groupId>
 	<artifactId>consulo.css.parent</artifactId>
-	<version>2-SNAPSHOT</version>
+	<version>3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
 		<module>xstylesheet-api</module>
 		<module>consulo-xstylesheet</module>
 		<module>css-impl</module>
+		<module>css-emmet</module>
 	</modules>
 </project>

@@ -16,8 +16,8 @@
 
 package consulo.css.lang.psi;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.util.ArrayUtil;
+import consulo.language.ast.ASTNode;
+import consulo.util.collection.ArrayUtil;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValueEntry;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;

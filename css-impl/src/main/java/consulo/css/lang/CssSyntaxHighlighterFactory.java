@@ -16,15 +16,18 @@
 
 package consulo.css.lang;
 
-import javax.annotation.Nonnull;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.editor.highlight.SingleLazyInstanceSyntaxHighlighterFactory;
+import consulo.language.editor.highlight.SyntaxHighlighter;
 
-import com.intellij.openapi.fileTypes.SingleLazyInstanceSyntaxHighlighterFactory;
-import com.intellij.openapi.fileTypes.SyntaxHighlighter;
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 03.07.13.
  */
+@ExtensionImpl
 public class CssSyntaxHighlighterFactory extends SingleLazyInstanceSyntaxHighlighterFactory
 {
 	@Nonnull
@@ -32,5 +35,12 @@ public class CssSyntaxHighlighterFactory extends SingleLazyInstanceSyntaxHighlig
 	protected SyntaxHighlighter createHighlighter()
 	{
 		return new CssSyntaxHighlighter();
+	}
+
+	@Nonnull
+	@Override
+	public Language getLanguage()
+	{
+		return CssLanguage.INSTANCE;
 	}
 }

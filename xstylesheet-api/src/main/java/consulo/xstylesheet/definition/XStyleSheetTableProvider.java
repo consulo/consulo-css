@@ -16,7 +16,9 @@
 
 package consulo.xstylesheet.definition;
 
-import com.intellij.openapi.extensions.ExtensionPointName;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ExtensionAPI;
+import consulo.component.extension.ExtensionPointName;
 import consulo.xstylesheet.psi.XStyleSheetFile;
 
 import javax.annotation.Nonnull;
@@ -26,9 +28,10 @@ import javax.annotation.Nullable;
  * @author VISTALL
  * @since 2020-08-08
  */
+@ExtensionAPI(ComponentScope.APPLICATION)
 public interface XStyleSheetTableProvider
 {
-	ExtensionPointName<XStyleSheetXmlTableProvider> EP_NAME = ExtensionPointName.create("consulo.xstylesheet.tableProvider");
+	ExtensionPointName<XStyleSheetTableProvider> EP_NAME = ExtensionPointName.create(XStyleSheetTableProvider.class);
 
 	@Nullable
 	XStyleSheetTable getTableForFile(@Nonnull XStyleSheetFile file);

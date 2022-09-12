@@ -16,8 +16,8 @@
 
 package consulo.css.lang;
 
-import com.intellij.psi.TokenType;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
+import consulo.language.ast.TokenType;
 
 /**
  * @author VISTALL

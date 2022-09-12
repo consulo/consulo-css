@@ -13,26 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intellij.application.options.emmet;
+package com.intellij.application.options.emmet.css;
 
-import com.intellij.openapi.ui.Messages;
-import com.intellij.ui.*;
-import com.intellij.ui.components.JBCheckBox;
-import com.intellij.ui.table.TableView;
-import com.intellij.util.ui.ColumnInfo;
-import com.intellij.util.ui.ListTableModel;
+import consulo.ui.ex.awt.*;
+import consulo.ui.ex.awt.speedSearch.TableViewSpeedSearch;
+import consulo.ui.ex.awt.table.ListTableModel;
+import consulo.ui.ex.awt.table.TableView;
+import consulo.ui.ex.awt.util.TableUtil;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Sets.newHashSet;
 
 /**
  * User: zolotov
@@ -61,14 +57,7 @@ public class CssEditPrefixesListPanel
 		myPrefixesTableView.setStriped(true);
 		myPrefixesTableView.getRowSorter().toggleSortOrder(0);
 
-		new TableViewSpeedSearch<CssPrefixInfo>(myPrefixesTableView)
-		{
-			@Override
-			protected String getItemText(@Nonnull CssPrefixInfo element)
-			{
-				return element.getPropertyName();
-			}
-		};
+		TableViewSpeedSearch.register(myPrefixesTableView, CssPrefixInfo::getPropertyName);
 	}
 
 	public void setEnabled(boolean value)
@@ -78,12 +67,12 @@ public class CssEditPrefixesListPanel
 
 	public void setState(Set<CssPrefixInfo> prefixInfos)
 	{
-		myPrefixesModel.setItems(newArrayList(prefixInfos));
+		myPrefixesModel.setItems(new ArrayList<>(prefixInfos));
 	}
 
 	public Set<CssPrefixInfo> getState()
 	{
-		return newHashSet(myPrefixesModel.getItems());
+		return new HashSet<>(myPrefixesModel.getItems());
 	}
 
 	public JPanel createMainComponent()

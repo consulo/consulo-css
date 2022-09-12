@@ -16,15 +16,15 @@
 
 package consulo.css.lang.psi;
 
+import consulo.css.lang.CssTokens;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiElement;
+import consulo.language.util.IncorrectOperationException;
+import consulo.xstylesheet.psi.PsiXStyleSheetSelectorPseudoClass;
+import org.jetbrains.annotations.NonNls;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import org.jetbrains.annotations.NonNls;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.util.IncorrectOperationException;
-import consulo.css.lang.CssTokens;
-import consulo.xstylesheet.psi.PsiXStyleSheetSelectorPseudoClass;
 
 /**
  * @author VISTALL

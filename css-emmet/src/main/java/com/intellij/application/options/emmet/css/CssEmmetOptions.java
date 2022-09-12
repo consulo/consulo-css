@@ -1,33 +1,32 @@
-package com.intellij.application.options.emmet;
+package com.intellij.application.options.emmet.css;
 
-import com.google.common.collect.Sets;
-import com.intellij.openapi.components.*;
-import com.intellij.openapi.util.JDOMUtil;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.util.xmlb.XmlSerializerUtil;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ServiceAPI;
+import consulo.annotation.component.ServiceImpl;
+import consulo.component.persist.PersistentStateComponent;
+import consulo.component.persist.State;
+import consulo.component.persist.Storage;
+import consulo.ide.ServiceManager;
 import consulo.logging.Logger;
+import consulo.util.jdom.JDOMUtil;
+import consulo.util.lang.StringUtil;
+import consulo.util.xml.serializer.XmlSerializerUtil;
+import jakarta.inject.Singleton;
 import org.jdom.Document;
 import org.jdom.Element;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author VISTALL
  * @since 23.08.13.
  */
-@State(
-		name = "CssEmmetOptions",
-		storages = {
-				@Storage(
-						file = StoragePathMacros.APP_CONFIG + "/editor.xml"
-				)
-		}
-)
+@Singleton
+@State(name = "CssEmmetOptions", storages = @Storage("editor.xml"))
+@ServiceAPI(ComponentScope.APPLICATION)
+@ServiceImpl
 public class CssEmmetOptions implements PersistentStateComponent<CssEmmetOptions>
 {
 	@Nonnull
@@ -60,7 +59,7 @@ public class CssEmmetOptions implements PersistentStateComponent<CssEmmetOptions
 
 	public Set<CssPrefixInfo> getAllPrefixInfo()
 	{
-		Set<CssPrefixInfo> result = Sets.newHashSetWithExpectedSize(getPrefixes().size());
+		Set<CssPrefixInfo> result = new HashSet<>(getPrefixes().size());
 		for(Map.Entry<String, Integer> entry : getPrefixes().entrySet())
 		{
 			result.add(CssPrefixInfo.fromIntegerValue(entry.getKey(), entry.getValue()));

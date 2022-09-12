@@ -16,11 +16,12 @@
 
 package consulo.xstylesheet;
 
-import com.intellij.icons.AllIcons;
-import com.intellij.psi.PsiElement;
 import consulo.annotation.access.RequiredReadAction;
-import consulo.ide.IconDescriptor;
-import consulo.ide.IconDescriptorUpdater;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.application.AllIcons;
+import consulo.language.icon.IconDescriptor;
+import consulo.language.icon.IconDescriptorUpdater;
+import consulo.language.psi.PsiElement;
 import consulo.xstylesheet.icon.XStyleSheetIconGroup;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
@@ -31,6 +32,7 @@ import javax.annotation.Nonnull;
  * @author VISTALL
  * @since 08.07.13.
  */
+@ExtensionImpl
 public class XStyleSheetIconProvider implements IconDescriptorUpdater
 {
 	@RequiredReadAction

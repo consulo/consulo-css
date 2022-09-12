@@ -16,13 +16,13 @@
 
 package consulo.xstylesheet.definition;
 
-import java.util.List;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.editor.rawHighlight.HighlightInfo;
+import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.intellij.codeInsight.daemon.impl.HighlightInfo;
-import com.intellij.codeInsight.lookup.LookupElement;
-import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
+import java.util.List;
 
 /**
  * @author VISTALL

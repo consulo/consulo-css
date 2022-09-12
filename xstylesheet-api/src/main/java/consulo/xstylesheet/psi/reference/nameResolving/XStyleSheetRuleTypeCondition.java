@@ -16,8 +16,8 @@
 
 package consulo.xstylesheet.psi.reference.nameResolving;
 
-import com.intellij.psi.PsiElement;
 import consulo.annotation.access.RequiredReadAction;
+import consulo.language.psi.PsiElement;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
