@@ -1,7 +1,7 @@
 package consulo.xstylesheet.psi;
 
-import com.intellij.psi.PsiElement;
 import consulo.annotation.access.RequiredReadAction;
+import consulo.language.psi.PsiElement;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 
 import javax.annotation.Nonnull;

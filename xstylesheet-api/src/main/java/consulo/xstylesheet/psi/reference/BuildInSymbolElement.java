@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2013 JetBrains s.r.o.
+ * Copyright 2013-2022 consulo.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,25 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intellij.application.options.emmet;
+
+package consulo.xstylesheet.psi.reference;
+
+import consulo.language.psi.PsiElement;
 
 /**
- * User: zolotov
- * Date: 2/21/13
+ * @author VISTALL
+ * @since 11-Sep-22
  */
-public enum CssPrefix
+public interface BuildInSymbolElement extends PsiElement
 {
-	WEBKIT(0x1), MOZ(0x2), MS(0x4), O(0x8);
-
-	final int myIntMask;
-
-	CssPrefix(int intMask)
-	{
-		myIntMask = intMask;
-	}
-
-	public String getText()
-	{
-		return "-" + toString().toLowerCase();
-	}
 }

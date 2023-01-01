@@ -16,25 +16,21 @@
 
 package consulo.xstylesheet.html.psi.reference.file;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.Condition;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFileSystemItem;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.PsiReferenceProvider;
-import com.intellij.psi.filters.ElementFilter;
-import com.intellij.psi.filters.ElementFilterBase;
-import com.intellij.psi.impl.source.resolve.reference.impl.providers.FileReferenceSet;
-import com.intellij.psi.util.PsiElementFilter;
-import com.intellij.psi.xml.XmlAttribute;
-import com.intellij.psi.xml.XmlAttributeValue;
-import com.intellij.psi.xml.XmlTag;
-import com.intellij.psi.xml.XmlTokenType;
-import com.intellij.util.ProcessingContext;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.*;
+import consulo.language.psi.filter.ElementFilter;
+import consulo.language.psi.filter.ElementFilterBase;
+import consulo.language.psi.path.FileReferenceSet;
+import consulo.language.psi.util.PsiElementFilter;
+import consulo.language.util.ProcessingContext;
+import consulo.util.lang.function.Condition;
+import consulo.xml.psi.xml.XmlAttribute;
+import consulo.xml.psi.xml.XmlAttributeValue;
+import consulo.xml.psi.xml.XmlTag;
+import consulo.xml.psi.xml.XmlTokenType;
 import consulo.xstylesheet.psi.XStyleSheetFile;
+
+import javax.annotation.Nonnull;
 
 
 /**
@@ -91,7 +87,7 @@ public class HtmlHrefToCssFileReferenceProvider extends PsiReferenceProvider
 		FileReferenceSet fileReferenceSet = new FileReferenceSet(value.getPsi())
 		{
 			@Override
-			protected Condition<PsiFileSystemItem> getReferenceCompletionFilter()
+			public Condition<PsiFileSystemItem> getReferenceCompletionFilter()
 			{
 				return item -> item instanceof XStyleSheetFile || item instanceof PsiDirectory;
 			}

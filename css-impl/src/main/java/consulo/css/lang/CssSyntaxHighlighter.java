@@ -16,18 +16,17 @@
 
 package consulo.css.lang;
 
-import java.util.HashMap;
-import java.util.Map;
+import consulo.codeEditor.CodeInsightColors;
+import consulo.colorScheme.TextAttributesKey;
+import consulo.css.lang.lexer._CssLexer;
+import consulo.language.ast.IElementType;
+import consulo.language.editor.highlight.SyntaxHighlighterBase;
+import consulo.language.lexer.Lexer;
+import consulo.xstylesheet.highlight.XStyleSheetColors;
 
 import javax.annotation.Nonnull;
-
-import com.intellij.lexer.Lexer;
-import com.intellij.openapi.editor.colors.CodeInsightColors;
-import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
-import com.intellij.psi.tree.IElementType;
-import consulo.css.lang.lexer._CssLexer;
-import consulo.xstylesheet.highlight.XStyleSheetColors;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author VISTALL

@@ -16,11 +16,11 @@
 
 package consulo.css.lang.psi;
 
-import com.intellij.extapi.psi.PsiFileBase;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElementVisitor;
 import consulo.annotation.access.RequiredReadAction;
 import consulo.css.lang.CssLanguage;
+import consulo.language.file.FileViewProvider;
+import consulo.language.impl.psi.PsiFileBase;
+import consulo.language.psi.PsiElementVisitor;
 import consulo.xstylesheet.psi.PsiXStyleSheetRule;
 import consulo.xstylesheet.psi.XStyleSheetFile;
 import consulo.xstylesheet.psi.XStyleSheetRoot;

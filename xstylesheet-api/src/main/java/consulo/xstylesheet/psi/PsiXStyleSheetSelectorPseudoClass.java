@@ -16,7 +16,7 @@
 
 package consulo.xstylesheet.psi;
 
-import com.intellij.psi.PsiNameIdentifierOwner;
+import consulo.language.psi.PsiNameIdentifierOwner;
 
 /**
  * @author VISTALL

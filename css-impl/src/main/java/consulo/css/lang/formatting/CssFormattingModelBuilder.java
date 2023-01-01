@@ -16,39 +16,35 @@
 
 package consulo.css.lang.formatting;
 
+import consulo.annotation.component.ExtensionImpl;
+import consulo.css.lang.CssLanguage;
+import consulo.language.Language;
+import consulo.language.codeStyle.*;
+import consulo.language.psi.PsiFile;
+
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import com.intellij.formatting.Block;
-import com.intellij.formatting.FormattingModel;
-import com.intellij.formatting.FormattingModelBuilder;
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.codeStyle.CodeStyleSettings;
-import com.intellij.psi.formatter.FormattingDocumentModelImpl;
-import com.intellij.psi.formatter.PsiBasedFormattingModel;
 
 /**
  * @author VISTALL
  * @since 08.07.13.
  */
+@ExtensionImpl
 public class CssFormattingModelBuilder implements FormattingModelBuilder
 {
 	@Nonnull
 	@Override
-	public FormattingModel createModel(PsiElement element, CodeStyleSettings codeStyleSettings)
+	public FormattingModel createModel(@Nonnull FormattingContext formattingContext)
 	{
-		final PsiFile file = element.getContainingFile();
-		FormattingDocumentModelImpl model = FormattingDocumentModelImpl.createOn(element.getContainingFile());
-		Block rootBlock = new CssFormattingBlock(element.getNode(), null, null);
+		PsiFile file = formattingContext.getContainingFile();
+		FormattingDocumentModel model = FormattingDocumentModel.create(file);
+		Block rootBlock = new CssFormattingBlock(formattingContext.getNode(), null, null);
 		return new PsiBasedFormattingModel(file, rootBlock, model);
 	}
 
-	@Nullable
+	@Nonnull
 	@Override
-	public TextRange getRangeAffectingIndent(PsiFile psiFile, int i, ASTNode astNode)
+	public Language getLanguage()
 	{
-		return null;
+		return CssLanguage.INSTANCE;
 	}
 }

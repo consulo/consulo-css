@@ -16,11 +16,13 @@
 
 package consulo.xstylesheet.codeInsight;
 
-import com.intellij.codeInspection.LocalInspectionTool;
-import com.intellij.codeInspection.ProblemHighlightType;
-import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementVisitor;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.inspection.LocalInspectionTool;
+import consulo.language.editor.inspection.ProblemHighlightType;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.editor.rawHighlight.HighlightDisplayLevel;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiElementVisitor;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
@@ -31,11 +33,12 @@ import javax.annotation.Nonnull;
  * @author VISTALL
  * @since 08.07.13.
  */
+@ExtensionImpl
 public class PropertyValueIsNotValidInspection extends LocalInspectionTool
 {
 	@Nonnull
 	@Override
-	public com.intellij.psi.PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, boolean isOnTheFly)
+	public PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, boolean isOnTheFly)
 	{
 		return new PsiElementVisitor()
 		{
@@ -61,5 +64,26 @@ public class PropertyValueIsNotValidInspection extends LocalInspectionTool
 				}
 			}
 		};
+	}
+
+	@Nonnull
+	@Override
+	public String getGroupDisplayName()
+	{
+		return "CSS";
+	}
+
+	@Nonnull
+	@Override
+	public String getDisplayName()
+	{
+		return "Invalid property value";
+	}
+
+	@Nonnull
+	@Override
+	public HighlightDisplayLevel getDefaultLevel()
+	{
+		return HighlightDisplayLevel.ERROR;
 	}
 }

@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intellij.application.options.emmet;
-
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Sets.newHashSet;
-
-import java.util.Collection;
-import java.util.List;
+package com.intellij.application.options.emmet.css;
 
 import javax.annotation.Nonnull;
+import java.util.*;
 
 /**
  * User: zolotov
@@ -37,7 +32,7 @@ public class CssPrefixInfo
 	public CssPrefixInfo(@Nonnull String propertyName, CssPrefix... enabledPrefixes)
 	{
 		myPropertyName = propertyName;
-		myEnabledPrefixes = newHashSet(enabledPrefixes);
+		myEnabledPrefixes = new HashSet<>(Set.of(enabledPrefixes));
 		for(CssPrefix prefix : enabledPrefixes)
 		{
 			setValue(prefix, true);
@@ -47,7 +42,7 @@ public class CssPrefixInfo
 	public CssPrefixInfo(@Nonnull String propertyName, Collection<CssPrefix> enabledPrefixes)
 	{
 		myPropertyName = propertyName;
-		myEnabledPrefixes = newHashSet(enabledPrefixes);
+		myEnabledPrefixes = new HashSet<>(enabledPrefixes);
 		for(CssPrefix prefix : enabledPrefixes)
 		{
 			setValue(prefix, true);
@@ -89,7 +84,7 @@ public class CssPrefixInfo
 		{
 			return new CssPrefixInfo(propertyName);
 		}
-		List<CssPrefix> enabledPrefixes = newArrayList();
+		List<CssPrefix> enabledPrefixes = new ArrayList<>();
 		for(CssPrefix prefix : CssPrefix.values())
 		{
 			if((value & prefix.myIntMask) > 0)

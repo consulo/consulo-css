@@ -16,19 +16,21 @@
 
 package consulo.css.html;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.lexer.EmbeddedTokenTypesProvider;
-import com.intellij.lexer.HtmlLexer;
-import com.intellij.psi.tree.IElementType;
+import consulo.annotation.component.ExtensionImpl;
 import consulo.css.html.psi.CssHtmlElements;
-import consulo.lang.LanguageVersion;
-import consulo.lang.util.LanguageVersionUtil;
+import consulo.language.ast.IElementType;
+import consulo.language.version.LanguageVersion;
+import consulo.language.version.LanguageVersionUtil;
+import consulo.xml.lexer.EmbeddedTokenTypesProvider;
+import consulo.xml.lexer.HtmlLexer;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 03-Jan-17
  */
+@ExtensionImpl
 public class CssEmbeddedTokenTypesProvider implements EmbeddedTokenTypesProvider
 {
 	@Nonnull

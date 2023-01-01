@@ -16,9 +16,10 @@
 
 package consulo.css.lang.psi;
 
+import consulo.language.ast.ASTNode;
+import consulo.language.impl.psi.ASTWrapperPsiElement;
+
 import javax.annotation.Nonnull;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
 
 /**
  * @author VISTALL

@@ -16,14 +16,13 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
-import java.util.Collections;
-import java.util.List;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.editor.completion.lookup.LookupElementBuilder;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author VISTALL

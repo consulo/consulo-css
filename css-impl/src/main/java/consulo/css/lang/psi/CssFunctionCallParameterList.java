@@ -16,11 +16,11 @@
 
 package consulo.css.lang.psi;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.TokenSet;
 import consulo.annotation.access.RequiredReadAction;
 import consulo.css.lang.CssTokens;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.TokenSet;
+import consulo.language.psi.PsiElement;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCallParameterList;
 
 import javax.annotation.Nonnull;

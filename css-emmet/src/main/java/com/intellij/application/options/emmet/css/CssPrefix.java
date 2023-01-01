@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2017 must-be.org
+ * Copyright 2000-2013 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,40 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package consulo.xstylesheet.psi.reference.impl;
-
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.impl.FakePsiElement;
+package com.intellij.application.options.emmet.css;
 
 /**
- * @author VISTALL
- * @since 20-Aug-17
+ * User: zolotov
+ * Date: 2/21/13
  */
-public class BuildInSymbolElement extends FakePsiElement
+public enum CssPrefix
 {
-	private final PsiElement myParent;
+	WEBKIT(0x1), MOZ(0x2), MS(0x4), O(0x8);
 
-	public BuildInSymbolElement(PsiElement parent)
+	final int myIntMask;
+
+	CssPrefix(int intMask)
 	{
-		myParent = parent;
+		myIntMask = intMask;
 	}
 
-	@Override
-	public boolean canNavigate()
+	public String getText()
 	{
-		return false;
-	}
-
-	@Override
-	public boolean canNavigateToSource()
-	{
-		return false;
-	}
-
-	@Override
-	public PsiElement getParent()
-	{
-		return myParent;
+		return "-" + toString().toLowerCase();
 	}
 }

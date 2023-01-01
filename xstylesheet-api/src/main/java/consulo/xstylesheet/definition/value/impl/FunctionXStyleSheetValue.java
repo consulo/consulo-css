@@ -16,13 +16,10 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
-import com.intellij.codeInsight.daemon.impl.HighlightInfo;
-import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.openapi.extensions.ExtensionPointName;
-import com.intellij.psi.PsiElement;
-import com.intellij.util.SmartList;
-import consulo.xstylesheet.highlight.XStyleSheetColors;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.editor.rawHighlight.HighlightInfo;
+import consulo.language.psi.PsiElement;
+import consulo.xstylesheet.definition.XStyleSheetFunctionCallDescriptor;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCall;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
@@ -37,38 +34,6 @@ import java.util.List;
  */
 public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartParser
 {
-	public static final ExtensionPointName<XStyleSheetFunctionCallDescriptor> EP_NAME = ExtensionPointName.create("consulo.xstylesheet.functionCallValidator");
-
-
-	public static interface XStyleSheetFunctionCallDescriptor
-	{
-		boolean isMyFunction(PsiXStyleSheetFunctionCall functionCall);
-
-		List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetFunctionCall functionCall);
-	}
-
-	public static class UrlFunctionCallValidator implements XStyleSheetFunctionCallDescriptor
-	{
-		@Override
-		public boolean isMyFunction(PsiXStyleSheetFunctionCall functionCall)
-		{
-			return functionCall.getCallName().equals("url");
-		}
-
-		@Override
-		public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetFunctionCall functionCall)
-		{
-			List<HighlightInfo> list = new SmartList<HighlightInfo>();
-			list.add(HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION).range(functionCall.getCallElement()).textAttributes(XStyleSheetColors.KEYWORD).create());
-
-			for(PsiElement psiElement : functionCall.getParameters())
-			{
-				list.add(HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION).range(psiElement).textAttributes(XStyleSheetColors.STRING).create());
-			}
-			return list;
-		}
-	}
-
 	@Nonnull
 	@Override
 	public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart)
@@ -88,7 +53,7 @@ public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartPa
 		PsiElement firstChild = valuePart.getFirstChild();
 		if(firstChild instanceof PsiXStyleSheetFunctionCall)
 		{
-			for(XStyleSheetFunctionCallDescriptor descriptor : EP_NAME.getExtensionList())
+			for(XStyleSheetFunctionCallDescriptor descriptor : XStyleSheetFunctionCallDescriptor.EP_NAME.getExtensionList())
 			{
 				if(descriptor.isMyFunction((PsiXStyleSheetFunctionCall) firstChild))
 				{

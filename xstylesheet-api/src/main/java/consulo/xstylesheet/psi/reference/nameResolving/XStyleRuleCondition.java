@@ -16,7 +16,7 @@
 
 package consulo.xstylesheet.psi.reference.nameResolving;
 
-import com.intellij.psi.util.PsiElementFilter;
+import consulo.language.psi.util.PsiElementFilter;
 
 /**
  * @author VISTALL

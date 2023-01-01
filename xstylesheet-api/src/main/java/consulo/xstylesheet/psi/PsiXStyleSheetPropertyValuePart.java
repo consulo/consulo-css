@@ -16,7 +16,7 @@
 
 package consulo.xstylesheet.psi;
 
-import com.intellij.psi.PsiElement;
+import consulo.language.psi.PsiElement;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 
 import javax.annotation.Nonnull;

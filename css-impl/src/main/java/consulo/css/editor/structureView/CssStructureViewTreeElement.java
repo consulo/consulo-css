@@ -16,17 +16,17 @@
 
 package consulo.css.editor.structureView;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import consulo.css.lang.psi.CssFile;
+import consulo.fileEditor.structureView.StructureViewTreeElement;
+import consulo.language.editor.structureView.PsiTreeElementBase;
+import consulo.xstylesheet.psi.PsiXStyleSheetRule;
+import consulo.xstylesheet.psi.XStyleSheetSelector;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.intellij.ide.structureView.StructureViewTreeElement;
-import com.intellij.ide.structureView.impl.common.PsiTreeElementBase;
-import consulo.css.lang.psi.CssFile;
-import consulo.xstylesheet.psi.PsiXStyleSheetRule;
-import consulo.xstylesheet.psi.XStyleSheetSelector;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author VISTALL

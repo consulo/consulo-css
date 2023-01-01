@@ -16,15 +16,17 @@
 
 package consulo.css.lang;
 
-import javax.annotation.Nonnull;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.virtualFileSystem.fileType.FileTypeConsumer;
+import consulo.virtualFileSystem.fileType.FileTypeFactory;
 
-import com.intellij.openapi.fileTypes.FileTypeConsumer;
-import com.intellij.openapi.fileTypes.FileTypeFactory;
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 23:58/12.06.13
  */
+@ExtensionImpl
 public class CssFileTypeFactory extends FileTypeFactory
 {
 	@Override

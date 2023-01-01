@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-package consulo.xstylesheet.highlight;
+package consulo.xstylesheet.codeInsight;
 
-import com.intellij.codeInsight.daemon.impl.HighlightInfo;
-import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
-import com.intellij.codeInsight.daemon.impl.HighlightVisitor;
-import com.intellij.codeInsight.daemon.impl.analysis.HighlightInfoHolder;
-import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.psi.*;
 import consulo.annotation.access.RequiredReadAction;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.colorScheme.TextAttributesKey;
+import consulo.language.editor.rawHighlight.HighlightInfo;
+import consulo.language.editor.rawHighlight.HighlightInfoHolder;
+import consulo.language.editor.rawHighlight.HighlightInfoType;
+import consulo.language.editor.rawHighlight.HighlightVisitor;
+import consulo.language.psi.*;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
+import consulo.xstylesheet.highlight.XStyleSheetColors;
 import consulo.xstylesheet.psi.*;
-import consulo.xstylesheet.psi.reference.impl.BuildInSymbolElement;
+import consulo.xstylesheet.psi.reference.BuildInSymbolElement;
 
 import javax.annotation.Nonnull;
 
@@ -33,6 +35,7 @@ import javax.annotation.Nonnull;
  * @author VISTALL
  * @since 03.07.13.
  */
+@ExtensionImpl
 public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleSheetColors
 {
 	private HighlightInfoHolder myHighlightInfoHolder;

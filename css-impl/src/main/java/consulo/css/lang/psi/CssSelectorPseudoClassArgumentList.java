@@ -16,7 +16,7 @@
 
 package consulo.css.lang.psi;
 
-import com.intellij.lang.ASTNode;
+import consulo.language.ast.ASTNode;
 
 import javax.annotation.Nonnull;
 

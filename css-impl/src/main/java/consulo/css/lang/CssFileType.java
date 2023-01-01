@@ -16,8 +16,8 @@
 
 package consulo.css.lang;
 
-import com.intellij.openapi.fileTypes.LanguageFileType;
 import consulo.css.icon.CssIconGroup;
+import consulo.language.file.LanguageFileType;
 import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
 
@@ -62,6 +62,6 @@ public class CssFileType extends LanguageFileType
 	@Override
 	public Image getIcon()
 	{
-		return CssIconGroup.cssFile();
+		return CssIconGroup.cssfile();
 	}
 }

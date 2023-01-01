@@ -1,7 +1,7 @@
 package consulo.xstylesheet.psi;
 
-import com.intellij.psi.PsiFile;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.language.psi.PsiFile;
+import consulo.util.collection.ContainerUtil;
 import consulo.xstylesheet.definition.XStyleSheetTable;
 import consulo.xstylesheet.definition.XStyleSheetTableProvider;
 import consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;

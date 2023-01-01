@@ -16,8 +16,8 @@
 
 package consulo.xstylesheet.definition.impl;
 
-import com.intellij.codeInsight.daemon.impl.HighlightInfo;
-import com.intellij.codeInsight.lookup.LookupElement;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.editor.rawHighlight.HighlightInfo;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;

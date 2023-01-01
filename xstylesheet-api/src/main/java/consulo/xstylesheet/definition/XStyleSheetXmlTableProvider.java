@@ -16,12 +16,10 @@
 
 package consulo.xstylesheet.definition;
 
-import com.intellij.openapi.extensions.ExtensionPointName;
-import com.intellij.openapi.util.JDOMUtil;
-import com.intellij.openapi.util.NotNullLazyValue;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.util.ReflectionUtil;
 import consulo.logging.Logger;
+import consulo.util.jdom.JDOMUtil;
+import consulo.util.lang.StringUtil;
+import consulo.util.lang.lazy.LazyValue;
 import consulo.xstylesheet.definition.impl.*;
 import consulo.xstylesheet.psi.XStyleSheetFile;
 import org.jdom.Document;
@@ -29,33 +27,23 @@ import org.jdom.Element;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
+import java.util.function.Supplier;
 
 /**
  * @author VISTALL
  * @since 03.07.13.
  */
-public class XStyleSheetXmlTableProvider implements XStyleSheetTableProvider
+public abstract class XStyleSheetXmlTableProvider implements XStyleSheetTableProvider
 {
 	private static final Logger LOGGER = Logger.getInstance(XStyleSheetXmlTableProvider.class);
 
-	public static final ExtensionPointName<XStyleSheetXmlTableProvider> EP_NAME = ExtensionPointName.create("consulo.xstylesheet.table");
+	private Supplier<XStyleSheetTable> myLazyTableValue;
 
-	private NotNullLazyValue<XStyleSheetTable> myLazyTableValue;
-
-	public XStyleSheetXmlTableProvider(@Nullable String pathToResource)
+	public void init(@Nonnull URL url)
 	{
-		myLazyTableValue = NotNullLazyValue.createValue(() ->
-		{
-			InputStream stream = getClass().getResourceAsStream(pathToResource);
-			if(stream == null)
-			{
-				LOGGER.error("File " + pathToResource + " not found for loader: " + getClass().getClass());
-				return EmptyXStyleSheetTable.INSTANCE;
-			}
-			return loadDocument(stream);
-		});
+		myLazyTableValue = LazyValue.notNull(() -> loadDocument(url));
 	}
 
 	@Nullable
@@ -67,18 +55,18 @@ public class XStyleSheetXmlTableProvider implements XStyleSheetTableProvider
 
 	public XStyleSheetTable getTable()
 	{
-		return myLazyTableValue.getValue();
+		return myLazyTableValue.get();
 	}
 
 	@SuppressWarnings("unchecked")
-	private XStyleSheetTable loadDocument(InputStream stream)
+	private XStyleSheetTable loadDocument(URL url)
 	{
 		try
 		{
 			Map<String, XStyleSheetPropertyValuePartParser> valueDefinitions = new HashMap<String, XStyleSheetPropertyValuePartParser>();
 			List<XStyleSheetProperty> properties = new ArrayList<XStyleSheetProperty>();
 
-			Document document = JDOMUtil.loadDocument(stream);
+			Document document = JDOMUtil.loadDocument(url);
 			for(Element element : document.getRootElement().getChildren())
 			{
 				String name = element.getName();
@@ -87,7 +75,7 @@ public class XStyleSheetXmlTableProvider implements XStyleSheetTableProvider
 					String tempName = element.getAttributeValue("name");
 					Class<? extends XStyleSheetPropertyValuePartParser> clazz = (Class<? extends XStyleSheetPropertyValuePartParser>) Class.forName(element.getAttributeValue("implClass"), true, getClass().getClassLoader());
 
-					valueDefinitions.put(tempName, ReflectionUtil.createInstance(ReflectionUtil.getDefaultConstructor(clazz)));
+					valueDefinitions.put(tempName, clazz.newInstance());
 				}
 				else if("property".equals(name))
 				{

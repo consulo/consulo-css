@@ -16,16 +16,18 @@
 
 package consulo.xstylesheet.table;
 
+import consulo.annotation.component.ExtensionImpl;
 import consulo.xstylesheet.definition.XStyleSheetXmlTableProvider;
 
 /**
  * @author VISTALL
  * @since 2020-08-08
  */
+@ExtensionImpl
 public class DefaultXStyleSheetTableProvider extends XStyleSheetXmlTableProvider
 {
 	public DefaultXStyleSheetTableProvider()
 	{
-		super("/consulo/xstylesheet/defaultXStyleSheetTable.xml");
+		init(getClass().getResource("/consulo/xstylesheet/defaultXStyleSheetTable.xml"));
 	}
 }
