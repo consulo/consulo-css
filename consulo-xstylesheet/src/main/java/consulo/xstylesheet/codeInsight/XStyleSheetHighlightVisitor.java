@@ -17,7 +17,6 @@
 package consulo.xstylesheet.codeInsight;
 
 import consulo.annotation.access.RequiredReadAction;
-import consulo.annotation.component.ExtensionImpl;
 import consulo.colorScheme.TextAttributesKey;
 import consulo.language.editor.rawHighlight.HighlightInfo;
 import consulo.language.editor.rawHighlight.HighlightInfoHolder;
@@ -35,16 +34,9 @@ import javax.annotation.Nonnull;
  * @author VISTALL
  * @since 03.07.13.
  */
-@ExtensionImpl
 public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleSheetColors
 {
 	private HighlightInfoHolder myHighlightInfoHolder;
-
-	@Override
-	public boolean suitableForFile(@Nonnull PsiFile psiFile)
-	{
-		return psiFile instanceof XStyleSheetFile;
-	}
 
 	@Override
 	public void visit(@Nonnull PsiElement psiElement)
@@ -145,12 +137,5 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 		myHighlightInfoHolder = highlightInfoHolder;
 		runnable.run();
 		return true;
-	}
-
-	@Nonnull
-	@Override
-	public HighlightVisitor clone()
-	{
-		return new XStyleSheetHighlightVisitor();
 	}
 }
