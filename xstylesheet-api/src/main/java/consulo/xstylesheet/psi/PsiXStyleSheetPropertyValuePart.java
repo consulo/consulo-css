@@ -16,6 +16,7 @@
 
 package consulo.xstylesheet.psi;
 
+import consulo.annotation.access.RequiredReadAction;
 import consulo.language.psi.PsiElement;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 
@@ -27,6 +28,13 @@ import javax.annotation.Nonnull;
  */
 public interface PsiXStyleSheetPropertyValuePart extends PsiElement
 {
+	@RequiredReadAction
+	default boolean isSoft()
+	{
+		return false;
+	}
+
+	@RequiredReadAction
 	Object getValue();
 
 	default void setValue(@Nonnull Object value)

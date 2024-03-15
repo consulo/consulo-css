@@ -33,8 +33,6 @@ import java.util.List;
 @ExtensionAPI(ComponentScope.APPLICATION)
 public interface XStyleSheetFunctionCallDescriptor
 {
-	ExtensionPointName<XStyleSheetFunctionCallDescriptor> EP_NAME = ExtensionPointName.create(XStyleSheetFunctionCallDescriptor.class);
-
 	@RequiredReadAction
 	boolean isMyFunction(PsiXStyleSheetFunctionCall functionCall);
 

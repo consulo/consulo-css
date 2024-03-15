@@ -31,11 +31,20 @@ import java.util.List;
 public interface XStyleSheetPropertyValuePartParser
 {
 	@Nonnull
-	List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart);
+	default List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart)
+	{
+		return List.of();
+	}
 
 	@Nullable
-	Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value);
+	default Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value)
+	{
+		return null;
+	}
 
 	@Nonnull
-	List<LookupElement> getLookupElements(String value);
+	default List<LookupElement> getLookupElements(String value)
+	{
+		return List.of();
+	}
 }

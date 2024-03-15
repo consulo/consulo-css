@@ -16,6 +16,7 @@
 
 package consulo.xstylesheet.codeInsight;
 
+import consulo.annotation.access.RequiredReadAction;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.language.editor.inspection.LocalInspectionTool;
 import consulo.language.editor.inspection.ProblemHighlightType;
@@ -25,6 +26,7 @@ import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiElementVisitor;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
+import consulo.xstylesheet.psi.PsiXStyleSheetVariable;
 
 import javax.annotation.Nonnull;
 
@@ -42,14 +44,20 @@ public class PropertyIsNotValidInspection extends LocalInspectionTool
 		return new PsiElementVisitor()
 		{
 			@Override
+			@RequiredReadAction
 			public void visitElement(PsiElement element)
 			{
-				if(element instanceof PsiXStyleSheetProperty)
+				if(element instanceof PsiXStyleSheetVariable)
 				{
-					XStyleSheetProperty xStyleSheetProperty = ((PsiXStyleSheetProperty) element).getXStyleSheetProperty();
+					return;
+				}
+
+				if(element instanceof PsiXStyleSheetProperty property)
+				{
+					XStyleSheetProperty xStyleSheetProperty = property.getXStyleSheetProperty();
 					if(xStyleSheetProperty == null)
 					{
-						PsiElement nameIdentifier = ((PsiXStyleSheetProperty) element).getNameIdentifier();
+						PsiElement nameIdentifier = property.getNameIdentifier();
 						if(nameIdentifier == null)
 						{
 							return;

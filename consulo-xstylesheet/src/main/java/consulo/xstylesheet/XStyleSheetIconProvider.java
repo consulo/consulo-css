@@ -22,7 +22,10 @@ import consulo.application.AllIcons;
 import consulo.language.icon.IconDescriptor;
 import consulo.language.icon.IconDescriptorUpdater;
 import consulo.language.psi.PsiElement;
+import consulo.platform.base.icon.PlatformIconGroup;
 import consulo.xstylesheet.icon.XStyleSheetIconGroup;
+import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
+import consulo.xstylesheet.psi.PsiXStyleSheetVariable;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
 
@@ -39,6 +42,15 @@ public class XStyleSheetIconProvider implements IconDescriptorUpdater
 	@Override
 	public void updateIcon(@Nonnull IconDescriptor iconDescriptor, @Nonnull PsiElement element, int i)
 	{
+		if(element instanceof PsiXStyleSheetVariable)
+		{
+			iconDescriptor.setMainIcon(PlatformIconGroup.nodesVariable());
+		}
+		else if(element instanceof PsiXStyleSheetProperty)
+		{
+			iconDescriptor.setMainIcon(PlatformIconGroup.nodesProperty());
+		}
+
 		if(element instanceof XStyleSheetSelector)
 		{
 			XStyleSheetSimpleSelector[] simpleSelectors = ((XStyleSheetSelector) element).getSimpleSelectors();

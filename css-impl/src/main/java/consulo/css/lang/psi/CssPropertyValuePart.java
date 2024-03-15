@@ -16,15 +16,20 @@
 
 package consulo.css.lang.psi;
 
+import consulo.annotation.access.RequiredReadAction;
 import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiElement;
 import consulo.util.collection.ArrayUtil;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValueEntry;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
+import consulo.xstylesheet.definition.value.impl.VarFunctionCallValidator;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
+import jakarta.annotation.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.Map;
 
 /**
  * @author VISTALL
@@ -37,8 +42,25 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
 		super(node);
 	}
 
+	@RequiredReadAction
+	@Override
+	public boolean isSoft()
+	{
+		PsiElement firstChild = getFirstChild();
+		return firstChild instanceof CssFunctionCall functionCall && VarFunctionCallValidator.VAR_NAME.equals(functionCall.getCallName());
+	}
+
+	@RequiredReadAction
 	@Override
 	public Object getValue()
+	{
+		Map.Entry<XStyleSheetPropertyValuePart, Object> entry = find();
+		return entry == null ? null : entry.getValue();
+	}
+
+	@Nullable
+	@RequiredReadAction
+	private Map.Entry<XStyleSheetPropertyValuePart, Object> find()
 	{
 		XStyleSheetPropertyValueEntry validEntry = findEntry();
 		if(validEntry == null)
@@ -51,7 +73,7 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
 			Object o = valuePart.getNativeValue(this);
 			if(o != null)
 			{
-				return o;
+				return Map.entry(valuePart, o);
 			}
 		}
 		return null;
@@ -78,21 +100,8 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
 	@Override
 	public XStyleSheetPropertyValuePart getValuePart()
 	{
-		XStyleSheetPropertyValueEntry validEntry = findEntry();
-		if(validEntry == null)
-		{
-			return null;
-		}
-
-		for(XStyleSheetPropertyValuePart valuePart : validEntry.getParts())
-		{
-			Object o = valuePart.getNativeValue(this);
-			if(o != null)
-			{
-				return valuePart;
-			}
-		}
-		return null;
+		Map.Entry<XStyleSheetPropertyValuePart, Object> entry = find();
+		return entry == null ? null : entry.getKey();
 	}
 
 	@Override
@@ -106,6 +115,7 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
 		return validEntry.getParts();
 	}
 
+	@RequiredReadAction
 	private XStyleSheetPropertyValueEntry findEntry()
 	{
 		PsiXStyleSheetProperty parent = (PsiXStyleSheetProperty) getParent();

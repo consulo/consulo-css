@@ -16,6 +16,7 @@
 
 package consulo.xstylesheet.codeInsight;
 
+import consulo.annotation.access.RequiredReadAction;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.language.editor.inspection.LocalInspectionTool;
 import consulo.language.editor.inspection.ProblemHighlightType;
@@ -43,22 +44,29 @@ public class PropertyValueIsNotValidInspection extends LocalInspectionTool
 		return new PsiElementVisitor()
 		{
 			@Override
+			@RequiredReadAction
 			public void visitElement(PsiElement element)
 			{
-				if(element instanceof PsiXStyleSheetProperty)
+				if(element instanceof PsiXStyleSheetProperty xStyleSheetProperty)
 				{
-					XStyleSheetProperty property = ((PsiXStyleSheetProperty) element).getXStyleSheetProperty();
+					XStyleSheetProperty property = xStyleSheetProperty.getXStyleSheetProperty();
 					if(property == null || property.isUnknown())
 					{
 						return;
 					}
 
-					for(PsiXStyleSheetPropertyValuePart xStyleSheetPropertyValuePart : ((PsiXStyleSheetProperty) element).getParts())
+					for(PsiXStyleSheetPropertyValuePart part : xStyleSheetProperty.getParts())
 					{
-						Object value = xStyleSheetPropertyValuePart.getValue();
+						if(part.isSoft())
+						{
+							continue;
+						}
+
+						Object value = part.getValue();
 						if(value == null)
 						{
-							holder.registerProblem(xStyleSheetPropertyValuePart, "Invalid property value", ProblemHighlightType.GENERIC_ERROR_OR_WARNING);
+							holder.registerProblem(part, "" +
+									"Invalid property value", ProblemHighlightType.GENERIC_ERROR_OR_WARNING);
 						}
 					}
 				}

@@ -16,40 +16,13 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
-import consulo.language.editor.completion.lookup.LookupElement;
-import consulo.language.editor.rawHighlight.HighlightInfo;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
-import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author VISTALL
  * @since 09.10.13.
  */
+@Deprecated
 public class BaseXStyleSheetPropertyValuePartParser implements XStyleSheetPropertyValuePartParser
 {
-	@Nonnull
-	@Override
-	public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart)
-	{
-		return Collections.emptyList();
-	}
-
-	@Nullable
-	@Override
-	public Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value)
-	{
-		return null;
-	}
-
-	@Nonnull
-	@Override
-	public List<LookupElement> getLookupElements(String value)
-	{
-		return Collections.emptyList();
-	}
 }

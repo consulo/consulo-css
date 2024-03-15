@@ -34,6 +34,10 @@ public interface CssElements
 
 	IElementType PROPERTY = new ElementTypeAsPsiFactory("PROPERTY", CssLanguage.INSTANCE, CssProperty::new);
 
+	IElementType VARIABLE = new ElementTypeAsPsiFactory("VARIABLE", CssLanguage.INSTANCE, CssVariable::new);
+
+	IElementType VARIABLE_REFERENCE = new ElementTypeAsPsiFactory("VARIABLE_REFERENCE", CssLanguage.INSTANCE, CssVariableReference::new);
+
 	IElementType PROPERTY_VALUE_PART = new ElementTypeAsPsiFactory("PROPERTY_VALUE_PART", CssLanguage.INSTANCE, CssPropertyValuePart::new);
 
 	IElementType SELECTOR_SUFFIX_LIST = new ElementTypeAsPsiFactory("SELECTOR_SUFFIX_LIST", CssLanguage.INSTANCE, CssSelectorSuffixListImpl::new);

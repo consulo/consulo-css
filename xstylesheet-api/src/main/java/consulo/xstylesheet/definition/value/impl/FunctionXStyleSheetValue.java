@@ -16,6 +16,7 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
+import consulo.annotation.access.RequiredReadAction;
 import consulo.language.editor.completion.lookup.LookupElement;
 import consulo.language.editor.rawHighlight.HighlightInfo;
 import consulo.language.psi.PsiElement;
@@ -48,12 +49,13 @@ public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartPa
 
 	@Nullable
 	@Override
+	@RequiredReadAction
 	public Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value)
 	{
 		PsiElement firstChild = valuePart.getFirstChild();
 		if(firstChild instanceof PsiXStyleSheetFunctionCall)
 		{
-			for(XStyleSheetFunctionCallDescriptor descriptor : XStyleSheetFunctionCallDescriptor.EP_NAME.getExtensionList())
+			for(XStyleSheetFunctionCallDescriptor descriptor : valuePart.getProject().getApplication().getExtensionList(XStyleSheetFunctionCallDescriptor.class))
 			{
 				if(descriptor.isMyFunction((PsiXStyleSheetFunctionCall) firstChild))
 				{

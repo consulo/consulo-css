@@ -28,6 +28,8 @@ import consulo.util.lang.StringUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
+import java.util.function.BiConsumer;
 
 /**
  * @author VISTALL
@@ -35,6 +37,8 @@ import javax.annotation.Nullable;
  */
 public class CssParser implements PsiParser, CssTokens, CssElements
 {
+	public static final String VAR_PREFIX = "--";
+
 	public static boolean expect(PsiBuilder builder, IElementType elementType, @Nullable String message)
 	{
 		if(builder.getTokenType() != elementType)
@@ -133,6 +137,8 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 	{
 		if(builder.getTokenType() == IDENTIFIER)
 		{
+			boolean isVariable = StringUtil.startsWith(Objects.requireNonNull(builder.getTokenSequence()), VAR_PREFIX);
+
 			PsiBuilder.Marker propertyMarker = marker == null ? builder.mark() : marker;
 
 			builder.advanceLexer();
@@ -151,7 +157,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 
 			expect(builder, SEMICOLON, last ? null : "';' expected");
 
-			propertyMarker.done(PROPERTY);
+			propertyMarker.done(isVariable ? VARIABLE : PROPERTY);
 
 			return propertyMarker;
 		}
@@ -233,41 +239,22 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 		{
 			PsiBuilder.Marker functionMarker = builder.mark();
 
+			CharSequence funcName = Objects.requireNonNull(builder.getTokenSequence());
+
 			builder.advanceLexer();
 
 			PsiBuilder.Marker argumentList = builder.mark();
 			if(expect(builder, LPAR, "'(' expected"))
 			{
-				boolean noArgument = true;
-				while(!builder.eof())
+				if(StringUtil.equal(funcName, "var", false))
 				{
-					IElementType tokenType = builder.getTokenType();
-					if(tokenType == COMMA)
-					{
-
-						if(noArgument)
-						{
-							builder.error("Argument expected");
-							break;
-						}
-
-						builder.advanceLexer();
-						noArgument = true;
-					}
-					else if(tokenType == RPAR)
-					{
-						if(noArgument)
-						{
-							builder.error("Argument expected");
-						}
-						break;
-					}
-					else
-					{
-						builder.advanceLexer();
-						noArgument = false;
-					}
+					parseVarParameters(builder);
 				}
+				else
+				{
+					parseSimpleParameters(builder);
+				}
+
 				expect(builder, RPAR, "')' expected");
 			}
 			argumentList.done(FUNCTION_CALL_PARAMETER_LIST);
@@ -275,6 +262,81 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 			return true;
 		}
 		return false;
+	}
+
+	private void parseSimpleParameters(PsiBuilder builder)
+	{
+		parseParameters(builder, (b, index) -> b.advanceLexer());
+	}
+
+	private void parseVarParameters(PsiBuilder builder)
+	{
+		parseParameters(builder, (b, index) ->
+		{
+			if(index == 0)
+			{
+				if(builder.getTokenType() == IDENTIFIER)
+				{
+					boolean isVariable = StringUtil.startsWith(Objects.requireNonNull(builder.getTokenSequence()), VAR_PREFIX);
+
+					if(!isVariable)
+					{
+						builder.error("Expected variable");
+						builder.advanceLexer();
+						return;
+					}
+
+					PsiBuilder.Marker mark = b.mark();
+					b.advanceLexer();
+					mark.done(VARIABLE_REFERENCE);
+				}
+				else
+				{
+					builder.error("Expected variable");
+					builder.advanceLexer();
+				}
+			}
+			else
+			{
+				b.advanceLexer();
+			}
+		});
+	}
+
+	private void parseParameters(PsiBuilder builder, BiConsumer<PsiBuilder, Integer> parameterParser)
+	{
+		int index = 0;
+		boolean noArgument = true;
+		while(!builder.eof())
+		{
+			IElementType tokenType = builder.getTokenType();
+			if(tokenType == COMMA)
+			{
+				if(noArgument)
+				{
+					builder.error("Argument expected");
+					break;
+				}
+
+				builder.advanceLexer();
+				noArgument = true;
+				index++;
+			}
+			else if(tokenType == RPAR)
+			{
+				if(noArgument)
+				{
+					builder.error("Argument expected");
+				}
+				break;
+			}
+			else
+			{
+				parameterParser.accept(builder, index);
+				noArgument = false;
+				index++;
+			}
+		}
 	}
 
 	public boolean parseSelectorListNew(PsiBuilder builder)
@@ -550,7 +612,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements
 				if(builder.getTokenType() == LPAR)
 				{
 					PsiBuilder.Marker argsMarker = builder.mark();
-					
+
 					builder.advanceLexer();
 
 					if(StringUtil.equals(name, "not"))

@@ -16,15 +16,17 @@
 
 package consulo.xstylesheet.definition.value.impl;
 
+import consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
+import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
 /**
  * @author VISTALL
  * @since 09.10.13.
  */
-public abstract class TextBasedXStyleSheetPropertyValuePartParser extends BaseXStyleSheetPropertyValuePartParser
+public abstract class TextBasedXStyleSheetPropertyValuePartParser implements XStyleSheetPropertyValuePartParser
 {
 	@Nullable
 	@Override
