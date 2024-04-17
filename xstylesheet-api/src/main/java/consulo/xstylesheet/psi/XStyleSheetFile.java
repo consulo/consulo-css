@@ -20,16 +20,12 @@ public interface XStyleSheetFile extends PsiFile
 	@Nonnull
 	static XStyleSheetTable getXStyleSheetTable(@Nonnull PsiFile file)
 	{
-		if(!(file instanceof XStyleSheetFile))
-		{
-			return EmptyXStyleSheetTable.INSTANCE;
-		}
-
 		List<XStyleSheetTable> list = new ArrayList<>();
-		for(XStyleSheetTableProvider extension : XStyleSheetTableProvider.EP_NAME.getExtensionList())
+		XStyleSheetTableProvider.EP_NAME.forEachExtensionSafe(extension ->
 		{
-			ContainerUtil.addIfNotNull(list, extension.getTableForFile((XStyleSheetFile) file));
-		}
+			ContainerUtil.addIfNotNull(list, extension.getTableForFile(file));
+		});
+
 		return list.isEmpty() ? EmptyXStyleSheetTable.INSTANCE : new MergedXStyleSheetTable(list.toArray(new XStyleSheetTable[list.size()]));
 	}
 

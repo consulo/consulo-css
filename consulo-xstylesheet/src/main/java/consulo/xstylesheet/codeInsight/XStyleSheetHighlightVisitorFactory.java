@@ -4,6 +4,7 @@ import consulo.annotation.component.ExtensionImpl;
 import consulo.language.editor.rawHighlight.HighlightVisitor;
 import consulo.language.editor.rawHighlight.HighlightVisitorFactory;
 import consulo.language.psi.PsiFile;
+import consulo.xml.psi.xml.XmlFile;
 import consulo.xstylesheet.psi.XStyleSheetFile;
 
 import javax.annotation.Nonnull;
@@ -18,7 +19,7 @@ public class XStyleSheetHighlightVisitorFactory implements HighlightVisitorFacto
 	@Override
 	public boolean suitableForFile(@Nonnull PsiFile psiFile)
 	{
-		return psiFile instanceof XStyleSheetFile;
+		return psiFile instanceof XStyleSheetFile || psiFile instanceof XmlFile;
 	}
 
 	@Nonnull

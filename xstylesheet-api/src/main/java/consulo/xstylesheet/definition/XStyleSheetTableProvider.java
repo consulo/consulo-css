@@ -19,7 +19,7 @@ package consulo.xstylesheet.definition;
 import consulo.annotation.component.ComponentScope;
 import consulo.annotation.component.ExtensionAPI;
 import consulo.component.extension.ExtensionPointName;
-import consulo.xstylesheet.psi.XStyleSheetFile;
+import consulo.language.psi.PsiFile;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,5 +34,5 @@ public interface XStyleSheetTableProvider
 	ExtensionPointName<XStyleSheetTableProvider> EP_NAME = ExtensionPointName.create(XStyleSheetTableProvider.class);
 
 	@Nullable
-	XStyleSheetTable getTableForFile(@Nonnull XStyleSheetFile file);
+	XStyleSheetTable getTableForFile(@Nonnull PsiFile file);
 }

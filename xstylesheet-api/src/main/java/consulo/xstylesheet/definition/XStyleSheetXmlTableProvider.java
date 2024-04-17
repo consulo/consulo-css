@@ -16,12 +16,12 @@
 
 package consulo.xstylesheet.definition;
 
+import consulo.language.psi.PsiFile;
 import consulo.logging.Logger;
 import consulo.util.jdom.JDOMUtil;
 import consulo.util.lang.StringUtil;
 import consulo.util.lang.lazy.LazyValue;
 import consulo.xstylesheet.definition.impl.*;
-import consulo.xstylesheet.psi.XStyleSheetFile;
 import org.jdom.Document;
 import org.jdom.Element;
 
@@ -48,7 +48,7 @@ public abstract class XStyleSheetXmlTableProvider implements XStyleSheetTablePro
 
 	@Nullable
 	@Override
-	public XStyleSheetTable getTableForFile(@Nonnull XStyleSheetFile file)
+	public XStyleSheetTable getTableForFile(@Nonnull PsiFile file)
 	{
 		return myLazyTableValue.get();
 	}

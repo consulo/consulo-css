@@ -18,12 +18,12 @@ package consulo.xstylesheet.table;
 
 import consulo.annotation.component.ExtensionImpl;
 import consulo.application.util.NotNullLazyValue;
+import consulo.language.psi.PsiFile;
 import consulo.util.io.FileUtil;
 import consulo.util.lang.StringUtil;
 import consulo.xstylesheet.definition.XStyleSheetTable;
 import consulo.xstylesheet.definition.XStyleSheetTableProvider;
 import consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;
-import consulo.xstylesheet.psi.XStyleSheetFile;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -61,7 +61,7 @@ public class UnparsedXStyleSheetTableProvider implements XStyleSheetTableProvide
 
 	@Nullable
 	@Override
-	public XStyleSheetTable getTableForFile(@Nonnull XStyleSheetFile file)
+	public XStyleSheetTable getTableForFile(@Nonnull PsiFile file)
 	{
 		return myTable.get();
 	}
