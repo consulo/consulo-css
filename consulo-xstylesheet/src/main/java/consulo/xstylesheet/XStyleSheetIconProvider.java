@@ -18,7 +18,6 @@ package consulo.xstylesheet;
 
 import consulo.annotation.access.RequiredReadAction;
 import consulo.annotation.component.ExtensionImpl;
-import consulo.application.AllIcons;
 import consulo.language.icon.IconDescriptor;
 import consulo.language.icon.IconDescriptorUpdater;
 import consulo.language.psi.PsiElement;
@@ -48,7 +47,7 @@ public class XStyleSheetIconProvider implements IconDescriptorUpdater
 		}
 		else if(element instanceof PsiXStyleSheetProperty)
 		{
-			iconDescriptor.setMainIcon(PlatformIconGroup.nodesProperty());
+			iconDescriptor.setMainIcon(XStyleSheetIconGroup.property());
 		}
 
 		if(element instanceof XStyleSheetSelector)
@@ -70,7 +69,7 @@ public class XStyleSheetIconProvider implements IconDescriptorUpdater
 					iconDescriptor.setMainIcon(XStyleSheetIconGroup.css_class());
 					break;
 				case TAG:
-					iconDescriptor.setMainIcon(AllIcons.Nodes.Tag);
+					iconDescriptor.setMainIcon(PlatformIconGroup.nodesTag());
 					break;
 			}
 		}
