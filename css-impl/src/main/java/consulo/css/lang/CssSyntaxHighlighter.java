@@ -22,11 +22,10 @@ import consulo.css.lang.lexer._CssLexer;
 import consulo.language.ast.IElementType;
 import consulo.language.editor.highlight.SyntaxHighlighterBase;
 import consulo.language.lexer.Lexer;
+import consulo.util.collection.MultiMap;
 import consulo.xstylesheet.highlight.XStyleSheetColors;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author VISTALL
@@ -34,20 +33,25 @@ import java.util.Map;
  */
 public class CssSyntaxHighlighter extends SyntaxHighlighterBase
 {
-	private static final Map<IElementType, TextAttributesKey> ourKeys = new HashMap<>();
-
-	static 
+	public static void storeDefaults(MultiMap<IElementType, TextAttributesKey> keys)
 	{
-		ourKeys.put(CssTokens.NUMBER, XStyleSheetColors.NUMBER);
-		ourKeys.put(CssTokens.STRING, XStyleSheetColors.STRING);
-		ourKeys.put(CssTokens.BLOCK_COMMENT, XStyleSheetColors.BLOCK_COMMENT);
-		ourKeys.put(CssTokens.IMPORTANT_KEYWORD, XStyleSheetColors.KEYWORD);
-		ourKeys.put(CssTokens.CHARSET_KEYWORD, XStyleSheetColors.KEYWORD);
-		ourKeys.put(CssTokens.FONT_FACE_KEYWORD, XStyleSheetColors.KEYWORD);
-		ourKeys.put(CssTokens.IMPORT_KEYWORD, XStyleSheetColors.KEYWORD);
-		ourKeys.put(CssTokens.FONT_FACE_KEYWORD, XStyleSheetColors.KEYWORD);
-		ourKeys.put(CssTokens.NAMESPACE_KEYWORD, XStyleSheetColors.KEYWORD);
-		ourKeys.put(CssTokens.BAD_CHARACTER, CodeInsightColors.UNMATCHED_BRACE_ATTRIBUTES);
+		keys.putValue(CssTokens.NUMBER, XStyleSheetColors.NUMBER);
+		keys.putValue(CssTokens.STRING, XStyleSheetColors.STRING);
+		keys.putValue(CssTokens.BLOCK_COMMENT, XStyleSheetColors.BLOCK_COMMENT);
+		keys.putValue(CssTokens.IMPORTANT_KEYWORD, XStyleSheetColors.KEYWORD);
+		keys.putValue(CssTokens.CHARSET_KEYWORD, XStyleSheetColors.KEYWORD);
+		keys.putValue(CssTokens.FONT_FACE_KEYWORD, XStyleSheetColors.KEYWORD);
+		keys.putValue(CssTokens.IMPORT_KEYWORD, XStyleSheetColors.KEYWORD);
+		keys.putValue(CssTokens.FONT_FACE_KEYWORD, XStyleSheetColors.KEYWORD);
+		keys.putValue(CssTokens.NAMESPACE_KEYWORD, XStyleSheetColors.KEYWORD);
+		keys.putValue(CssTokens.BAD_CHARACTER, CodeInsightColors.UNMATCHED_BRACE_ATTRIBUTES);
+	}
+
+	private final MultiMap<IElementType, TextAttributesKey> myKeys = MultiMap.createLinked();
+
+	public CssSyntaxHighlighter()
+	{
+		storeDefaults(myKeys);
 	}
 
 	@Nonnull
@@ -61,6 +65,6 @@ public class CssSyntaxHighlighter extends SyntaxHighlighterBase
 	@Override
 	public TextAttributesKey[] getTokenHighlights(@Nonnull IElementType elementType)
 	{
-		return pack(ourKeys.get(elementType));
+		return myKeys.get(elementType).toArray(new TextAttributesKey[0]);
 	}
 }
