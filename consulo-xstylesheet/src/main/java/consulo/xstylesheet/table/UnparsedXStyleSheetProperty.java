@@ -23,36 +23,30 @@ import consulo.xstylesheet.definition.XStyleSheetPropertyValueEntry;
  * @author VISTALL
  * @since 2020-08-08
  */
-public class UnparsedXStyleSheetProperty implements XStyleSheetProperty
-{
-	private final String myName;
+public class UnparsedXStyleSheetProperty implements XStyleSheetProperty {
+    private final String myName;
 
-	public UnparsedXStyleSheetProperty(String name)
-	{
-		myName = name;
-	}
+    public UnparsedXStyleSheetProperty(String name) {
+        myName = name;
+    }
 
-	@Override
-	public String getName()
-	{
-		return myName;
-	}
+    @Override
+    public String getName() {
+        return myName;
+    }
 
-	@Override
-	public XStyleSheetPropertyValueEntry[] getValidEntries()
-	{
-		return XStyleSheetPropertyValueEntry.EMPTY_ARRAY;
-	}
+    @Override
+    public XStyleSheetPropertyValueEntry[] getValidEntries() {
+        return XStyleSheetPropertyValueEntry.EMPTY_ARRAY;
+    }
 
-	@Override
-	public XStyleSheetPropertyValueEntry[] getInitialEntries()
-	{
-		return XStyleSheetPropertyValueEntry.EMPTY_ARRAY;
-	}
+    @Override
+    public XStyleSheetPropertyValueEntry[] getInitialEntries() {
+        return XStyleSheetPropertyValueEntry.EMPTY_ARRAY;
+    }
 
-	@Override
-	public boolean isUnknown()
-	{
-		return true;
-	}
+    @Override
+    public boolean isUnknown() {
+        return true;
+    }
 }

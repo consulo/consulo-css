@@ -35,127 +35,108 @@ import javax.annotation.Nullable;
  * @author VISTALL
  * @since 03.07.13.
  */
-public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleSheetColors
-{
-	private HighlightInfoHolder myHighlightInfoHolder;
+public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleSheetColors {
+    private HighlightInfoHolder myHighlightInfoHolder;
 
-	@Override
-	public void visit(@Nonnull PsiElement psiElement)
-	{
-		psiElement.accept(new PsiElementVisitor()
-		{
-			@Override
-			@RequiredReadAction
-			public void visitElement(PsiElement element)
-			{
-				if(element instanceof PsiXStyleSheetVariableReference variableReference)
-				{
-					PsiElement resolved = variableReference.resolve();
-					if(resolved != null)
-					{
-						highlightElement(resolved, variableReference.getElement());
-					}
-				}
-				else
-				{
-					highlightElement(element, null);
-				}
+    @Override
+    public void visit(@Nonnull PsiElement psiElement) {
+        psiElement.accept(new PsiElementVisitor() {
+            @Override
+            @RequiredReadAction
+            public void visitElement(PsiElement element) {
+                if (element instanceof PsiXStyleSheetVariableReference variableReference) {
+                    PsiElement resolved = variableReference.resolve();
+                    if (resolved != null) {
+                        highlightElement(resolved, variableReference.getElement());
+                    }
+                }
+                else {
+                    highlightElement(element, null);
+                }
 
-				element.acceptChildren(this);
-			}
-		});
-	}
+                element.acceptChildren(this);
+            }
+        });
+    }
 
-	@RequiredReadAction
-	private void highlightElement(@Nonnull PsiElement element, @Nullable PsiElement targetElement)
-	{
-		if(element instanceof PsiXStyleSheetProperty property)
-		{
-			highlightName(targetElement == null ? property.getNameIdentifier() : targetElement, PROPERTY_NAME);
-		}
-		else if(element instanceof PsiXStyleSheetPropertyValuePart)
-		{
-			XStyleSheetPropertyValuePart valuePart = ((PsiXStyleSheetPropertyValuePart) element).getValuePart();
-			if(valuePart != null)
-			{
-				myHighlightInfoHolder.addAll(valuePart.createHighlights((PsiXStyleSheetPropertyValuePart) element));
-			}
-		}
-		else if(element instanceof PsiXStyleSheetSelectorAttribute attribute)
-		{
-			highlightName(targetElement == null ? attribute.getNameIdentifier() : targetElement, ATTRIBUTE_NAME);
-		}
-		else if(element instanceof XStyleSheetSimpleSelector)
-		{
-			PsiElement target = ((XStyleSheetSimpleSelector) element).getElement();
-			if(target != null)
-			{
-				TextAttributesKey key;
-				XStyleSheetSimpleSelectorType type = ((XStyleSheetSimpleSelector) element).getType();
-				if(type == XStyleSheetSimpleSelectorType.CLASS)
-				{
-					key = XStyleSheetColors.SELECTOR_CLASS_NAME;
-				}
-				else if(type == XStyleSheetSimpleSelectorType.ID)
-				{
-					key = XStyleSheetColors.SELECTOR_ID_NAME;
-				}
-				else
-				{
-					key = XStyleSheetColors.SELECTOR_ELEMENT_NAME;
-				}
+    @RequiredReadAction
+    private void highlightElement(@Nonnull PsiElement element, @Nullable PsiElement targetElement) {
+        if (element instanceof PsiXStyleSheetProperty property) {
+            highlightName(targetElement == null ? property.getNameIdentifier() : targetElement, PROPERTY_NAME);
+        }
+        else if (element instanceof PsiXStyleSheetPropertyValuePart) {
+            XStyleSheetPropertyValuePart valuePart = ((PsiXStyleSheetPropertyValuePart)element).getValuePart();
+            if (valuePart != null) {
+                myHighlightInfoHolder.addAll(valuePart.createHighlights((PsiXStyleSheetPropertyValuePart)element));
+            }
+        }
+        else if (element instanceof PsiXStyleSheetSelectorAttribute attribute) {
+            highlightName(targetElement == null ? attribute.getNameIdentifier() : targetElement, ATTRIBUTE_NAME);
+        }
+        else if (element instanceof XStyleSheetSimpleSelector) {
+            PsiElement target = ((XStyleSheetSimpleSelector)element).getElement();
+            if (target != null) {
+                TextAttributesKey key;
+                XStyleSheetSimpleSelectorType type = ((XStyleSheetSimpleSelector)element).getType();
+                if (type == XStyleSheetSimpleSelectorType.CLASS) {
+                    key = XStyleSheetColors.SELECTOR_CLASS_NAME;
+                }
+                else if (type == XStyleSheetSimpleSelectorType.ID) {
+                    key = XStyleSheetColors.SELECTOR_ID_NAME;
+                }
+                else {
+                    key = XStyleSheetColors.SELECTOR_ELEMENT_NAME;
+                }
 
-				HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
-				builder.textAttributes(key);
-				builder.range(target);
-				myHighlightInfoHolder.add(builder.create());
-			}
-		}
-		else if(element instanceof PsiXStyleSheetSelectorPseudoClass pseudoClass)
-		{
-			highlightName(targetElement == null ? pseudoClass.getNameIdentifier() : targetElement, PSEUDO_NAME);
-		}
-		else if(element instanceof PsiXStyleSheetFunctionCall)
-		{
-			PsiElement callElement = ((PsiXStyleSheetFunctionCall) element).getCallElement();
+                HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
+                builder.textAttributes(key);
+                builder.range(target);
+                myHighlightInfoHolder.add(builder.create());
+            }
+        }
+        else if (element instanceof PsiXStyleSheetSelectorPseudoClass pseudoClass) {
+            highlightName(targetElement == null ? pseudoClass.getNameIdentifier() : targetElement, PSEUDO_NAME);
+        }
+        else if (element instanceof PsiXStyleSheetFunctionCall) {
+            PsiElement callElement = ((PsiXStyleSheetFunctionCall)element).getCallElement();
 
-			PsiReference[] references = element.getReferences();
-			for(PsiReference reference : references)
-			{
-				PsiElement resolvedElement = reference.resolve();
-				if(resolvedElement instanceof BuildInSymbolElement)
-				{
-					HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
-					builder.textAttributes(XStyleSheetColors.KEYWORD);
-					builder.range(callElement);
+            PsiReference[] references = element.getReferences();
+            for (PsiReference reference : references) {
+                PsiElement resolvedElement = reference.resolve();
+                if (resolvedElement instanceof BuildInSymbolElement) {
+                    HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
+                    builder.textAttributes(XStyleSheetColors.KEYWORD);
+                    builder.range(callElement);
 
-					myHighlightInfoHolder.add(builder.create());
-				}
-			}
-		}
+                    myHighlightInfoHolder.add(builder.create());
+                }
+            }
+        }
 
-	}
+    }
 
-	@RequiredReadAction
-	private void highlightName(@Nullable PsiElement target, TextAttributesKey key)
-	{
-		if(target == null)
-		{
-			return;
-		}
+    @RequiredReadAction
+    private void highlightName(@Nullable PsiElement target, TextAttributesKey key) {
+        if (target == null) {
+            return;
+        }
 
-		HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
-		builder.textAttributes(key);
-		builder.range(target);
+        HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
+        builder.textAttributes(key);
+        builder.range(target);
 
-		myHighlightInfoHolder.add(builder.create());
-	}
+        myHighlightInfoHolder.add(builder.create());
+    }
 
-	@Override
-	public boolean analyze(@Nonnull PsiFile psiFile, boolean b, @Nonnull HighlightInfoHolder highlightInfoHolder, @Nonnull Runnable runnable)
-	{
-		myHighlightInfoHolder = highlightInfoHolder;
-		runnable.run();
-		return true;
-	}
+    @Override
+    public boolean analyze(
+        @Nonnull PsiFile psiFile,
+        boolean b,
+        @Nonnull HighlightInfoHolder highlightInfoHolder,
+        @Nonnull Runnable runnable
+    ) {
+        myHighlightInfoHolder = highlightInfoHolder;
+        runnable.run();
+        return true;
+    }
 }

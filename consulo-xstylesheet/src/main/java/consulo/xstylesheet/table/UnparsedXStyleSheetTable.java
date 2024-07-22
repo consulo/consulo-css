@@ -27,29 +27,24 @@ import java.util.*;
  * @author VISTALL
  * @since 2020-08-08
  */
-public class UnparsedXStyleSheetTable implements XStyleSheetTable
-{
-	private final Map<String, XStyleSheetProperty> myNames = new HashMap<>();
+public class UnparsedXStyleSheetTable implements XStyleSheetTable {
+    private final Map<String, XStyleSheetProperty> myNames = new HashMap<>();
 
-	public UnparsedXStyleSheetTable(String[] names)
-	{
-		for(String name : names)
-		{
-			myNames.put(name, new UnparsedXStyleSheetProperty(name));
-		}
-	}
+    public UnparsedXStyleSheetTable(String[] names) {
+        for (String name : names) {
+            myNames.put(name, new UnparsedXStyleSheetProperty(name));
+        }
+    }
 
-	@Nullable
-	@Override
-	public XStyleSheetProperty findProperty(@Nonnull String propertyName)
-	{
-		return myNames.get(propertyName);
-	}
+    @Nullable
+    @Override
+    public XStyleSheetProperty findProperty(@Nonnull String propertyName) {
+        return myNames.get(propertyName);
+    }
 
-	@Nonnull
-	@Override
-	public Collection<XStyleSheetProperty> getProperties()
-	{
-		return myNames.values();
-	}
+    @Nonnull
+    @Override
+    public Collection<XStyleSheetProperty> getProperties() {
+        return myNames.values();
+    }
 }
