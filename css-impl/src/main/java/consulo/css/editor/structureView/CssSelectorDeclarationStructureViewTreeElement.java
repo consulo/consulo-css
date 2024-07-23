@@ -29,24 +29,20 @@ import java.util.Collections;
  * @author VISTALL
  * @since 08.07.13.
  */
-public class CssSelectorDeclarationStructureViewTreeElement extends PsiTreeElementBase<XStyleSheetSelector>
-{
-	public CssSelectorDeclarationStructureViewTreeElement(XStyleSheetSelector psiElement)
-	{
-		super(psiElement);
-	}
+public class CssSelectorDeclarationStructureViewTreeElement extends PsiTreeElementBase<XStyleSheetSelector> {
+    public CssSelectorDeclarationStructureViewTreeElement(XStyleSheetSelector psiElement) {
+        super(psiElement);
+    }
 
-	@Nonnull
-	@Override
-	public Collection<StructureViewTreeElement> getChildrenBase()
-	{
-		return Collections.emptyList();
-	}
+    @Nonnull
+    @Override
+    public Collection<StructureViewTreeElement> getChildrenBase() {
+        return Collections.emptyList();
+    }
 
-	@Nullable
-	@Override
-	public String getPresentableText()
-	{
-		return getElement().getText();
-	}
+    @Nullable
+    @Override
+    public String getPresentableText() {
+        return getElement().getText();
+    }
 }

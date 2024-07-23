@@ -24,10 +24,8 @@ import consulo.xstylesheet.definition.XStyleSheetXmlTableProvider;
  * @since 2020-08-08
  */
 @ExtensionImpl
-public class DefaultXStyleSheetTableProvider extends XStyleSheetXmlTableProvider
-{
-	public DefaultXStyleSheetTableProvider()
-	{
-		init(getClass().getResource("/consulo/xstylesheet/defaultXStyleSheetTable.xml"));
-	}
+public class DefaultXStyleSheetTableProvider extends XStyleSheetXmlTableProvider {
+    public DefaultXStyleSheetTableProvider() {
+        init(getClass().getResource("/consulo/xstylesheet/defaultXStyleSheetTable.xml"));
+    }
 }

@@ -36,27 +36,22 @@ import javax.annotation.Nullable;
  * @since 08.07.13.
  */
 @ExtensionImpl
-public class CssPsiStructureViewFactory implements PsiStructureViewFactory
-{
-	@Nullable
-	@Override
-	public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile)
-	{
-		return new TreeBasedStructureViewBuilder()
-		{
-			@Nonnull
-			@Override
-			public StructureViewModel createStructureViewModel(Editor editor)
-			{
-				return new StructureViewModelBase(psiFile, new CssStructureViewTreeElement((CssFile) psiFile));
-			}
-		};
-	}
+public class CssPsiStructureViewFactory implements PsiStructureViewFactory {
+    @Nullable
+    @Override
+    public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile) {
+        return new TreeBasedStructureViewBuilder() {
+            @Nonnull
+            @Override
+            public StructureViewModel createStructureViewModel(Editor editor) {
+                return new StructureViewModelBase(psiFile, new CssStructureViewTreeElement((CssFile)psiFile));
+            }
+        };
+    }
 
-	@Nonnull
-	@Override
-	public Language getLanguage()
-	{
-		return CssLanguage.INSTANCE;
-	}
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return CssLanguage.INSTANCE;
+    }
 }

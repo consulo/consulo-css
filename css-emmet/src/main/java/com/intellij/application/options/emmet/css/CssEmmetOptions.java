@@ -27,117 +27,96 @@ import java.util.*;
 @State(name = "CssEmmetOptions", storages = @Storage("editor.xml"))
 @ServiceAPI(ComponentScope.APPLICATION)
 @ServiceImpl
-public class CssEmmetOptions implements PersistentStateComponent<CssEmmetOptions>
-{
-	@Nonnull
-	public static CssEmmetOptions getInstance()
-	{
-		return ServiceManager.getService(CssEmmetOptions.class);
-	}
+public class CssEmmetOptions implements PersistentStateComponent<CssEmmetOptions> {
+    @Nonnull
+    public static CssEmmetOptions getInstance() {
+        return ServiceManager.getService(CssEmmetOptions.class);
+    }
 
-	private static final Logger LOGGER = Logger.getInstance(CssEmmetOptions.class);
+    private static final Logger LOGGER = Logger.getInstance(CssEmmetOptions.class);
 
-	private boolean myFuzzySearchEnabled = true;
-	private boolean myAutoInsertCssPrefixedEnabled = true;
-	@Nullable
-	private Map<String, Integer> prefixes = null;
+    private boolean myFuzzySearchEnabled = true;
+    private boolean myAutoInsertCssPrefixedEnabled = true;
+    @Nullable
+    private Map<String, Integer> prefixes = null;
 
-	public void setPrefixInfo(Collection<CssPrefixInfo> prefixInfos)
-	{
-		prefixes = new HashMap<String, Integer>();
+    public void setPrefixInfo(Collection<CssPrefixInfo> prefixInfos) {
+        prefixes = new HashMap<>();
 
-		for(CssPrefixInfo state : prefixInfos)
-		{
-			prefixes.put(state.getPropertyName(), state.toIntegerValue());
-		}
-	}
+        for (CssPrefixInfo state : prefixInfos) {
+            prefixes.put(state.getPropertyName(), state.toIntegerValue());
+        }
+    }
 
-	public CssPrefixInfo getPrefixStateForProperty(String propertyName)
-	{
-		return CssPrefixInfo.fromIntegerValue(propertyName, getPrefixes().get(propertyName));
-	}
+    public CssPrefixInfo getPrefixStateForProperty(String propertyName) {
+        return CssPrefixInfo.fromIntegerValue(propertyName, getPrefixes().get(propertyName));
+    }
 
-	public Set<CssPrefixInfo> getAllPrefixInfo()
-	{
-		Set<CssPrefixInfo> result = new HashSet<>(getPrefixes().size());
-		for(Map.Entry<String, Integer> entry : getPrefixes().entrySet())
-		{
-			result.add(CssPrefixInfo.fromIntegerValue(entry.getKey(), entry.getValue()));
-		}
-		return result;
-	}
+    public Set<CssPrefixInfo> getAllPrefixInfo() {
+        Set<CssPrefixInfo> result = new HashSet<>(getPrefixes().size());
+        for (Map.Entry<String, Integer> entry : getPrefixes().entrySet()) {
+            result.add(CssPrefixInfo.fromIntegerValue(entry.getKey(), entry.getValue()));
+        }
+        return result;
+    }
 
-	public boolean isAutoInsertCssPrefixedEnabled()
-	{
-		return myAutoInsertCssPrefixedEnabled;
-	}
+    public boolean isAutoInsertCssPrefixedEnabled() {
+        return myAutoInsertCssPrefixedEnabled;
+    }
 
-	public void setAutoInsertCssPrefixedEnabled(boolean autoInsertCssPrefixedEnabled)
-	{
-		myAutoInsertCssPrefixedEnabled = autoInsertCssPrefixedEnabled;
-	}
+    public void setAutoInsertCssPrefixedEnabled(boolean autoInsertCssPrefixedEnabled) {
+        myAutoInsertCssPrefixedEnabled = autoInsertCssPrefixedEnabled;
+    }
 
-	public void setFuzzySearchEnabled(boolean fuzzySearchEnabled)
-	{
-		myFuzzySearchEnabled = fuzzySearchEnabled;
-	}
+    public void setFuzzySearchEnabled(boolean fuzzySearchEnabled) {
+        myFuzzySearchEnabled = fuzzySearchEnabled;
+    }
 
-	public boolean isFuzzySearchEnabled()
-	{
-		return myFuzzySearchEnabled;
-	}
+    public boolean isFuzzySearchEnabled() {
+        return myFuzzySearchEnabled;
+    }
 
-	@Nonnull
-	public Map<String, Integer> getPrefixes()
-	{
-		if(prefixes == null)
-		{
-			prefixes = loadDefaultPrefixes();
-		}
-		return prefixes;
-	}
+    @Nonnull
+    public Map<String, Integer> getPrefixes() {
+        if (prefixes == null) {
+            prefixes = loadDefaultPrefixes();
+        }
+        return prefixes;
+    }
 
-	@SuppressWarnings("UnusedDeclaration")
-	public void setPrefixes(@Nullable Map<String, Integer> prefixes)
-	{
-		this.prefixes = prefixes;
-	}
+    @SuppressWarnings("UnusedDeclaration")
+    public void setPrefixes(@Nullable Map<String, Integer> prefixes) {
+        this.prefixes = prefixes;
+    }
 
-	public Map<String, Integer> loadDefaultPrefixes()
-	{
-		Map<String, Integer> result = new HashMap<String, Integer>();
-		try
-		{
-			Document document = JDOMUtil.loadDocument(CssEmmetOptions.class.getResourceAsStream("emmet_default_options.xml"));
-			Element prefixesElement = document.getRootElement().getChild("prefixes");
-			if(prefixesElement != null)
-			{
-				for(Element entry : prefixesElement.getChildren("entry"))
-				{
-					String propertyName = entry.getAttributeValue("key");
-					Integer value = StringUtil.parseInt(entry.getAttributeValue("value"), 0);
-					result.put(propertyName, value);
-				}
-			}
-		}
-		catch(Exception e)
-		{
-			LOGGER.warn(e);
-			return result;
-		}
-		return result;
-	}
+    public Map<String, Integer> loadDefaultPrefixes() {
+        Map<String, Integer> result = new HashMap<>();
+        try {
+            Document document = JDOMUtil.loadDocument(CssEmmetOptions.class.getResourceAsStream("emmet_default_options.xml"));
+            Element prefixesElement = document.getRootElement().getChild("prefixes");
+            if (prefixesElement != null) {
+                for (Element entry : prefixesElement.getChildren("entry")) {
+                    String propertyName = entry.getAttributeValue("key");
+                    Integer value = StringUtil.parseInt(entry.getAttributeValue("value"), 0);
+                    result.put(propertyName, value);
+                }
+            }
+        }
+        catch (Exception e) {
+            LOGGER.warn(e);
+            return result;
+        }
+        return result;
+    }
 
-	@Nullable
-	@Override
-	public CssEmmetOptions getState()
-	{
-		return this;
-	}
+    @Nullable
+    @Override
+    public CssEmmetOptions getState() {
+        return this;
+    }
 
-	@Override
-	public void loadState(CssEmmetOptions state)
-	{
-		XmlSerializerUtil.copyBean(state, this);
-	}
+    @Override
+    public void loadState(CssEmmetOptions state) {
+        XmlSerializerUtil.copyBean(state, this);
+    }
 }

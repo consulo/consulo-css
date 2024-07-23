@@ -35,43 +35,36 @@ import javax.annotation.Nonnull;
  * @since 08.07.13.
  */
 @ExtensionImpl
-public class XStyleSheetIconProvider implements IconDescriptorUpdater
-{
-	@RequiredReadAction
-	@Override
-	public void updateIcon(@Nonnull IconDescriptor iconDescriptor, @Nonnull PsiElement element, int i)
-	{
-		if(element instanceof PsiXStyleSheetVariable)
-		{
-			iconDescriptor.setMainIcon(PlatformIconGroup.nodesVariable());
-		}
-		else if(element instanceof PsiXStyleSheetProperty)
-		{
-			iconDescriptor.setMainIcon(XStyleSheetIconGroup.property());
-		}
+public class XStyleSheetIconProvider implements IconDescriptorUpdater {
+    @RequiredReadAction
+    @Override
+    public void updateIcon(@Nonnull IconDescriptor iconDescriptor, @Nonnull PsiElement element, int i) {
+        if (element instanceof PsiXStyleSheetVariable) {
+            iconDescriptor.setMainIcon(PlatformIconGroup.nodesVariable());
+        }
+        else if (element instanceof PsiXStyleSheetProperty) {
+            iconDescriptor.setMainIcon(XStyleSheetIconGroup.property());
+        }
 
-		if(element instanceof XStyleSheetSelector)
-		{
-			XStyleSheetSimpleSelector[] simpleSelectors = ((XStyleSheetSelector) element).getSimpleSelectors();
+        if (element instanceof XStyleSheetSelector) {
+            XStyleSheetSimpleSelector[] simpleSelectors = ((XStyleSheetSelector)element).getSimpleSelectors();
 
-			if(simpleSelectors.length == 0)
-			{
-				return;
-			}
+            if (simpleSelectors.length == 0) {
+                return;
+            }
 
-			XStyleSheetSimpleSelector selector = simpleSelectors[0];
-			switch(selector.getType())
-			{
-				case ID:
-					iconDescriptor.setMainIcon(XStyleSheetIconGroup.html_id());
-					break;
-				case CLASS:
-					iconDescriptor.setMainIcon(XStyleSheetIconGroup.css_class());
-					break;
-				case TAG:
-					iconDescriptor.setMainIcon(PlatformIconGroup.nodesTag());
-					break;
-			}
-		}
-	}
+            XStyleSheetSimpleSelector selector = simpleSelectors[0];
+            switch (selector.getType()) {
+                case ID:
+                    iconDescriptor.setMainIcon(XStyleSheetIconGroup.html_id());
+                    break;
+                case CLASS:
+                    iconDescriptor.setMainIcon(XStyleSheetIconGroup.css_class());
+                    break;
+                case TAG:
+                    iconDescriptor.setMainIcon(PlatformIconGroup.nodesTag());
+                    break;
+            }
+        }
+    }
 }

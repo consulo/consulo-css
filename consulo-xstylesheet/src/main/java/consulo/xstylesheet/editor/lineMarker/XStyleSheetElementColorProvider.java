@@ -33,39 +33,31 @@ import javax.annotation.Nullable;
  * @since 03.07.13.
  */
 @ExtensionImpl
-public class XStyleSheetElementColorProvider implements ElementColorProvider
-{
-	@RequiredReadAction
-	@Nullable
-	@Override
-	public ColorValue getColorFrom(@Nonnull PsiElement psiElement)
-	{
-		if(psiElement instanceof PsiXStyleSheetPropertyValuePart)
-		{
-			Object value = null;
-			try
-			{
-				value = ((PsiXStyleSheetPropertyValuePart) psiElement).getValue();
-			}
-			catch(Exception ignored)
-			{
-			}
+public class XStyleSheetElementColorProvider implements ElementColorProvider {
+    @RequiredReadAction
+    @Nullable
+    @Override
+    public ColorValue getColorFrom(@Nonnull PsiElement psiElement) {
+        if (psiElement instanceof PsiXStyleSheetPropertyValuePart xStyleSheetPropertyValuePart) {
+            Object value = null;
+            try {
+                value = xStyleSheetPropertyValuePart.getValue();
+            }
+            catch (Exception ignored) {
+            }
 
-			if(value instanceof ColorValue)
-			{
-				return (ColorValue) value;
-			}
-		}
-		return null;
-	}
+            if (value instanceof ColorValue colorValue) {
+                return colorValue;
+            }
+        }
+        return null;
+    }
 
-	@RequiredWriteAction
-	@Override
-	public void setColorTo(@Nonnull PsiElement psiElement, @Nonnull ColorValue color)
-	{
-		if(psiElement instanceof PsiXStyleSheetPropertyValuePart)
-		{
-			WriteAction.run(() -> ((PsiXStyleSheetPropertyValuePart) psiElement).setValue(color));
-		}
-	}
+    @RequiredWriteAction
+    @Override
+    public void setColorTo(@Nonnull PsiElement psiElement, @Nonnull ColorValue color) {
+        if (psiElement instanceof PsiXStyleSheetPropertyValuePart xStyleSheetPropertyValuePart) {
+            WriteAction.run(() -> xStyleSheetPropertyValuePart.setValue(color));
+        }
+    }
 }
