@@ -27,18 +27,15 @@ import javax.annotation.Nonnull;
  * @author VISTALL
  * @since 20-Aug-17
  */
-public class CssSelectorListImpl extends CssElement implements XStyleSheetSelectorList
-{
-	public CssSelectorListImpl(@Nonnull ASTNode node)
-	{
-		super(node);
-	}
+public class CssSelectorListImpl extends CssElement implements XStyleSheetSelectorList {
+    public CssSelectorListImpl(@Nonnull ASTNode node) {
+        super(node);
+    }
 
-	@RequiredReadAction
-	@Nonnull
-	@Override
-	public XStyleSheetSelector[] getSelectors()
-	{
-		return findChildrenByClass(XStyleSheetSelector.class);
-	}
+    @RequiredReadAction
+    @Nonnull
+    @Override
+    public XStyleSheetSelector[] getSelectors() {
+        return findChildrenByClass(XStyleSheetSelector.class);
+    }
 }

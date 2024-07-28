@@ -24,30 +24,25 @@ import consulo.xstylesheet.psi.reference.BuildInSymbolElement;
  * @author VISTALL
  * @since 20-Aug-17
  */
-public class BuildInSymbolElementImpl extends FakePsiElement implements BuildInSymbolElement
-{
-	private final PsiElement myParent;
+public class BuildInSymbolElementImpl extends FakePsiElement implements BuildInSymbolElement {
+    private final PsiElement myParent;
 
-	public BuildInSymbolElementImpl(PsiElement parent)
-	{
-		myParent = parent;
-	}
+    public BuildInSymbolElementImpl(PsiElement parent) {
+        myParent = parent;
+    }
 
-	@Override
-	public boolean canNavigate()
-	{
-		return false;
-	}
+    @Override
+    public boolean canNavigate() {
+        return false;
+    }
 
-	@Override
-	public boolean canNavigateToSource()
-	{
-		return false;
-	}
+    @Override
+    public boolean canNavigateToSource() {
+        return false;
+    }
 
-	@Override
-	public PsiElement getParent()
-	{
-		return myParent;
-	}
+    @Override
+    public PsiElement getParent() {
+        return myParent;
+    }
 }

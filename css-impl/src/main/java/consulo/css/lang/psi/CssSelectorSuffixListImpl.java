@@ -25,10 +25,8 @@ import javax.annotation.Nonnull;
  * @author VISTALL
  * @since 20-Aug-17
  */
-public class CssSelectorSuffixListImpl extends CssElement implements XStyleSheetSelectorSuffixList
-{
-	public CssSelectorSuffixListImpl(@Nonnull ASTNode node)
-	{
-		super(node);
-	}
+public class CssSelectorSuffixListImpl extends CssElement implements XStyleSheetSelectorSuffixList {
+    public CssSelectorSuffixListImpl(@Nonnull ASTNode node) {
+        super(node);
+    }
 }

@@ -29,18 +29,15 @@ import javax.annotation.Nonnull;
  * @author VISTALL
  * @since 08.10.13.
  */
-public class CssFunctionCallParameterList extends CssElement implements PsiXStyleSheetFunctionCallParameterList
-{
-	public CssFunctionCallParameterList(@Nonnull ASTNode node)
-	{
-		super(node);
-	}
+public class CssFunctionCallParameterList extends CssElement implements PsiXStyleSheetFunctionCallParameterList {
+    public CssFunctionCallParameterList(@Nonnull ASTNode node) {
+        super(node);
+    }
 
-	@Nonnull
-	@RequiredReadAction
-	@Override
-	public PsiElement[] getParameters()
-	{
-		return findChildrenByType(TokenSet.create(CssTokens.STRING, CssTokens.NUMBER, CssTokens.IDENTIFIER), PsiElement.class);
-	}
+    @Nonnull
+    @RequiredReadAction
+    @Override
+    public PsiElement[] getParameters() {
+        return findChildrenByType(TokenSet.create(CssTokens.STRING, CssTokens.NUMBER, CssTokens.IDENTIFIER), PsiElement.class);
+    }
 }

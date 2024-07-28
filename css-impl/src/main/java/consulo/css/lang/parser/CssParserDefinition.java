@@ -38,63 +38,54 @@ import javax.annotation.Nonnull;
  * @since 23:59/12.06.13
  */
 @ExtensionImpl
-public class CssParserDefinition implements ParserDefinition
-{
-	public static final IFileElementType FILE_ELEMENT = new IFileElementType("CSS_FILE", CssLanguage.INSTANCE);
+public class CssParserDefinition implements ParserDefinition {
+    public static final IFileElementType FILE_ELEMENT = new IFileElementType("CSS_FILE", CssLanguage.INSTANCE);
 
-	@Nonnull
-	@Override
-	public Language getLanguage()
-	{
-		return CssLanguage.INSTANCE;
-	}
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return CssLanguage.INSTANCE;
+    }
 
-	@Nonnull
-	@Override
-	public Lexer createLexer(@Nonnull LanguageVersion languageVersion)
-	{
-		return new _CssLexer();
-	}
+    @Nonnull
+    @Override
+    public Lexer createLexer(@Nonnull LanguageVersion languageVersion) {
+        return new _CssLexer();
+    }
 
-	@Nonnull
-	@Override
-	public PsiParser createParser(@Nonnull LanguageVersion languageVersion)
-	{
-		return new CssParser();
-	}
+    @Nonnull
+    @Override
+    public PsiParser createParser(@Nonnull LanguageVersion languageVersion) {
+        return new CssParser();
+    }
 
-	@Nonnull
-	@Override
-	public IFileElementType getFileNodeType()
-	{
-		return FILE_ELEMENT;
-	}
+    @Nonnull
+    @Override
+    public IFileElementType getFileNodeType() {
+        return FILE_ELEMENT;
+    }
 
-	@Nonnull
-	@Override
-	public TokenSet getWhitespaceTokens(@Nonnull LanguageVersion languageVersion)
-	{
-		return CssTokenSets.WHITE_SPACES;
-	}
+    @Nonnull
+    @Override
+    public TokenSet getWhitespaceTokens(@Nonnull LanguageVersion languageVersion) {
+        return CssTokenSets.WHITE_SPACES;
+    }
 
-	@Nonnull
-	@Override
-	public TokenSet getCommentTokens(@Nonnull LanguageVersion languageVersion)
-	{
-		return CssTokenSets.COMMENTS;
-	}
+    @Nonnull
+    @Override
+    public TokenSet getCommentTokens(@Nonnull LanguageVersion languageVersion) {
+        return CssTokenSets.COMMENTS;
+    }
 
-	@Nonnull
-	@Override
-	public TokenSet getStringLiteralElements(@Nonnull LanguageVersion languageVersion)
-	{
-		return CssTokenSets.STRINGS;
-	}
+    @Nonnull
+    @Override
+    public TokenSet getStringLiteralElements(@Nonnull LanguageVersion languageVersion) {
+        return CssTokenSets.STRINGS;
+    }
 
-	@Nonnull
-	@Override
-	public PsiFile createFile(@Nonnull FileViewProvider fileViewProvider)
-	{
-		return new CssFile(fileViewProvider);
-	}
+    @Nonnull
+    @Override
+    public PsiFile createFile(@Nonnull FileViewProvider fileViewProvider) {
+        return new CssFile(fileViewProvider);
+    }
 }

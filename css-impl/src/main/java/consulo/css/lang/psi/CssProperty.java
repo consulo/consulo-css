@@ -37,64 +37,55 @@ import javax.annotation.Nullable;
  * @author VISTALL
  * @since 03.07.13.
  */
-public class CssProperty extends CssElement implements PsiNameIdentifierOwner, PsiXStyleSheetProperty
-{
-	public static final CssProperty[] EMPTY_ARRAY = new CssProperty[0];
+public class CssProperty extends CssElement implements PsiNameIdentifierOwner, PsiXStyleSheetProperty {
+    public static final CssProperty[] EMPTY_ARRAY = new CssProperty[0];
 
-	public CssProperty(@Nonnull ASTNode node)
-	{
-		super(node);
-	}
+    public CssProperty(@Nonnull ASTNode node) {
+        super(node);
+    }
 
-	@RequiredReadAction
-	@Nullable
-	@Override
-	public PsiElement getNameIdentifier()
-	{
-		return findChildByType(CssTokens.IDENTIFIER);
-	}
+    @RequiredReadAction
+    @Nullable
+    @Override
+    public PsiElement getNameIdentifier() {
+        return findChildByType(CssTokens.IDENTIFIER);
+    }
 
-	@RequiredReadAction
-	@Nullable
-	@Override
-	public XStyleSheetProperty getXStyleSheetProperty()
-	{
-		String name = getName();
-		if(name == null)
-		{
-			return null;
-		}
-		PsiFile containingFile = getContainingFile();
-		XStyleSheetTable xStyleSheetTable = XStyleSheetFile.getXStyleSheetTable(containingFile);
-		return xStyleSheetTable.findProperty(name);
-	}
+    @RequiredReadAction
+    @Nullable
+    @Override
+    public XStyleSheetProperty getXStyleSheetProperty() {
+        String name = getName();
+        if (name == null) {
+            return null;
+        }
+        PsiFile containingFile = getContainingFile();
+        XStyleSheetTable xStyleSheetTable = XStyleSheetFile.getXStyleSheetTable(containingFile);
+        return xStyleSheetTable.findProperty(name);
+    }
 
-	@Nonnull
-	@Override
-	public PsiXStyleSheetPropertyValuePart[] getParts()
-	{
-		return findChildrenByClass(PsiXStyleSheetPropertyValuePart.class);
-	}
+    @Nonnull
+    @Override
+    public PsiXStyleSheetPropertyValuePart[] getParts() {
+        return findChildrenByClass(PsiXStyleSheetPropertyValuePart.class);
+    }
 
-	@RequiredReadAction
-	@Override
-	public String getName()
-	{
-		PsiElement nameIdentifier = getNameIdentifier();
-		return nameIdentifier == null ? null : nameIdentifier.getText();
-	}
+    @RequiredReadAction
+    @Override
+    public String getName() {
+        PsiElement nameIdentifier = getNameIdentifier();
+        return nameIdentifier == null ? null : nameIdentifier.getText();
+    }
 
-	@RequiredReadAction
-	@Override
-	public boolean isImportant()
-	{
-		return findChildByType(CssTokens.IMPORTANT_KEYWORD) != null;
-	}
+    @RequiredReadAction
+    @Override
+    public boolean isImportant() {
+        return findChildByType(CssTokens.IMPORTANT_KEYWORD) != null;
+    }
 
-	@RequiredWriteAction
-	@Override
-	public PsiElement setName(@Nonnull String s) throws IncorrectOperationException
-	{
-		return null;
-	}
+    @RequiredWriteAction
+    @Override
+    public PsiElement setName(@Nonnull String s) throws IncorrectOperationException {
+        return null;
+    }
 }
