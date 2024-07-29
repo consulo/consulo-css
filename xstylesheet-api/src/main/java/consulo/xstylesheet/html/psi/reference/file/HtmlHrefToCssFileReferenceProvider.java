@@ -37,68 +37,55 @@ import javax.annotation.Nonnull;
  * @author VISTALL
  * @since 07.07.13.
  */
-public class HtmlHrefToCssFileReferenceProvider extends PsiReferenceProvider
-{
-	public static class CssFileHrefFilter extends ElementFilterBase<XmlAttributeValue> implements PsiElementFilter
-	{
-		public CssFileHrefFilter()
-		{
-			super(XmlAttributeValue.class);
-		}
+public class HtmlHrefToCssFileReferenceProvider extends PsiReferenceProvider {
+    public static class CssFileHrefFilter extends ElementFilterBase<XmlAttributeValue> implements PsiElementFilter {
+        public CssFileHrefFilter() {
+            super(XmlAttributeValue.class);
+        }
 
-		@Override
-		protected boolean isElementAcceptable(XmlAttributeValue xmlAttributeValue, PsiElement psiElement)
-		{
-			XmlAttribute xmlAttribute = (XmlAttribute) xmlAttributeValue.getParent();
-			if(!"href".equalsIgnoreCase(xmlAttribute.getName()))
-			{
-				return false;
-			}
-			XmlTag xmlTag = xmlAttribute.getParent();//XmlAttribute -> XmlTag
+        @Override
+        protected boolean isElementAcceptable(XmlAttributeValue xmlAttributeValue, PsiElement psiElement) {
+            XmlAttribute xmlAttribute = (XmlAttribute)xmlAttributeValue.getParent();
+            if (!"href".equalsIgnoreCase(xmlAttribute.getName())) {
+                return false;
+            }
+            XmlTag xmlTag = xmlAttribute.getParent();//XmlAttribute -> XmlTag
 
-			if("link".equalsIgnoreCase(xmlTag.getName()))
-			{
-				String rel = xmlTag.getAttributeValue("rel");
-				if("stylesheet".equalsIgnoreCase(rel))
-				{
-					return true;
-				}
-			}
-			return true;
-		}
+            if ("link".equalsIgnoreCase(xmlTag.getName())) {
+                String rel = xmlTag.getAttributeValue("rel");
+                if ("stylesheet".equalsIgnoreCase(rel)) {
+                    return true;
+                }
+            }
+            return true;
+        }
 
-		@Override
-		public boolean isAccepted(PsiElement psiElement)
-		{
-			return psiElement instanceof XmlAttributeValue && isElementAcceptable((XmlAttributeValue) psiElement, psiElement);
-		}
-	}
+        @Override
+        public boolean isAccepted(PsiElement psiElement) {
+            return psiElement instanceof XmlAttributeValue && isElementAcceptable((XmlAttributeValue)psiElement, psiElement);
+        }
+    }
 
-	@Nonnull
-	@Override
-	public PsiReference[] getReferencesByElement(@Nonnull PsiElement psiElement, @Nonnull ProcessingContext processingContext)
-	{
-		XmlAttributeValue xmlAttributeValue = (XmlAttributeValue) psiElement;
-		ASTNode value = xmlAttributeValue.getNode().findChildByType(XmlTokenType.XML_ATTRIBUTE_VALUE_TOKEN);
-		if(value == null)
-		{
-			return PsiReference.EMPTY_ARRAY;
-		}
-		FileReferenceSet fileReferenceSet = new FileReferenceSet(value.getPsi())
-		{
-			@Override
-			public Condition<PsiFileSystemItem> getReferenceCompletionFilter()
-			{
-				return item -> item instanceof XStyleSheetFile || item instanceof PsiDirectory;
-			}
-		};
-		fileReferenceSet.setEmptyPathAllowed(false);
+    @Nonnull
+    @Override
+    public PsiReference[] getReferencesByElement(@Nonnull PsiElement psiElement, @Nonnull ProcessingContext processingContext) {
+        XmlAttributeValue xmlAttributeValue = (XmlAttributeValue)psiElement;
+        ASTNode value = xmlAttributeValue.getNode().findChildByType(XmlTokenType.XML_ATTRIBUTE_VALUE_TOKEN);
+        if (value == null) {
+            return PsiReference.EMPTY_ARRAY;
+        }
+        FileReferenceSet fileReferenceSet = new FileReferenceSet(value.getPsi()) {
+            @Override
+            public Condition<PsiFileSystemItem> getReferenceCompletionFilter() {
+                return item -> item instanceof XStyleSheetFile || item instanceof PsiDirectory;
+            }
+        };
+        fileReferenceSet.setEmptyPathAllowed(false);
 
-		return fileReferenceSet.getAllReferences();
-	}
+        return fileReferenceSet.getAllReferences();
+    }
 
-	public ElementFilter getElementFilter()
-	{
-		return new CssFileHrefFilter();
-	}
+    public ElementFilter getElementFilter() {
+        return new CssFileHrefFilter();
+    }
 }

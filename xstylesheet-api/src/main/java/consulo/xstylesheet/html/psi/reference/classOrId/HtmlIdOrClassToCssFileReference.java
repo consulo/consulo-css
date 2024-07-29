@@ -35,86 +35,73 @@ import java.util.List;
  * @author VISTALL
  * @since 07.07.13.
  */
-public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase<PsiElement>
-{
-	private final XStyleSheetSimpleSelectorType myConditionType;
+public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase<PsiElement> {
+    private final XStyleSheetSimpleSelectorType myConditionType;
 
-	public HtmlIdOrClassToCssFileReference(@Nonnull PsiElement element, XStyleSheetSimpleSelectorType conditionType)
-	{
-		super(element);
-		myConditionType = conditionType;
-	}
+    public HtmlIdOrClassToCssFileReference(@Nonnull PsiElement element, XStyleSheetSimpleSelectorType conditionType) {
+        super(element);
+        myConditionType = conditionType;
+    }
 
-	@RequiredReadAction
-	@Nonnull
-	@Override
-	public ResolveResult[] multiResolve(boolean b)
-	{
-		List<PsiXStyleSheetRule> rules = resolveRules(new XStyleSheetRuleTypeCondition(myConditionType, getElement().getText()));
+    @RequiredReadAction
+    @Nonnull
+    @Override
+    public ResolveResult[] multiResolve(boolean b) {
+        List<PsiXStyleSheetRule> rules = resolveRules(new XStyleSheetRuleTypeCondition(myConditionType, getElement().getText()));
 
-		List<ResolveResult> resolveResults = new ArrayList<>(rules.size());
-		for(PsiXStyleSheetRule rule : rules)
-		{
-			resolveResults.add(new PsiElementResolveResult(rule));
-		}
+        List<ResolveResult> resolveResults = new ArrayList<>(rules.size());
+        for (PsiXStyleSheetRule rule : rules) {
+            resolveResults.add(new PsiElementResolveResult(rule));
+        }
 
-		return resolveResults.isEmpty() ? ResolveResult.EMPTY_ARRAY : resolveResults.toArray(new ResolveResult[resolveResults.size()]);
-	}
+        return resolveResults.isEmpty() ? ResolveResult.EMPTY_ARRAY : resolveResults.toArray(new ResolveResult[resolveResults.size()]);
+    }
 
-	@Nonnull
-	@Override
-	@RequiredReadAction
-	public Object[] getVariants()
-	{
-		List<PsiXStyleSheetRule> cssRules = resolveRules(new XStyleSheetRuleTypeCondition(myConditionType, null));
+    @Nonnull
+    @Override
+    @RequiredReadAction
+    public Object[] getVariants() {
+        List<PsiXStyleSheetRule> cssRules = resolveRules(new XStyleSheetRuleTypeCondition(myConditionType, null));
 
-		List<LookupElementBuilder> items = new ArrayList<>(cssRules.size());
-		for(PsiXStyleSheetRule cssRule : cssRules)
-		{
-			for(XStyleSheetSelector cssSelectorDeclaration : cssRule.getSelectors())
-			{
-				XStyleSheetSimpleSelector[] simpleSelectors = cssSelectorDeclaration.getSimpleSelectors();
-				if(simpleSelectors.length == 0)
-				{
-					continue;
-				}
+        List<LookupElementBuilder> items = new ArrayList<>(cssRules.size());
+        for (PsiXStyleSheetRule cssRule : cssRules) {
+            for (XStyleSheetSelector cssSelectorDeclaration : cssRule.getSelectors()) {
+                XStyleSheetSimpleSelector[] simpleSelectors = cssSelectorDeclaration.getSimpleSelectors();
+                if (simpleSelectors.length == 0) {
+                    continue;
+                }
 
-				XStyleSheetSimpleSelector first = simpleSelectors[0];
-				if(first.getType() == XStyleSheetSimpleSelectorType.ANY)
-				{
-					continue;
-				}
+                XStyleSheetSimpleSelector first = simpleSelectors[0];
+                if (first.getType() == XStyleSheetSimpleSelectorType.ANY) {
+                    continue;
+                }
 
-				LookupElementBuilder item = LookupElementBuilder.create(first.getName());
-				item = item.withIcon(IconDescriptorUpdaters.getIcon(cssSelectorDeclaration, 0));
-				item = item.withTypeText(cssRule.getContainingFile().getName(), true);
-				items.add(item);
-			}
-		}
-		return ArrayUtil.toObjectArray(items);
-	}
+                LookupElementBuilder item = LookupElementBuilder.create(first.getName());
+                item = item.withIcon(IconDescriptorUpdaters.getIcon(cssSelectorDeclaration, 0));
+                item = item.withTypeText(cssRule.getContainingFile().getName(), true);
+                items.add(item);
+            }
+        }
+        return ArrayUtil.toObjectArray(items);
+    }
 
-	@RequiredReadAction
-	private List<PsiXStyleSheetRule> resolveRules(XStyleRuleCondition condition)
-	{
-		List<PsiXStyleSheetRule> resolveResults = new ArrayList<>();
-		PsiElement[] psiElements = PsiTreeUtil.collectElements(getElement().getContainingFile(), new HtmlHrefToCssFileReferenceProvider.CssFileHrefFilter());
-		for(PsiElement temp : psiElements)
-		{
-			PsiReference[] references = temp.getReferences();
-			for(PsiReference reference : references)
-			{
-				PsiElement resolve = reference.resolve();
-				if(resolve instanceof XStyleSheetFile)
-				{
-					List<PsiXStyleSheetRule> rules = ((XStyleSheetFile) resolve).getRoot().findRules(condition);
-					for(PsiXStyleSheetRule rule : rules)
-					{
-						resolveResults.add(rule);
-					}
-				}
-			}
-		}
-		return resolveResults;
-	}
+    @RequiredReadAction
+    private List<PsiXStyleSheetRule> resolveRules(XStyleRuleCondition condition) {
+        List<PsiXStyleSheetRule> resolveResults = new ArrayList<>();
+        PsiElement[] psiElements =
+            PsiTreeUtil.collectElements(getElement().getContainingFile(), new HtmlHrefToCssFileReferenceProvider.CssFileHrefFilter());
+        for (PsiElement temp : psiElements) {
+            PsiReference[] references = temp.getReferences();
+            for (PsiReference reference : references) {
+                PsiElement resolve = reference.resolve();
+                if (resolve instanceof XStyleSheetFile styleSheetFile) {
+                    List<PsiXStyleSheetRule> rules = styleSheetFile.getRoot().findRules(condition);
+                    for (PsiXStyleSheetRule rule : rules) {
+                        resolveResults.add(rule);
+                    }
+                }
+            }
+        }
+        return resolveResults;
+    }
 }

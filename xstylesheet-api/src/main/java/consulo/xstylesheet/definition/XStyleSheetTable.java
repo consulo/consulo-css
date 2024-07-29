@@ -24,11 +24,10 @@ import java.util.Collection;
  * @author VISTALL
  * @since 03.07.13.
  */
-public interface XStyleSheetTable
-{
-	@Nullable
-	XStyleSheetProperty findProperty(@Nonnull String propertyName);
+public interface XStyleSheetTable {
+    @Nullable
+    XStyleSheetProperty findProperty(@Nonnull String propertyName);
 
-	@Nonnull
-	Collection<XStyleSheetProperty> getProperties();
+    @Nonnull
+    Collection<XStyleSheetProperty> getProperties();
 }

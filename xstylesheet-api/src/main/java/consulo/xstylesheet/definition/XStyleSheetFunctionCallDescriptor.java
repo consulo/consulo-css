@@ -31,11 +31,10 @@ import java.util.List;
  * @since 11-Sep-22
  */
 @ExtensionAPI(ComponentScope.APPLICATION)
-public interface XStyleSheetFunctionCallDescriptor
-{
-	@RequiredReadAction
-	boolean isMyFunction(PsiXStyleSheetFunctionCall functionCall);
+public interface XStyleSheetFunctionCallDescriptor {
+    @RequiredReadAction
+    boolean isMyFunction(PsiXStyleSheetFunctionCall functionCall);
 
-	@RequiredReadAction
-	List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetFunctionCall functionCall);
+    @RequiredReadAction
+    List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetFunctionCall functionCall);
 }

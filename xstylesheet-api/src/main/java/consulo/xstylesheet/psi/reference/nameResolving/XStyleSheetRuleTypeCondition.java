@@ -29,38 +29,28 @@ import javax.annotation.Nullable;
  * @author VISTALL
  * @since 07.07.13.
  */
-public class XStyleSheetRuleTypeCondition implements XStyleRuleCondition
-{
-	private final XStyleSheetSimpleSelectorType myConditionType;
-	private final String myName;
+public class XStyleSheetRuleTypeCondition implements XStyleRuleCondition {
+    private final XStyleSheetSimpleSelectorType myConditionType;
+    private final String myName;
 
-	public XStyleSheetRuleTypeCondition(@Nonnull XStyleSheetSimpleSelectorType conditionType, @Nullable String name)
-	{
-		myConditionType = conditionType;
-		myName = name;
-	}
+    public XStyleSheetRuleTypeCondition(@Nonnull XStyleSheetSimpleSelectorType conditionType, @Nullable String name) {
+        myConditionType = conditionType;
+        myName = name;
+    }
 
-	@Override
-	@RequiredReadAction
-	public boolean isAccepted(PsiElement psiElement)
-	{
-		if(psiElement instanceof XStyleSheetSelector)
-		{
-			XStyleSheetSimpleSelector[] simpleSelectors = ((XStyleSheetSelector) psiElement).getSimpleSelectors();
-			if(simpleSelectors.length == 0)
-			{
-				return false;
-			}
+    @Override
+    @RequiredReadAction
+    public boolean isAccepted(PsiElement psiElement) {
+        if (psiElement instanceof XStyleSheetSelector selector) {
+            XStyleSheetSimpleSelector[] simpleSelectors = selector.getSimpleSelectors();
+            if (simpleSelectors.length == 0) {
+                return false;
+            }
 
-			XStyleSheetSimpleSelector first = simpleSelectors[0];
-			if(first.getType() != myConditionType)
-			{
-				return false;
-			}
+            XStyleSheetSimpleSelector first = simpleSelectors[0];
+            return first.getType() == myConditionType && (myName == null || myName.equals(first.getName()));
+        }
 
-			return myName == null || myName.equals(first.getName());
-		}
-
-		return false;
-	}
+        return false;
+    }
 }
