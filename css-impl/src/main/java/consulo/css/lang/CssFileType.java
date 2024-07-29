@@ -28,40 +28,34 @@ import javax.annotation.Nullable;
  * @author VISTALL
  * @since 23:57/12.06.13
  */
-public class CssFileType extends LanguageFileType
-{
-	public static final CssFileType INSTANCE = new CssFileType();
+public class CssFileType extends LanguageFileType {
+    public static final CssFileType INSTANCE = new CssFileType();
 
-	private CssFileType()
-	{
-		super(CssLanguage.INSTANCE);
-	}
+    private CssFileType() {
+        super(CssLanguage.INSTANCE);
+    }
 
-	@Nonnull
-	@Override
-	public String getId()
-	{
-		return "CSS";
-	}
+    @Nonnull
+    @Override
+    public String getId() {
+        return "CSS";
+    }
 
-	@Nonnull
-	@Override
-	public LocalizeValue getDescription()
-	{
-		return LocalizeValue.localizeTODO("CSS");
-	}
+    @Nonnull
+    @Override
+    public LocalizeValue getDescription() {
+        return LocalizeValue.localizeTODO("CSS");
+    }
 
-	@Nonnull
-	@Override
-	public String getDefaultExtension()
-	{
-		return "css";
-	}
+    @Nonnull
+    @Override
+    public String getDefaultExtension() {
+        return "css";
+    }
 
-	@Nullable
-	@Override
-	public Image getIcon()
-	{
-		return CssIconGroup.cssfile();
-	}
+    @Nullable
+    @Override
+    public Image getIcon() {
+        return CssIconGroup.cssfile();
+    }
 }

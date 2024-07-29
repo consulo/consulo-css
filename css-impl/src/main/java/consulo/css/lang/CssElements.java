@@ -24,43 +24,54 @@ import consulo.language.ast.IElementType;
  * @author VISTALL
  * @since 03.07.13.
  */
-public interface CssElements
-{
-	IElementType ROOT = new ElementTypeAsPsiFactory("ROOT", CssLanguage.INSTANCE, CssRoot::new);
+public interface CssElements {
+    IElementType ROOT = new ElementTypeAsPsiFactory("ROOT", CssLanguage.INSTANCE, CssRoot::new);
 
-	IElementType RULE = new ElementTypeAsPsiFactory("RULE", CssLanguage.INSTANCE, CssRule::new);
+    IElementType RULE = new ElementTypeAsPsiFactory("RULE", CssLanguage.INSTANCE, CssRule::new);
 
-	IElementType BLOCK = new ElementTypeAsPsiFactory("BLOCK", CssLanguage.INSTANCE, CssBlock::new);
+    IElementType BLOCK = new ElementTypeAsPsiFactory("BLOCK", CssLanguage.INSTANCE, CssBlock::new);
 
-	IElementType PROPERTY = new ElementTypeAsPsiFactory("PROPERTY", CssLanguage.INSTANCE, CssProperty::new);
+    IElementType PROPERTY = new ElementTypeAsPsiFactory("PROPERTY", CssLanguage.INSTANCE, CssProperty::new);
 
-	IElementType VARIABLE = new ElementTypeAsPsiFactory("VARIABLE", CssLanguage.INSTANCE, CssVariable::new);
+    IElementType VARIABLE = new ElementTypeAsPsiFactory("VARIABLE", CssLanguage.INSTANCE, CssVariable::new);
 
-	IElementType VARIABLE_REFERENCE = new ElementTypeAsPsiFactory("VARIABLE_REFERENCE", CssLanguage.INSTANCE, CssVariableReference::new);
+    IElementType VARIABLE_REFERENCE =
+        new ElementTypeAsPsiFactory("VARIABLE_REFERENCE", CssLanguage.INSTANCE, CssVariableReference::new);
 
-	IElementType PROPERTY_VALUE_PART = new ElementTypeAsPsiFactory("PROPERTY_VALUE_PART", CssLanguage.INSTANCE, CssPropertyValuePart::new);
+    IElementType PROPERTY_VALUE_PART =
+        new ElementTypeAsPsiFactory("PROPERTY_VALUE_PART", CssLanguage.INSTANCE, CssPropertyValuePart::new);
 
-	IElementType SELECTOR_SUFFIX_LIST = new ElementTypeAsPsiFactory("SELECTOR_SUFFIX_LIST", CssLanguage.INSTANCE, CssSelectorSuffixListImpl::new);
+    IElementType SELECTOR_SUFFIX_LIST =
+        new ElementTypeAsPsiFactory("SELECTOR_SUFFIX_LIST", CssLanguage.INSTANCE, CssSelectorSuffixListImpl::new);
 
-	IElementType SELECTOR_LIST = new ElementTypeAsPsiFactory("SELECTOR_LIST", CssLanguage.INSTANCE, CssSelectorListImpl::new);
+    IElementType SELECTOR_LIST = new ElementTypeAsPsiFactory("SELECTOR_LIST", CssLanguage.INSTANCE, CssSelectorListImpl::new);
 
-	IElementType SELECTOR = new ElementTypeAsPsiFactory("SELECTOR", CssLanguage.INSTANCE, CssSelectorImpl::new);
+    IElementType SELECTOR = new ElementTypeAsPsiFactory("SELECTOR", CssLanguage.INSTANCE, CssSelectorImpl::new);
 
-	IElementType SIMPLE_SELECTOR = new ElementTypeAsPsiFactory("SIMPLE_SELECTOR", CssLanguage.INSTANCE, CssSimpleSelectorImpl::new);
+    IElementType SIMPLE_SELECTOR =
+        new ElementTypeAsPsiFactory("SIMPLE_SELECTOR", CssLanguage.INSTANCE, CssSimpleSelectorImpl::new);
 
-	IElementType SELECTOR_PSEUDO_CLASS = new ElementTypeAsPsiFactory("SELECTOR_PSEUDO_CLASS", CssLanguage.INSTANCE, CssSelectorPseudoClass::new);
+    IElementType SELECTOR_PSEUDO_CLASS =
+        new ElementTypeAsPsiFactory("SELECTOR_PSEUDO_CLASS", CssLanguage.INSTANCE, CssSelectorPseudoClass::new);
 
-	IElementType SELECTOR_PSEUDO_CLASS_ARGUMENT_LIST = new ElementTypeAsPsiFactory("SELECTOR_PSEUDO_CLASS_ARGUMENT_LIST", CssLanguage.INSTANCE, CssSelectorPseudoClassArgumentList::new);
+    IElementType SELECTOR_PSEUDO_CLASS_ARGUMENT_LIST = new ElementTypeAsPsiFactory(
+        "SELECTOR_PSEUDO_CLASS_ARGUMENT_LIST",
+        CssLanguage.INSTANCE,
+        CssSelectorPseudoClassArgumentList::new
+    );
 
-	IElementType SELECTOR_ATTRIBUTE = new ElementTypeAsPsiFactory("SELECTOR_ATTRIBUTE", CssLanguage.INSTANCE, CssSelectorAttribute::new);
+    IElementType SELECTOR_ATTRIBUTE =
+        new ElementTypeAsPsiFactory("SELECTOR_ATTRIBUTE", CssLanguage.INSTANCE, CssSelectorAttribute::new);
 
-	IElementType SELECTOR_ATTRIBUTE_LIST = new ElementTypeAsPsiFactory("SELECTOR_ATTRIBUTE_LIST", CssLanguage.INSTANCE, CssSelectorAttributeList::new);
+    IElementType SELECTOR_ATTRIBUTE_LIST =
+        new ElementTypeAsPsiFactory("SELECTOR_ATTRIBUTE_LIST", CssLanguage.INSTANCE, CssSelectorAttributeList::new);
 
-	IElementType FUNCTION_CALL = new ElementTypeAsPsiFactory("FUNCTION_CALL", CssLanguage.INSTANCE, CssFunctionCall::new);
+    IElementType FUNCTION_CALL = new ElementTypeAsPsiFactory("FUNCTION_CALL", CssLanguage.INSTANCE, CssFunctionCall::new);
 
-	IElementType FUNCTION_CALL_PARAMETER_LIST = new ElementTypeAsPsiFactory("FUNCTION_CALL_PARAMETER_LIST", CssLanguage.INSTANCE, CssFunctionCallParameterList::new);
+    IElementType FUNCTION_CALL_PARAMETER_LIST =
+        new ElementTypeAsPsiFactory("FUNCTION_CALL_PARAMETER_LIST", CssLanguage.INSTANCE, CssFunctionCallParameterList::new);
 
-	IElementType CHARSET = new ElementTypeAsPsiFactory("CHARSET", CssLanguage.INSTANCE, CssCharset::new);
+    IElementType CHARSET = new ElementTypeAsPsiFactory("CHARSET", CssLanguage.INSTANCE, CssCharset::new);
 
-	IElementType IMPORT = new ElementTypeAsPsiFactory("IMPORT", CssLanguage.INSTANCE, CssImport::new);
+    IElementType IMPORT = new ElementTypeAsPsiFactory("IMPORT", CssLanguage.INSTANCE, CssImport::new);
 }

@@ -28,19 +28,16 @@ import javax.annotation.Nonnull;
  * @since 03.07.13.
  */
 @ExtensionImpl
-public class CssSyntaxHighlighterFactory extends SingleLazyInstanceSyntaxHighlighterFactory
-{
-	@Nonnull
-	@Override
-	protected SyntaxHighlighter createHighlighter()
-	{
-		return new CssSyntaxHighlighter();
-	}
+public class CssSyntaxHighlighterFactory extends SingleLazyInstanceSyntaxHighlighterFactory {
+    @Nonnull
+    @Override
+    protected SyntaxHighlighter createHighlighter() {
+        return new CssSyntaxHighlighter();
+    }
 
-	@Nonnull
-	@Override
-	public Language getLanguage()
-	{
-		return CssLanguage.INSTANCE;
-	}
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return CssLanguage.INSTANCE;
+    }
 }

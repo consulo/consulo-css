@@ -29,51 +29,43 @@ import java.util.List;
  * @author VISTALL
  * @since 03.07.13.
  */
-public class XStyleSheetPropertyValuePartImpl implements XStyleSheetPropertyValuePart
-{
-	private final XStyleSheetPropertyValuePartParser myParser;
-	private final String myValue;
+public class XStyleSheetPropertyValuePartImpl implements XStyleSheetPropertyValuePart {
+    private final XStyleSheetPropertyValuePartParser myParser;
+    private final String myValue;
 
-	public XStyleSheetPropertyValuePartImpl(XStyleSheetPropertyValuePartParser parser, String value)
-	{
-		myParser = parser;
-		myValue = value;
-	}
+    public XStyleSheetPropertyValuePartImpl(XStyleSheetPropertyValuePartParser parser, String value) {
+        myParser = parser;
+        myValue = value;
+    }
 
-	@Override
-	public XStyleSheetPropertyValuePartParser getParser()
-	{
-		return myParser;
-	}
+    @Override
+    public XStyleSheetPropertyValuePartParser getParser() {
+        return myParser;
+    }
 
-	@Nonnull
-	@Override
-	public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart)
-	{
-		return myParser.createHighlights(valuePart);
-	}
+    @Nonnull
+    @Override
+    public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart) {
+        return myParser.createHighlights(valuePart);
+    }
 
-	@Override
-	public String getValue()
-	{
-		return myValue;
-	}
+    @Override
+    public String getValue() {
+        return myValue;
+    }
 
-	@Override
-	public Object getNativeValue(PsiXStyleSheetPropertyValuePart part)
-	{
-		return myParser.getNativeValue(part, myValue);
-	}
+    @Override
+    public Object getNativeValue(PsiXStyleSheetPropertyValuePart part) {
+        return myParser.getNativeValue(part, myValue);
+    }
 
-	@Override
-	public boolean setNativeValue(@Nonnull XStyleSheetPropertyValuePart part, Object value)
-	{
-		return false;
-	}
+    @Override
+    public boolean setNativeValue(@Nonnull XStyleSheetPropertyValuePart part, Object value) {
+        return false;
+    }
 
-	@Override
-	public List<LookupElement> getLookupElements()
-	{
-		return myParser.getLookupElements(myValue);
-	}
+    @Override
+    public List<LookupElement> getLookupElements() {
+        return myParser.getLookupElements(myValue);
+    }
 }

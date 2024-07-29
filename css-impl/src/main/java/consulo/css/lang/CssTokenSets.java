@@ -22,13 +22,13 @@ import consulo.language.ast.TokenSet;
  * @author VISTALL
  * @since 03.07.13.
  */
-public interface CssTokenSets
-{
-	TokenSet WHITE_SPACES = TokenSet.create(CssTokens.WHITE_SPACE);
+public interface CssTokenSets {
+    TokenSet WHITE_SPACES = TokenSet.create(CssTokens.WHITE_SPACE);
 
-	TokenSet STRINGS = TokenSet.create(CssTokens.STRING);
+    TokenSet STRINGS = TokenSet.create(CssTokens.STRING);
 
-	TokenSet COMMENTS = TokenSet.create(CssTokens.BLOCK_COMMENT);
+    TokenSet COMMENTS = TokenSet.create(CssTokens.BLOCK_COMMENT);
 
-	TokenSet SELECTOR_ATTRIBUTE_LIST_EQ = TokenSet.create(CssTokens.EQ, CssTokens.DOL_EQ, CssTokens.MUL_EQ, CssTokens.OR_EQ, CssTokens.TILDE_EQ, CssTokens.XOR_EQ);
+    TokenSet SELECTOR_ATTRIBUTE_LIST_EQ =
+        TokenSet.create(CssTokens.EQ, CssTokens.DOL_EQ, CssTokens.MUL_EQ, CssTokens.OR_EQ, CssTokens.TILDE_EQ, CssTokens.XOR_EQ);
 }

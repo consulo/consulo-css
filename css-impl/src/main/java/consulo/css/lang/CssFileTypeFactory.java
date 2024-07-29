@@ -27,11 +27,9 @@ import javax.annotation.Nonnull;
  * @since 23:58/12.06.13
  */
 @ExtensionImpl
-public class CssFileTypeFactory extends FileTypeFactory
-{
-	@Override
-	public void createFileTypes(@Nonnull FileTypeConsumer fileTypeConsumer)
-	{
-		fileTypeConsumer.consume(CssFileType.INSTANCE);
-	}
+public class CssFileTypeFactory extends FileTypeFactory {
+    @Override
+    public void createFileTypes(@Nonnull FileTypeConsumer fileTypeConsumer) {
+        fileTypeConsumer.consume(CssFileType.INSTANCE);
+    }
 }

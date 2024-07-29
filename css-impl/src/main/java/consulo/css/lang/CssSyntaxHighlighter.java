@@ -31,40 +31,35 @@ import javax.annotation.Nonnull;
  * @author VISTALL
  * @since 03.07.13.
  */
-public class CssSyntaxHighlighter extends SyntaxHighlighterBase
-{
-	public static void storeDefaults(MultiMap<IElementType, TextAttributesKey> keys)
-	{
-		keys.putValue(CssTokens.NUMBER, XStyleSheetColors.NUMBER);
-		keys.putValue(CssTokens.STRING, XStyleSheetColors.STRING);
-		keys.putValue(CssTokens.BLOCK_COMMENT, XStyleSheetColors.BLOCK_COMMENT);
-		keys.putValue(CssTokens.IMPORTANT_KEYWORD, XStyleSheetColors.KEYWORD);
-		keys.putValue(CssTokens.CHARSET_KEYWORD, XStyleSheetColors.KEYWORD);
-		keys.putValue(CssTokens.FONT_FACE_KEYWORD, XStyleSheetColors.KEYWORD);
-		keys.putValue(CssTokens.IMPORT_KEYWORD, XStyleSheetColors.KEYWORD);
-		keys.putValue(CssTokens.FONT_FACE_KEYWORD, XStyleSheetColors.KEYWORD);
-		keys.putValue(CssTokens.NAMESPACE_KEYWORD, XStyleSheetColors.KEYWORD);
-		keys.putValue(CssTokens.BAD_CHARACTER, CodeInsightColors.UNMATCHED_BRACE_ATTRIBUTES);
-	}
+public class CssSyntaxHighlighter extends SyntaxHighlighterBase {
+    public static void storeDefaults(MultiMap<IElementType, TextAttributesKey> keys) {
+        keys.putValue(CssTokens.NUMBER, XStyleSheetColors.NUMBER);
+        keys.putValue(CssTokens.STRING, XStyleSheetColors.STRING);
+        keys.putValue(CssTokens.BLOCK_COMMENT, XStyleSheetColors.BLOCK_COMMENT);
+        keys.putValue(CssTokens.IMPORTANT_KEYWORD, XStyleSheetColors.KEYWORD);
+        keys.putValue(CssTokens.CHARSET_KEYWORD, XStyleSheetColors.KEYWORD);
+        keys.putValue(CssTokens.FONT_FACE_KEYWORD, XStyleSheetColors.KEYWORD);
+        keys.putValue(CssTokens.IMPORT_KEYWORD, XStyleSheetColors.KEYWORD);
+        keys.putValue(CssTokens.FONT_FACE_KEYWORD, XStyleSheetColors.KEYWORD);
+        keys.putValue(CssTokens.NAMESPACE_KEYWORD, XStyleSheetColors.KEYWORD);
+        keys.putValue(CssTokens.BAD_CHARACTER, CodeInsightColors.UNMATCHED_BRACE_ATTRIBUTES);
+    }
 
-	private final MultiMap<IElementType, TextAttributesKey> myKeys = MultiMap.createLinked();
+    private final MultiMap<IElementType, TextAttributesKey> myKeys = MultiMap.createLinked();
 
-	public CssSyntaxHighlighter()
-	{
-		storeDefaults(myKeys);
-	}
+    public CssSyntaxHighlighter() {
+        storeDefaults(myKeys);
+    }
 
-	@Nonnull
-	@Override
-	public Lexer getHighlightingLexer()
-	{
-		return new _CssLexer();
-	}
+    @Nonnull
+    @Override
+    public Lexer getHighlightingLexer() {
+        return new _CssLexer();
+    }
 
-	@Nonnull
-	@Override
-	public TextAttributesKey[] getTokenHighlights(@Nonnull IElementType elementType)
-	{
-		return myKeys.get(elementType).toArray(new TextAttributesKey[0]);
-	}
+    @Nonnull
+    @Override
+    public TextAttributesKey[] getTokenHighlights(@Nonnull IElementType elementType) {
+        return myKeys.get(elementType).toArray(new TextAttributesKey[0]);
+    }
 }
