@@ -29,39 +29,32 @@ import java.util.List;
  * @author VISTALL
  * @since 03.07.13.
  */
-public class MergedXStyleSheetTable implements XStyleSheetTable
-{
-	private final XStyleSheetTable[] myTables;
+public class MergedXStyleSheetTable implements XStyleSheetTable {
+    private final XStyleSheetTable[] myTables;
 
-	public MergedXStyleSheetTable(XStyleSheetTable... tables)
-	{
-		myTables = tables;
-	}
+    public MergedXStyleSheetTable(XStyleSheetTable... tables) {
+        myTables = tables;
+    }
 
-	@Nullable
-	@Override
-	public XStyleSheetProperty findProperty(@Nonnull String propertyName)
-	{
-		for(XStyleSheetTable myTable : myTables)
-		{
-			XStyleSheetProperty property = myTable.findProperty(propertyName);
-			if(property != null)
-			{
-				return property;
-			}
-		}
-		return null;
-	}
+    @Nullable
+    @Override
+    public XStyleSheetProperty findProperty(@Nonnull String propertyName) {
+        for (XStyleSheetTable myTable : myTables) {
+            XStyleSheetProperty property = myTable.findProperty(propertyName);
+            if (property != null) {
+                return property;
+            }
+        }
+        return null;
+    }
 
-	@Nonnull
-	@Override
-	public Collection<XStyleSheetProperty> getProperties()
-	{
-		List<XStyleSheetProperty> list = new ArrayList<>();
-		for(XStyleSheetTable table : myTables)
-		{
-			list.addAll(table.getProperties());
-		}
-		return list;
-	}
+    @Nonnull
+    @Override
+    public Collection<XStyleSheetProperty> getProperties() {
+        List<XStyleSheetProperty> list = new ArrayList<>();
+        for (XStyleSheetTable table : myTables) {
+            list.addAll(table.getProperties());
+        }
+        return list;
+    }
 }

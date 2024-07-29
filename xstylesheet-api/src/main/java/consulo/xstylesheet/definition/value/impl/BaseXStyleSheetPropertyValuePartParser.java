@@ -23,6 +23,5 @@ import consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
  * @since 09.10.13.
  */
 @Deprecated
-public class BaseXStyleSheetPropertyValuePartParser implements XStyleSheetPropertyValuePartParser
-{
+public class BaseXStyleSheetPropertyValuePartParser implements XStyleSheetPropertyValuePartParser {
 }

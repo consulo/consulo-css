@@ -25,18 +25,15 @@ import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
  * @author VISTALL
  * @since 03.07.13.
  */
-public class XStyleSheetPropertyValueEntryImpl implements XStyleSheetPropertyValueEntry
-{
-	private XStyleSheetPropertyValuePart[] myParts;
+public class XStyleSheetPropertyValueEntryImpl implements XStyleSheetPropertyValueEntry {
+    private XStyleSheetPropertyValuePart[] myParts;
 
-	public XStyleSheetPropertyValueEntryImpl(List<XStyleSheetPropertyValuePart> parts)
-	{
-		myParts = parts.toArray(new XStyleSheetPropertyValuePart[parts.size()]);
-	}
+    public XStyleSheetPropertyValueEntryImpl(List<XStyleSheetPropertyValuePart> parts) {
+        myParts = parts.toArray(new XStyleSheetPropertyValuePart[parts.size()]);
+    }
 
-	@Override
-	public XStyleSheetPropertyValuePart[] getParts()
-	{
-		return myParts;
-	}
+    @Override
+    public XStyleSheetPropertyValuePart[] getParts() {
+        return myParts;
+    }
 }
