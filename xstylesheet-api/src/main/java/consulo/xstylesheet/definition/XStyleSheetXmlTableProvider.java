@@ -35,88 +35,81 @@ import java.util.function.Supplier;
  * @author VISTALL
  * @since 03.07.13.
  */
-public abstract class XStyleSheetXmlTableProvider implements XStyleSheetTableProvider
-{
-	private static final Logger LOGGER = Logger.getInstance(XStyleSheetXmlTableProvider.class);
+public abstract class XStyleSheetXmlTableProvider implements XStyleSheetTableProvider {
+    private static final Logger LOGGER = Logger.getInstance(XStyleSheetXmlTableProvider.class);
 
-	private Supplier<XStyleSheetTable> myLazyTableValue;
+    private Supplier<XStyleSheetTable> myLazyTableValue;
 
-	public void init(@Nonnull URL url)
-	{
-		myLazyTableValue = LazyValue.notNull(() -> loadDocument(url));
-	}
+    public void init(@Nonnull URL url) {
+        myLazyTableValue = LazyValue.notNull(() -> loadDocument(url));
+    }
 
-	@Nullable
-	@Override
-	public XStyleSheetTable getTableForFile(@Nonnull PsiFile file)
-	{
-		return myLazyTableValue.get();
-	}
+    @Nullable
+    @Override
+    public XStyleSheetTable getTableForFile(@Nonnull PsiFile file) {
+        return myLazyTableValue.get();
+    }
 
-	public XStyleSheetTable getTable()
-	{
-		return myLazyTableValue.get();
-	}
+    public XStyleSheetTable getTable() {
+        return myLazyTableValue.get();
+    }
 
-	@SuppressWarnings("unchecked")
-	private XStyleSheetTable loadDocument(URL url)
-	{
-		try
-		{
-			Map<String, XStyleSheetPropertyValuePartParser> valueDefinitions = new HashMap<String, XStyleSheetPropertyValuePartParser>();
-			List<XStyleSheetProperty> properties = new ArrayList<XStyleSheetProperty>();
+    @SuppressWarnings("unchecked")
+    private XStyleSheetTable loadDocument(URL url) {
+        try {
+            Map<String, XStyleSheetPropertyValuePartParser> valueDefinitions = new HashMap<>();
+            List<XStyleSheetProperty> properties = new ArrayList<>();
 
-			Document document = JDOMUtil.loadDocument(url);
-			for(Element element : document.getRootElement().getChildren())
-			{
-				String name = element.getName();
-				if("value-definition".equals(name))
-				{
-					String tempName = element.getAttributeValue("name");
-					Class<? extends XStyleSheetPropertyValuePartParser> clazz = (Class<? extends XStyleSheetPropertyValuePartParser>) Class.forName(element.getAttributeValue("implClass"), true, getClass().getClassLoader());
+            Document document = JDOMUtil.loadDocument(url);
+            for (Element element : document.getRootElement().getChildren()) {
+                String name = element.getName();
+                if ("value-definition".equals(name)) {
+                    String tempName = element.getAttributeValue("name");
+                    Class<? extends XStyleSheetPropertyValuePartParser> clazz =
+                        (Class<? extends XStyleSheetPropertyValuePartParser>)Class.forName(element.getAttributeValue("implClass"),
+                            true,
+                            getClass().getClassLoader()
+                        );
 
-					valueDefinitions.put(tempName, clazz.newInstance());
-				}
-				else if("property".equals(name))
-				{
-					String propertyName = element.getAttributeValue("name");
+                    valueDefinitions.put(tempName, clazz.newInstance());
+                }
+                else if ("property".equals(name)) {
+                    String propertyName = element.getAttributeValue("name");
 
-					List<XStyleSheetPropertyValueEntry> validEntries = parseEntries(valueDefinitions, element.getChild("valid-values"));
-					List<XStyleSheetPropertyValueEntry> initialEntries = parseEntries(valueDefinitions, element.getChild("initial-values"));
+                    List<XStyleSheetPropertyValueEntry> validEntries = parseEntries(valueDefinitions, element.getChild("valid-values"));
+                    List<XStyleSheetPropertyValueEntry> initialEntries = parseEntries(valueDefinitions, element.getChild("initial-values"));
 
-					properties.add(new XStyleSheetPropertyImpl(propertyName, validEntries, initialEntries));
-				}
-			}
+                    properties.add(new XStyleSheetPropertyImpl(propertyName, validEntries, initialEntries));
+                }
+            }
 
-			return new XStyleSheetTableImpl(properties);
-		}
-		catch(Exception e)
-		{
-			LOGGER.error(e);
-		}
-		return EmptyXStyleSheetTable.INSTANCE;
-	}
+            return new XStyleSheetTableImpl(properties);
+        }
+        catch (Exception e) {
+            LOGGER.error(e);
+        }
+        return EmptyXStyleSheetTable.INSTANCE;
+    }
 
-	private List<XStyleSheetPropertyValueEntry> parseEntries(Map<String, XStyleSheetPropertyValuePartParser> valueDefinitions, Element parent)
-	{
-		if(parent == null)
-		{
-			return Collections.emptyList();
-		}
+    private List<XStyleSheetPropertyValueEntry> parseEntries(
+        Map<String, XStyleSheetPropertyValuePartParser> valueDefinitions,
+        Element parent
+    ) {
+        if (parent == null) {
+            return Collections.emptyList();
+        }
 
-		List<XStyleSheetPropertyValueEntry> entries = new ArrayList<XStyleSheetPropertyValueEntry>();
-		// entry
-		for(Element child : parent.getChildren())
-		{
-			List<XStyleSheetPropertyValuePart> parts = new ArrayList<XStyleSheetPropertyValuePart>();
-			for(Element child2 : child.getChildren())
-			{
-				XStyleSheetPropertyValuePartParser parser = valueDefinitions.get(child2.getName());
+        List<XStyleSheetPropertyValueEntry> entries = new ArrayList<>();
+        // entry
+        for (Element child : parent.getChildren()) {
+            List<XStyleSheetPropertyValuePart> parts = new ArrayList<>();
+            for (Element child2 : child.getChildren()) {
+                XStyleSheetPropertyValuePartParser parser = valueDefinitions.get(child2.getName());
 
-				parts.add(new XStyleSheetPropertyValuePartImpl(parser, StringUtil.nullize(child2.getText(), true)));
-			}
-			entries.add(new XStyleSheetPropertyValueEntryImpl(parts));
-		}
-		return entries;
-	}
+                parts.add(new XStyleSheetPropertyValuePartImpl(parser, StringUtil.nullize(child2.getText(), true)));
+            }
+            entries.add(new XStyleSheetPropertyValueEntryImpl(parts));
+        }
+        return entries;
+    }
 }

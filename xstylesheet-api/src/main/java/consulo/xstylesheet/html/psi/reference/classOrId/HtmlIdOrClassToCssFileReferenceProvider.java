@@ -30,25 +30,21 @@ import javax.annotation.Nonnull;
  * @author VISTALL
  * @since 07.07.13.
  */
-public class HtmlIdOrClassToCssFileReferenceProvider extends PsiReferenceProvider
-{
-	private final XStyleSheetSimpleSelectorType myCssRefTo;
+public class HtmlIdOrClassToCssFileReferenceProvider extends PsiReferenceProvider {
+    private final XStyleSheetSimpleSelectorType myCssRefTo;
 
-	public HtmlIdOrClassToCssFileReferenceProvider(XStyleSheetSimpleSelectorType cssRefTo)
-	{
-		myCssRefTo = cssRefTo;
-	}
+    public HtmlIdOrClassToCssFileReferenceProvider(XStyleSheetSimpleSelectorType cssRefTo) {
+        myCssRefTo = cssRefTo;
+    }
 
-	@Nonnull
-	@Override
-	public PsiReference[] getReferencesByElement(@Nonnull PsiElement psiElement, @Nonnull ProcessingContext processingContext)
-	{
-		ASTNode value = psiElement.getNode().findChildByType(XmlTokenType.XML_ATTRIBUTE_VALUE_TOKEN);
-		if(value == null)
-		{
-			return PsiReference.EMPTY_ARRAY;
-		}
+    @Nonnull
+    @Override
+    public PsiReference[] getReferencesByElement(@Nonnull PsiElement psiElement, @Nonnull ProcessingContext processingContext) {
+        ASTNode value = psiElement.getNode().findChildByType(XmlTokenType.XML_ATTRIBUTE_VALUE_TOKEN);
+        if (value == null) {
+            return PsiReference.EMPTY_ARRAY;
+        }
 
-		return new PsiReference[]{new HtmlIdOrClassToCssFileReference(value.getPsi(), myCssRefTo)};
-	}
+        return new PsiReference[]{new HtmlIdOrClassToCssFileReference(value.getPsi(), myCssRefTo)};
+    }
 }

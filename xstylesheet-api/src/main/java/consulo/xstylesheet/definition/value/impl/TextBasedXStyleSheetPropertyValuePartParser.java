@@ -26,14 +26,12 @@ import javax.annotation.Nullable;
  * @author VISTALL
  * @since 09.10.13.
  */
-public abstract class TextBasedXStyleSheetPropertyValuePartParser implements XStyleSheetPropertyValuePartParser
-{
-	@Nullable
-	@Override
-	public Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value)
-	{
-		return fromString(valuePart.getText().trim(), value);
-	}
+public abstract class TextBasedXStyleSheetPropertyValuePartParser implements XStyleSheetPropertyValuePartParser {
+    @Nullable
+    @Override
+    public Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value) {
+        return fromString(valuePart.getText().trim(), value);
+    }
 
-	public abstract Object fromString(@Nonnull String valuePart, String value);
+    public abstract Object fromString(@Nonnull String valuePart, String value);
 }

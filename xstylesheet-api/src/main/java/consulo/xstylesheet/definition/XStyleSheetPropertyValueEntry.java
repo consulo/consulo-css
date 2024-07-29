@@ -20,9 +20,8 @@ package consulo.xstylesheet.definition;
  * @author VISTALL
  * @since 03.07.13.
  */
-public interface XStyleSheetPropertyValueEntry
-{
-	XStyleSheetPropertyValueEntry[] EMPTY_ARRAY = new XStyleSheetPropertyValueEntry[0];
+public interface XStyleSheetPropertyValueEntry {
+    XStyleSheetPropertyValueEntry[] EMPTY_ARRAY = new XStyleSheetPropertyValueEntry[0];
 
-	XStyleSheetPropertyValuePart[] getParts();
+    XStyleSheetPropertyValuePart[] getParts();
 }
