@@ -33,71 +33,57 @@ import javax.annotation.Nullable;
  * @author VISTALL
  * @since 08.10.13.
  */
-public class CssFunctionCall extends CssElement implements PsiXStyleSheetFunctionCall
-{
-	private static class Ref extends PsiReferenceBase<PsiElement>
-	{
-		@RequiredReadAction
-		public Ref(@Nonnull CssFunctionCall element)
-		{
-			super(element, new TextRange(0, element.getCallElement().getTextLength()));
-		}
+public class CssFunctionCall extends CssElement implements PsiXStyleSheetFunctionCall {
+    private static class Ref extends PsiReferenceBase<PsiElement> {
+        @RequiredReadAction
+        public Ref(@Nonnull CssFunctionCall element) {
+            super(element, new TextRange(0, element.getCallElement().getTextLength()));
+        }
 
-		@RequiredReadAction
-		@Nullable
-		@Override
-		public PsiElement resolve()
-		{
-			return new BuildInSymbolElementImpl(getElement());
-		}
-	}
+        @RequiredReadAction
+        @Nullable
+        @Override
+        public PsiElement resolve() {
+            return new BuildInSymbolElementImpl(getElement());
+        }
+    }
 
-	public CssFunctionCall(@Nonnull ASTNode node)
-	{
-		super(node);
-	}
+    public CssFunctionCall(@Nonnull ASTNode node) {
+        super(node);
+    }
 
-	@Override
-	@RequiredReadAction
-	public PsiReference getReference()
-	{
-		return new Ref(this);
-	}
+    @Override
+    @RequiredReadAction
+    public PsiReference getReference() {
+        return new Ref(this);
+    }
 
-	@Nonnull
-	@Override
-	@RequiredReadAction
-	public PsiElement getCallElement()
-	{
-		return findNotNullChildByType(CssTokens.IDENTIFIER);
-	}
+    @Nonnull
+    @Override
+    @RequiredReadAction
+    public PsiElement getCallElement() {
+        return findNotNullChildByType(CssTokens.IDENTIFIER);
+    }
 
-	@Nonnull
-	@RequiredReadAction
-	@Override
-	public String getCallName()
-	{
-		PsiElement nameIdentifier = getCallElement();
+    @Nonnull
+    @RequiredReadAction
+    @Override
+    public String getCallName() {
+        PsiElement nameIdentifier = getCallElement();
 
-		return nameIdentifier.getText();
-	}
+        return nameIdentifier.getText();
+    }
 
-	@RequiredReadAction
-	@Override
-	public PsiXStyleSheetFunctionCallParameterList getParameterList()
-	{
-		return findChildByClass(PsiXStyleSheetFunctionCallParameterList.class);
-	}
+    @RequiredReadAction
+    @Override
+    public PsiXStyleSheetFunctionCallParameterList getParameterList() {
+        return findChildByClass(PsiXStyleSheetFunctionCallParameterList.class);
+    }
 
-	@RequiredReadAction
-	@Override
-	public PsiElement[] getParameters()
-	{
-		PsiXStyleSheetFunctionCallParameterList parameterList = getParameterList();
-		if(parameterList == null)
-		{
-			return PsiElement.EMPTY_ARRAY;
-		}
-		return parameterList.getParameters();
-	}
+    @RequiredReadAction
+    @Override
+    public PsiElement[] getParameters() {
+        PsiXStyleSheetFunctionCallParameterList parameterList = getParameterList();
+        return parameterList == null ? PsiElement.EMPTY_ARRAY : parameterList.getParameters();
+    }
 }

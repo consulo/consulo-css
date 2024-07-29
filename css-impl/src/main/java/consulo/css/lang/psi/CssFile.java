@@ -35,37 +35,31 @@ import java.util.Objects;
  * @author VISTALL
  * @since 02.07.13.
  */
-public class CssFile extends PsiFileBase implements XStyleSheetFile
-{
-	public CssFile(@Nonnull FileViewProvider provider)
-	{
-		super(provider, CssLanguage.INSTANCE);
-	}
+public class CssFile extends PsiFileBase implements XStyleSheetFile {
+    public CssFile(@Nonnull FileViewProvider provider) {
+        super(provider, CssLanguage.INSTANCE);
+    }
 
-	@Override
-	public void accept(@Nonnull PsiElementVisitor psiElementVisitor)
-	{
-		psiElementVisitor.visitFile(this);
-	}
+    @Override
+    public void accept(@Nonnull PsiElementVisitor psiElementVisitor) {
+        psiElementVisitor.visitFile(this);
+    }
 
-	@Nullable
-	@RequiredReadAction
-	public PsiXStyleSheetRule findRule(@Nonnull XStyleRuleCondition condition)
-	{
-		return getRoot().findRule(condition);
-	}
+    @Nullable
+    @RequiredReadAction
+    public PsiXStyleSheetRule findRule(@Nonnull XStyleRuleCondition condition) {
+        return getRoot().findRule(condition);
+    }
 
-	@Nonnull
-	@RequiredReadAction
-	public List<PsiXStyleSheetRule> findRules(@Nonnull XStyleRuleCondition condition)
-	{
-		return getRoot().findRules(condition);
-	}
+    @Nonnull
+    @RequiredReadAction
+    public List<PsiXStyleSheetRule> findRules(@Nonnull XStyleRuleCondition condition) {
+        return getRoot().findRules(condition);
+    }
 
-	@Nonnull
-	@Override
-	public XStyleSheetRoot getRoot()
-	{
-		return Objects.requireNonNull(findChildByClass(XStyleSheetRoot.class));
-	}
+    @Nonnull
+    @Override
+    public XStyleSheetRoot getRoot() {
+        return Objects.requireNonNull(findChildByClass(XStyleSheetRoot.class));
+    }
 }

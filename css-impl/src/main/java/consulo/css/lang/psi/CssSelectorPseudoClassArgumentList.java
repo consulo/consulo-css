@@ -24,10 +24,8 @@ import javax.annotation.Nonnull;
  * @author VISTALL
  * @since 14/05/2021
  */
-public class CssSelectorPseudoClassArgumentList extends CssElement
-{
-	public CssSelectorPseudoClassArgumentList(@Nonnull ASTNode node)
-	{
-		super(node);
-	}
+public class CssSelectorPseudoClassArgumentList extends CssElement {
+    public CssSelectorPseudoClassArgumentList(@Nonnull ASTNode node) {
+        super(node);
+    }
 }

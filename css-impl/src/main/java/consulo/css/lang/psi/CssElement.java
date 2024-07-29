@@ -25,10 +25,8 @@ import javax.annotation.Nonnull;
  * @author VISTALL
  * @since 03.07.13.
  */
-public abstract class CssElement extends ASTWrapperPsiElement
-{
-	public CssElement(@Nonnull ASTNode node)
-	{
-		super(node);
-	}
+public abstract class CssElement extends ASTWrapperPsiElement {
+    public CssElement(@Nonnull ASTNode node) {
+        super(node);
+    }
 }

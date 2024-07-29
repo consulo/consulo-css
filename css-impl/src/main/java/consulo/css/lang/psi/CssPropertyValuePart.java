@@ -35,107 +35,89 @@ import java.util.Map;
  * @author VISTALL
  * @since 03.07.13.
  */
-public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPropertyValuePart
-{
-	public CssPropertyValuePart(@Nonnull ASTNode node)
-	{
-		super(node);
-	}
+public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPropertyValuePart {
+    public CssPropertyValuePart(@Nonnull ASTNode node) {
+        super(node);
+    }
 
-	@RequiredReadAction
-	@Override
-	public boolean isSoft()
-	{
-		PsiElement firstChild = getFirstChild();
-		return firstChild instanceof CssFunctionCall functionCall && VarFunctionCallValidator.VAR_NAME.equals(functionCall.getCallName());
-	}
+    @RequiredReadAction
+    @Override
+    public boolean isSoft() {
+        PsiElement firstChild = getFirstChild();
+        return firstChild instanceof CssFunctionCall functionCall && VarFunctionCallValidator.VAR_NAME.equals(functionCall.getCallName());
+    }
 
-	@RequiredReadAction
-	@Override
-	public Object getValue()
-	{
-		Map.Entry<XStyleSheetPropertyValuePart, Object> entry = find();
-		return entry == null ? null : entry.getValue();
-	}
+    @RequiredReadAction
+    @Override
+    public Object getValue() {
+        Map.Entry<XStyleSheetPropertyValuePart, Object> entry = find();
+        return entry == null ? null : entry.getValue();
+    }
 
-	@Nullable
-	@RequiredReadAction
-	private Map.Entry<XStyleSheetPropertyValuePart, Object> find()
-	{
-		XStyleSheetPropertyValueEntry validEntry = findEntry();
-		if(validEntry == null)
-		{
-			return null;
-		}
+    @Nullable
+    @RequiredReadAction
+    private Map.Entry<XStyleSheetPropertyValuePart, Object> find() {
+        XStyleSheetPropertyValueEntry validEntry = findEntry();
+        if (validEntry == null) {
+            return null;
+        }
 
-		for(XStyleSheetPropertyValuePart valuePart : validEntry.getParts())
-		{
-			Object o = valuePart.getNativeValue(this);
-			if(o != null)
-			{
-				return Map.entry(valuePart, o);
-			}
-		}
-		return null;
-	}
+        for (XStyleSheetPropertyValuePart valuePart : validEntry.getParts()) {
+            Object o = valuePart.getNativeValue(this);
+            if (o != null) {
+                return Map.entry(valuePart, o);
+            }
+        }
+        return null;
+    }
 
-	@Override
-	public void setValue(@Nonnull Object value)
-	{
-		XStyleSheetPropertyValueEntry validEntry = findEntry();
-		if(validEntry == null)
-		{
-			return;
-		}
+    @Override
+    public void setValue(@Nonnull Object value) {
+        XStyleSheetPropertyValueEntry validEntry = findEntry();
+        if (validEntry == null) {
+            return;
+        }
 
-		for(XStyleSheetPropertyValuePart valuePart : validEntry.getParts())
-		{
-			if(valuePart.setNativeValue(valuePart, value))
-			{
-				break;
-			}
-		}
-	}
+        for (XStyleSheetPropertyValuePart valuePart : validEntry.getParts()) {
+            if (valuePart.setNativeValue(valuePart, value)) {
+                break;
+            }
+        }
+    }
 
-	@Override
-	public XStyleSheetPropertyValuePart getValuePart()
-	{
-		Map.Entry<XStyleSheetPropertyValuePart, Object> entry = find();
-		return entry == null ? null : entry.getKey();
-	}
+    @Override
+    public XStyleSheetPropertyValuePart getValuePart() {
+        Map.Entry<XStyleSheetPropertyValuePart, Object> entry = find();
+        return entry == null ? null : entry.getKey();
+    }
 
-	@Override
-	public XStyleSheetPropertyValuePart[] getValueParts()
-	{
-		XStyleSheetPropertyValueEntry validEntry = findEntry();
-		if(validEntry == null)
-		{
-			return XStyleSheetPropertyValuePart.EMPTY_ARRAY;
-		}
-		return validEntry.getParts();
-	}
+    @Override
+    public XStyleSheetPropertyValuePart[] getValueParts() {
+        XStyleSheetPropertyValueEntry validEntry = findEntry();
+        if (validEntry == null) {
+            return XStyleSheetPropertyValuePart.EMPTY_ARRAY;
+        }
+        return validEntry.getParts();
+    }
 
-	@RequiredReadAction
-	private XStyleSheetPropertyValueEntry findEntry()
-	{
-		PsiXStyleSheetProperty parent = (PsiXStyleSheetProperty) getParent();
+    @RequiredReadAction
+    private XStyleSheetPropertyValueEntry findEntry() {
+        PsiXStyleSheetProperty parent = (PsiXStyleSheetProperty)getParent();
 
-		XStyleSheetProperty xStyleSheetProperty = parent.getXStyleSheetProperty();
-		if(xStyleSheetProperty == null)
-		{
-			return null;
-		}
+        XStyleSheetProperty xStyleSheetProperty = parent.getXStyleSheetProperty();
+        if (xStyleSheetProperty == null) {
+            return null;
+        }
 
-		XStyleSheetPropertyValueEntry[] validEntries = xStyleSheetProperty.getValidEntries();
+        XStyleSheetPropertyValueEntry[] validEntries = xStyleSheetProperty.getValidEntries();
 
-		PsiXStyleSheetPropertyValuePart[] parts = parent.getParts();
-		if(parts.length == 0 || validEntries.length == 0)
-		{
-			return null;
-		}
+        PsiXStyleSheetPropertyValuePart[] parts = parent.getParts();
+        if (parts.length == 0 || validEntries.length == 0) {
+            return null;
+        }
 
-		int i = ArrayUtil.indexOf(parts, this);
+        int i = ArrayUtil.indexOf(parts, this);
 
-		return i >= 0 && i < validEntries.length ? validEntries[i] : null;
-	}
+        return i >= 0 && i < validEntries.length ? validEntries[i] : null;
+    }
 }
