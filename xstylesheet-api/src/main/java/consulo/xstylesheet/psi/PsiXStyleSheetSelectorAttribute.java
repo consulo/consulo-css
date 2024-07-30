@@ -26,9 +26,8 @@ import javax.annotation.Nullable;
  * @author VISTALL
  * @since 11.07.13.
  */
-public interface PsiXStyleSheetSelectorAttribute extends PsiXStyleSheetElement, PsiNameIdentifierOwner
-{
-	@RequiredReadAction
-	@Nullable
-	PsiElement getValue();
+public interface PsiXStyleSheetSelectorAttribute extends PsiXStyleSheetElement, PsiNameIdentifierOwner {
+    @RequiredReadAction
+    @Nullable
+    PsiElement getValue();
 }

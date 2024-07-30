@@ -26,16 +26,15 @@ import javax.annotation.Nullable;
  * @author VISTALL
  * @since 20-Aug-17
  */
-public interface XStyleSheetSimpleSelector extends PsiXStyleSheetElement
-{
-	@Nullable
-	@RequiredReadAction
-	PsiElement getElement();
+public interface XStyleSheetSimpleSelector extends PsiXStyleSheetElement {
+    @Nullable
+    @RequiredReadAction
+    PsiElement getElement();
 
-	@Nonnull
-	String getName();
+    @Nonnull
+    String getName();
 
-	@Nonnull
-	@RequiredReadAction
-	XStyleSheetSimpleSelectorType getType();
+    @Nonnull
+    @RequiredReadAction
+    XStyleSheetSimpleSelectorType getType();
 }

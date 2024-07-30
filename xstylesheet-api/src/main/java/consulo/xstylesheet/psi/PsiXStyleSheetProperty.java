@@ -28,18 +28,17 @@ import javax.annotation.Nullable;
  * @author VISTALL
  * @since 03.07.13.
  */
-public interface PsiXStyleSheetProperty extends PsiElement, PsiNameIdentifierOwner
-{
-	@Nullable
-	@RequiredReadAction
-	XStyleSheetProperty getXStyleSheetProperty();
+public interface PsiXStyleSheetProperty extends PsiElement, PsiNameIdentifierOwner {
+    @Nullable
+    @RequiredReadAction
+    XStyleSheetProperty getXStyleSheetProperty();
 
-	@Nonnull
-	PsiXStyleSheetPropertyValuePart[] getParts();
+    @Nonnull
+    PsiXStyleSheetPropertyValuePart[] getParts();
 
-	@Nullable
-	String getName();
+    @Nullable
+    String getName();
 
-	@RequiredReadAction
-	boolean isImportant();
+    @RequiredReadAction
+    boolean isImportant();
 }
