@@ -21,6 +21,7 @@ import consulo.css.lang.CssElements;
 import consulo.css.lang.CssLanguage;
 import consulo.css.lang.CssTokens;
 import consulo.css.lang.parser.CssParser;
+import consulo.css.localize.CssLocalize;
 import consulo.language.Language;
 import consulo.language.ast.ASTNode;
 import consulo.language.ast.IElementType;
@@ -84,16 +85,21 @@ public interface CssHtmlElements {
 
                     builder.advanceLexer();
 
-                    if (CssParser.expect(builder, CssTokens.COLON, "':' expected")) {
+                    if (CssParser.expect(builder, CssTokens.COLON, CssLocalize.expectedColon())) {
                         cssParser.parsePropertyValue(builder);
                     }
 
-                    CssParser.expect(builder, CssTokens.SEMICOLON, builder.lookAhead(1) == CssTokens.IDENTIFIER ? "';' expected" : null);
+                    if (builder.lookAhead(1) == CssTokens.IDENTIFIER) {
+                        CssParser.expect(builder, CssTokens.SEMICOLON, CssLocalize.expectedSemicolon());
+                    }
+                    else {
+                        CssParser.optional(builder, CssTokens.SEMICOLON);
+                    }
 
                     propertyMarker.done(CssElements.PROPERTY);
                 }
                 else {
-                    builder.error("unexpected symbol");
+                    builder.error(CssLocalize.unexpectedToken());
                     builder.advanceLexer();
                 }
             }

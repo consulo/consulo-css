@@ -15,6 +15,7 @@
  */
 package com.intellij.application.options.emmet.css;
 
+import consulo.css.emmet.localize.CssEmmetLocalize;
 import consulo.ui.ex.awt.*;
 import consulo.ui.ex.awt.speedSearch.TableViewSpeedSearch;
 import consulo.ui.ex.awt.table.ListTableModel;
@@ -75,8 +76,12 @@ public class CssEditPrefixesListPanel {
         final JPanel panel = decorator.createPanel();
         decorator.setAddAction(e -> {
             TableUtil.stopEditing(myPrefixesTableView);
-            String propertyName =
-                Messages.showInputDialog(myPrefixesTableView, "Property name:", "New Css Property", null);
+            String propertyName = Messages.showInputDialog(
+                myPrefixesTableView,
+                CssEmmetLocalize.editPrefixesPanelNewPropertyMessage().get(),
+                CssEmmetLocalize.editPrefixesPanelNewPropertyText().get(),
+                null
+            );
             if (propertyName != null && !propertyName.isEmpty()) {
                 List<CssPrefixInfo> items = myPrefixesModel.getItems();
                 for (CssPrefixInfo state : items) {
