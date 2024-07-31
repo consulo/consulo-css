@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 05.12.2015
+ * @since 2015-12-05
  */
 public interface XStyleSheetFile extends PsiFile {
     @Nonnull

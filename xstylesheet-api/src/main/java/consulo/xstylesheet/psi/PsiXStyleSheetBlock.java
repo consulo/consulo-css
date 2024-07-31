@@ -18,7 +18,7 @@ package consulo.xstylesheet.psi;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 2013-07-08
  */
 public interface PsiXStyleSheetBlock extends PsiXStyleSheetElement {
     PsiXStyleSheetProperty[] getProperties();

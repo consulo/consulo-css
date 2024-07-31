@@ -33,7 +33,7 @@ import java.util.function.BiConsumer;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 public class CssParser implements PsiParser, CssTokens, CssElements {
     public static final String VAR_PREFIX = "--";

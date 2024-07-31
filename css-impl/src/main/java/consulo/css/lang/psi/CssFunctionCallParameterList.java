@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 08.10.13.
+ * @since 2013-10-08
  */
 public class CssFunctionCallParameterList extends CssElement implements PsiXStyleSheetFunctionCallParameterList {
     public CssFunctionCallParameterList(@Nonnull ASTNode node) {

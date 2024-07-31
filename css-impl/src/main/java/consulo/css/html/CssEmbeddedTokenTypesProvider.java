@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 03-Jan-17
+ * @since 2017-01-03
  */
 @ExtensionImpl
 public class CssEmbeddedTokenTypesProvider implements EmbeddedTokenTypesProvider {

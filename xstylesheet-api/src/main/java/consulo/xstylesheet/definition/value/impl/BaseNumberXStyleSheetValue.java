@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 2013-07-08
  */
 public class BaseNumberXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser {
     private String[] myPrefixes;

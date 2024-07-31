@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 20-Aug-17
+ * @since 2017-08-20
  */
 public class CssSelectorSuffixListImpl extends CssElement implements XStyleSheetSelectorSuffixList {
     public CssSelectorSuffixListImpl(@Nonnull ASTNode node) {

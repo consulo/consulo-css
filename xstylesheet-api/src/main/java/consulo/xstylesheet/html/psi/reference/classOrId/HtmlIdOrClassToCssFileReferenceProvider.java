@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 07.07.13.
+ * @since 2013-07-07
  */
 public class HtmlIdOrClassToCssFileReferenceProvider extends PsiReferenceProvider {
     private final XStyleSheetSimpleSelectorType myCssRefTo;

@@ -21,7 +21,7 @@ import java.util.*;
 
 /**
  * @author VISTALL
- * @since 23.08.13.
+ * @since 2013-08-23
  */
 @Singleton
 @State(name = "CssEmmetOptions", storages = @Storage("editor.xml"))

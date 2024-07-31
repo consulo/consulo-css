@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 11.07.13
+ * @since 2013-07-11
  */
 public class CssSelectorAttributeList extends CssElement {
     public CssSelectorAttributeList(@Nonnull ASTNode node) {

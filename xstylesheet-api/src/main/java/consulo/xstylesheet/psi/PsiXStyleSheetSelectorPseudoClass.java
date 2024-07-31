@@ -20,7 +20,7 @@ import consulo.language.psi.PsiNameIdentifierOwner;
 
 /**
  * @author VISTALL
- * @since 11.07.13.
+ * @since 2013-07-11
  */
 public interface PsiXStyleSheetSelectorPseudoClass extends PsiXStyleSheetElement, PsiNameIdentifierOwner {
 }

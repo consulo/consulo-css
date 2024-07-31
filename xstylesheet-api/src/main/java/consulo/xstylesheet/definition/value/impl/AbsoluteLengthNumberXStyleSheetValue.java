@@ -18,7 +18,7 @@ package consulo.xstylesheet.definition.value.impl;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 2013-07-08
  */
 public class AbsoluteLengthNumberXStyleSheetValue extends BaseNumberXStyleSheetValue {
     public AbsoluteLengthNumberXStyleSheetValue() {

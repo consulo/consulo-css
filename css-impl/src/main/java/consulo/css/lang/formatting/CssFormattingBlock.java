@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 2013-07-08
  */
 public class CssFormattingBlock extends AbstractBlock {
     public CssFormattingBlock(@Nonnull ASTNode node, @Nullable Wrap wrap, @Nullable Alignment alignment) {

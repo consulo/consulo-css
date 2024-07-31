@@ -23,7 +23,7 @@ import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 public class XStyleSheetPropertyValueEntryImpl implements XStyleSheetPropertyValueEntry {
     private XStyleSheetPropertyValuePart[] myParts;

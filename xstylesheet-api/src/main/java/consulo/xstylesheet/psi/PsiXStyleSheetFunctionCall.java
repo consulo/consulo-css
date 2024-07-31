@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 17.07.13.
+ * @since 2013-07-17
  */
 public interface PsiXStyleSheetFunctionCall extends PsiXStyleSheetElement {
     @Nonnull

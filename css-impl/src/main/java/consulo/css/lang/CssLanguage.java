@@ -20,7 +20,7 @@ import consulo.language.Language;
 
 /**
  * @author VISTALL
- * @since 23:56/12.06.13
+ * @since 2013-06-12
  */
 public class CssLanguage extends Language {
     public static final CssLanguage INSTANCE = new CssLanguage();

@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 11.07.13.
+ * @since 2013-07-11
  */
 public class CssSelectorPseudoClass extends CssElement implements PsiXStyleSheetSelectorPseudoClass {
     public CssSelectorPseudoClass(@Nonnull ASTNode node) {

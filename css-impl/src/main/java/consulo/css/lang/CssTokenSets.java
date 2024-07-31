@@ -20,7 +20,7 @@ import consulo.language.ast.TokenSet;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 public interface CssTokenSets {
     TokenSet WHITE_SPACES = TokenSet.create(CssTokens.WHITE_SPACE);

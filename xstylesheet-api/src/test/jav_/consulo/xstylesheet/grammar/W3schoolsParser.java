@@ -28,90 +28,77 @@ import java.util.TreeMap;
  * @author VISTALL
  * @since 2020-07-03
  */
-public class W3schoolsParser
-{
-	public static void main(String[] args) throws Exception
-	{
-		Document doc = Jsoup.connect("https://www.w3schools.com/cssref/default.asp").get();
+public class W3schoolsParser {
+    public static void main(String[] args) throws Exception {
+        Document doc = Jsoup.connect("https://www.w3schools.com/cssref/default.asp").get();
 
-		Elements elementsByClass = doc.getElementsByClass("w3-table-all notranslate");
+        Elements elementsByClass = doc.getElementsByClass("w3-table-all notranslate");
 
-		Map<String, CssPropery> properties = new TreeMap<>();
+        Map<String, CssPropery> properties = new TreeMap<>();
 
-		for(Element elementByClass : elementsByClass)
-		{
-			Elements trs = elementByClass.getElementsByTag("tr");
+        for (Element elementByClass : elementsByClass) {
+            Elements trs = elementByClass.getElementsByTag("tr");
 
-			for(Element tr : trs)
-			{
-				Elements tds = tr.getElementsByTag("td");
+            for (Element tr : trs) {
+                Elements tds = tr.getElementsByTag("td");
 
-				Element aLinkTr = tds.get(0);
+                Element aLinkTr = tds.get(0);
 
-				String href;
-				String cssProperty;
-				if(aLinkTr.childrenSize() == 0)
-				{
-					cssProperty = aLinkTr.text();
-					href = null;
-				}
-				else
-				{
-					Element aLink = aLinkTr.child(0);
+                String href;
+                String cssProperty;
+                if (aLinkTr.childrenSize() == 0) {
+                    cssProperty = aLinkTr.text();
+                    href = null;
+                }
+                else {
+                    Element aLink = aLinkTr.child(0);
 
-					href = aLink.attributes().get("href");
+                    href = aLink.attributes().get("href");
 
-					cssProperty = aLink.text();
-				}
+                    cssProperty = aLink.text();
+                }
 
-				Element docTr = tds.get(1);
+                Element docTr = tds.get(1);
 
-				String documentation = docTr.text();
+                String documentation = docTr.text();
 
-				properties.put(cssProperty, new CssPropery(cssProperty, documentation, href));
-			}
-		}
+                properties.put(cssProperty, new CssPropery(cssProperty, documentation, href));
+            }
+        }
 
-		for(CssPropery cssPropery : properties.values())
-		{
-			String href = cssPropery.getHref();
-			if(href == null)
-			{
-				continue;
-			}
+        for (CssPropery cssPropery : properties.values()) {
+            String href = cssPropery.getHref();
+            if (href == null) {
+                continue;
+            }
 
-			String url;
-			if(href.startsWith("/"))
-			{
-				url = "https://www.w3schools.com" + href;
-			}
-			else
-			{
-				url = "https://www.w3schools.com/cssref/" + href;
-			}
-			//System.out.println("loading: " + cssPropery.getName() + " " + url);
-			Document document = Jsoup.connect(url).get();
+            String url;
+            if (href.startsWith("/")) {
+                url = "https://www.w3schools.com" + href;
+            }
+            else {
+                url = "https://www.w3schools.com/cssref/" + href;
+            }
+            //System.out.println("loading: " + cssPropery.getName() + " " + url);
+            Document document = Jsoup.connect(url).get();
 
-			Elements cssSyntaxes = document.getElementsByClass("w3-code w3-border notranslate");
+            Elements cssSyntaxes = document.getElementsByClass("w3-code w3-border notranslate");
 
-			if(cssSyntaxes.size() == 1)
-			{
-				Element firstDiv = cssSyntaxes.get(0);
+            if (cssSyntaxes.size() == 1) {
+                Element firstDiv = cssSyntaxes.get(0);
 
-				if(firstDiv.childrenSize() == 1)
-				{
-					Element singleDiv = firstDiv.child(0);
+                if (firstDiv.childrenSize() == 1) {
+                    Element singleDiv = firstDiv.child(0);
 
-					Elements children = singleDiv.children();
-					
-					//System.out.println(singleDiv);
-				}
-			}
-		}
+                    Elements children = singleDiv.children();
 
-		for(String s : properties.keySet())
-		{
-			System.out.println(s);
-		}
-	}
+                    //System.out.println(singleDiv);
+                }
+            }
+        }
+
+        for (String s : properties.keySet()) {
+            System.out.println(s);
+        }
+    }
 }

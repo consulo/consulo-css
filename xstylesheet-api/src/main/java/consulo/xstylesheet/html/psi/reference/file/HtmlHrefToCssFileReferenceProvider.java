@@ -35,7 +35,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 07.07.13.
+ * @since 2013-07-07
  */
 public class HtmlHrefToCssFileReferenceProvider extends PsiReferenceProvider {
     public static class CssFileHrefFilter extends ElementFilterBase<XmlAttributeValue> implements PsiElementFilter {

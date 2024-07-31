@@ -16,8 +16,8 @@
 package com.intellij.application.options.emmet.css;
 
 /**
- * User: zolotov
- * Date: 2/21/13
+ * @author zolotov
+ * @since 2013-02-21
  */
 public enum CssPrefix {
     WEBKIT(0x1),

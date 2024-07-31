@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 30/01/2021
+ * @since 2021-01-30
  */
 public class CssImport extends CssElement {
     public CssImport(@Nonnull ASTNode node) {

@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * User: zolotov
- * Date: 2/20/13
+ * @author zolotov
+ * @since 2013-02-20
  */
 public class CssEditPrefixesListPanel {
     private final ListTableModel<CssPrefixInfo> myPrefixesModel;

@@ -35,7 +35,7 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 public class CssProperty extends CssElement implements PsiNameIdentifierOwner, PsiXStyleSheetProperty {
     public static final CssProperty[] EMPTY_ARRAY = new CssProperty[0];

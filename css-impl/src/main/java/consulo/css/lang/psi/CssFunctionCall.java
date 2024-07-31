@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 08.10.13.
+ * @since 2013-10-08
  */
 public class CssFunctionCall extends CssElement implements PsiXStyleSheetFunctionCall {
     private static class Ref extends PsiReferenceBase<PsiElement> {
