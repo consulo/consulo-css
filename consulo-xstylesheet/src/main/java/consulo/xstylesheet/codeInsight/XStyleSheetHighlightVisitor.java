@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleSheetColors {
     private HighlightInfoHolder myHighlightInfoHolder;

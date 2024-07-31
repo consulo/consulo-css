@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 2013-07-08
  */
 @ExtensionImpl
 public class PropertyValueIsNotValidInspection extends LocalInspectionTool {

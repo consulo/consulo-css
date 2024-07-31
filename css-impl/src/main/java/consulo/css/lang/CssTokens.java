@@ -21,7 +21,7 @@ import consulo.language.ast.TokenType;
 
 /**
  * @author VISTALL
- * @since 02.07.13
+ * @since 2013-07-02
  */
 public interface CssTokens extends TokenType {
     IElementType BLOCK_COMMENT = new CssElementType("BLOCK_COMMENT");

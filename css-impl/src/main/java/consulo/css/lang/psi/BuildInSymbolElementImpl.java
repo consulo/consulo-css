@@ -22,7 +22,7 @@ import consulo.xstylesheet.psi.reference.BuildInSymbolElement;
 
 /**
  * @author VISTALL
- * @since 20-Aug-17
+ * @since 2017-08-20
  */
 public class BuildInSymbolElementImpl extends FakePsiElement implements BuildInSymbolElement {
     private final PsiElement myParent;

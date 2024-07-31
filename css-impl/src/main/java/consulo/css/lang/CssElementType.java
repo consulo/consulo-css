@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 02.07.13.
+ * @since 2013-07-02
  */
 public class CssElementType extends IElementType {
     public CssElementType(@Nonnull String debugName) {

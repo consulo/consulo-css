@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 09.10.13.
+ * @since 2013-10-09
  */
 public abstract class TextBasedXStyleSheetPropertyValuePartParser implements XStyleSheetPropertyValuePartParser {
     @Nullable

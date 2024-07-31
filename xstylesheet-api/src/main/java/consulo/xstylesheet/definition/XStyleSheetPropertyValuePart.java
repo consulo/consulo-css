@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 public interface XStyleSheetPropertyValuePart {
     XStyleSheetPropertyValuePart[] EMPTY_ARRAY = new XStyleSheetPropertyValuePart[0];

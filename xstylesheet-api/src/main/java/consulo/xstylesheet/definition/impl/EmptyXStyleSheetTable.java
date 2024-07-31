@@ -26,7 +26,7 @@ import java.util.Collections;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 public class EmptyXStyleSheetTable implements XStyleSheetTable {
     public static final XStyleSheetTable INSTANCE = new EmptyXStyleSheetTable();

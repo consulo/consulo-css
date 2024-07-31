@@ -1,6 +1,6 @@
 /**
  * @author VISTALL
- * @since 11-Sep-22
+ * @since 2022-09-11
  */
 module consulo.css.xstylesheet.api {
     requires transitive consulo.language.api;

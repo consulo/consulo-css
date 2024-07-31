@@ -33,7 +33,7 @@ import java.util.Objects;
 
 /**
  * @author VISTALL
- * @since 02.07.13.
+ * @since 2013-07-02
  */
 public class CssFile extends PsiFileBase implements XStyleSheetFile {
     public CssFile(@Nonnull FileViewProvider provider) {

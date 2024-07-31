@@ -33,7 +33,7 @@ import java.util.Map;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPropertyValuePart {
     public CssPropertyValuePart(@Nonnull ASTNode node) {

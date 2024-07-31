@@ -18,7 +18,7 @@ import java.awt.*;
 
 /**
  * @author VISTALL
- * @since 23.08.13.
+ * @since 2013-08-23
  */
 @ExtensionImpl
 public class CssEmmetConfigurable implements ApplicationConfigurable, Configurable.NoScroll {

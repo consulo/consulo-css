@@ -20,7 +20,7 @@ import consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
 
 /**
  * @author VISTALL
- * @since 09.10.13.
+ * @since 2013-10-09
  */
 @Deprecated
 public class BaseXStyleSheetPropertyValuePartParser implements XStyleSheetPropertyValuePartParser {

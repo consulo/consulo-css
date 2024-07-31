@@ -22,7 +22,7 @@ import consulo.language.ast.IElementType;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 public interface CssElements {
     IElementType ROOT = new ElementTypeAsPsiFactory("ROOT", CssLanguage.INSTANCE, CssRoot::new);

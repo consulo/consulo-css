@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 26/03/2023
+ * @since 2023-03-26
  */
 @ExtensionImpl
 public class XStyleSheetHighlightVisitorFactory implements HighlightVisitorFactory {

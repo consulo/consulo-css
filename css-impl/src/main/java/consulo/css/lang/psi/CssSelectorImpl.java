@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 20-Aug-17
+ * @since 2017-08-20
  */
 public class CssSelectorImpl extends CssElement implements XStyleSheetSelector {
     public CssSelectorImpl(@Nonnull ASTNode node) {

@@ -36,7 +36,7 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser {
     @Nonnull

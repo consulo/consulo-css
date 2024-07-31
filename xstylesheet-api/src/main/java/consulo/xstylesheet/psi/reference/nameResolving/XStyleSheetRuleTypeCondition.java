@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 07.07.13.
+ * @since 2013-07-07
  */
 public class XStyleSheetRuleTypeCondition implements XStyleRuleCondition {
     private final XStyleSheetSimpleSelectorType myConditionType;

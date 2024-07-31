@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 11.07.13.
+ * @since 2013-07-11
  */
 public class CssSelectorAttribute extends CssElement implements PsiXStyleSheetSelectorAttribute {
     public CssSelectorAttribute(@Nonnull ASTNode node) {

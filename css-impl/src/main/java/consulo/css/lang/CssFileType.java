@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 23:57/12.06.13
+ * @since 2013-06-12
  */
 public class CssFileType extends LanguageFileType {
     public static final CssFileType INSTANCE = new CssFileType();

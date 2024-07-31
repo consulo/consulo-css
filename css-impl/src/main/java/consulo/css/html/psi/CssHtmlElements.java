@@ -35,7 +35,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 03-Jan-17
+ * @since 2017-01-03
  */
 public interface CssHtmlElements {
     IElementType MORPH_HTML_CSS_ELEMENT = new ILazyParseableElementType("MORPH_HTML_CSS_ELEMENT", CssLanguage.INSTANCE) {

@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 public abstract class CssElement extends ASTWrapperPsiElement {
     public CssElement(@Nonnull ASTNode node) {

@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 09.10.13.
+ * @since 2013-10-09
  */
 public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartParser {
     @Nonnull

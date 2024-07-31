@@ -21,7 +21,7 @@ import consulo.colorScheme.TextAttributesKey;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 public interface XStyleSheetColors {
     TextAttributesKey NUMBER =

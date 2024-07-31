@@ -27,7 +27,7 @@ import java.util.Collections;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 2013-07-08
  */
 public class CssSelectorDeclarationStructureViewTreeElement extends PsiTreeElementBase<XStyleSheetSelector> {
     public CssSelectorDeclarationStructureViewTreeElement(XStyleSheetSelector psiElement) {

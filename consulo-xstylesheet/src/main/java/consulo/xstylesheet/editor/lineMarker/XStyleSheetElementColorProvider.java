@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 @ExtensionImpl
 public class XStyleSheetElementColorProvider implements ElementColorProvider {

@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 19-Aug-17
+ * @since 2017-08-19
  */
 public interface XStyleSheetRoot extends PsiElement {
     @Nullable

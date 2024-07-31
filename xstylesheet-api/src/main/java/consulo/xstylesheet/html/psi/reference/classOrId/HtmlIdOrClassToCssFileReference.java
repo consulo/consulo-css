@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 07.07.13.
+ * @since 2013-07-07
  */
 public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase<PsiElement> {
     private final XStyleSheetSimpleSelectorType myConditionType;

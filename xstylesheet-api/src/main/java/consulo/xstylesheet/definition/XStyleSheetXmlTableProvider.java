@@ -33,7 +33,7 @@ import java.util.function.Supplier;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 public abstract class XStyleSheetXmlTableProvider implements XStyleSheetTableProvider {
     private static final Logger LOGGER = Logger.getInstance(XStyleSheetXmlTableProvider.class);

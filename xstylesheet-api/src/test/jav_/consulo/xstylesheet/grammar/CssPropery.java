@@ -20,31 +20,26 @@ package consulo.xstylesheet.grammar;
  * @author VISTALL
  * @since 2020-07-03
  */
-public class CssPropery
-{
-	private String name;
-	private String documentation;
-	private final String myHref;
+public class CssPropery {
+    private String name;
+    private String documentation;
+    private final String myHref;
 
-	public CssPropery(String name, String documentation, String href)
-	{
-		this.name = name;
-		this.documentation = documentation;
-		myHref = href;
-	}
+    public CssPropery(String name, String documentation, String href) {
+        this.name = name;
+        this.documentation = documentation;
+        myHref = href;
+    }
 
-	public String getName()
-	{
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getDocumentation()
-	{
-		return documentation;
-	}
+    public String getDocumentation() {
+        return documentation;
+    }
 
-	public String getHref()
-	{
-		return myHref;
-	}
+    public String getHref() {
+        return myHref;
+    }
 }
