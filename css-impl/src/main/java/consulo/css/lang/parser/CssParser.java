@@ -40,17 +40,20 @@ import java.util.function.BiConsumer;
 public class CssParser implements PsiParser, CssTokens, CssElements {
     public static final String VAR_PREFIX = "--";
 
-    public static boolean expect(PsiBuilder builder, IElementType elementType, @Nullable LocalizeValue message) {
-        if (builder.getTokenType() != elementType) {
-            if (message != null) {
-                builder.error(message);
-            }
-            return false;
+    public static boolean expect(PsiBuilder builder, IElementType elementType, @Nonnull LocalizeValue message) {
+        boolean expectedToken = optional(builder, elementType);
+        if (!expectedToken) {
+            builder.error(message);
         }
-        else {
+        return expectedToken;
+    }
+
+    public static boolean optional(PsiBuilder builder, IElementType elementType) {
+        boolean expectedToken = builder.getTokenType() == elementType;
+        if (expectedToken) {
             builder.advanceLexer();
-            return true;
         }
+        return expectedToken;
     }
 
     @Nonnull
@@ -136,7 +139,12 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
 
             boolean last = builder.getTokenType() == null || builder.getTokenType() == CssTokens.RBRACE;
 
-            expect(builder, SEMICOLON, last ? null : CssLocalize.expectedSemicolon());
+            if (last) {
+                optional(builder, SEMICOLON);
+            }
+            else {
+                expect(builder, SEMICOLON, CssLocalize.expectedSemicolon());
+            }
 
             propertyMarker.done(isVariable ? VARIABLE : PROPERTY);
 

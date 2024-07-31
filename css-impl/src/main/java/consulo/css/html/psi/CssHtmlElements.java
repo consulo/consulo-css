@@ -89,11 +89,12 @@ public interface CssHtmlElements {
                         cssParser.parsePropertyValue(builder);
                     }
 
-                    CssParser.expect(
-                        builder,
-                        CssTokens.SEMICOLON,
-                        builder.lookAhead(1) == CssTokens.IDENTIFIER ? CssLocalize.expectedSemicolon() : null
-                    );
+                    if (builder.lookAhead(1) == CssTokens.IDENTIFIER) {
+                        CssParser.expect(builder, CssTokens.SEMICOLON, CssLocalize.expectedSemicolon());
+                    }
+                    else {
+                        CssParser.optional(builder, CssTokens.SEMICOLON);
+                    }
 
                     propertyMarker.done(CssElements.PROPERTY);
                 }
