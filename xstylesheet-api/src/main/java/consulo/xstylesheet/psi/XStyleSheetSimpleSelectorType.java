@@ -20,10 +20,9 @@ package consulo.xstylesheet.psi;
  * @author VISTALL
  * @since 20-Aug-17
  */
-public enum XStyleSheetSimpleSelectorType
-{
-	ANY,
-	ID,
-	CLASS,
-	TAG
+public enum XStyleSheetSimpleSelectorType {
+    ANY,
+    ID,
+    CLASS,
+    TAG
 }

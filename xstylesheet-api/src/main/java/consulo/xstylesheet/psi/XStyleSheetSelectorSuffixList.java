@@ -20,6 +20,5 @@ package consulo.xstylesheet.psi;
  * @author VISTALL
  * @since 20-Aug-17
  */
-public interface XStyleSheetSelectorSuffixList extends PsiXStyleSheetElement
-{
+public interface XStyleSheetSelectorSuffixList extends PsiXStyleSheetElement {
 }

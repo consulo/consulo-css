@@ -10,7 +10,6 @@ import java.util.function.Consumer;
  * @author VISTALL
  * @since 2024-03-16
  */
-public interface PsiXStyleSheetVariableReference extends PsiElement, PsiPolyVariantReference
-{
-	void visitVariants(Consumer<PsiNameIdentifierOwner> consumer);
+public interface PsiXStyleSheetVariableReference extends PsiElement, PsiPolyVariantReference {
+    void visitVariants(Consumer<PsiNameIdentifierOwner> consumer);
 }
