@@ -1,0 +1,4 @@
+edit.prefixes.panel.new.property.message:
+    text: "Property name:"
+edit.prefixes.panel.new.property.text:
+    text: New CSS Property

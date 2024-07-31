@@ -1,0 +1,36 @@
+bad.token:
+    text: Bad token
+expected.argument:
+    text: "Argument expected"
+expected.attribute.value:
+    text: "Attribute value expected"
+expected.charset.name:
+    text: "Charset name expected"
+expected.colon:
+    text: "':' expected"
+expected.comma:
+    text: "',' expected"
+expected.identifier:
+    text: "Identifier expected"
+expected.import.url:
+    text: "Import URL expected"
+expected.lbrace:
+    text: "'{' expected"
+expected.lparen:
+    text: "'(' expected"
+expected.name:
+    text: "Name expected"
+expected.rbrace:
+    text: "'}' expected"
+expected.rbracket:
+    text: "']' expected"
+expected.rparen:
+    text: "')' expected"
+expected.semicolon:
+    text: "';' expected"
+expected.selector:
+    text: "Selector expected"
+expected.variable:
+    text: "Variable expected"
+unexpected.token:
+    text: Unexpected token
