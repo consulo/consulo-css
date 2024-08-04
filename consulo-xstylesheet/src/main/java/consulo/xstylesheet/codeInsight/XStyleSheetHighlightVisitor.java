@@ -64,20 +64,20 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
         if (element instanceof PsiXStyleSheetProperty property) {
             highlightName(targetElement == null ? property.getNameIdentifier() : targetElement, PROPERTY_NAME);
         }
-        else if (element instanceof PsiXStyleSheetPropertyValuePart) {
-            XStyleSheetPropertyValuePart valuePart = ((PsiXStyleSheetPropertyValuePart)element).getValuePart();
+        else if (element instanceof PsiXStyleSheetPropertyValuePart propertyValuePart) {
+            XStyleSheetPropertyValuePart valuePart = propertyValuePart.getValuePart();
             if (valuePart != null) {
-                myHighlightInfoHolder.addAll(valuePart.createHighlights((PsiXStyleSheetPropertyValuePart)element));
+                myHighlightInfoHolder.addAll(valuePart.createHighlights(propertyValuePart));
             }
         }
         else if (element instanceof PsiXStyleSheetSelectorAttribute attribute) {
             highlightName(targetElement == null ? attribute.getNameIdentifier() : targetElement, ATTRIBUTE_NAME);
         }
-        else if (element instanceof XStyleSheetSimpleSelector) {
-            PsiElement target = ((XStyleSheetSimpleSelector)element).getElement();
+        else if (element instanceof XStyleSheetSimpleSelector simpleSelector) {
+            PsiElement target = simpleSelector.getElement();
             if (target != null) {
                 TextAttributesKey key;
-                XStyleSheetSimpleSelectorType type = ((XStyleSheetSimpleSelector)element).getType();
+                XStyleSheetSimpleSelectorType type = simpleSelector.getType();
                 if (type == XStyleSheetSimpleSelectorType.CLASS) {
                     key = XStyleSheetColors.SELECTOR_CLASS_NAME;
                 }
@@ -97,13 +97,12 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
         else if (element instanceof PsiXStyleSheetSelectorPseudoClass pseudoClass) {
             highlightName(targetElement == null ? pseudoClass.getNameIdentifier() : targetElement, PSEUDO_NAME);
         }
-        else if (element instanceof PsiXStyleSheetFunctionCall) {
-            PsiElement callElement = ((PsiXStyleSheetFunctionCall)element).getCallElement();
+        else if (element instanceof PsiXStyleSheetFunctionCall functionCall) {
+            PsiElement callElement = functionCall.getCallElement();
 
             PsiReference[] references = element.getReferences();
             for (PsiReference reference : references) {
-                PsiElement resolvedElement = reference.resolve();
-                if (resolvedElement instanceof BuildInSymbolElement) {
+                if (reference.resolve() instanceof BuildInSymbolElement) {
                     HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
                     builder.textAttributes(XStyleSheetColors.KEYWORD);
                     builder.range(callElement);
@@ -112,7 +111,6 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
                 }
             }
         }
-
     }
 
     @RequiredReadAction

@@ -62,7 +62,7 @@ public class HtmlHrefToCssFileReferenceProvider extends PsiReferenceProvider {
 
         @Override
         public boolean isAccepted(PsiElement psiElement) {
-            return psiElement instanceof XmlAttributeValue && isElementAcceptable((XmlAttributeValue)psiElement, psiElement);
+            return psiElement instanceof XmlAttributeValue xmlAttributeValue && isElementAcceptable(xmlAttributeValue, psiElement);
         }
     }
 

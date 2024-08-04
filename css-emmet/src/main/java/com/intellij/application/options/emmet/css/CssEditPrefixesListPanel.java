@@ -168,6 +168,7 @@ public class CssEditPrefixesListPanel {
             return myPrefixesTableView.isEnabled();
         }
 
+        @Override
         public final Class<Boolean> getColumnClass() {
             return Boolean.class;
         }
