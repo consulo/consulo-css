@@ -49,12 +49,12 @@ public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartPa
     @RequiredReadAction
     public Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value) {
         PsiElement firstChild = valuePart.getFirstChild();
-        if (firstChild instanceof PsiXStyleSheetFunctionCall) {
+        if (firstChild instanceof PsiXStyleSheetFunctionCall functionCall) {
             List<XStyleSheetFunctionCallDescriptor> extensionList = valuePart.getProject()
                 .getApplication()
                 .getExtensionList(XStyleSheetFunctionCallDescriptor.class);
             for (XStyleSheetFunctionCallDescriptor descriptor : extensionList) {
-                if (descriptor.isMyFunction((PsiXStyleSheetFunctionCall)firstChild)) {
+                if (descriptor.isMyFunction(functionCall)) {
                     return descriptor;
                 }
             }

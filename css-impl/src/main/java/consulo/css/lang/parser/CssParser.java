@@ -377,10 +377,9 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
     private boolean parseSimpleSelector(PsiBuilder builder) {
         PsiBuilder.Marker marker = builder.mark();
         boolean isSelector;
-        if ((isSelector = parseSelectorClassOrId(
-            builder,
-            false
-        )) || builder.getTokenType() == CssTokens.ASTERISK || builder.getTokenType() == CssTokens.IDENTIFIER) {
+        if ((isSelector = parseSelectorClassOrId(builder, false))
+            || builder.getTokenType() == CssTokens.ASTERISK
+            || builder.getTokenType() == CssTokens.IDENTIFIER) {
             if (isSelector) {
                 parseSelectorClassOrId(builder, true);
             }

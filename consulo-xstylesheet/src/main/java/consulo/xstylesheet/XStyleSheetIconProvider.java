@@ -46,15 +46,15 @@ public class XStyleSheetIconProvider implements IconDescriptorUpdater {
             iconDescriptor.setMainIcon(XStyleSheetIconGroup.property());
         }
 
-        if (element instanceof XStyleSheetSelector) {
-            XStyleSheetSimpleSelector[] simpleSelectors = ((XStyleSheetSelector)element).getSimpleSelectors();
+        if (element instanceof XStyleSheetSelector selector) {
+            XStyleSheetSimpleSelector[] simpleSelectors = selector.getSimpleSelectors();
 
             if (simpleSelectors.length == 0) {
                 return;
             }
 
-            XStyleSheetSimpleSelector selector = simpleSelectors[0];
-            switch (selector.getType()) {
+            XStyleSheetSimpleSelector simpleSelector = simpleSelectors[0];
+            switch (simpleSelector.getType()) {
                 case ID:
                     iconDescriptor.setMainIcon(XStyleSheetIconGroup.html_id());
                     break;
