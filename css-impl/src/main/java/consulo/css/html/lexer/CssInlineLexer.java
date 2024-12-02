@@ -20,8 +20,7 @@ import consulo.css.lang.lexer._CssLexer;
 
 /**
  * @author VISTALL
- * @since 03-Jan-17
+ * @since 2017-01-03
  */
-public class CssInlineLexer extends _CssLexer
-{
+public class CssInlineLexer extends _CssLexer {
 }

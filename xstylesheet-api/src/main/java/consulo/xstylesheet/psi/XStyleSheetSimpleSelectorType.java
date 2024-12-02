@@ -18,12 +18,11 @@ package consulo.xstylesheet.psi;
 
 /**
  * @author VISTALL
- * @since 20-Aug-17
+ * @since 2017-08-20
  */
-public enum XStyleSheetSimpleSelectorType
-{
-	ANY,
-	ID,
-	CLASS,
-	TAG
+public enum XStyleSheetSimpleSelectorType {
+    ANY,
+    ID,
+    CLASS,
+    TAG
 }

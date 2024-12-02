@@ -26,61 +26,50 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 2013-07-08
  */
-public class BaseNumberXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser
-{
-	private String[] myPrefixes;
+public class BaseNumberXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser {
+    private String[] myPrefixes;
 
-	public BaseNumberXStyleSheetValue(@Nonnull String... prefixes)
-	{
-		myPrefixes = prefixes;
-	}
+    public BaseNumberXStyleSheetValue(@Nonnull String... prefixes) {
+        myPrefixes = prefixes;
+    }
 
-	@Nullable
-	@Override
-	public Object fromString(@Nonnull String stringValue, String value)
-	{
-		if(value != null && !stringValue.equals(value))
-		{
-			return null;
-		}
+    @Nullable
+    @Override
+    public Object fromString(@Nonnull String stringValue, String value) {
+        if (value != null && !stringValue.equals(value)) {
+            return null;
+        }
 
-		String prefix = null;
-		for(String t : myPrefixes)
-		{
-			if(stringValue.endsWith(t))
-			{
-				prefix = t;
-				break;
-			}
-		}
+        String prefix = null;
+        for (String t : myPrefixes) {
+            if (stringValue.endsWith(t)) {
+                prefix = t;
+                break;
+            }
+        }
 
-		if(prefix == null && myPrefixes.length > 0)
-		{
-			return null;
-		}
-		else if(prefix != null)
-		{
-			stringValue = stringValue.substring(0, stringValue.length() - prefix.length());
-		}
+        if (prefix == null && myPrefixes.length > 0) {
+            return null;
+        }
+        else if (prefix != null) {
+            stringValue = stringValue.substring(0, stringValue.length() - prefix.length());
+        }
 
-		try
-		{
-			return Integer.parseInt(stringValue);
-		}
-		catch(NumberFormatException e)
-		{
-			//
-		}
-		return null;
-	}
+        try {
+            return Integer.parseInt(stringValue);
+        }
+        catch (NumberFormatException e) {
+            //
+        }
+        return null;
+    }
 
-	@Nonnull
-	@Override
-	public List<LookupElement> getLookupElements(String value)
-	{
-		LookupElementBuilder builder = LookupElementBuilder.create(value);
-		return Collections.<LookupElement>singletonList(builder);
-	}
+    @Nonnull
+    @Override
+    public List<LookupElement> getLookupElements(String value) {
+        LookupElementBuilder builder = LookupElementBuilder.create(value);
+        return Collections.<LookupElement>singletonList(builder);
+    }
 }

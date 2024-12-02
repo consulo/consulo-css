@@ -18,112 +18,104 @@ import java.awt.*;
 
 /**
  * @author VISTALL
- * @since 23.08.13.
+ * @since 2013-08-23
  */
 @ExtensionImpl
-public class CssEmmetConfigurable implements ApplicationConfigurable, Configurable.NoScroll
-{
-	private JBCheckBox myAutoInsertCssVendorJBCheckBox;
-	private JPanel myPrefixesPanel;
-	private JBCheckBox myEnabledFuzzySearchJBCheckBox;
-	private JPanel myPanel;
+public class CssEmmetConfigurable implements ApplicationConfigurable, Configurable.NoScroll {
+    private JBCheckBox myAutoInsertCssVendorJBCheckBox;
+    private JPanel myPrefixesPanel;
+    private JBCheckBox myEnabledFuzzySearchJBCheckBox;
+    private JPanel myPanel;
 
-	private CssEditPrefixesListPanel myCssEditPrefixesListPanel;
+    private CssEditPrefixesListPanel myCssEditPrefixesListPanel;
 
-	@Nonnull
-	@Override
-	public String getId()
-	{
-		return "editor.emmet.css";
-	}
+    @Nonnull
+    @Override
+    public String getId() {
+        return "editor.emmet.css";
+    }
 
-	@Nullable
-	@Override
-	public String getParentId()
-	{
-		return "editor.emmet";
-	}
+    @Nullable
+    @Override
+    public String getParentId() {
+        return "editor.emmet";
+    }
 
-	@Nonnull
-	@Override
-	public String getDisplayName()
-	{
-		return "CSS";
-	}
+    @Nonnull
+    @Override
+    public String getDisplayName() {
+        return "CSS";
+    }
 
-	@RequiredUIAccess
-	@Nullable
-	@Override
-	public JComponent createComponent(@Nonnull Disposable uiDisposable)
-	{
-		if(myPanel == null)
-		{
-			myPanel = new JPanel(new BorderLayout());
+    @RequiredUIAccess
+    @Nullable
+    @Override
+    public JComponent createComponent(@Nonnull Disposable uiDisposable) {
+        if (myPanel == null) {
+            myPanel = new JPanel(new BorderLayout());
 
-			JPanel topPanel = new JPanel(new VerticalFlowLayout());
+            JPanel topPanel = new JPanel(new VerticalFlowLayout());
 
-			myEnabledFuzzySearchJBCheckBox = new JBCheckBox(XmlBundle.message("emmet.fuzzy.search"));
-			topPanel.add(myEnabledFuzzySearchJBCheckBox);
-			myAutoInsertCssVendorJBCheckBox = new JBCheckBox(XmlBundle.message("emmet.auto.insert.vendor.prefixes"));
-			topPanel.add(myAutoInsertCssVendorJBCheckBox);
+            myEnabledFuzzySearchJBCheckBox = new JBCheckBox(XmlBundle.message("emmet.fuzzy.search"));
+            topPanel.add(myEnabledFuzzySearchJBCheckBox);
+            myAutoInsertCssVendorJBCheckBox = new JBCheckBox(XmlBundle.message("emmet.auto.insert.vendor.prefixes"));
+            topPanel.add(myAutoInsertCssVendorJBCheckBox);
 
-			myPanel.add(topPanel, BorderLayout.NORTH);
+            myPanel.add(topPanel, BorderLayout.NORTH);
 
-			myCssEditPrefixesListPanel = new CssEditPrefixesListPanel();
-			myPrefixesPanel = myCssEditPrefixesListPanel.createMainComponent();
-			myPrefixesPanel.setEnabled(true);
+            myCssEditPrefixesListPanel = new CssEditPrefixesListPanel();
+            myPrefixesPanel = myCssEditPrefixesListPanel.createMainComponent();
+            myPrefixesPanel.setEnabled(true);
 
-			myPanel.add(myPrefixesPanel, BorderLayout.CENTER);
+            myPanel.add(myPrefixesPanel, BorderLayout.CENTER);
 
-			myAutoInsertCssVendorJBCheckBox.addActionListener(e -> myCssEditPrefixesListPanel.setEnabled(myAutoInsertCssVendorJBCheckBox.isSelected()));
-		}
-		return myPanel;
-	}
+            myAutoInsertCssVendorJBCheckBox.addActionListener(
+                e -> myCssEditPrefixesListPanel.setEnabled(myAutoInsertCssVendorJBCheckBox.isSelected())
+            );
+        }
+        return myPanel;
+    }
 
-	@RequiredUIAccess
-	@Override
-	public boolean isModified()
-	{
-		CssEmmetOptions emmetOptions = CssEmmetOptions.getInstance();
+    @RequiredUIAccess
+    @Override
+    public boolean isModified() {
+        CssEmmetOptions emmetOptions = CssEmmetOptions.getInstance();
 
-		return emmetOptions.isAutoInsertCssPrefixedEnabled() != myAutoInsertCssVendorJBCheckBox.isSelected() ||
-				emmetOptions.isFuzzySearchEnabled() != myEnabledFuzzySearchJBCheckBox.isSelected() ||
-				!emmetOptions.getAllPrefixInfo().equals(myCssEditPrefixesListPanel.getState());
-	}
+        return emmetOptions.isAutoInsertCssPrefixedEnabled() != myAutoInsertCssVendorJBCheckBox.isSelected() ||
+            emmetOptions.isFuzzySearchEnabled() != myEnabledFuzzySearchJBCheckBox.isSelected() ||
+            !emmetOptions.getAllPrefixInfo().equals(myCssEditPrefixesListPanel.getState());
+    }
 
-	@RequiredUIAccess
-	@Override
-	public void apply() throws ConfigurationException
-	{
-		CssEmmetOptions emmetOptions = CssEmmetOptions.getInstance();
+    @RequiredUIAccess
+    @Override
+    public void apply() throws ConfigurationException {
+        CssEmmetOptions emmetOptions = CssEmmetOptions.getInstance();
 
-		emmetOptions.setAutoInsertCssPrefixedEnabled(myAutoInsertCssVendorJBCheckBox.isSelected());
-		emmetOptions.setFuzzySearchEnabled(myEnabledFuzzySearchJBCheckBox.isSelected());
-		emmetOptions.setPrefixInfo(myCssEditPrefixesListPanel.getState());
-	}
+        emmetOptions.setAutoInsertCssPrefixedEnabled(myAutoInsertCssVendorJBCheckBox.isSelected());
+        emmetOptions.setFuzzySearchEnabled(myEnabledFuzzySearchJBCheckBox.isSelected());
+        emmetOptions.setPrefixInfo(myCssEditPrefixesListPanel.getState());
+    }
 
-	@RequiredUIAccess
-	@Override
-	public void reset()
-	{
-		CssEmmetOptions cssEmmetOptions = CssEmmetOptions.getInstance();
-		EmmetOptions emmetOptions = EmmetOptions.getInstance();
+    @RequiredUIAccess
+    @Override
+    public void reset() {
+        CssEmmetOptions cssEmmetOptions = CssEmmetOptions.getInstance();
+        EmmetOptions emmetOptions = EmmetOptions.getInstance();
 
-		myAutoInsertCssVendorJBCheckBox.setEnabled(emmetOptions.isEmmetEnabled());
-		myAutoInsertCssVendorJBCheckBox.setSelected(cssEmmetOptions.isAutoInsertCssPrefixedEnabled());
-		myEnabledFuzzySearchJBCheckBox.setEnabled(emmetOptions.isEmmetEnabled());
-		myEnabledFuzzySearchJBCheckBox.setSelected(cssEmmetOptions.isFuzzySearchEnabled());
+        myAutoInsertCssVendorJBCheckBox.setEnabled(emmetOptions.isEmmetEnabled());
+        myAutoInsertCssVendorJBCheckBox.setSelected(cssEmmetOptions.isAutoInsertCssPrefixedEnabled());
+        myEnabledFuzzySearchJBCheckBox.setEnabled(emmetOptions.isEmmetEnabled());
+        myEnabledFuzzySearchJBCheckBox.setSelected(cssEmmetOptions.isFuzzySearchEnabled());
 
-		myCssEditPrefixesListPanel.setEnabled(emmetOptions.isEmmetEnabled() && cssEmmetOptions.isAutoInsertCssPrefixedEnabled());
-		myCssEditPrefixesListPanel.setState(cssEmmetOptions.getAllPrefixInfo());
-	}
+        myCssEditPrefixesListPanel.setEnabled(emmetOptions.isEmmetEnabled() && cssEmmetOptions.isAutoInsertCssPrefixedEnabled());
+        myCssEditPrefixesListPanel.setState(cssEmmetOptions.getAllPrefixInfo());
+    }
 
-	@RequiredUIAccess
-	@Override
-	public void disposeUIResources()
-	{
-		myPanel = null;
-		myCssEditPrefixesListPanel = null;
-		myPrefixesPanel = null;
-	}
+    @RequiredUIAccess
+    @Override
+    public void disposeUIResources() {
+        myPanel = null;
+        myCssEditPrefixesListPanel = null;
+        myPrefixesPanel = null;
+    }
 }

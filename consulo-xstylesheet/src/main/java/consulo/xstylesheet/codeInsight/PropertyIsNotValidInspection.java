@@ -32,61 +32,54 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 @ExtensionImpl
-public class PropertyIsNotValidInspection extends LocalInspectionTool
-{
-	@Nonnull
-	@Override
-	public PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, boolean isOnTheFly)
-	{
-		return new PsiElementVisitor()
-		{
-			@Override
-			@RequiredReadAction
-			public void visitElement(PsiElement element)
-			{
-				if(element instanceof PsiXStyleSheetVariable)
-				{
-					return;
-				}
+public class PropertyIsNotValidInspection extends LocalInspectionTool {
+    @Nonnull
+    @Override
+    public PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, boolean isOnTheFly) {
+        return new PsiElementVisitor() {
+            @Override
+            @RequiredReadAction
+            public void visitElement(PsiElement element) {
+                if (element instanceof PsiXStyleSheetVariable) {
+                    return;
+                }
 
-				if(element instanceof PsiXStyleSheetProperty property)
-				{
-					XStyleSheetProperty xStyleSheetProperty = property.getXStyleSheetProperty();
-					if(xStyleSheetProperty == null)
-					{
-						PsiElement nameIdentifier = property.getNameIdentifier();
-						if(nameIdentifier == null)
-						{
-							return;
-						}
-						holder.registerProblem(nameIdentifier, "Invalid property name", ProblemHighlightType.GENERIC_ERROR_OR_WARNING);
-					}
-				}
-			}
-		};
-	}
+                if (element instanceof PsiXStyleSheetProperty property) {
+                    XStyleSheetProperty xStyleSheetProperty = property.getXStyleSheetProperty();
+                    if (xStyleSheetProperty == null) {
+                        PsiElement nameIdentifier = property.getNameIdentifier();
+                        if (nameIdentifier == null) {
+                            return;
+                        }
+                        holder.registerProblem(
+                            nameIdentifier,
+                            "Invalid property name",
+                            ProblemHighlightType.GENERIC_ERROR_OR_WARNING
+                        );
+                    }
+                }
+            }
+        };
+    }
 
-	@Nonnull
-	@Override
-	public String getGroupDisplayName()
-	{
-		return "CSS";
-	}
+    @Nonnull
+    @Override
+    public String getGroupDisplayName() {
+        return "CSS";
+    }
 
-	@Nonnull
-	@Override
-	public String getDisplayName()
-	{
-		return "Invalid property name";
-	}
+    @Nonnull
+    @Override
+    public String getDisplayName() {
+        return "Invalid property name";
+    }
 
-	@Nonnull
-	@Override
-	public HighlightDisplayLevel getDefaultLevel()
-	{
-		return HighlightDisplayLevel.ERROR;
-	}
+    @Nonnull
+    @Override
+    public HighlightDisplayLevel getDefaultLevel() {
+        return HighlightDisplayLevel.ERROR;
+    }
 }

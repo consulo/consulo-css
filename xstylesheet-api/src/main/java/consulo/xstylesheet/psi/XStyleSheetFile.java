@@ -13,22 +13,21 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 05.12.2015
+ * @since 2015-12-05
  */
-public interface XStyleSheetFile extends PsiFile
-{
-	@Nonnull
-	static XStyleSheetTable getXStyleSheetTable(@Nonnull PsiFile file)
-	{
-		List<XStyleSheetTable> list = new ArrayList<>();
-		XStyleSheetTableProvider.EP_NAME.forEachExtensionSafe(extension ->
-		{
-			ContainerUtil.addIfNotNull(list, extension.getTableForFile(file));
-		});
+public interface XStyleSheetFile extends PsiFile {
+    @Nonnull
+    static XStyleSheetTable getXStyleSheetTable(@Nonnull PsiFile file) {
+        List<XStyleSheetTable> list = new ArrayList<>();
+        XStyleSheetTableProvider.EP_NAME.forEachExtensionSafe(
+            extension -> ContainerUtil.addIfNotNull(list, extension.getTableForFile(file))
+        );
 
-		return list.isEmpty() ? EmptyXStyleSheetTable.INSTANCE : new MergedXStyleSheetTable(list.toArray(new XStyleSheetTable[list.size()]));
-	}
+        return list.isEmpty()
+            ? EmptyXStyleSheetTable.INSTANCE
+            : new MergedXStyleSheetTable(list.toArray(new XStyleSheetTable[list.size()]));
+    }
 
-	@Nonnull
-	XStyleSheetRoot getRoot();
+    @Nonnull
+    XStyleSheetRoot getRoot();
 }

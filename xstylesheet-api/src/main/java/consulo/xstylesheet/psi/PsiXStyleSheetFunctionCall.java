@@ -23,21 +23,20 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 17.07.13.
+ * @since 2013-07-17
  */
-public interface PsiXStyleSheetFunctionCall extends PsiXStyleSheetElement
-{
-	@Nonnull
-	@RequiredReadAction
-	PsiElement getCallElement();
+public interface PsiXStyleSheetFunctionCall extends PsiXStyleSheetElement {
+    @Nonnull
+    @RequiredReadAction
+    PsiElement getCallElement();
 
-	@Nonnull
-	@RequiredReadAction
-	String getCallName();
+    @Nonnull
+    @RequiredReadAction
+    String getCallName();
 
-	@RequiredReadAction
-	PsiXStyleSheetFunctionCallParameterList getParameterList();
+    @RequiredReadAction
+    PsiXStyleSheetFunctionCallParameterList getParameterList();
 
-	@RequiredReadAction
-	PsiElement[] getParameters();
+    @RequiredReadAction
+    PsiElement[] getParameters();
 }

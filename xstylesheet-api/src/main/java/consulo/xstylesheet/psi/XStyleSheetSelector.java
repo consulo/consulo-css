@@ -22,13 +22,12 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 19-Aug-17
+ * @since 2017-08-19
  */
-public interface XStyleSheetSelector extends PsiXStyleSheetElement
-{
-	XStyleSheetSelector[] EMPTY_ARRAY = new XStyleSheetSelector[0];
+public interface XStyleSheetSelector extends PsiXStyleSheetElement {
+    XStyleSheetSelector[] EMPTY_ARRAY = new XStyleSheetSelector[0];
 
-	@Nonnull
-	@RequiredReadAction
-	XStyleSheetSimpleSelector[] getSimpleSelectors();
+    @Nonnull
+    @RequiredReadAction
+    XStyleSheetSimpleSelector[] getSimpleSelectors();
 }

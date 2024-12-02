@@ -24,14 +24,12 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 23:58/12.06.13
+ * @since 2013-06-12
  */
 @ExtensionImpl
-public class CssFileTypeFactory extends FileTypeFactory
-{
-	@Override
-	public void createFileTypes(@Nonnull FileTypeConsumer fileTypeConsumer)
-	{
-		fileTypeConsumer.consume(CssFileType.INSTANCE);
-	}
+public class CssFileTypeFactory extends FileTypeFactory {
+    @Override
+    public void createFileTypes(@Nonnull FileTypeConsumer fileTypeConsumer) {
+        fileTypeConsumer.consume(CssFileType.INSTANCE);
+    }
 }

@@ -18,18 +18,16 @@ package consulo.xstylesheet.definition;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
-public interface XStyleSheetProperty
-{
-	String getName();
+public interface XStyleSheetProperty {
+    String getName();
 
-	XStyleSheetPropertyValueEntry[] getValidEntries();
+    XStyleSheetPropertyValueEntry[] getValidEntries();
 
-	XStyleSheetPropertyValueEntry[] getInitialEntries();
+    XStyleSheetPropertyValueEntry[] getInitialEntries();
 
-	default boolean isUnknown()
-	{
-		return false;
-	}
+    default boolean isUnknown() {
+        return false;
+    }
 }

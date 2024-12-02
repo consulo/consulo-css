@@ -20,8 +20,7 @@ import consulo.language.psi.PsiElement;
 
 /**
  * @author VISTALL
- * @since 11-Sep-22
+ * @since 2022-09-11
  */
-public interface BuildInSymbolElement extends PsiElement
-{
+public interface BuildInSymbolElement extends PsiElement {
 }

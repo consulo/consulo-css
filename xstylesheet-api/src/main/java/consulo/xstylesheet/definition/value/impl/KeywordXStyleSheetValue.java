@@ -30,37 +30,32 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
-public class KeywordXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser
-{
-	@Nullable
-	@Override
-	public String fromString(@Nonnull String stringValue, String value)
-	{
-		if(stringValue.equals(value))
-		{
-			return stringValue;
-		}
-		return null;
-	}
+public class KeywordXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser {
+    @Nullable
+    @Override
+    public String fromString(@Nonnull String stringValue, String value) {
+        if (stringValue.equals(value)) {
+            return stringValue;
+        }
+        return null;
+    }
 
-	@Nonnull
-	@Override
-	public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart)
-	{
-		HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
-		builder.textAttributes(XStyleSheetColors.KEYWORD);
-		builder.range(valuePart);
-		return Collections.singletonList(builder.create());
-	}
+    @Nonnull
+    @Override
+    public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart) {
+        HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
+        builder.textAttributes(XStyleSheetColors.KEYWORD);
+        builder.range(valuePart);
+        return Collections.singletonList(builder.create());
+    }
 
-	@Nonnull
-	@Override
-	public List<LookupElement> getLookupElements(String value)
-	{
-		LookupElementBuilder builder = LookupElementBuilder.create(value);
-		builder = builder.withBoldness(true);
-		return Collections.<LookupElement>singletonList(builder);
-	}
+    @Nonnull
+    @Override
+    public List<LookupElement> getLookupElements(String value) {
+        LookupElementBuilder builder = LookupElementBuilder.create(value);
+        builder = builder.withBoldness(true);
+        return Collections.<LookupElement>singletonList(builder);
+    }
 }

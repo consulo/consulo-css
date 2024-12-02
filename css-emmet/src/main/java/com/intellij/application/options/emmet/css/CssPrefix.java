@@ -16,22 +16,22 @@
 package com.intellij.application.options.emmet.css;
 
 /**
- * User: zolotov
- * Date: 2/21/13
+ * @author zolotov
+ * @since 2013-02-21
  */
-public enum CssPrefix
-{
-	WEBKIT(0x1), MOZ(0x2), MS(0x4), O(0x8);
+public enum CssPrefix {
+    WEBKIT(0x1),
+    MOZ(0x2),
+    MS(0x4),
+    O(0x8);
 
-	final int myIntMask;
+    final int myIntMask;
 
-	CssPrefix(int intMask)
-	{
-		myIntMask = intMask;
-	}
+    CssPrefix(int intMask) {
+        myIntMask = intMask;
+    }
 
-	public String getText()
-	{
-		return "-" + toString().toLowerCase();
-	}
+    public String getText() {
+        return "-" + toString().toLowerCase();
+    }
 }

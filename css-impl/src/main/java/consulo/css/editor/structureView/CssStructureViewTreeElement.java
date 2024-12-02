@@ -30,34 +30,28 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 2013-07-08
  */
-public class CssStructureViewTreeElement extends PsiTreeElementBase<CssFile>
-{
-	public CssStructureViewTreeElement(CssFile psiElement)
-	{
-		super(psiElement);
-	}
+public class CssStructureViewTreeElement extends PsiTreeElementBase<CssFile> {
+    public CssStructureViewTreeElement(CssFile psiElement) {
+        super(psiElement);
+    }
 
-	@Nonnull
-	@Override
-	public Collection<StructureViewTreeElement> getChildrenBase()
-	{
-		List<StructureViewTreeElement> list = new ArrayList<>();
-		for(PsiXStyleSheetRule cssRule : getElement().getRoot().getRules())
-		{
-			for(XStyleSheetSelector declaration : cssRule.getSelectors())
-			{
-				list.add(new CssSelectorDeclarationStructureViewTreeElement(declaration));
-			}
-		}
-		return list;
-	}
+    @Nonnull
+    @Override
+    public Collection<StructureViewTreeElement> getChildrenBase() {
+        List<StructureViewTreeElement> list = new ArrayList<>();
+        for (PsiXStyleSheetRule cssRule : getElement().getRoot().getRules()) {
+            for (XStyleSheetSelector declaration : cssRule.getSelectors()) {
+                list.add(new CssSelectorDeclarationStructureViewTreeElement(declaration));
+            }
+        }
+        return list;
+    }
 
-	@Nullable
-	@Override
-	public String getPresentableText()
-	{
-		return getElement().getName();
-	}
+    @Nullable
+    @Override
+    public String getPresentableText() {
+        return getElement().getName();
+    }
 }

@@ -25,27 +25,24 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 2013-07-08
  */
 @ExtensionImpl
-public class CssPairedBraceMatcher implements PairedBraceMatcher
-{
-	private BracePair[] myPairs = new BracePair[]{
-			new BracePair(CssTokens.LPAR, CssTokens.RPAR, false),
-			new BracePair(CssTokens.LBRACE, CssTokens.RBRACE, true),
-			new BracePair(CssTokens.LBRACKET, CssTokens.RBRACKET, false),
-	};
+public class CssPairedBraceMatcher implements PairedBraceMatcher {
+    private BracePair[] myPairs = new BracePair[]{
+        new BracePair(CssTokens.LPAR, CssTokens.RPAR, false),
+        new BracePair(CssTokens.LBRACE, CssTokens.RBRACE, true),
+        new BracePair(CssTokens.LBRACKET, CssTokens.RBRACKET, false),
+    };
 
-	@Override
-	public BracePair[] getPairs()
-	{
-		return myPairs;
-	}
+    @Override
+    public BracePair[] getPairs() {
+        return myPairs;
+    }
 
-	@Nonnull
-	@Override
-	public Language getLanguage()
-	{
-		return CssLanguage.INSTANCE;
-	}
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return CssLanguage.INSTANCE;
+    }
 }

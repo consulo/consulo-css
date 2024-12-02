@@ -30,30 +30,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* @author VISTALL
-* @since 11-Sep-22
-*/
+ * @author VISTALL
+ * @since 2022-09-11
+ */
 @ExtensionImpl
-public class UrlFunctionCallValidator implements XStyleSheetFunctionCallDescriptor
-{
-	@RequiredReadAction
-	@Override
-	public boolean isMyFunction(PsiXStyleSheetFunctionCall functionCall)
-	{
-		return functionCall.getCallName().equals("url");
-	}
+public class UrlFunctionCallValidator implements XStyleSheetFunctionCallDescriptor {
+    @RequiredReadAction
+    @Override
+    public boolean isMyFunction(PsiXStyleSheetFunctionCall functionCall) {
+        return functionCall.getCallName().equals("url");
+    }
 
-	@RequiredReadAction
-	@Override
-	public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetFunctionCall functionCall)
-	{
-		List<HighlightInfo> list = new ArrayList<>();
-		list.add(HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION).range(functionCall.getCallElement()).textAttributes(XStyleSheetColors.KEYWORD).create());
+    @RequiredReadAction
+    @Override
+    public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetFunctionCall functionCall) {
+        List<HighlightInfo> list = new ArrayList<>();
+        list.add(HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION)
+            .range(functionCall.getCallElement())
+            .textAttributes(XStyleSheetColors.KEYWORD)
+            .create());
 
-		for(PsiElement psiElement : functionCall.getParameters())
-		{
-			list.add(HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION).range(psiElement).textAttributes(XStyleSheetColors.STRING).create());
-		}
-		return list;
-	}
+        for (PsiElement psiElement : functionCall.getParameters()) {
+            list.add(HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION)
+                .range(psiElement)
+                .textAttributes(XStyleSheetColors.STRING)
+                .create());
+        }
+        return list;
+    }
 }

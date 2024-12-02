@@ -32,66 +32,57 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 2013-07-08
  */
 @ExtensionImpl
-public class PropertyValueIsNotValidInspection extends LocalInspectionTool
-{
-	@Nonnull
-	@Override
-	public PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, boolean isOnTheFly)
-	{
-		return new PsiElementVisitor()
-		{
-			@Override
-			@RequiredReadAction
-			public void visitElement(PsiElement element)
-			{
-				if(element instanceof PsiXStyleSheetProperty xStyleSheetProperty)
-				{
-					XStyleSheetProperty property = xStyleSheetProperty.getXStyleSheetProperty();
-					if(property == null || property.isUnknown())
-					{
-						return;
-					}
+public class PropertyValueIsNotValidInspection extends LocalInspectionTool {
+    @Nonnull
+    @Override
+    public PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, boolean isOnTheFly) {
+        return new PsiElementVisitor() {
+            @Override
+            @RequiredReadAction
+            public void visitElement(PsiElement element) {
+                if (element instanceof PsiXStyleSheetProperty xStyleSheetProperty) {
+                    XStyleSheetProperty property = xStyleSheetProperty.getXStyleSheetProperty();
+                    if (property == null || property.isUnknown()) {
+                        return;
+                    }
 
-					for(PsiXStyleSheetPropertyValuePart part : xStyleSheetProperty.getParts())
-					{
-						if(part.isSoft())
-						{
-							continue;
-						}
+                    for (PsiXStyleSheetPropertyValuePart part : xStyleSheetProperty.getParts()) {
+                        if (part.isSoft()) {
+                            continue;
+                        }
 
-						Object value = part.getValue();
-						if(value == null)
-						{
-							holder.registerProblem(part, "" +
-									"Invalid property value", ProblemHighlightType.GENERIC_ERROR_OR_WARNING);
-						}
-					}
-				}
-			}
-		};
-	}
+                        Object value = part.getValue();
+                        if (value == null) {
+                            holder.registerProblem(
+                                part,
+                                "Invalid property value",
+                                ProblemHighlightType.GENERIC_ERROR_OR_WARNING
+                            );
+                        }
+                    }
+                }
+            }
+        };
+    }
 
-	@Nonnull
-	@Override
-	public String getGroupDisplayName()
-	{
-		return "CSS";
-	}
+    @Nonnull
+    @Override
+    public String getGroupDisplayName() {
+        return "CSS";
+    }
 
-	@Nonnull
-	@Override
-	public String getDisplayName()
-	{
-		return "Invalid property value";
-	}
+    @Nonnull
+    @Override
+    public String getDisplayName() {
+        return "Invalid property value";
+    }
 
-	@Nonnull
-	@Override
-	public HighlightDisplayLevel getDefaultLevel()
-	{
-		return HighlightDisplayLevel.ERROR;
-	}
+    @Nonnull
+    @Override
+    public HighlightDisplayLevel getDefaultLevel() {
+        return HighlightDisplayLevel.ERROR;
+    }
 }

@@ -17,23 +17,23 @@ import java.util.List;
  * @since 2024-03-14
  */
 @ExtensionImpl
-public class VarFunctionCallValidator implements XStyleSheetFunctionCallDescriptor
-{
-	public static final String VAR_NAME = "var";
+public class VarFunctionCallValidator implements XStyleSheetFunctionCallDescriptor {
+    public static final String VAR_NAME = "var";
 
-	@RequiredReadAction
-	@Override
-	public boolean isMyFunction(PsiXStyleSheetFunctionCall functionCall)
-	{
-		return functionCall.getCallName().equals(VAR_NAME);
-	}
+    @RequiredReadAction
+    @Override
+    public boolean isMyFunction(PsiXStyleSheetFunctionCall functionCall) {
+        return functionCall.getCallName().equals(VAR_NAME);
+    }
 
-	@RequiredReadAction
-	@Override
-	public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetFunctionCall functionCall)
-	{
-		List<HighlightInfo> list = new ArrayList<>();
-		list.add(HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION).range(functionCall.getCallElement()).textAttributes(XStyleSheetColors.KEYWORD).create());
-		return list;
-	}
+    @RequiredReadAction
+    @Override
+    public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetFunctionCall functionCall) {
+        List<HighlightInfo> list = new ArrayList<>();
+        list.add(HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION)
+            .range(functionCall.getCallElement())
+            .textAttributes(XStyleSheetColors.KEYWORD)
+            .create());
+        return list;
+    }
 }

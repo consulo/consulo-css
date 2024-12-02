@@ -26,23 +26,20 @@ import java.util.Collections;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
-public class EmptyXStyleSheetTable implements XStyleSheetTable
-{
-	public static final XStyleSheetTable INSTANCE = new EmptyXStyleSheetTable();
+public class EmptyXStyleSheetTable implements XStyleSheetTable {
+    public static final XStyleSheetTable INSTANCE = new EmptyXStyleSheetTable();
 
-	@Nullable
-	@Override
-	public XStyleSheetProperty findProperty(@Nonnull String propertyName)
-	{
-		return null;
-	}
+    @Nullable
+    @Override
+    public XStyleSheetProperty findProperty(@Nonnull String propertyName) {
+        return null;
+    }
 
-	@Nonnull
-	@Override
-	public Collection<XStyleSheetProperty> getProperties()
-	{
-		return Collections.emptyList();
-	}
+    @Nonnull
+    @Override
+    public Collection<XStyleSheetProperty> getProperties() {
+        return Collections.emptyList();
+    }
 }

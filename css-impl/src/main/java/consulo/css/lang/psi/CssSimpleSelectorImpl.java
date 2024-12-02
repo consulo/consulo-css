@@ -31,66 +31,56 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 20-Aug-17
+ * @since 2017-08-20
  */
-public class CssSimpleSelectorImpl extends CssElement implements XStyleSheetSimpleSelector
-{
-	private static final TokenSet nameSet = TokenSet.create(CssTokens.IDENTIFIER, CssTokens.SELECTOR_CLASS, CssTokens.SELECTOR_ID, CssTokens.ASTERISK);
+public class CssSimpleSelectorImpl extends CssElement implements XStyleSheetSimpleSelector {
+    private static final TokenSet nameSet =
+        TokenSet.create(CssTokens.IDENTIFIER, CssTokens.SELECTOR_CLASS, CssTokens.SELECTOR_ID, CssTokens.ASTERISK);
 
-	public CssSimpleSelectorImpl(@Nonnull ASTNode node)
-	{
-		super(node);
-	}
+    public CssSimpleSelectorImpl(@Nonnull ASTNode node) {
+        super(node);
+    }
 
-	@RequiredReadAction
-	@Nullable
-	@Override
-	public PsiElement getElement()
-	{
-		return findChildByType(nameSet);
-	}
+    @RequiredReadAction
+    @Nullable
+    @Override
+    public PsiElement getElement() {
+        return findChildByType(nameSet);
+    }
 
-	@RequiredReadAction
-	@Override
-	public String getName()
-	{
-		PsiElement element = findChildByType(nameSet);
-		if(element != null)
-		{
-			String text = element.getText();
-			IElementType type = PsiUtilCore.getElementType(element);
-			if(type == CssTokens.IDENTIFIER || type == CssTokens.ASTERISK)
-			{
-				return text;
-			}
-			return text.substring(1, text.length());
-		}
-		return null;
-	}
+    @RequiredReadAction
+    @Override
+    public String getName() {
+        PsiElement element = findChildByType(nameSet);
+        if (element != null) {
+            String text = element.getText();
+            IElementType type = PsiUtilCore.getElementType(element);
+            if (type == CssTokens.IDENTIFIER || type == CssTokens.ASTERISK) {
+                return text;
+            }
+            return text.substring(1, text.length());
+        }
+        return null;
+    }
 
-	@RequiredReadAction
-	@Nonnull
-	@Override
-	public XStyleSheetSimpleSelectorType getType()
-	{
-		PsiElement element = findChildByType(nameSet);
-		IElementType type = PsiUtilCore.getElementType(element);
-		if(type == CssTokens.IDENTIFIER)
-		{
-			return XStyleSheetSimpleSelectorType.TAG;
-		}
-		else if(type == CssTokens.SELECTOR_CLASS)
-		{
-			return XStyleSheetSimpleSelectorType.CLASS;
-		}
-		else if(type == CssTokens.SELECTOR_ID)
-		{
-			return XStyleSheetSimpleSelectorType.ID;
-		}
-		else if(type == CssTokens.ASTERISK)
-		{
-			return XStyleSheetSimpleSelectorType.ANY;
-		}
-		return XStyleSheetSimpleSelectorType.ANY;
-	}
+    @RequiredReadAction
+    @Nonnull
+    @Override
+    public XStyleSheetSimpleSelectorType getType() {
+        PsiElement element = findChildByType(nameSet);
+        IElementType type = PsiUtilCore.getElementType(element);
+        if (type == CssTokens.IDENTIFIER) {
+            return XStyleSheetSimpleSelectorType.TAG;
+        }
+        else if (type == CssTokens.SELECTOR_CLASS) {
+            return XStyleSheetSimpleSelectorType.CLASS;
+        }
+        else if (type == CssTokens.SELECTOR_ID) {
+            return XStyleSheetSimpleSelectorType.ID;
+        }
+        else if (type == CssTokens.ASTERISK) {
+            return XStyleSheetSimpleSelectorType.ANY;
+        }
+        return XStyleSheetSimpleSelectorType.ANY;
+    }
 }

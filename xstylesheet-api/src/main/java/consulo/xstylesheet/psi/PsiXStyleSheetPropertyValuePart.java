@@ -24,24 +24,21 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
-public interface PsiXStyleSheetPropertyValuePart extends PsiElement
-{
-	@RequiredReadAction
-	default boolean isSoft()
-	{
-		return false;
-	}
+public interface PsiXStyleSheetPropertyValuePart extends PsiElement {
+    @RequiredReadAction
+    default boolean isSoft() {
+        return false;
+    }
 
-	@RequiredReadAction
-	Object getValue();
+    @RequiredReadAction
+    Object getValue();
 
-	default void setValue(@Nonnull Object value)
-	{
-	}
+    default void setValue(@Nonnull Object value) {
+    }
 
-	XStyleSheetPropertyValuePart getValuePart();
+    XStyleSheetPropertyValuePart getValuePart();
 
-	XStyleSheetPropertyValuePart[] getValueParts();
+    XStyleSheetPropertyValuePart[] getValueParts();
 }

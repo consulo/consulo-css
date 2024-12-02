@@ -24,21 +24,17 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
-public class ColorXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser
-{
-	@Nullable
-	@Override
-	public ColorValue fromString(@Nonnull String stringValue, String value)
-	{
-		try
-		{
-			return ColorValueUtil.fromHex(stringValue);
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
-	}
+public class ColorXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser {
+    @Nullable
+    @Override
+    public ColorValue fromString(@Nonnull String stringValue, String value) {
+        try {
+            return ColorValueUtil.fromHex(stringValue);
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
 }

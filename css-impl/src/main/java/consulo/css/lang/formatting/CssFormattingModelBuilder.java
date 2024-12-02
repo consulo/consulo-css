@@ -26,25 +26,22 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 2013-07-08
  */
 @ExtensionImpl
-public class CssFormattingModelBuilder implements FormattingModelBuilder
-{
-	@Nonnull
-	@Override
-	public FormattingModel createModel(@Nonnull FormattingContext formattingContext)
-	{
-		PsiFile file = formattingContext.getContainingFile();
-		FormattingDocumentModel model = FormattingDocumentModel.create(file);
-		Block rootBlock = new CssFormattingBlock(formattingContext.getNode(), null, null);
-		return new PsiBasedFormattingModel(file, rootBlock, model);
-	}
+public class CssFormattingModelBuilder implements FormattingModelBuilder {
+    @Nonnull
+    @Override
+    public FormattingModel createModel(@Nonnull FormattingContext formattingContext) {
+        PsiFile file = formattingContext.getContainingFile();
+        FormattingDocumentModel model = FormattingDocumentModel.create(file);
+        Block rootBlock = new CssFormattingBlock(formattingContext.getNode(), null, null);
+        return new PsiBasedFormattingModel(file, rootBlock, model);
+    }
 
-	@Nonnull
-	@Override
-	public Language getLanguage()
-	{
-		return CssLanguage.INSTANCE;
-	}
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return CssLanguage.INSTANCE;
+    }
 }

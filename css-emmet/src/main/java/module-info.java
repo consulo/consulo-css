@@ -1,18 +1,18 @@
 /**
  * @author VISTALL
- * @since 11-Sep-22
+ * @since 2022-09-11
  */
 module consulo.css.emmet
 {
-	requires consulo.ide.api;
-	// TODO remove in future
-	requires java.desktop;
+    requires consulo.ide.api;
+    // TODO remove in future
+    requires java.desktop;
 
-	requires consulo.emmet;
+    requires consulo.emmet;
 
-	requires com.intellij.xml;
+    requires com.intellij.xml;
 
-	exports com.intellij.application.options.emmet.css;
+    exports com.intellij.application.options.emmet.css;
 
-	opens com.intellij.application.options.emmet.css to consulo.util.xml.serializer;
+    opens com.intellij.application.options.emmet.css to consulo.util.xml.serializer;
 }

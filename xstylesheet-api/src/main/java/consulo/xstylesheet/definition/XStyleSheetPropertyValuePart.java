@@ -25,25 +25,23 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
-public interface XStyleSheetPropertyValuePart
-{
-	XStyleSheetPropertyValuePart[] EMPTY_ARRAY = new XStyleSheetPropertyValuePart[0];
+public interface XStyleSheetPropertyValuePart {
+    XStyleSheetPropertyValuePart[] EMPTY_ARRAY = new XStyleSheetPropertyValuePart[0];
 
-	XStyleSheetPropertyValuePartParser getParser();
+    XStyleSheetPropertyValuePartParser getParser();
 
-	@Nonnull
-	List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart);
+    @Nonnull
+    List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart);
 
-	String getValue();
+    String getValue();
 
-	Object getNativeValue(PsiXStyleSheetPropertyValuePart part);
+    Object getNativeValue(PsiXStyleSheetPropertyValuePart part);
 
-	default boolean setNativeValue(@Nonnull XStyleSheetPropertyValuePart part, Object value)
-	{
-		return false;
-	}
+    default boolean setNativeValue(@Nonnull XStyleSheetPropertyValuePart part, Object value) {
+        return false;
+    }
 
-	List<LookupElement> getLookupElements();
+    List<LookupElement> getLookupElements();
 }

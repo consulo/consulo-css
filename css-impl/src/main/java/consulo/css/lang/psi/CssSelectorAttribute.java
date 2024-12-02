@@ -30,45 +30,38 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 11.07.13.
+ * @since 2013-07-11
  */
-public class CssSelectorAttribute extends CssElement implements PsiXStyleSheetSelectorAttribute
-{
-	public CssSelectorAttribute(@Nonnull ASTNode node)
-	{
-		super(node);
-	}
+public class CssSelectorAttribute extends CssElement implements PsiXStyleSheetSelectorAttribute {
+    public CssSelectorAttribute(@Nonnull ASTNode node) {
+        super(node);
+    }
 
-	@RequiredReadAction
-	@Override
-	public PsiElement getValue()
-	{
-		PsiElement asString = findChildByType(CssTokens.STRING);
-		if(asString != null)
-		{
-			return asString;
-		}
+    @RequiredReadAction
+    @Override
+    public PsiElement getValue() {
+        PsiElement asString = findChildByType(CssTokens.STRING);
+        if (asString != null) {
+            return asString;
+        }
 
-		PsiElement[] children = getChildren();
-		if(children.length == 2 && PsiUtilCore.getElementType(children[1]) == CssTokens.IDENTIFIER)
-		{
-			return children[1];
-		}
-		return null;
-	}
+        PsiElement[] children = getChildren();
+        if (children.length == 2 && PsiUtilCore.getElementType(children[1]) == CssTokens.IDENTIFIER) {
+            return children[1];
+        }
+        return null;
+    }
 
-	@RequiredReadAction
-	@Nullable
-	@Override
-	public PsiElement getNameIdentifier()
-	{
-		return getFirstChild();
-	}
+    @RequiredReadAction
+    @Nullable
+    @Override
+    public PsiElement getNameIdentifier() {
+        return getFirstChild();
+    }
 
-	@RequiredWriteAction
-	@Override
-	public PsiElement setName(@Nonnull String s) throws IncorrectOperationException
-	{
-		return null;
-	}
+    @RequiredWriteAction
+    @Override
+    public PsiElement setName(@Nonnull String s) throws IncorrectOperationException {
+        return null;
+    }
 }

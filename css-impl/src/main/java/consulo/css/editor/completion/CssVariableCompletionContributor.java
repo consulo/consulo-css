@@ -18,38 +18,35 @@ import jakarta.annotation.Nonnull;
  * @since 2024-03-16
  */
 @ExtensionImpl
-public class CssVariableCompletionContributor extends CompletionContributor
-{
-	public CssVariableCompletionContributor()
-	{
-		extend(CompletionType.BASIC, StandardPatterns.psiElement().withParent(CssVariableReference.class), (parameters, context, result) ->
-		{
-			CssVariableReference reference = PsiTreeUtil.getParentOfType(parameters.getPosition(), CssVariableReference.class);
+public class CssVariableCompletionContributor extends CompletionContributor {
+    public CssVariableCompletionContributor() {
+        extend(
+            CompletionType.BASIC,
+            StandardPatterns.psiElement().withParent(CssVariableReference.class),
+            (parameters, context, result) -> {
+                CssVariableReference reference = PsiTreeUtil.getParentOfType(parameters.getPosition(), CssVariableReference.class);
 
-			assert reference != null;
+                assert reference != null;
 
-			reference.visitVariants(element ->
-			{
-				String name = element.getName();
-				if(name == null)
-				{
-					return;
-				}
-				result.accept(LookupElementBuilder.create(name).withIcon(IconDescriptorUpdaters.getIcon(element, 0)));
-			});
-		});
-	}
+                reference.visitVariants(element -> {
+                    String name = element.getName();
+                    if (name == null) {
+                        return;
+                    }
+                    result.accept(LookupElementBuilder.create(name).withIcon(IconDescriptorUpdaters.getIcon(element, 0)));
+                });
+            }
+        );
+    }
 
-	@Override
-	public void beforeCompletion(@Nonnull CompletionInitializationContext context)
-	{
-		context.setDummyIdentifier("--dummy-completion-var");
-	}
+    @Override
+    public void beforeCompletion(@Nonnull CompletionInitializationContext context) {
+        context.setDummyIdentifier("--dummy-completion-var");
+    }
 
-	@Nonnull
-	@Override
-	public Language getLanguage()
-	{
-		return CssLanguage.INSTANCE;
-	}
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return CssLanguage.INSTANCE;
+    }
 }

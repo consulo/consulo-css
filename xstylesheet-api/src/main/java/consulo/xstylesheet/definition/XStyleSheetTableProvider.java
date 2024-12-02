@@ -29,10 +29,9 @@ import javax.annotation.Nullable;
  * @since 2020-08-08
  */
 @ExtensionAPI(ComponentScope.APPLICATION)
-public interface XStyleSheetTableProvider
-{
-	ExtensionPointName<XStyleSheetTableProvider> EP_NAME = ExtensionPointName.create(XStyleSheetTableProvider.class);
+public interface XStyleSheetTableProvider {
+    ExtensionPointName<XStyleSheetTableProvider> EP_NAME = ExtensionPointName.create(XStyleSheetTableProvider.class);
 
-	@Nullable
-	XStyleSheetTable getTableForFile(@Nonnull PsiFile file);
+    @Nullable
+    XStyleSheetTable getTableForFile(@Nonnull PsiFile file);
 }

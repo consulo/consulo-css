@@ -28,14 +28,13 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 11-Sep-22
+ * @since 2022-09-11
  */
 @ExtensionAPI(ComponentScope.APPLICATION)
-public interface XStyleSheetFunctionCallDescriptor
-{
-	@RequiredReadAction
-	boolean isMyFunction(PsiXStyleSheetFunctionCall functionCall);
+public interface XStyleSheetFunctionCallDescriptor {
+    @RequiredReadAction
+    boolean isMyFunction(PsiXStyleSheetFunctionCall functionCall);
 
-	@RequiredReadAction
-	List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetFunctionCall functionCall);
+    @RequiredReadAction
+    List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetFunctionCall functionCall);
 }

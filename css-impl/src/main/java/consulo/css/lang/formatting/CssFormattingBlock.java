@@ -30,81 +30,67 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 2013-07-08
  */
-public class CssFormattingBlock extends AbstractBlock
-{
-	public CssFormattingBlock(@Nonnull ASTNode node, @Nullable Wrap wrap, @Nullable Alignment alignment)
-	{
-		super(node, wrap, alignment);
-	}
+public class CssFormattingBlock extends AbstractBlock {
+    public CssFormattingBlock(@Nonnull ASTNode node, @Nullable Wrap wrap, @Nullable Alignment alignment) {
+        super(node, wrap, alignment);
+    }
 
-	@Override
-	protected List<Block> buildChildren()
-	{
-		List<Block> blocks = new ArrayList<>();
-		ASTNode child = getNode().getFirstChildNode();
-		while(child != null)
-		{
-			if(!FormatterUtil.containsWhiteSpacesOnly(child))
-			{
-				blocks.add(new CssFormattingBlock(child, null, null));
-			}
-			child = child.getTreeNext();
-		}
-		return blocks;
-	}
+    @Override
+    protected List<Block> buildChildren() {
+        List<Block> blocks = new ArrayList<>();
+        ASTNode child = getNode().getFirstChildNode();
+        while (child != null) {
+            if (!FormatterUtil.containsWhiteSpacesOnly(child)) {
+                blocks.add(new CssFormattingBlock(child, null, null));
+            }
+            child = child.getTreeNext();
+        }
+        return blocks;
+    }
 
-	@Nullable
-	@Override
-	public Spacing getSpacing(@Nullable Block block, @Nonnull Block block2)
-	{
-		return null;
-	}
+    @Nullable
+    @Override
+    public Spacing getSpacing(@Nullable Block block, @Nonnull Block block2) {
+        return null;
+    }
 
-	@Override
-	public Indent getIndent()
-	{
-		IElementType elementType = getNode().getElementType();
-		if(elementType == CssParserDefinition.FILE_ELEMENT)
-		{
-			return Indent.getAbsoluteNoneIndent();
-		}/* else if (elementType == CssPsiTokens.RULE || elementType == CssPsiTokens.BLOCK || elementType == CssPsiTokens.SELECTOR_DECLARATION_LIST) {
-			return Indent.getNoneIndent();
+    @Override
+    public Indent getIndent() {
+        IElementType elementType = getNode().getElementType();
+        if (elementType == CssParserDefinition.FILE_ELEMENT) {
+            return Indent.getAbsoluteNoneIndent();
+        }/* else if (elementType == CssPsiTokens.RULE || elementType == CssPsiTokens.BLOCK || elementType == CssPsiTokens.SELECTOR_DECLARATION_LIST) {
+            return Indent.getNoneIndent();
 		} else if (elementType == CssTokens.LBRACE || elementType == CssTokens.RBRACE) {
 			return Indent.getNoneIndent();
 		}*/
-		else if(elementType == CssElements.PROPERTY)
-		{
-			return Indent.getNormalIndent();
-		}
-		else if(elementType == CssTokens.LBRACE || elementType == CssTokens.RBRACE)
-		{
-			return Indent.getNoneIndent();
-		}
-		return Indent.getNoneIndent();
-	}
+        else if (elementType == CssElements.PROPERTY) {
+            return Indent.getNormalIndent();
+        }
+        else if (elementType == CssTokens.LBRACE || elementType == CssTokens.RBRACE) {
+            return Indent.getNoneIndent();
+        }
+        return Indent.getNoneIndent();
+    }
 
-	@Nullable
-	@Override
-	protected Indent getChildIndent()
-	{
-		IElementType elementType = getNode().getElementType();
-		if(elementType == CssElements.BLOCK )
-		{
-			return Indent.getNormalIndent();
-		}
-		else if(elementType == CssElements.ROOT || elementType == CssParserDefinition.FILE_ELEMENT)
-		{
-			return Indent.getAbsoluteNoneIndent();
-		}
-		return null;
-	}
+    @Nullable
+    @Override
+    protected Indent getChildIndent() {
+        IElementType elementType = getNode().getElementType();
+        if (elementType == CssElements.BLOCK) {
+            return Indent.getNormalIndent();
+        }
+        else if (elementType == CssElements.ROOT || elementType == CssParserDefinition.FILE_ELEMENT) {
+            return Indent.getAbsoluteNoneIndent();
+        }
+        return null;
+    }
 
-	@Override
-	public boolean isLeaf()
-	{
-		IElementType elementType = getNode().getElementType();
-		return elementType == CssTokens.LBRACE || elementType == CssTokens.RBRACE;
-	}
+    @Override
+    public boolean isLeaf() {
+        IElementType elementType = getNode().getElementType();
+        return elementType == CssTokens.LBRACE || elementType == CssTokens.RBRACE;
+    }
 }

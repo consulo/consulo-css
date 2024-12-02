@@ -11,21 +11,18 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 26/03/2023
+ * @since 2023-03-26
  */
 @ExtensionImpl
-public class XStyleSheetHighlightVisitorFactory implements HighlightVisitorFactory
-{
-	@Override
-	public boolean suitableForFile(@Nonnull PsiFile psiFile)
-	{
-		return psiFile instanceof XStyleSheetFile || psiFile instanceof XmlFile;
-	}
+public class XStyleSheetHighlightVisitorFactory implements HighlightVisitorFactory {
+    @Override
+    public boolean suitableForFile(@Nonnull PsiFile psiFile) {
+        return psiFile instanceof XStyleSheetFile || psiFile instanceof XmlFile;
+    }
 
-	@Nonnull
-	@Override
-	public HighlightVisitor createVisitor()
-	{
-		return new XStyleSheetHighlightVisitor();
-	}
+    @Nonnull
+    @Override
+    public HighlightVisitor createVisitor() {
+        return new XStyleSheetHighlightVisitor();
+    }
 }

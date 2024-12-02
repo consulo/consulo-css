@@ -22,12 +22,10 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 30/01/2021
+ * @since 2021-01-30
  */
-public class CssCharset extends CssElement
-{
-	public CssCharset(@Nonnull ASTNode node)
-	{
-		super(node);
-	}
+public class CssCharset extends CssElement {
+    public CssCharset(@Nonnull ASTNode node) {
+        super(node);
+    }
 }

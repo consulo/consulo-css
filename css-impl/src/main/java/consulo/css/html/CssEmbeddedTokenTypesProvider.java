@@ -28,29 +28,25 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 03-Jan-17
+ * @since 2017-01-03
  */
 @ExtensionImpl
-public class CssEmbeddedTokenTypesProvider implements EmbeddedTokenTypesProvider
-{
-	@Nonnull
-	@Override
-	public String getName()
-	{
-		return HtmlLexer.INLINE_STYLE_NAME;
-	}
+public class CssEmbeddedTokenTypesProvider implements EmbeddedTokenTypesProvider {
+    @Nonnull
+    @Override
+    public String getName() {
+        return HtmlLexer.INLINE_STYLE_NAME;
+    }
 
-	@Nonnull
-	@Override
-	public IElementType getElementType()
-	{
-		return CssHtmlElements.MORPH_HTML_CSS_ELEMENT;
-	}
+    @Nonnull
+    @Override
+    public IElementType getElementType() {
+        return CssHtmlElements.MORPH_HTML_CSS_ELEMENT;
+    }
 
-	@Override
-	public boolean isMyVersion(@Nonnull LanguageVersion languageVersion)
-	{
-		//noinspection RequiredXAction
-		return languageVersion == LanguageVersionUtil.findDefaultVersion(languageVersion.getLanguage());
-	}
+    @Override
+    public boolean isMyVersion(@Nonnull LanguageVersion languageVersion) {
+        //noinspection RequiredXAction
+        return languageVersion == LanguageVersionUtil.findDefaultVersion(languageVersion.getLanguage());
+    }
 }

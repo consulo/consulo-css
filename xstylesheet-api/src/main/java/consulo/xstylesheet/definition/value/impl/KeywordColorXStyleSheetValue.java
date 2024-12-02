@@ -36,53 +36,45 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
-public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser
-{
-	@Nonnull
-	@Override
-	public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart)
-	{
-		HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
-		builder.textAttributes(XStyleSheetColors.KEYWORD);
-		builder.range(valuePart);
-		return Collections.singletonList(builder.create());
-	}
+public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser {
+    @Nonnull
+    @Override
+    public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart) {
+        HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
+        builder.textAttributes(XStyleSheetColors.KEYWORD);
+        builder.range(valuePart);
+        return Collections.singletonList(builder.create());
+    }
 
-	@Nullable
-	@Override
-	public ColorValue fromString(@Nonnull String stringValue, String value)
-	{
-		XStyleSheetColor xStyleSheetColor = XStyleSheetColor.getColor(StringUtil.toLowerCase(stringValue));
-		if(xStyleSheetColor == null)
-		{
-			return null;
-		}
+    @Nullable
+    @Override
+    public ColorValue fromString(@Nonnull String stringValue, String value) {
+        XStyleSheetColor xStyleSheetColor = XStyleSheetColor.getColor(StringUtil.toLowerCase(stringValue));
+        if (xStyleSheetColor == null) {
+            return null;
+        }
 
-		try
-		{
-			return ColorValueUtil.fromHex("#" + xStyleSheetColor.colorCode());
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
-	}
+        try {
+            return ColorValueUtil.fromHex("#" + xStyleSheetColor.colorCode());
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
 
-	@Nonnull
-	@Override
-	public List<LookupElement> getLookupElements(String value)
-	{
-		List<LookupElement> list = new ArrayList<>();
-		for(XStyleSheetColor entry : XStyleSheetColor.values())
-		{
-			LookupElementBuilder builder = LookupElementBuilder.create(entry.name());
-			String hex = "#" + entry.colorCode();
-			builder = builder.withIcon(ImageEffects.colorFilled(16, 16, ColorValueUtil.fromHex(hex)));
-			builder = builder.withTypeText(hex, true);
-			list.add(builder);
-		}
-		return list;
-	}
+    @Nonnull
+    @Override
+    public List<LookupElement> getLookupElements(String value) {
+        List<LookupElement> list = new ArrayList<>();
+        for (XStyleSheetColor entry : XStyleSheetColor.values()) {
+            LookupElementBuilder builder = LookupElementBuilder.create(entry.name());
+            String hex = "#" + entry.colorCode();
+            builder = builder.withIcon(ImageEffects.colorFilled(16, 16, ColorValueUtil.fromHex(hex)));
+            builder = builder.withTypeText(hex, true);
+            list.add(builder);
+        }
+        return list;
+    }
 }

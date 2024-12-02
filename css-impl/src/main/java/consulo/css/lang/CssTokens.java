@@ -21,49 +21,48 @@ import consulo.language.ast.TokenType;
 
 /**
  * @author VISTALL
- * @since 02.07.13
+ * @since 2013-07-02
  */
-public interface CssTokens extends TokenType
-{
-	IElementType BLOCK_COMMENT = new CssElementType("BLOCK_COMMENT");
+public interface CssTokens extends TokenType {
+    IElementType BLOCK_COMMENT = new CssElementType("BLOCK_COMMENT");
 
-	IElementType SELECTOR_ID = new CssElementType("SELECTOR_ID");
-	IElementType SELECTOR_CLASS = new CssElementType("SELECTOR_CLASS");
+    IElementType SELECTOR_ID = new CssElementType("SELECTOR_ID");
+    IElementType SELECTOR_CLASS = new CssElementType("SELECTOR_CLASS");
 
-	IElementType IDENTIFIER = new CssElementType("IDENTIFIER");
-	IElementType STRING = new CssElementType("STRING");
-	IElementType NUMBER = new CssElementType("NUMBER");
-	IElementType SHARP = new CssElementType("SHARP");
-	IElementType LPAR = new CssElementType("LPAR");
-	IElementType RPAR = new CssElementType("RPAR");
-	IElementType LBRACE = new CssElementType("LBRACE");
-	IElementType RBRACE = new CssElementType("RBRACE");
-	IElementType LBRACKET = new CssElementType("LBRACKET");
-	IElementType RBRACKET = new CssElementType("RBRACKET");
-	IElementType COLON = new CssElementType("COLON");
-	IElementType COLONCOLON = new CssElementType("COLONCOLON");
-	IElementType EQ = new CssElementType("EQ");
-	IElementType TILDE_EQ = new CssElementType("TILDE_EQ");
-	IElementType MUL_EQ = new CssElementType("MUL_EQ");
-	IElementType OR_EQ = new CssElementType("OR_EQ");
-	IElementType XOR_EQ = new CssElementType("XOR_EQ");
-	IElementType DOL_EQ = new CssElementType("DOL_EQ");
-	IElementType GT = new CssElementType("GT");
-	IElementType SEMICOLON = new CssElementType("SEMICOLON");
-	IElementType COMMA = new CssElementType("COMMA");
-	IElementType ASTERISK = new CssElementType("ASTERISK");
-	IElementType DOT = new CssElementType("DOT");
-	IElementType PLUS = new CssElementType("PLUS");
-	IElementType TILDE = new CssElementType("TILDE");
-	IElementType PERC = new CssElementType("PERC");
+    IElementType IDENTIFIER = new CssElementType("IDENTIFIER");
+    IElementType STRING = new CssElementType("STRING");
+    IElementType NUMBER = new CssElementType("NUMBER");
+    IElementType SHARP = new CssElementType("SHARP");
+    IElementType LPAR = new CssElementType("LPAR");
+    IElementType RPAR = new CssElementType("RPAR");
+    IElementType LBRACE = new CssElementType("LBRACE");
+    IElementType RBRACE = new CssElementType("RBRACE");
+    IElementType LBRACKET = new CssElementType("LBRACKET");
+    IElementType RBRACKET = new CssElementType("RBRACKET");
+    IElementType COLON = new CssElementType("COLON");
+    IElementType COLONCOLON = new CssElementType("COLONCOLON");
+    IElementType EQ = new CssElementType("EQ");
+    IElementType TILDE_EQ = new CssElementType("TILDE_EQ");
+    IElementType MUL_EQ = new CssElementType("MUL_EQ");
+    IElementType OR_EQ = new CssElementType("OR_EQ");
+    IElementType XOR_EQ = new CssElementType("XOR_EQ");
+    IElementType DOL_EQ = new CssElementType("DOL_EQ");
+    IElementType GT = new CssElementType("GT");
+    IElementType SEMICOLON = new CssElementType("SEMICOLON");
+    IElementType COMMA = new CssElementType("COMMA");
+    IElementType ASTERISK = new CssElementType("ASTERISK");
+    IElementType DOT = new CssElementType("DOT");
+    IElementType PLUS = new CssElementType("PLUS");
+    IElementType TILDE = new CssElementType("TILDE");
+    IElementType PERC = new CssElementType("PERC");
 
-	IElementType URL_TOKEN = new CssElementType("URL_TOKEN");
+    IElementType URL_TOKEN = new CssElementType("URL_TOKEN");
 
-	IElementType IMPORTANT_KEYWORD = new CssElementType("IMPORTANT_KEYWORD");
-	IElementType PAGE_KEYWORD = new CssElementType("PAGE_KEYWORD");
-	IElementType MEDIA_KEYWORD = new CssElementType("MEDIA_KEYWORD");
-	IElementType IMPORT_KEYWORD = new CssElementType("IMPORT_KEYWORD");
-	IElementType CHARSET_KEYWORD = new CssElementType("CHARSET_KEYWORD");
-	IElementType NAMESPACE_KEYWORD = new CssElementType("NAMESPACE_KEYWORD");
-	IElementType FONT_FACE_KEYWORD = new CssElementType("FONT_FACE_KEYWORD");
+    IElementType IMPORTANT_KEYWORD = new CssElementType("IMPORTANT_KEYWORD");
+    IElementType PAGE_KEYWORD = new CssElementType("PAGE_KEYWORD");
+    IElementType MEDIA_KEYWORD = new CssElementType("MEDIA_KEYWORD");
+    IElementType IMPORT_KEYWORD = new CssElementType("IMPORT_KEYWORD");
+    IElementType CHARSET_KEYWORD = new CssElementType("CHARSET_KEYWORD");
+    IElementType NAMESPACE_KEYWORD = new CssElementType("NAMESPACE_KEYWORD");
+    IElementType FONT_FACE_KEYWORD = new CssElementType("FONT_FACE_KEYWORD");
 }

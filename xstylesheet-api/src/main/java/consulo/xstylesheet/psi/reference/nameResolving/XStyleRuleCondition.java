@@ -20,9 +20,8 @@ import consulo.language.psi.util.PsiElementFilter;
 
 /**
  * @author VISTALL
- * @since 07.07.13.
+ * @since 2013-07-07
  */
-public interface XStyleRuleCondition extends PsiElementFilter
-{
-	XStyleRuleCondition ANY = psiElement -> true;
+public interface XStyleRuleCondition extends PsiElementFilter {
+    XStyleRuleCondition ANY = psiElement -> true;
 }

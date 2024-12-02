@@ -24,20 +24,19 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 2013-07-08
  */
-public interface PsiXStyleSheetRule extends PsiElement
-{
-	@Nullable
-	PsiXStyleSheetBlock getBlock();
+public interface PsiXStyleSheetRule extends PsiElement {
+    @Nullable
+    PsiXStyleSheetBlock getBlock();
 
-	@Nonnull
-	PsiXStyleSheetProperty[] getProperties();
+    @Nonnull
+    PsiXStyleSheetProperty[] getProperties();
 
-	@Nullable
-	@RequiredReadAction
-	XStyleSheetSelectorList getSelectorList();
+    @Nullable
+    @RequiredReadAction
+    XStyleSheetSelectorList getSelectorList();
 
-	@RequiredReadAction
-	XStyleSheetSelector[] getSelectors();
+    @RequiredReadAction
+    XStyleSheetSelector[] getSelectors();
 }

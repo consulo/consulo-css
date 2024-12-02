@@ -25,22 +25,19 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
 @ExtensionImpl
-public class CssSyntaxHighlighterFactory extends SingleLazyInstanceSyntaxHighlighterFactory
-{
-	@Nonnull
-	@Override
-	protected SyntaxHighlighter createHighlighter()
-	{
-		return new CssSyntaxHighlighter();
-	}
+public class CssSyntaxHighlighterFactory extends SingleLazyInstanceSyntaxHighlighterFactory {
+    @Nonnull
+    @Override
+    protected SyntaxHighlighter createHighlighter() {
+        return new CssSyntaxHighlighter();
+    }
 
-	@Nonnull
-	@Override
-	public Language getLanguage()
-	{
-		return CssLanguage.INSTANCE;
-	}
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return CssLanguage.INSTANCE;
+    }
 }

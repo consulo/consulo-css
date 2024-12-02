@@ -10,20 +10,17 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 19-Aug-17
+ * @since 2017-08-20
  */
-public class CssRoot extends ASTWrapperPsiElement implements XStyleSheetRoot
-{
-	public CssRoot(@Nonnull ASTNode node)
-	{
-		super(node);
-	}
+public class CssRoot extends ASTWrapperPsiElement implements XStyleSheetRoot {
+    public CssRoot(@Nonnull ASTNode node) {
+        super(node);
+    }
 
-	@RequiredReadAction
-	@Nonnull
-	@Override
-	public PsiXStyleSheetRule[] getRules()
-	{
-		return findChildrenByClass(PsiXStyleSheetRule.class);
-	}
+    @RequiredReadAction
+    @Nonnull
+    @Override
+    public PsiXStyleSheetRule[] getRules() {
+        return findChildrenByClass(PsiXStyleSheetRule.class);
+    }
 }

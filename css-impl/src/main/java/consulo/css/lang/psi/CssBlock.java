@@ -23,18 +23,15 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
-public class CssBlock extends CssElement implements PsiXStyleSheetBlock
-{
-	public CssBlock(@Nonnull ASTNode node)
-	{
-		super(node);
-	}
+public class CssBlock extends CssElement implements PsiXStyleSheetBlock {
+    public CssBlock(@Nonnull ASTNode node) {
+        super(node);
+    }
 
-	@Override
-	public CssProperty[] getProperties()
-	{
-		return findChildrenByClass(CssProperty.class);
-	}
+    @Override
+    public CssProperty[] getProperties() {
+        return findChildrenByClass(CssProperty.class);
+    }
 }

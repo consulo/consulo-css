@@ -27,43 +27,37 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
-public class CssRule extends CssElement implements PsiXStyleSheetRule
-{
-	public CssRule(@Nonnull ASTNode node)
-	{
-		super(node);
-	}
+public class CssRule extends CssElement implements PsiXStyleSheetRule {
+    public CssRule(@Nonnull ASTNode node) {
+        super(node);
+    }
 
-	@Nullable
-	@Override
-	public CssBlock getBlock()
-	{
-		return findChildByClass(CssBlock.class);
-	}
+    @Nullable
+    @Override
+    public CssBlock getBlock() {
+        return findChildByClass(CssBlock.class);
+    }
 
-	@Nonnull
-	@Override
-	public CssProperty[] getProperties()
-	{
-		CssBlock block = getBlock();
-		return block == null ? CssProperty.EMPTY_ARRAY : block.getProperties();
-	}
+    @Nonnull
+    @Override
+    public CssProperty[] getProperties() {
+        CssBlock block = getBlock();
+        return block == null ? CssProperty.EMPTY_ARRAY : block.getProperties();
+    }
 
-	@RequiredReadAction
-	@Nullable
-	@Override
-	public XStyleSheetSelectorList getSelectorList()
-	{
-		return findChildByClass(XStyleSheetSelectorList.class);
-	}
+    @RequiredReadAction
+    @Nullable
+    @Override
+    public XStyleSheetSelectorList getSelectorList() {
+        return findChildByClass(XStyleSheetSelectorList.class);
+    }
 
-	@RequiredReadAction
-	@Override
-	public XStyleSheetSelector[] getSelectors()
-	{
-		XStyleSheetSelectorList selectorList = getSelectorList();
-		return selectorList == null ? XStyleSheetSelector.EMPTY_ARRAY : selectorList.getSelectors();
-	}
+    @RequiredReadAction
+    @Override
+    public XStyleSheetSelector[] getSelectors() {
+        XStyleSheetSelectorList selectorList = getSelectorList();
+        return selectorList == null ? XStyleSheetSelector.EMPTY_ARRAY : selectorList.getSelectors();
+    }
 }

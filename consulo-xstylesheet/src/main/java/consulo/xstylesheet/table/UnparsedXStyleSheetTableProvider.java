@@ -35,34 +35,29 @@ import java.io.InputStream;
  * @since 2020-08-08
  */
 @ExtensionImpl(order = "last")
-public class UnparsedXStyleSheetTableProvider implements XStyleSheetTableProvider
-{
-	private NotNullLazyValue<XStyleSheetTable> myTable = NotNullLazyValue.createValue(this::initialize);
+public class UnparsedXStyleSheetTableProvider implements XStyleSheetTableProvider {
+    private NotNullLazyValue<XStyleSheetTable> myTable = NotNullLazyValue.createValue(this::initialize);
 
-	private XStyleSheetTable initialize()
-	{
-		try
-		{
-			InputStream inputStream = getClass().getResourceAsStream("/consulo/xstylesheet/unparsedProperties.txt");
+    private XStyleSheetTable initialize() {
+        try {
+            InputStream inputStream = getClass().getResourceAsStream("/consulo/xstylesheet/unparsedProperties.txt");
 
-			String lines = FileUtil.loadTextAndClose(inputStream);
+            String lines = FileUtil.loadTextAndClose(inputStream);
 
-			String[] properties = StringUtil.splitByLines(lines, true);
+            String[] properties = StringUtil.splitByLines(lines, true);
 
-			return new UnparsedXStyleSheetTable(properties);
-		}
-		catch(IOException ignored)
-		{
-			ignored.printStackTrace();
-		}
+            return new UnparsedXStyleSheetTable(properties);
+        }
+        catch (IOException ignored) {
+            ignored.printStackTrace();
+        }
 
-		return EmptyXStyleSheetTable.INSTANCE;
-	}
+        return EmptyXStyleSheetTable.INSTANCE;
+    }
 
-	@Nullable
-	@Override
-	public XStyleSheetTable getTableForFile(@Nonnull PsiFile file)
-	{
-		return myTable.get();
-	}
+    @Nullable
+    @Override
+    public XStyleSheetTable getTableForFile(@Nonnull PsiFile file) {
+        return myTable.get();
+    }
 }

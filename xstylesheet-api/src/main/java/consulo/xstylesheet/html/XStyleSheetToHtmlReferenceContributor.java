@@ -30,28 +30,43 @@ import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 07.07.13.
+ * @since 2013-07-07
  */
 @ExtensionImpl
-public class XStyleSheetToHtmlReferenceContributor extends PsiReferenceContributor
-{
-	@Override
-	public void registerReferenceProviders(PsiReferenceRegistrar psiReferenceRegistrar)
-	{
-		XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"id"}, null, false, new HtmlIdOrClassToCssFileReferenceProvider(XStyleSheetSimpleSelectorType.ID));
+public class XStyleSheetToHtmlReferenceContributor extends PsiReferenceContributor {
+    @Override
+    public void registerReferenceProviders(PsiReferenceRegistrar psiReferenceRegistrar) {
+        XmlUtil.registerXmlAttributeValueReferenceProvider(
+            psiReferenceRegistrar,
+            new String[]{"id"},
+            null,
+            false,
+            new HtmlIdOrClassToCssFileReferenceProvider(XStyleSheetSimpleSelectorType.ID)
+        );
 
-		XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"class"}, null, false, new HtmlIdOrClassToCssFileReferenceProvider(XStyleSheetSimpleSelectorType
-				.CLASS));
+        XmlUtil.registerXmlAttributeValueReferenceProvider(
+            psiReferenceRegistrar,
+            new String[]{"class"},
+            null,
+            false,
+            new HtmlIdOrClassToCssFileReferenceProvider(XStyleSheetSimpleSelectorType
+                .CLASS)
+        );
 
-		HtmlHrefToCssFileReferenceProvider provider = new HtmlHrefToCssFileReferenceProvider();
+        HtmlHrefToCssFileReferenceProvider provider = new HtmlHrefToCssFileReferenceProvider();
 
-		XmlUtil.registerXmlAttributeValueReferenceProvider(psiReferenceRegistrar, new String[]{"href"}, provider.getElementFilter(), false, provider);
-	}
+        XmlUtil.registerXmlAttributeValueReferenceProvider(
+            psiReferenceRegistrar,
+            new String[]{"href"},
+            provider.getElementFilter(),
+            false,
+            provider
+        );
+    }
 
-	@Nonnull
-	@Override
-	public Language getLanguage()
-	{
-		return HTMLLanguage.INSTANCE;
-	}
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return HTMLLanguage.INSTANCE;
+    }
 }

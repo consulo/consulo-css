@@ -26,36 +26,29 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
-public class XStyleSheetTableImpl implements XStyleSheetTable
-{
+public class XStyleSheetTableImpl implements XStyleSheetTable {
+    private List<XStyleSheetProperty> myProperties;
 
-	private List<XStyleSheetProperty> myProperties;
+    public XStyleSheetTableImpl(List<XStyleSheetProperty> properties) {
+        myProperties = properties;
+    }
 
-	public XStyleSheetTableImpl(List<XStyleSheetProperty> properties)
-	{
-		myProperties = properties;
-	}
+    @Nullable
+    @Override
+    public XStyleSheetProperty findProperty(@Nonnull String propertyName) {
+        for (XStyleSheetProperty property : myProperties) {
+            if (property.getName().equals(propertyName)) {
+                return property;
+            }
+        }
+        return null;
+    }
 
-	@Nullable
-	@Override
-	public XStyleSheetProperty findProperty(@Nonnull String propertyName)
-	{
-		for(XStyleSheetProperty property : myProperties)
-		{
-			if(property.getName().equals(propertyName))
-			{
-				return property;
-			}
-		}
-		return null;
-	}
-
-	@Nonnull
-	@Override
-	public Collection<XStyleSheetProperty> getProperties()
-	{
-		return myProperties;
-	}
+    @Nonnull
+    @Override
+    public Collection<XStyleSheetProperty> getProperties() {
+        return myProperties;
+    }
 }

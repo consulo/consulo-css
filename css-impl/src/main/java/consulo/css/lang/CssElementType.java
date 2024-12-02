@@ -17,18 +17,15 @@
 package consulo.css.lang;
 
 import consulo.language.ast.IElementType;
-import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
- * @since 02.07.13.
+ * @since 2013-07-02
  */
-public class CssElementType extends IElementType
-{
-	public CssElementType(@Nonnull String debugName)
-	{
-		super(debugName, CssLanguage.INSTANCE);
-	}
+public class CssElementType extends IElementType {
+    public CssElementType(@Nonnull String debugName) {
+        super(debugName, CssLanguage.INSTANCE);
+    }
 }

@@ -31,45 +31,40 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 09.10.13.
+ * @since 2013-10-09
  */
-public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartParser
-{
-	@Nonnull
-	@Override
-	public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart)
-	{
-		Object nativeValue = getNativeValue(valuePart, null);
-		if(nativeValue instanceof XStyleSheetFunctionCallDescriptor)
-		{
-			return ((XStyleSheetFunctionCallDescriptor) nativeValue).createHighlights((PsiXStyleSheetFunctionCall) valuePart.getFirstChild());
-		}
-		return Collections.emptyList();
-	}
+public class FunctionXStyleSheetValue extends BaseXStyleSheetPropertyValuePartParser {
+    @Nonnull
+    @Override
+    public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart) {
+        Object nativeValue = getNativeValue(valuePart, null);
+        if (nativeValue instanceof XStyleSheetFunctionCallDescriptor functionCallDescriptor) {
+            return functionCallDescriptor.createHighlights((PsiXStyleSheetFunctionCall)valuePart.getFirstChild());
+        }
+        return Collections.emptyList();
+    }
 
-	@Nullable
-	@Override
-	@RequiredReadAction
-	public Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value)
-	{
-		PsiElement firstChild = valuePart.getFirstChild();
-		if(firstChild instanceof PsiXStyleSheetFunctionCall)
-		{
-			for(XStyleSheetFunctionCallDescriptor descriptor : valuePart.getProject().getApplication().getExtensionList(XStyleSheetFunctionCallDescriptor.class))
-			{
-				if(descriptor.isMyFunction((PsiXStyleSheetFunctionCall) firstChild))
-				{
-					return descriptor;
-				}
-			}
-		}
-		return null;
-	}
+    @Nullable
+    @Override
+    @RequiredReadAction
+    public Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value) {
+        PsiElement firstChild = valuePart.getFirstChild();
+        if (firstChild instanceof PsiXStyleSheetFunctionCall functionCall) {
+            List<XStyleSheetFunctionCallDescriptor> extensionList = valuePart.getProject()
+                .getApplication()
+                .getExtensionList(XStyleSheetFunctionCallDescriptor.class);
+            for (XStyleSheetFunctionCallDescriptor descriptor : extensionList) {
+                if (descriptor.isMyFunction(functionCall)) {
+                    return descriptor;
+                }
+            }
+        }
+        return null;
+    }
 
-	@Nonnull
-	@Override
-	public List<LookupElement> getLookupElements(String value)
-	{
-		return Collections.emptyList();
-	}
+    @Nonnull
+    @Override
+    public List<LookupElement> getLookupElements(String value) {
+        return Collections.emptyList();
+    }
 }

@@ -26,25 +26,21 @@ import java.util.List;
 
 /**
  * @author VISTALL
- * @since 03.07.13.
+ * @since 2013-07-03
  */
-public interface XStyleSheetPropertyValuePartParser
-{
-	@Nonnull
-	default List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart)
-	{
-		return List.of();
-	}
+public interface XStyleSheetPropertyValuePartParser {
+    @Nonnull
+    default List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart) {
+        return List.of();
+    }
 
-	@Nullable
-	default Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value)
-	{
-		return null;
-	}
+    @Nullable
+    default Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value) {
+        return null;
+    }
 
-	@Nonnull
-	default List<LookupElement> getLookupElements(String value)
-	{
-		return List.of();
-	}
+    @Nonnull
+    default List<LookupElement> getLookupElements(String value) {
+        return List.of();
+    }
 }

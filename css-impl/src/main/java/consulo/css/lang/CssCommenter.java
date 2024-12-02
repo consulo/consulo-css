@@ -25,50 +25,43 @@ import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
- * @since 08.07.13.
+ * @since 2013-07-08
  */
 @ExtensionImpl
-public class CssCommenter implements Commenter
-{
-	@Nullable
-	@Override
-	public String getLineCommentPrefix()
-	{
-		return null;
-	}
+public class CssCommenter implements Commenter {
+    @Nullable
+    @Override
+    public String getLineCommentPrefix() {
+        return null;
+    }
 
-	@Nullable
-	@Override
-	public String getBlockCommentPrefix()
-	{
-		return "/*";
-	}
+    @Nullable
+    @Override
+    public String getBlockCommentPrefix() {
+        return "/*";
+    }
 
-	@Nullable
-	@Override
-	public String getBlockCommentSuffix()
-	{
-		return "*/";
-	}
+    @Nullable
+    @Override
+    public String getBlockCommentSuffix() {
+        return "*/";
+    }
 
-	@Nullable
-	@Override
-	public String getCommentedBlockCommentPrefix()
-	{
-		return null;
-	}
+    @Nullable
+    @Override
+    public String getCommentedBlockCommentPrefix() {
+        return null;
+    }
 
-	@Nullable
-	@Override
-	public String getCommentedBlockCommentSuffix()
-	{
-		return null;
-	}
+    @Nullable
+    @Override
+    public String getCommentedBlockCommentSuffix() {
+        return null;
+    }
 
-	@Nonnull
-	@Override
-	public Language getLanguage()
-	{
-		return CssLanguage.INSTANCE;
-	}
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return CssLanguage.INSTANCE;
+    }
 }
