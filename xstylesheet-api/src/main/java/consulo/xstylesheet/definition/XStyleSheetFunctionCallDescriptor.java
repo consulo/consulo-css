@@ -23,7 +23,7 @@ import consulo.component.extension.ExtensionPointName;
 import consulo.language.editor.rawHighlight.HighlightInfo;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCall;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.List;
 
 /**

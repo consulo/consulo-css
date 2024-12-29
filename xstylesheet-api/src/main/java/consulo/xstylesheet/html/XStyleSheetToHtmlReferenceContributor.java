@@ -26,7 +26,7 @@ import consulo.xstylesheet.html.psi.reference.classOrId.HtmlIdOrClassToCssFileRe
 import consulo.xstylesheet.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL

@@ -28,8 +28,8 @@ import consulo.xstylesheet.highlight.XStyleSheetColors;
 import consulo.xstylesheet.psi.*;
 import consulo.xstylesheet.psi.reference.BuildInSymbolElement;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * @author VISTALL

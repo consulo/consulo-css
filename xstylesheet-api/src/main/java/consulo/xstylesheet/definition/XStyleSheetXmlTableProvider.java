@@ -25,8 +25,8 @@ import consulo.xstylesheet.definition.impl.*;
 import org.jdom.Document;
 import org.jdom.Element;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.net.URL;
 import java.util.*;
 import java.util.function.Supplier;

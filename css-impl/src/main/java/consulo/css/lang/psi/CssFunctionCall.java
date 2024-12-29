@@ -26,8 +26,8 @@ import consulo.language.psi.PsiReferenceBase;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCall;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCallParameterList;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * @author VISTALL

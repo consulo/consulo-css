@@ -7,7 +7,7 @@ import consulo.xstylesheet.definition.XStyleSheetTableProvider;
 import consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;
 import consulo.xstylesheet.definition.impl.MergedXStyleSheetTable;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -26,8 +26,8 @@ import consulo.xstylesheet.psi.XStyleSheetFile;
 import consulo.xstylesheet.psi.XStyleSheetRoot;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 

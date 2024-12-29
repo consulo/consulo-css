@@ -24,7 +24,7 @@ import consulo.language.version.LanguageVersionUtil;
 import consulo.xml.lexer.EmbeddedTokenTypesProvider;
 import consulo.xml.lexer.HtmlLexer;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL

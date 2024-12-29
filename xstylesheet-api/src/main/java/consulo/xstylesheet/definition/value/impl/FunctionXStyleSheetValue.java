@@ -24,8 +24,8 @@ import consulo.xstylesheet.definition.XStyleSheetFunctionCallDescriptor;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCall;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 

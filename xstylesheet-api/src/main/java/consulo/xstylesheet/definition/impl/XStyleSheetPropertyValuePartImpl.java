@@ -22,7 +22,7 @@ import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.List;
 
 /**

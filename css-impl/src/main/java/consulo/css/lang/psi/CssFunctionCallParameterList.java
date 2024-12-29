@@ -23,7 +23,7 @@ import consulo.language.ast.TokenSet;
 import consulo.language.psi.PsiElement;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCallParameterList;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL

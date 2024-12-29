@@ -20,7 +20,7 @@ import consulo.language.editor.completion.lookup.LookupElement;
 import consulo.language.editor.rawHighlight.HighlightInfo;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.List;
 
 /**

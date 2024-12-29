@@ -25,7 +25,7 @@ import consulo.language.lexer.Lexer;
 import consulo.util.collection.MultiMap;
 import consulo.xstylesheet.highlight.XStyleSheetColors;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL

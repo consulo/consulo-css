@@ -23,8 +23,8 @@ import consulo.language.util.IncorrectOperationException;
 import consulo.xstylesheet.psi.PsiXStyleSheetSelectorPseudoClass;
 import org.jetbrains.annotations.NonNls;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * @author VISTALL

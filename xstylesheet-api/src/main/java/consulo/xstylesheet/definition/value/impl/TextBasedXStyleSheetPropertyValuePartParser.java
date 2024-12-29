@@ -19,8 +19,8 @@ package consulo.xstylesheet.definition.value.impl;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * @author VISTALL
