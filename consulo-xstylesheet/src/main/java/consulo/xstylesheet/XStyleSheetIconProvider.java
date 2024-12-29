@@ -43,7 +43,7 @@ public class XStyleSheetIconProvider implements IconDescriptorUpdater {
             iconDescriptor.setMainIcon(PlatformIconGroup.nodesVariable());
         }
         else if (element instanceof PsiXStyleSheetProperty) {
-            iconDescriptor.setMainIcon(XStyleSheetIconGroup.property());
+            iconDescriptor.setMainIcon(PlatformIconGroup.nodesProperty());
         }
 
         if (element instanceof XStyleSheetSelector selector) {
@@ -59,7 +59,7 @@ public class XStyleSheetIconProvider implements IconDescriptorUpdater {
                     iconDescriptor.setMainIcon(XStyleSheetIconGroup.html_id());
                     break;
                 case CLASS:
-                    iconDescriptor.setMainIcon(XStyleSheetIconGroup.css_class());
+                    iconDescriptor.setMainIcon(PlatformIconGroup.nodesClass());
                     break;
                 case TAG:
                     iconDescriptor.setMainIcon(PlatformIconGroup.nodesTag());

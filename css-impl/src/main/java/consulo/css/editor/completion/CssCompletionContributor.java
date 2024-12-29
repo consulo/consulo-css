@@ -25,17 +25,17 @@ import consulo.language.editor.completion.lookup.LookupElementBuilder;
 import consulo.language.pattern.PlatformPatterns;
 import consulo.language.psi.PsiFile;
 import consulo.language.psi.util.PsiTreeUtil;
+import consulo.platform.base.icon.PlatformIconGroup;
 import consulo.util.lang.StringUtil;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import consulo.xstylesheet.definition.XStyleSheetTable;
-import consulo.xstylesheet.icon.XStyleSheetIconGroup;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import consulo.xstylesheet.psi.PsiXStyleSheetRule;
 import consulo.xstylesheet.psi.XStyleSheetFile;
-
 import jakarta.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,7 +90,7 @@ public class CssCompletionContributor extends CompletionContributor {
 
                     LookupElementBuilder builder = LookupElementBuilder.create(b.toString());
                     builder = builder.withPresentableText(property.getName());
-                    builder = builder.withIcon(XStyleSheetIconGroup.property());
+                    builder = builder.withIcon(PlatformIconGroup.nodesProperty());
                     if (!defaultText.isEmpty()) {
                         builder = builder.withTypeText(defaultText, true);
                     }
