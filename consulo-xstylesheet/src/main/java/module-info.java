@@ -10,6 +10,5 @@ module consulo.xstylesheet {
 
     exports consulo.xstylesheet;
     exports consulo.xstylesheet.codeInsight;
-    exports consulo.xstylesheet.editor.lineMarker;
     exports consulo.xstylesheet.table;
 }

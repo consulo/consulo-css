@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package consulo.xstylesheet.editor.lineMarker;
+package consulo.xstylesheet.highlight;
 
 import consulo.annotation.access.RequiredReadAction;
 import consulo.annotation.access.RequiredWriteAction;
-import consulo.annotation.component.ExtensionImpl;
 import consulo.application.WriteAction;
 import consulo.language.psi.ElementColorProvider;
 import consulo.language.psi.PsiElement;
 import consulo.ui.color.ColorValue;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
-
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -32,16 +30,15 @@ import jakarta.annotation.Nullable;
  * @author VISTALL
  * @since 2013-07-03
  */
-@ExtensionImpl
-public class XStyleSheetElementColorProvider implements ElementColorProvider {
+public abstract class XStyleSheetElementColorProvider implements ElementColorProvider {
     @RequiredReadAction
     @Nullable
     @Override
     public ColorValue getColorFrom(@Nonnull PsiElement psiElement) {
-        if (psiElement instanceof PsiXStyleSheetPropertyValuePart xStyleSheetPropertyValuePart) {
+        if (psiElement instanceof PsiXStyleSheetPropertyValuePart part) {
             Object value = null;
             try {
-                value = xStyleSheetPropertyValuePart.getValue();
+                value = part.getValue();
             }
             catch (Exception ignored) {
             }
@@ -56,8 +53,8 @@ public class XStyleSheetElementColorProvider implements ElementColorProvider {
     @RequiredWriteAction
     @Override
     public void setColorTo(@Nonnull PsiElement psiElement, @Nonnull ColorValue color) {
-        if (psiElement instanceof PsiXStyleSheetPropertyValuePart xStyleSheetPropertyValuePart) {
-            WriteAction.run(() -> xStyleSheetPropertyValuePart.setValue(color));
+        if (psiElement instanceof PsiXStyleSheetPropertyValuePart part) {
+            WriteAction.run(() -> part.setValue(color));
         }
     }
 }
