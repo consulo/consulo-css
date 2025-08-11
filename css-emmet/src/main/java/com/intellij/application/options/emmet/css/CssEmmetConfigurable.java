@@ -7,6 +7,7 @@ import consulo.configurable.ApplicationConfigurable;
 import consulo.configurable.Configurable;
 import consulo.configurable.ConfigurationException;
 import consulo.disposer.Disposable;
+import consulo.localize.LocalizeValue;
 import consulo.ui.annotation.RequiredUIAccess;
 import consulo.ui.ex.awt.JBCheckBox;
 import consulo.ui.ex.awt.VerticalFlowLayout;
@@ -43,8 +44,8 @@ public class CssEmmetConfigurable implements ApplicationConfigurable, Configurab
 
     @Nonnull
     @Override
-    public String getDisplayName() {
-        return "CSS";
+    public LocalizeValue getDisplayName() {
+        return LocalizeValue.localizeTODO("CSS");
     }
 
     @RequiredUIAccess
