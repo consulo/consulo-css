@@ -54,11 +54,10 @@ public class PropertyIsNotValidInspection extends LocalInspectionTool {
                         if (nameIdentifier == null) {
                             return;
                         }
-                        holder.registerProblem(
-                            nameIdentifier,
-                            "Invalid property name",
-                            ProblemHighlightType.GENERIC_ERROR_OR_WARNING
-                        );
+                        holder.newProblem(LocalizeValue.of("Invalid property name"))
+                            .range(nameIdentifier)
+                            .highlightType(ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
+                            .create();
                     }
                 }
             }

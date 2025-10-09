@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package consulo.xstylesheet.codeInsight;
 
 import consulo.annotation.access.RequiredReadAction;
@@ -57,11 +56,10 @@ public class PropertyValueIsNotValidInspection extends LocalInspectionTool {
 
                         Object value = part.getValue();
                         if (value == null) {
-                            holder.registerProblem(
-                                part,
-                                "Invalid property value",
-                                ProblemHighlightType.GENERIC_ERROR_OR_WARNING
-                            );
+                            holder.newProblem(LocalizeValue.of("Invalid property value"))
+                                .range(part)
+                                .highlightType(ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
+                                .create();
                         }
                     }
                 }
