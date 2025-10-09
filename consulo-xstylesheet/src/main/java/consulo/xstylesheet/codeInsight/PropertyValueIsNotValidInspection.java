@@ -24,6 +24,7 @@ import consulo.language.editor.inspection.ProblemsHolder;
 import consulo.language.editor.rawHighlight.HighlightDisplayLevel;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiElementVisitor;
+import consulo.localize.LocalizeValue;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
@@ -70,14 +71,14 @@ public class PropertyValueIsNotValidInspection extends LocalInspectionTool {
 
     @Nonnull
     @Override
-    public String getGroupDisplayName() {
-        return "CSS";
+    public LocalizeValue getGroupDisplayName() {
+        return LocalizeValue.localizeTODO("CSS");
     }
 
     @Nonnull
     @Override
-    public String getDisplayName() {
-        return "Invalid property value";
+    public LocalizeValue getDisplayName() {
+        return LocalizeValue.localizeTODO("Invalid property value");
     }
 
     @Nonnull
