@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package consulo.xstylesheet.codeInsight;
 
 import consulo.annotation.access.RequiredReadAction;
@@ -24,6 +23,7 @@ import consulo.language.editor.inspection.ProblemsHolder;
 import consulo.language.editor.rawHighlight.HighlightDisplayLevel;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiElementVisitor;
+import consulo.localize.LocalizeValue;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetVariable;
@@ -67,14 +67,14 @@ public class PropertyIsNotValidInspection extends LocalInspectionTool {
 
     @Nonnull
     @Override
-    public String getGroupDisplayName() {
-        return "CSS";
+    public LocalizeValue getGroupDisplayName() {
+        return LocalizeValue.localizeTODO("CSS");
     }
 
     @Nonnull
     @Override
-    public String getDisplayName() {
-        return "Invalid property name";
+    public LocalizeValue getDisplayName() {
+        return LocalizeValue.localizeTODO("Invalid property name");
     }
 
     @Nonnull
