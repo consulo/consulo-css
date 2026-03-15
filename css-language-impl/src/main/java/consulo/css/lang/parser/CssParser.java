@@ -66,56 +66,221 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
     public void parseRoot(PsiBuilder builder) {
         PsiBuilder.Marker rootMarker = builder.mark();
         while (!builder.eof()) {
-            PsiBuilder.Marker marker = builder.mark();
-
-            if (builder.getTokenType() == CssTokens.CHARSET_KEYWORD) {
-                builder.advanceLexer();
-
-                expect(builder, CssTokens.STRING, CssLocalize.expectedCharsetName());
-
-                expect(builder, CssTokens.SEMICOLON, CssLocalize.expectedSemicolon());
-
-                marker.done(CssElements.CHARSET);
-            }
-            else if (builder.getTokenType() == CssTokens.IMPORT_KEYWORD) {
-                builder.advanceLexer();
-
-                if (!parseFunctionCall(builder)) {
-                    expect(builder, CssTokens.STRING, CssLocalize.expectedImportUrl());
-                }
-
-                expect(builder, CssTokens.SEMICOLON, CssLocalize.expectedSemicolon());
-
-                marker.done(CssElements.IMPORT);
-            }
-            else {
-                if (!parseSelectorListNew(builder)) {
-                    builder.error(CssLocalize.expectedSelector());
-                }
-
-                if (builder.getTokenType() == LBRACE) {
-                    PsiBuilder.Marker bodyMarker = builder.mark();
-                    builder.advanceLexer();
-
-                    while (!builder.eof()) {
-                        if (parseProperty(builder, null) == null) {
-                            break;
-                        }
-                    }
-
-                    expect(builder, RBRACE, CssLocalize.expectedRbrace());
-
-                    bodyMarker.done(BLOCK);
-                }
-                else {
-                    builder.error(CssLocalize.expectedLbrace());
-                }
-
-                marker.done(RULE);
+            if (!parseRootItem(builder)) {
+                markError(builder, CssLocalize.unexpectedToken());
             }
         }
 
         rootMarker.done(CssElements.ROOT);
+    }
+
+    private boolean parseRootItem(PsiBuilder builder) {
+        if (builder.getTokenType() == CssTokens.CHARSET_KEYWORD) {
+            PsiBuilder.Marker marker = builder.mark();
+            builder.advanceLexer();
+
+            expect(builder, CssTokens.STRING, CssLocalize.expectedCharsetName());
+
+            expect(builder, CssTokens.SEMICOLON, CssLocalize.expectedSemicolon());
+
+            marker.done(CssElements.CHARSET);
+            return true;
+        }
+        else if (builder.getTokenType() == CssTokens.IMPORT_KEYWORD) {
+            PsiBuilder.Marker marker = builder.mark();
+            builder.advanceLexer();
+
+            if (!parseFunctionCall(builder)) {
+                expect(builder, CssTokens.STRING, CssLocalize.expectedImportUrl());
+            }
+
+            expect(builder, CssTokens.SEMICOLON, CssLocalize.expectedSemicolon());
+
+            marker.done(CssElements.IMPORT);
+            return true;
+        }
+        else if (builder.getTokenType() == CssTokens.MEDIA_KEYWORD) {
+            PsiBuilder.Marker marker = builder.mark();
+            builder.advanceLexer();
+
+            parseMediaQueryList(builder);
+
+            if (builder.getTokenType() == LBRACE) {
+                PsiBuilder.Marker bodyMarker = builder.mark();
+                builder.advanceLexer();
+
+                while (!builder.eof() && builder.getTokenType() != RBRACE) {
+                    if (!parseRule(builder)) {
+                        markError(builder, CssLocalize.unexpectedToken());
+                    }
+                }
+
+                expect(builder, RBRACE, CssLocalize.expectedRbrace());
+
+                bodyMarker.done(BLOCK);
+            }
+            else {
+                builder.error(CssLocalize.expectedLbrace());
+            }
+
+            marker.done(MEDIA);
+            return true;
+        }
+        else if (builder.getTokenType() == CssTokens.FONT_FACE_KEYWORD) {
+            PsiBuilder.Marker marker = builder.mark();
+            builder.advanceLexer();
+
+            parsePropertyBlock(builder);
+
+            marker.done(FONT_FACE);
+            return true;
+        }
+        else if (builder.getTokenType() == CssTokens.KEYFRAMES_KEYWORD) {
+            PsiBuilder.Marker marker = builder.mark();
+            builder.advanceLexer();
+
+            expect(builder, IDENTIFIER, CssLocalize.expectedIdentifier());
+
+            if (builder.getTokenType() == LBRACE) {
+                PsiBuilder.Marker bodyMarker = builder.mark();
+                builder.advanceLexer();
+
+                while (!builder.eof() && builder.getTokenType() != RBRACE) {
+                    if (!parseKeyframeBlock(builder)) {
+                        markError(builder, CssLocalize.unexpectedToken());
+                    }
+                }
+
+                expect(builder, RBRACE, CssLocalize.expectedRbrace());
+
+                bodyMarker.done(BLOCK);
+            }
+            else {
+                builder.error(CssLocalize.expectedLbrace());
+            }
+
+            marker.done(KEYFRAMES);
+            return true;
+        }
+        else {
+            return parseRule(builder);
+        }
+    }
+
+    private boolean parseRule(PsiBuilder builder) {
+        PsiBuilder.Marker marker = builder.mark();
+
+        if (!parseSelectorListNew(builder)) {
+            marker.drop();
+            return false;
+        }
+
+        parsePropertyBlock(builder);
+
+        marker.done(RULE);
+        return true;
+    }
+
+    private boolean parseKeyframeBlock(PsiBuilder builder) {
+        if (!isKeyframeSelector(builder)) {
+            return false;
+        }
+
+        PsiBuilder.Marker marker = builder.mark();
+
+        parseKeyframeSelectors(builder);
+
+        parsePropertyBlock(builder);
+
+        marker.done(RULE);
+        return true;
+    }
+
+    private void parsePropertyBlock(PsiBuilder builder) {
+        if (builder.getTokenType() == LBRACE) {
+            PsiBuilder.Marker bodyMarker = builder.mark();
+            builder.advanceLexer();
+
+            while (!builder.eof()) {
+                if (parseProperty(builder, null) == null) {
+                    break;
+                }
+            }
+
+            expect(builder, RBRACE, CssLocalize.expectedRbrace());
+
+            bodyMarker.done(BLOCK);
+        }
+        else {
+            builder.error(CssLocalize.expectedLbrace());
+        }
+    }
+
+    private boolean isKeyframeSelector(PsiBuilder builder) {
+        IElementType type = builder.getTokenType();
+        if (type == IDENTIFIER) {
+            CharSequence text = builder.getTokenSequence();
+            return StringUtil.equals(text, "from") || StringUtil.equals(text, "to");
+        }
+        return type == NUMBER;
+    }
+
+    private void parseKeyframeSelectors(PsiBuilder builder) {
+        PsiBuilder.Marker selectorMarker = builder.mark();
+
+        parseKeyframeSelectorValue(builder);
+
+        while (builder.getTokenType() == COMMA) {
+            builder.advanceLexer();
+            parseKeyframeSelectorValue(builder);
+        }
+
+        selectorMarker.done(KEYFRAME_SELECTOR);
+    }
+
+    private void parseKeyframeSelectorValue(PsiBuilder builder) {
+        if (builder.getTokenType() == IDENTIFIER) {
+            CharSequence text = builder.getTokenSequence();
+            if (StringUtil.equals(text, "from") || StringUtil.equals(text, "to")) {
+                builder.advanceLexer();
+            }
+            else {
+                builder.error(CssLocalize.expectedIdentifier());
+            }
+        }
+        else if (builder.getTokenType() == NUMBER) {
+            builder.advanceLexer();
+            // handle case where % is separate token after number
+            optional(builder, PERC);
+        }
+        else {
+            builder.error(CssLocalize.expectedIdentifier());
+        }
+    }
+
+    private void parseMediaQueryList(PsiBuilder builder) {
+        PsiBuilder.Marker marker = builder.mark();
+
+        while (!builder.eof()) {
+            IElementType type = builder.getTokenType();
+            if (type == LBRACE) {
+                break;
+            }
+            else if (type == LPAR) {
+                builder.advanceLexer();
+
+                while (!builder.eof() && builder.getTokenType() != RPAR) {
+                    builder.advanceLexer();
+                }
+
+                optional(builder, RPAR);
+            }
+            else {
+                builder.advanceLexer();
+            }
+        }
+
+        marker.done(MEDIA_QUERY_LIST);
     }
 
     private PsiBuilder.@Nullable Marker parseProperty(PsiBuilder builder, PsiBuilder.@Nullable Marker marker) {

@@ -77,6 +77,10 @@ URL_PATTERN = ([!#$%&*-~]|{nonascii}|{escape})*
     "@charset"              { return CssTokens.CHARSET_KEYWORD;}
     "@namespace"            { return CssTokens.NAMESPACE_KEYWORD;}
     "@font-face"            { return CssTokens.FONT_FACE_KEYWORD;}
+    "@keyframes"            { return CssTokens.KEYFRAMES_KEYWORD;}
+    "@-webkit-keyframes"    { return CssTokens.KEYFRAMES_KEYWORD;}
+    "@-moz-keyframes"       { return CssTokens.KEYFRAMES_KEYWORD;}
+    "@-o-keyframes"         { return CssTokens.KEYFRAMES_KEYWORD;}
     "!"({TraditionalComment}+|{WhiteSpace}+)?"important"   { return CssTokens.IMPORTANT_KEYWORD;  }
 
     "url("                  { yypushback(yylength()); yybegin(URL_START);}

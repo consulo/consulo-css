@@ -65,4 +65,5 @@ public interface CssTokens extends TokenType {
     IElementType CHARSET_KEYWORD = new CssElementType("CHARSET_KEYWORD");
     IElementType NAMESPACE_KEYWORD = new CssElementType("NAMESPACE_KEYWORD");
     IElementType FONT_FACE_KEYWORD = new CssElementType("FONT_FACE_KEYWORD");
+    IElementType KEYFRAMES_KEYWORD = new CssElementType("KEYFRAMES_KEYWORD");
 }

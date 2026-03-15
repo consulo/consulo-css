@@ -74,4 +74,16 @@ public interface CssElements {
     IElementType CHARSET = new ElementTypeAsPsiFactory("CHARSET", CssLanguage.INSTANCE, CssCharset::new);
 
     IElementType IMPORT = new ElementTypeAsPsiFactory("IMPORT", CssLanguage.INSTANCE, CssImport::new);
+
+    IElementType MEDIA = new ElementTypeAsPsiFactory("MEDIA", CssLanguage.INSTANCE, CssMedia::new);
+
+    IElementType MEDIA_QUERY_LIST =
+        new ElementTypeAsPsiFactory("MEDIA_QUERY_LIST", CssLanguage.INSTANCE, CssMediaQueryList::new);
+
+    IElementType FONT_FACE = new ElementTypeAsPsiFactory("FONT_FACE", CssLanguage.INSTANCE, CssFontFace::new);
+
+    IElementType KEYFRAMES = new ElementTypeAsPsiFactory("KEYFRAMES", CssLanguage.INSTANCE, CssKeyframes::new);
+
+    IElementType KEYFRAME_SELECTOR =
+        new ElementTypeAsPsiFactory("KEYFRAME_SELECTOR", CssLanguage.INSTANCE, CssKeyframeSelector::new);
 }
