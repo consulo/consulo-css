@@ -20,7 +20,6 @@ import consulo.language.editor.completion.lookup.LookupElement;
 import consulo.language.editor.rawHighlight.HighlightInfo;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
-import jakarta.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -32,14 +31,13 @@ public interface XStyleSheetPropertyValuePart {
 
     XStyleSheetPropertyValuePartParser getParser();
 
-    @Nonnull
-    List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart);
+    List<HighlightInfo> createHighlights(PsiXStyleSheetPropertyValuePart valuePart);
 
     String getValue();
 
     Object getNativeValue(PsiXStyleSheetPropertyValuePart part);
 
-    default boolean setNativeValue(@Nonnull XStyleSheetPropertyValuePart part, Object value) {
+    default boolean setNativeValue(XStyleSheetPropertyValuePart part, Object value) {
         return false;
     }
 

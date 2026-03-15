@@ -34,7 +34,6 @@ import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import consulo.xstylesheet.psi.PsiXStyleSheetRule;
 import consulo.xstylesheet.psi.XStyleSheetFile;
-import jakarta.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,7 +124,6 @@ public class CssCompletionContributor extends CompletionContributor {
         );
     }
 
-    @Nonnull
     @Override
     public Language getLanguage() {
         return CssLanguage.INSTANCE;

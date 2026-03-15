@@ -26,8 +26,7 @@ import consulo.language.psi.PsiReferenceBase;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCall;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCallParameterList;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -36,7 +35,7 @@ import jakarta.annotation.Nullable;
 public class CssFunctionCall extends CssElement implements PsiXStyleSheetFunctionCall {
     private static class Ref extends PsiReferenceBase<PsiElement> {
         @RequiredReadAction
-        public Ref(@Nonnull CssFunctionCall element) {
+        public Ref(CssFunctionCall element) {
             super(element, new TextRange(0, element.getCallElement().getTextLength()));
         }
 
@@ -48,7 +47,7 @@ public class CssFunctionCall extends CssElement implements PsiXStyleSheetFunctio
         }
     }
 
-    public CssFunctionCall(@Nonnull ASTNode node) {
+    public CssFunctionCall(ASTNode node) {
         super(node);
     }
 
@@ -58,14 +57,12 @@ public class CssFunctionCall extends CssElement implements PsiXStyleSheetFunctio
         return new Ref(this);
     }
 
-    @Nonnull
     @Override
     @RequiredReadAction
     public PsiElement getCallElement() {
         return findNotNullChildByType(CssTokens.IDENTIFIER);
     }
 
-    @Nonnull
     @RequiredReadAction
     @Override
     public String getCallName() {

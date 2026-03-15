@@ -28,7 +28,6 @@ import consulo.xstylesheet.psi.PsiXStyleSheetVariable;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -38,7 +37,7 @@ import jakarta.annotation.Nonnull;
 public class XStyleSheetIconProvider implements IconDescriptorUpdater {
     @RequiredReadAction
     @Override
-    public void updateIcon(@Nonnull IconDescriptor iconDescriptor, @Nonnull PsiElement element, int i) {
+    public void updateIcon(IconDescriptor iconDescriptor, PsiElement element, int i) {
         if (element instanceof PsiXStyleSheetVariable) {
             iconDescriptor.setMainIcon(PlatformIconGroup.nodesVariable());
         }

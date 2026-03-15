@@ -24,7 +24,6 @@ import consulo.language.version.LanguageVersionUtil;
 import consulo.xml.lexer.EmbeddedTokenTypesProvider;
 import consulo.xml.lexer.HtmlLexer;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -32,20 +31,18 @@ import jakarta.annotation.Nonnull;
  */
 @ExtensionImpl
 public class CssEmbeddedTokenTypesProvider implements EmbeddedTokenTypesProvider {
-    @Nonnull
     @Override
     public String getName() {
         return HtmlLexer.INLINE_STYLE_NAME;
     }
 
-    @Nonnull
     @Override
     public IElementType getElementType() {
         return CssHtmlElements.MORPH_HTML_CSS_ELEMENT;
     }
 
     @Override
-    public boolean isMyVersion(@Nonnull LanguageVersion languageVersion) {
+    public boolean isMyVersion(LanguageVersion languageVersion) {
         //noinspection RequiredXAction
         return languageVersion == LanguageVersionUtil.findDefaultVersion(languageVersion.getLanguage());
     }

@@ -30,8 +30,7 @@ import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 import consulo.xstylesheet.psi.XStyleSheetFile;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -40,7 +39,7 @@ import jakarta.annotation.Nullable;
 public class CssProperty extends CssElement implements PsiNameIdentifierOwner, PsiXStyleSheetProperty {
     public static final CssProperty[] EMPTY_ARRAY = new CssProperty[0];
 
-    public CssProperty(@Nonnull ASTNode node) {
+    public CssProperty(ASTNode node) {
         super(node);
     }
 
@@ -64,7 +63,6 @@ public class CssProperty extends CssElement implements PsiNameIdentifierOwner, P
         return xStyleSheetTable.findProperty(name);
     }
 
-    @Nonnull
     @Override
     public PsiXStyleSheetPropertyValuePart[] getParts() {
         return findChildrenByClass(PsiXStyleSheetPropertyValuePart.class);
@@ -85,7 +83,7 @@ public class CssProperty extends CssElement implements PsiNameIdentifierOwner, P
 
     @RequiredWriteAction
     @Override
-    public PsiElement setName(@Nonnull String s) throws IncorrectOperationException {
+    public PsiElement setName(String s) throws IncorrectOperationException {
         return null;
     }
 }

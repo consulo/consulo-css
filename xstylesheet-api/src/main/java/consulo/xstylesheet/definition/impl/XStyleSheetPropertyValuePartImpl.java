@@ -22,7 +22,6 @@ import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
-import jakarta.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -43,9 +42,8 @@ public class XStyleSheetPropertyValuePartImpl implements XStyleSheetPropertyValu
         return myParser;
     }
 
-    @Nonnull
     @Override
-    public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart) {
+    public List<HighlightInfo> createHighlights(PsiXStyleSheetPropertyValuePart valuePart) {
         return myParser.createHighlights(valuePart);
     }
 
@@ -60,7 +58,7 @@ public class XStyleSheetPropertyValuePartImpl implements XStyleSheetPropertyValu
     }
 
     @Override
-    public boolean setNativeValue(@Nonnull XStyleSheetPropertyValuePart part, Object value) {
+    public boolean setNativeValue(XStyleSheetPropertyValuePart part, Object value) {
         return false;
     }
 

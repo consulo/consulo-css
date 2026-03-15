@@ -18,7 +18,6 @@ package consulo.xstylesheet.psi;
 
 import consulo.annotation.access.RequiredReadAction;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -27,7 +26,6 @@ import jakarta.annotation.Nonnull;
 public interface XStyleSheetSelector extends PsiXStyleSheetElement {
     XStyleSheetSelector[] EMPTY_ARRAY = new XStyleSheetSelector[0];
 
-    @Nonnull
     @RequiredReadAction
     XStyleSheetSimpleSelector[] getSimpleSelectors();
 }

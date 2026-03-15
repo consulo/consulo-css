@@ -4,8 +4,7 @@ import consulo.annotation.access.RequiredReadAction;
 import consulo.language.psi.PsiElement;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
 public interface XStyleSheetRoot extends PsiElement {
     @Nullable
     @RequiredReadAction
-    default PsiXStyleSheetRule findRule(@Nonnull XStyleRuleCondition condition) {
+    default PsiXStyleSheetRule findRule(XStyleRuleCondition condition) {
         for (PsiXStyleSheetRule o : getRules()) {
             for (XStyleSheetSelector reference : o.getSelectors()) {
                 if (condition.isAccepted(reference)) {
@@ -27,9 +26,8 @@ public interface XStyleSheetRoot extends PsiElement {
         return null;
     }
 
-    @Nonnull
     @RequiredReadAction
-    default List<PsiXStyleSheetRule> findRules(@Nonnull XStyleRuleCondition condition) {
+    default List<PsiXStyleSheetRule> findRules(XStyleRuleCondition condition) {
         List<PsiXStyleSheetRule> list = new ArrayList<>();
         for (PsiXStyleSheetRule o : getRules()) {
             for (XStyleSheetSelector reference : o.getSelectors()) {
@@ -41,7 +39,6 @@ public interface XStyleSheetRoot extends PsiElement {
         return list;
     }
 
-    @Nonnull
     @RequiredReadAction
     PsiXStyleSheetRule[] getRules();
 }

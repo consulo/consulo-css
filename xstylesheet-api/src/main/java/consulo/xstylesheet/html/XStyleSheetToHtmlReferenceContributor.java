@@ -26,7 +26,6 @@ import consulo.xstylesheet.html.psi.reference.classOrId.HtmlIdOrClassToCssFileRe
 import consulo.xstylesheet.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -64,7 +63,6 @@ public class XStyleSheetToHtmlReferenceContributor extends PsiReferenceContribut
         );
     }
 
-    @Nonnull
     @Override
     public Language getLanguage() {
         return HTMLLanguage.INSTANCE;

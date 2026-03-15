@@ -16,8 +16,7 @@
 
 package consulo.xstylesheet.definition;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.Collection;
 
 /**
@@ -26,8 +25,7 @@ import java.util.Collection;
  */
 public interface XStyleSheetTable {
     @Nullable
-    XStyleSheetProperty findProperty(@Nonnull String propertyName);
+    XStyleSheetProperty findProperty(String propertyName);
 
-    @Nonnull
     Collection<XStyleSheetProperty> getProperties();
 }

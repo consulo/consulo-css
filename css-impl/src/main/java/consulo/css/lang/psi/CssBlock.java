@@ -19,14 +19,13 @@ package consulo.css.lang.psi;
 import consulo.language.ast.ASTNode;
 import consulo.xstylesheet.psi.PsiXStyleSheetBlock;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 2013-07-03
  */
 public class CssBlock extends CssElement implements PsiXStyleSheetBlock {
-    public CssBlock(@Nonnull ASTNode node) {
+    public CssBlock(ASTNode node) {
         super(node);
     }
 

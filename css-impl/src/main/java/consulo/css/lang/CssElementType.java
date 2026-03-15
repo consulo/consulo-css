@@ -18,14 +18,13 @@ package consulo.css.lang;
 
 import consulo.language.ast.IElementType;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 2013-07-02
  */
 public class CssElementType extends IElementType {
-    public CssElementType(@Nonnull String debugName) {
+    public CssElementType(String debugName) {
         super(debugName, CssLanguage.INSTANCE);
     }
 }

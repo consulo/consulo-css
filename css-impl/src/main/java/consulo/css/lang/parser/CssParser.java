@@ -28,8 +28,7 @@ import consulo.language.version.LanguageVersion;
 import consulo.localize.LocalizeValue;
 import consulo.util.lang.StringUtil;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 
@@ -40,7 +39,7 @@ import java.util.function.BiConsumer;
 public class CssParser implements PsiParser, CssTokens, CssElements {
     public static final String VAR_PREFIX = "--";
 
-    public static boolean expect(PsiBuilder builder, IElementType elementType, @Nonnull LocalizeValue message) {
+    public static boolean expect(PsiBuilder builder, IElementType elementType, LocalizeValue message) {
         boolean expectedToken = optional(builder, elementType);
         if (!expectedToken) {
             builder.error(message);
@@ -56,16 +55,15 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         return expectedToken;
     }
 
-    @Nonnull
     @Override
-    public ASTNode parse(@Nonnull IElementType rootElementType, @Nonnull PsiBuilder builder, @Nonnull LanguageVersion languageVersion) {
+    public ASTNode parse(IElementType rootElementType, PsiBuilder builder, LanguageVersion languageVersion) {
         PsiBuilder.Marker mark = builder.mark();
         parseRoot(builder);
         mark.done(rootElementType);
         return builder.getTreeBuilt();
     }
 
-    public void parseRoot(@Nonnull PsiBuilder builder) {
+    public void parseRoot(PsiBuilder builder) {
         PsiBuilder.Marker rootMarker = builder.mark();
         while (!builder.eof()) {
             PsiBuilder.Marker marker = builder.mark();
@@ -120,8 +118,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         rootMarker.done(CssElements.ROOT);
     }
 
-    @Nullable
-    private PsiBuilder.Marker parseProperty(@Nonnull PsiBuilder builder, @Nullable PsiBuilder.Marker marker) {
+    private PsiBuilder.@Nullable Marker parseProperty(PsiBuilder builder, PsiBuilder.@Nullable Marker marker) {
         if (builder.getTokenType() == IDENTIFIER) {
             boolean isVariable = StringUtil.startsWith(Objects.requireNonNull(builder.getTokenSequence()), VAR_PREFIX);
 
@@ -348,8 +345,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         mark.error(message);
     }
 
-    @Nullable
-    public PsiBuilder.Marker parseSelector(PsiBuilder builder) {
+    public PsiBuilder.@Nullable Marker parseSelector(PsiBuilder builder) {
         PsiBuilder.Marker mark = builder.mark();
         if (!parseSimpleSelector(builder)) {
             mark.drop();

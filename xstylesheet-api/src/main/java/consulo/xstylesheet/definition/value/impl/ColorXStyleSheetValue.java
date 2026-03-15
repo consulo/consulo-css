@@ -19,8 +19,7 @@ package consulo.xstylesheet.definition.value.impl;
 import consulo.ui.color.ColorValue;
 import consulo.ui.util.ColorValueUtil;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -29,7 +28,7 @@ import jakarta.annotation.Nullable;
 public class ColorXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser {
     @Nullable
     @Override
-    public ColorValue fromString(@Nonnull String stringValue, String value) {
+    public ColorValue fromString(String stringValue, String value) {
         try {
             return ColorValueUtil.fromHex(stringValue);
         }

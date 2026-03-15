@@ -4,7 +4,6 @@ import consulo.annotation.component.ExtensionImpl;
 import consulo.css.lang.CssLanguage;
 import consulo.language.Language;
 import consulo.xstylesheet.highlight.XStyleSheetElementColorProvider;
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -12,7 +11,6 @@ import jakarta.annotation.Nonnull;
  */
 @ExtensionImpl
 public class CssElementColorProvider extends XStyleSheetElementColorProvider {
-    @Nonnull
     @Override
     public Language getLanguage() {
         return CssLanguage.INSTANCE;

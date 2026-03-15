@@ -23,8 +23,7 @@ import consulo.language.ast.ASTNode;
 import consulo.language.ast.IElementType;
 import consulo.language.codeStyle.*;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +32,7 @@ import java.util.List;
  * @since 2013-07-08
  */
 public class CssFormattingBlock extends AbstractBlock {
-    public CssFormattingBlock(@Nonnull ASTNode node, @Nullable Wrap wrap, @Nullable Alignment alignment) {
+    public CssFormattingBlock(ASTNode node, @Nullable Wrap wrap, @Nullable Alignment alignment) {
         super(node, wrap, alignment);
     }
 
@@ -52,7 +51,7 @@ public class CssFormattingBlock extends AbstractBlock {
 
     @Nullable
     @Override
-    public Spacing getSpacing(@Nullable Block block, @Nonnull Block block2) {
+    public Spacing getSpacing(@Nullable Block block, Block block2) {
         return null;
     }
 

@@ -19,8 +19,7 @@ package consulo.xstylesheet.definition.value.impl;
 import consulo.language.editor.completion.lookup.LookupElement;
 import consulo.language.editor.completion.lookup.LookupElementBuilder;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,13 +30,13 @@ import java.util.List;
 public class BaseNumberXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser {
     private String[] myPrefixes;
 
-    public BaseNumberXStyleSheetValue(@Nonnull String... prefixes) {
+    public BaseNumberXStyleSheetValue(String... prefixes) {
         myPrefixes = prefixes;
     }
 
     @Nullable
     @Override
-    public Object fromString(@Nonnull String stringValue, String value) {
+    public Object fromString(String stringValue, String value) {
         if (value != null && !stringValue.equals(value)) {
             return null;
         }
@@ -66,7 +65,6 @@ public class BaseNumberXStyleSheetValue extends TextBasedXStyleSheetPropertyValu
         return null;
     }
 
-    @Nonnull
     @Override
     public List<LookupElement> getLookupElements(String value) {
         LookupElementBuilder builder = LookupElementBuilder.create(value);

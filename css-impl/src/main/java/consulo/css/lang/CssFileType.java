@@ -21,8 +21,7 @@ import consulo.language.file.LanguageFileType;
 import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -35,19 +34,16 @@ public class CssFileType extends LanguageFileType {
         super(CssLanguage.INSTANCE);
     }
 
-    @Nonnull
     @Override
     public String getId() {
         return "CSS";
     }
 
-    @Nonnull
     @Override
     public LocalizeValue getDescription() {
         return LocalizeValue.localizeTODO("CSS");
     }
 
-    @Nonnull
     @Override
     public String getDefaultExtension() {
         return "css";

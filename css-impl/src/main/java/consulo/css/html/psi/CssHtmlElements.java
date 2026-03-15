@@ -32,7 +32,6 @@ import consulo.language.psi.PsiElement;
 import consulo.language.version.LanguageVersion;
 import consulo.project.Project;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -41,7 +40,7 @@ import jakarta.annotation.Nonnull;
 public interface CssHtmlElements {
     IElementType MORPH_HTML_CSS_ELEMENT = new ILazyParseableElementType("MORPH_HTML_CSS_ELEMENT", CssLanguage.INSTANCE) {
         @Override
-        protected ASTNode doParseContents(@Nonnull ASTNode chameleon, @Nonnull PsiElement psi) {
+        protected ASTNode doParseContents(ASTNode chameleon, PsiElement psi) {
             final Project project = psi.getProject();
             final Language languageForParser = getLanguageForParser(psi);
             final LanguageVersion tempLanguageVersion = chameleon.getUserData(LanguageVersion.KEY);
@@ -74,7 +73,7 @@ public interface CssHtmlElements {
             return builder.getTreeBuilt();
         }
 
-        private void parseInlineRule(@Nonnull CssParser cssParser, @Nonnull PsiBuilder builder) {
+        private void parseInlineRule(CssParser cssParser, PsiBuilder builder) {
             PsiBuilder.Marker marker = builder.mark();
 
             PsiBuilder.Marker bodyMarker = builder.mark();

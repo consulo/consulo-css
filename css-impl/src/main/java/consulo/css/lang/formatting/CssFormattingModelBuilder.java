@@ -22,7 +22,6 @@ import consulo.language.Language;
 import consulo.language.codeStyle.*;
 import consulo.language.psi.PsiFile;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -30,16 +29,14 @@ import jakarta.annotation.Nonnull;
  */
 @ExtensionImpl
 public class CssFormattingModelBuilder implements FormattingModelBuilder {
-    @Nonnull
     @Override
-    public FormattingModel createModel(@Nonnull FormattingContext formattingContext) {
+    public FormattingModel createModel(FormattingContext formattingContext) {
         PsiFile file = formattingContext.getContainingFile();
         FormattingDocumentModel model = FormattingDocumentModel.create(file);
         Block rootBlock = new CssFormattingBlock(formattingContext.getNode(), null, null);
         return new PsiBasedFormattingModel(file, rootBlock, model);
     }
 
-    @Nonnull
     @Override
     public Language getLanguage() {
         return CssLanguage.INSTANCE;

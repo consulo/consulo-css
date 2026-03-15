@@ -27,7 +27,6 @@ import consulo.xstylesheet.psi.*;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleSheetRuleTypeCondition;
 
-import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,13 +37,12 @@ import java.util.List;
 public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase<PsiElement> {
     private final XStyleSheetSimpleSelectorType myConditionType;
 
-    public HtmlIdOrClassToCssFileReference(@Nonnull PsiElement element, XStyleSheetSimpleSelectorType conditionType) {
+    public HtmlIdOrClassToCssFileReference(PsiElement element, XStyleSheetSimpleSelectorType conditionType) {
         super(element);
         myConditionType = conditionType;
     }
 
     @RequiredReadAction
-    @Nonnull
     @Override
     public ResolveResult[] multiResolve(boolean b) {
         List<PsiXStyleSheetRule> rules = resolveRules(new XStyleSheetRuleTypeCondition(myConditionType, getElement().getText()));
@@ -57,7 +55,6 @@ public class HtmlIdOrClassToCssFileReference extends PsiPolyVariantReferenceBase
         return resolveResults.isEmpty() ? ResolveResult.EMPTY_ARRAY : resolveResults.toArray(new ResolveResult[resolveResults.size()]);
     }
 
-    @Nonnull
     @Override
     @RequiredReadAction
     public Object[] getVariants() {

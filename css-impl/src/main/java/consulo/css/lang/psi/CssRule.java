@@ -22,15 +22,14 @@ import consulo.xstylesheet.psi.PsiXStyleSheetRule;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
 import consulo.xstylesheet.psi.XStyleSheetSelectorList;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
  * @since 2013-07-03
  */
 public class CssRule extends CssElement implements PsiXStyleSheetRule {
-    public CssRule(@Nonnull ASTNode node) {
+    public CssRule(ASTNode node) {
         super(node);
     }
 
@@ -40,7 +39,6 @@ public class CssRule extends CssElement implements PsiXStyleSheetRule {
         return findChildByClass(CssBlock.class);
     }
 
-    @Nonnull
     @Override
     public CssProperty[] getProperties() {
         CssBlock block = getBlock();

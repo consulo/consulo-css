@@ -26,8 +26,7 @@ import consulo.xstylesheet.psi.XStyleSheetFile;
 import consulo.xstylesheet.psi.XStyleSheetRoot;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,28 +35,26 @@ import java.util.Objects;
  * @since 2013-07-02
  */
 public class CssFile extends PsiFileBase implements XStyleSheetFile {
-    public CssFile(@Nonnull FileViewProvider provider) {
+    public CssFile(FileViewProvider provider) {
         super(provider, CssLanguage.INSTANCE);
     }
 
     @Override
-    public void accept(@Nonnull PsiElementVisitor psiElementVisitor) {
+    public void accept(PsiElementVisitor psiElementVisitor) {
         psiElementVisitor.visitFile(this);
     }
 
     @Nullable
     @RequiredReadAction
-    public PsiXStyleSheetRule findRule(@Nonnull XStyleRuleCondition condition) {
+    public PsiXStyleSheetRule findRule(XStyleRuleCondition condition) {
         return getRoot().findRule(condition);
     }
 
-    @Nonnull
     @RequiredReadAction
-    public List<PsiXStyleSheetRule> findRules(@Nonnull XStyleRuleCondition condition) {
+    public List<PsiXStyleSheetRule> findRules(XStyleRuleCondition condition) {
         return getRoot().findRules(condition);
     }
 
-    @Nonnull
     @Override
     public XStyleSheetRoot getRoot() {
         return Objects.requireNonNull(findChildByClass(XStyleSheetRoot.class));

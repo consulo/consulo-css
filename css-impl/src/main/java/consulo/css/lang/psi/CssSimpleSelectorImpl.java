@@ -26,8 +26,7 @@ import consulo.language.psi.PsiUtilCore;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -37,7 +36,7 @@ public class CssSimpleSelectorImpl extends CssElement implements XStyleSheetSimp
     private static final TokenSet nameSet =
         TokenSet.create(CssTokens.IDENTIFIER, CssTokens.SELECTOR_CLASS, CssTokens.SELECTOR_ID, CssTokens.ASTERISK);
 
-    public CssSimpleSelectorImpl(@Nonnull ASTNode node) {
+    public CssSimpleSelectorImpl(ASTNode node) {
         super(node);
     }
 
@@ -64,7 +63,6 @@ public class CssSimpleSelectorImpl extends CssElement implements XStyleSheetSimp
     }
 
     @RequiredReadAction
-    @Nonnull
     @Override
     public XStyleSheetSimpleSelectorType getType() {
         PsiElement element = findChildByType(nameSet);

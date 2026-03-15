@@ -15,7 +15,6 @@
  */
 package com.intellij.application.options.emmet.css;
 
-import jakarta.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -23,12 +22,10 @@ import java.util.*;
  * @since 2013-02-20
  */
 public class CssPrefixInfo {
-    @Nonnull
     private final String myPropertyName;
-    @Nonnull
     private final Collection<CssPrefix> myEnabledPrefixes;
 
-    public CssPrefixInfo(@Nonnull String propertyName, CssPrefix... enabledPrefixes) {
+    public CssPrefixInfo(String propertyName, CssPrefix... enabledPrefixes) {
         myPropertyName = propertyName;
         myEnabledPrefixes = new HashSet<>(Set.of(enabledPrefixes));
         for (CssPrefix prefix : enabledPrefixes) {
@@ -36,7 +33,7 @@ public class CssPrefixInfo {
         }
     }
 
-    public CssPrefixInfo(@Nonnull String propertyName, Collection<CssPrefix> enabledPrefixes) {
+    public CssPrefixInfo(String propertyName, Collection<CssPrefix> enabledPrefixes) {
         myPropertyName = propertyName;
         myEnabledPrefixes = new HashSet<>(enabledPrefixes);
         for (CssPrefix prefix : enabledPrefixes) {
@@ -44,7 +41,6 @@ public class CssPrefixInfo {
         }
     }
 
-    @Nonnull
     public Collection<CssPrefix> getEnabledPrefixes() {
         return myEnabledPrefixes;
     }
@@ -62,7 +58,6 @@ public class CssPrefixInfo {
         return myEnabledPrefixes.contains(prefix);
     }
 
-    @Nonnull
     public String getPropertyName() {
         return myPropertyName;
     }

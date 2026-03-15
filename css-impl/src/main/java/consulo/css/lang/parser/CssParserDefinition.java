@@ -31,7 +31,6 @@ import consulo.language.parser.PsiParser;
 import consulo.language.psi.PsiFile;
 import consulo.language.version.LanguageVersion;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -41,51 +40,43 @@ import jakarta.annotation.Nonnull;
 public class CssParserDefinition implements ParserDefinition {
     public static final IFileElementType FILE_ELEMENT = new IFileElementType("CSS_FILE", CssLanguage.INSTANCE);
 
-    @Nonnull
     @Override
     public Language getLanguage() {
         return CssLanguage.INSTANCE;
     }
 
-    @Nonnull
     @Override
-    public Lexer createLexer(@Nonnull LanguageVersion languageVersion) {
+    public Lexer createLexer(LanguageVersion languageVersion) {
         return new _CssLexer();
     }
 
-    @Nonnull
     @Override
-    public PsiParser createParser(@Nonnull LanguageVersion languageVersion) {
+    public PsiParser createParser(LanguageVersion languageVersion) {
         return new CssParser();
     }
 
-    @Nonnull
     @Override
     public IFileElementType getFileNodeType() {
         return FILE_ELEMENT;
     }
 
-    @Nonnull
     @Override
-    public TokenSet getWhitespaceTokens(@Nonnull LanguageVersion languageVersion) {
+    public TokenSet getWhitespaceTokens(LanguageVersion languageVersion) {
         return CssTokenSets.WHITE_SPACES;
     }
 
-    @Nonnull
     @Override
-    public TokenSet getCommentTokens(@Nonnull LanguageVersion languageVersion) {
+    public TokenSet getCommentTokens(LanguageVersion languageVersion) {
         return CssTokenSets.COMMENTS;
     }
 
-    @Nonnull
     @Override
-    public TokenSet getStringLiteralElements(@Nonnull LanguageVersion languageVersion) {
+    public TokenSet getStringLiteralElements(LanguageVersion languageVersion) {
         return CssTokenSets.STRINGS;
     }
 
-    @Nonnull
     @Override
-    public PsiFile createFile(@Nonnull FileViewProvider fileViewProvider) {
+    public PsiFile createFile(FileViewProvider fileViewProvider) {
         return new CssFile(fileViewProvider);
     }
 }

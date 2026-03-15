@@ -18,14 +18,13 @@ package consulo.css.lang.psi;
 
 import consulo.language.ast.ASTNode;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 2013-07-11
  */
 public class CssSelectorAttributeList extends CssElement {
-    public CssSelectorAttributeList(@Nonnull ASTNode node) {
+    public CssSelectorAttributeList(ASTNode node) {
         super(node);
     }
 }

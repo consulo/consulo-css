@@ -28,8 +28,7 @@ import consulo.xstylesheet.definition.XStyleSheetColor;
 import consulo.xstylesheet.highlight.XStyleSheetColors;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,9 +38,8 @@ import java.util.List;
  * @since 2013-07-03
  */
 public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser {
-    @Nonnull
     @Override
-    public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart) {
+    public List<HighlightInfo> createHighlights(PsiXStyleSheetPropertyValuePart valuePart) {
         HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
         builder.textAttributes(XStyleSheetColors.KEYWORD);
         builder.range(valuePart);
@@ -50,7 +48,7 @@ public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyVa
 
     @Nullable
     @Override
-    public ColorValue fromString(@Nonnull String stringValue, String value) {
+    public ColorValue fromString(String stringValue, String value) {
         XStyleSheetColor xStyleSheetColor = XStyleSheetColor.getColor(StringUtil.toLowerCase(stringValue));
         if (xStyleSheetColor == null) {
             return null;
@@ -64,7 +62,6 @@ public class KeywordColorXStyleSheetValue extends TextBasedXStyleSheetPropertyVa
         }
     }
 
-    @Nonnull
     @Override
     public List<LookupElement> getLookupElements(String value) {
         List<LookupElement> list = new ArrayList<>();

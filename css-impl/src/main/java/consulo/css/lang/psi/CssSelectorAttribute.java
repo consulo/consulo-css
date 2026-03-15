@@ -25,15 +25,14 @@ import consulo.language.psi.PsiUtilCore;
 import consulo.language.util.IncorrectOperationException;
 import consulo.xstylesheet.psi.PsiXStyleSheetSelectorAttribute;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
  * @since 2013-07-11
  */
 public class CssSelectorAttribute extends CssElement implements PsiXStyleSheetSelectorAttribute {
-    public CssSelectorAttribute(@Nonnull ASTNode node) {
+    public CssSelectorAttribute(ASTNode node) {
         super(node);
     }
 
@@ -61,7 +60,7 @@ public class CssSelectorAttribute extends CssElement implements PsiXStyleSheetSe
 
     @RequiredWriteAction
     @Override
-    public PsiElement setName(@Nonnull String s) throws IncorrectOperationException {
+    public PsiElement setName(String s) throws IncorrectOperationException {
         return null;
     }
 }

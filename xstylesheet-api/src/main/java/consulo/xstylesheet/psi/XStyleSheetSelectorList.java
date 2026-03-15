@@ -18,14 +18,12 @@ package consulo.xstylesheet.psi;
 
 import consulo.annotation.access.RequiredReadAction;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 2017-08-19
  */
 public interface XStyleSheetSelectorList extends PsiXStyleSheetElement {
-    @Nonnull
     @RequiredReadAction
     XStyleSheetSelector[] getSelectors();
 }

@@ -25,8 +25,7 @@ import consulo.xstylesheet.definition.impl.*;
 import org.jdom.Document;
 import org.jdom.Element;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.net.URL;
 import java.util.*;
 import java.util.function.Supplier;
@@ -40,13 +39,13 @@ public abstract class XStyleSheetXmlTableProvider implements XStyleSheetTablePro
 
     private Supplier<XStyleSheetTable> myLazyTableValue;
 
-    public void init(@Nonnull URL url) {
+    public void init(URL url) {
         myLazyTableValue = LazyValue.notNull(() -> loadDocument(url));
     }
 
     @Nullable
     @Override
-    public XStyleSheetTable getTableForFile(@Nonnull PsiFile file) {
+    public XStyleSheetTable getTableForFile(PsiFile file) {
         return myLazyTableValue.get();
     }
 

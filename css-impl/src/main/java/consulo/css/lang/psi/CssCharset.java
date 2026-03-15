@@ -18,14 +18,13 @@ package consulo.css.lang.psi;
 
 import consulo.language.ast.ASTNode;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 2021-01-30
  */
 public class CssCharset extends CssElement {
-    public CssCharset(@Nonnull ASTNode node) {
+    public CssCharset(ASTNode node) {
         super(node);
     }
 }

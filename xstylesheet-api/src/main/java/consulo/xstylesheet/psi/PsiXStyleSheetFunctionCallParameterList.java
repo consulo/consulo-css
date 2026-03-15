@@ -19,7 +19,6 @@ package consulo.xstylesheet.psi;
 import consulo.annotation.access.RequiredReadAction;
 import consulo.language.psi.PsiElement;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -27,6 +26,5 @@ import jakarta.annotation.Nonnull;
  */
 public interface PsiXStyleSheetFunctionCallParameterList extends PsiXStyleSheetElement {
     @RequiredReadAction
-    @Nonnull
     PsiElement[] getParameters();
 }

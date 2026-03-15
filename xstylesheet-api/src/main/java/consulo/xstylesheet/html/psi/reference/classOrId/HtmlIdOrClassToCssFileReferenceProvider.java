@@ -24,7 +24,6 @@ import consulo.language.util.ProcessingContext;
 import consulo.xml.psi.xml.XmlTokenType;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -37,9 +36,8 @@ public class HtmlIdOrClassToCssFileReferenceProvider extends PsiReferenceProvide
         myCssRefTo = cssRefTo;
     }
 
-    @Nonnull
     @Override
-    public PsiReference[] getReferencesByElement(@Nonnull PsiElement psiElement, @Nonnull ProcessingContext processingContext) {
+    public PsiReference[] getReferencesByElement(PsiElement psiElement, ProcessingContext processingContext) {
         ASTNode value = psiElement.getNode().findChildByType(XmlTokenType.XML_ATTRIBUTE_VALUE_TOKEN);
         if (value == null) {
             return PsiReference.EMPTY_ARRAY;

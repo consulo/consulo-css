@@ -21,7 +21,6 @@ import consulo.language.BracePair;
 import consulo.language.Language;
 import consulo.language.PairedBraceMatcher;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -40,7 +39,6 @@ public class CssPairedBraceMatcher implements PairedBraceMatcher {
         return myPairs;
     }
 
-    @Nonnull
     @Override
     public Language getLanguage() {
         return CssLanguage.INSTANCE;

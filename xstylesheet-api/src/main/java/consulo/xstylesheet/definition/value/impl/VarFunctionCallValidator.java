@@ -8,7 +8,6 @@ import consulo.xstylesheet.definition.XStyleSheetFunctionCallDescriptor;
 import consulo.xstylesheet.highlight.XStyleSheetColors;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCall;
 
-import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class VarFunctionCallValidator implements XStyleSheetFunctionCallDescript
 
     @RequiredReadAction
     @Override
-    public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetFunctionCall functionCall) {
+    public List<HighlightInfo> createHighlights(PsiXStyleSheetFunctionCall functionCall) {
         List<HighlightInfo> list = new ArrayList<>();
         list.add(HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION)
             .range(functionCall.getCallElement())

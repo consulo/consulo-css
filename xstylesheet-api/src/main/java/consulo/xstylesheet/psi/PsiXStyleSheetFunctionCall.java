@@ -19,18 +19,15 @@ package consulo.xstylesheet.psi;
 import consulo.annotation.access.RequiredReadAction;
 import consulo.language.psi.PsiElement;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 2013-07-17
  */
 public interface PsiXStyleSheetFunctionCall extends PsiXStyleSheetElement {
-    @Nonnull
     @RequiredReadAction
     PsiElement getCallElement();
 
-    @Nonnull
     @RequiredReadAction
     String getCallName();
 

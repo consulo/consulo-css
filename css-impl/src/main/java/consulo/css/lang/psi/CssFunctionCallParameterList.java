@@ -23,18 +23,16 @@ import consulo.language.ast.TokenSet;
 import consulo.language.psi.PsiElement;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCallParameterList;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 2013-10-08
  */
 public class CssFunctionCallParameterList extends CssElement implements PsiXStyleSheetFunctionCallParameterList {
-    public CssFunctionCallParameterList(@Nonnull ASTNode node) {
+    public CssFunctionCallParameterList(ASTNode node) {
         super(node);
     }
 
-    @Nonnull
     @RequiredReadAction
     @Override
     public PsiElement[] getParameters() {

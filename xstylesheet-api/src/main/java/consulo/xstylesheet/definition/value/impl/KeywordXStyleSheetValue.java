@@ -23,8 +23,7 @@ import consulo.language.editor.rawHighlight.HighlightInfoType;
 import consulo.xstylesheet.highlight.XStyleSheetColors;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,23 +34,21 @@ import java.util.List;
 public class KeywordXStyleSheetValue extends TextBasedXStyleSheetPropertyValuePartParser {
     @Nullable
     @Override
-    public String fromString(@Nonnull String stringValue, String value) {
+    public String fromString(String stringValue, String value) {
         if (stringValue.equals(value)) {
             return stringValue;
         }
         return null;
     }
 
-    @Nonnull
     @Override
-    public List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetPropertyValuePart valuePart) {
+    public List<HighlightInfo> createHighlights(PsiXStyleSheetPropertyValuePart valuePart) {
         HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
         builder.textAttributes(XStyleSheetColors.KEYWORD);
         builder.range(valuePart);
         return Collections.singletonList(builder.create());
     }
 
-    @Nonnull
     @Override
     public List<LookupElement> getLookupElements(String value) {
         LookupElementBuilder builder = LookupElementBuilder.create(value);

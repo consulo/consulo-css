@@ -21,8 +21,7 @@ import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiNameIdentifierOwner;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -33,7 +32,6 @@ public interface PsiXStyleSheetProperty extends PsiElement, PsiNameIdentifierOwn
     @RequiredReadAction
     XStyleSheetProperty getXStyleSheetProperty();
 
-    @Nonnull
     PsiXStyleSheetPropertyValuePart[] getParts();
 
     @Nullable

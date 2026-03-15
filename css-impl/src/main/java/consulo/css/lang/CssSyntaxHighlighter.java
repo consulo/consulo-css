@@ -25,7 +25,6 @@ import consulo.language.lexer.Lexer;
 import consulo.util.collection.MultiMap;
 import consulo.xstylesheet.highlight.XStyleSheetColors;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -51,15 +50,13 @@ public class CssSyntaxHighlighter extends SyntaxHighlighterBase {
         storeDefaults(myKeys);
     }
 
-    @Nonnull
     @Override
     public Lexer getHighlightingLexer() {
         return new _CssLexer();
     }
 
-    @Nonnull
     @Override
-    public TextAttributesKey[] getTokenHighlights(@Nonnull IElementType elementType) {
+    public TextAttributesKey[] getTokenHighlights(IElementType elementType) {
         return myKeys.get(elementType).toArray(new TextAttributesKey[0]);
     }
 }

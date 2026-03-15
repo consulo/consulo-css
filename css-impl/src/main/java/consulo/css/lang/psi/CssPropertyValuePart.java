@@ -26,9 +26,8 @@ import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import consulo.xstylesheet.definition.value.impl.VarFunctionCallValidator;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
 import java.util.Map;
 
 /**
@@ -36,7 +35,7 @@ import java.util.Map;
  * @since 2013-07-03
  */
 public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPropertyValuePart {
-    public CssPropertyValuePart(@Nonnull ASTNode node) {
+    public CssPropertyValuePart(ASTNode node) {
         super(node);
     }
 
@@ -54,9 +53,8 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
         return entry == null ? null : entry.getValue();
     }
 
-    @Nullable
     @RequiredReadAction
-    private Map.Entry<XStyleSheetPropertyValuePart, Object> find() {
+    private Map.@Nullable Entry<XStyleSheetPropertyValuePart, Object> find() {
         XStyleSheetPropertyValueEntry validEntry = findEntry();
         if (validEntry == null) {
             return null;
@@ -72,7 +70,7 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
     }
 
     @Override
-    public void setValue(@Nonnull Object value) {
+    public void setValue(Object value) {
         XStyleSheetPropertyValueEntry validEntry = findEntry();
         if (validEntry == null) {
             return;

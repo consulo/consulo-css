@@ -21,8 +21,7 @@ import consulo.annotation.component.ExtensionAPI;
 import consulo.component.extension.ExtensionPointName;
 import consulo.language.psi.PsiFile;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -33,5 +32,5 @@ public interface XStyleSheetTableProvider {
     ExtensionPointName<XStyleSheetTableProvider> EP_NAME = ExtensionPointName.create(XStyleSheetTableProvider.class);
 
     @Nullable
-    XStyleSheetTable getTableForFile(@Nonnull PsiFile file);
+    XStyleSheetTable getTableForFile(PsiFile file);
 }

@@ -19,8 +19,7 @@ package consulo.xstylesheet.table;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetTable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.*;
 
 /**
@@ -38,11 +37,10 @@ public class UnparsedXStyleSheetTable implements XStyleSheetTable {
 
     @Nullable
     @Override
-    public XStyleSheetProperty findProperty(@Nonnull String propertyName) {
+    public XStyleSheetProperty findProperty(String propertyName) {
         return myNames.get(propertyName);
     }
 
-    @Nonnull
     @Override
     public Collection<XStyleSheetProperty> getProperties() {
         return myNames.values();

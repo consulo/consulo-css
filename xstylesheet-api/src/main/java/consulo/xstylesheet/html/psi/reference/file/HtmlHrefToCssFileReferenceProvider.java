@@ -30,7 +30,6 @@ import consulo.xml.psi.xml.XmlTag;
 import consulo.xml.psi.xml.XmlTokenType;
 import consulo.xstylesheet.psi.XStyleSheetFile;
 
-import jakarta.annotation.Nonnull;
 
 
 /**
@@ -66,9 +65,8 @@ public class HtmlHrefToCssFileReferenceProvider extends PsiReferenceProvider {
         }
     }
 
-    @Nonnull
     @Override
-    public PsiReference[] getReferencesByElement(@Nonnull PsiElement psiElement, @Nonnull ProcessingContext processingContext) {
+    public PsiReference[] getReferencesByElement(PsiElement psiElement, ProcessingContext processingContext) {
         XmlAttributeValue xmlAttributeValue = (XmlAttributeValue)psiElement;
         ASTNode value = xmlAttributeValue.getNode().findChildByType(XmlTokenType.XML_ATTRIBUTE_VALUE_TOKEN);
         if (value == null) {

@@ -7,7 +7,6 @@ import consulo.xstylesheet.definition.XStyleSheetTableProvider;
 import consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;
 import consulo.xstylesheet.definition.impl.MergedXStyleSheetTable;
 
-import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +15,7 @@ import java.util.List;
  * @since 2015-12-05
  */
 public interface XStyleSheetFile extends PsiFile {
-    @Nonnull
-    static XStyleSheetTable getXStyleSheetTable(@Nonnull PsiFile file) {
+    static XStyleSheetTable getXStyleSheetTable(PsiFile file) {
         List<XStyleSheetTable> list = new ArrayList<>();
         XStyleSheetTableProvider.EP_NAME.forEachExtensionSafe(
             extension -> ContainerUtil.addIfNotNull(list, extension.getTableForFile(file))
@@ -28,6 +26,5 @@ public interface XStyleSheetFile extends PsiFile {
             : new MergedXStyleSheetTable(list.toArray(new XStyleSheetTable[list.size()]));
     }
 
-    @Nonnull
     XStyleSheetRoot getRoot();
 }

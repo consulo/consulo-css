@@ -15,8 +15,7 @@ import jakarta.inject.Singleton;
 import org.jdom.Document;
 import org.jdom.Element;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.*;
 
 /**
@@ -28,7 +27,6 @@ import java.util.*;
 @ServiceAPI(ComponentScope.APPLICATION)
 @ServiceImpl
 public class CssEmmetOptions implements PersistentStateComponent<CssEmmetOptions> {
-    @Nonnull
     public static CssEmmetOptions getInstance() {
         return ServiceManager.getService(CssEmmetOptions.class);
     }
@@ -76,7 +74,6 @@ public class CssEmmetOptions implements PersistentStateComponent<CssEmmetOptions
         return myFuzzySearchEnabled;
     }
 
-    @Nonnull
     public Map<String, Integer> getPrefixes() {
         if (prefixes == null) {
             prefixes = loadDefaultPrefixes();

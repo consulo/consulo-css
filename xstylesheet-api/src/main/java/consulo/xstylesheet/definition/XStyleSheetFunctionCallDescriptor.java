@@ -23,7 +23,6 @@ import consulo.component.extension.ExtensionPointName;
 import consulo.language.editor.rawHighlight.HighlightInfo;
 import consulo.xstylesheet.psi.PsiXStyleSheetFunctionCall;
 
-import jakarta.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -36,5 +35,5 @@ public interface XStyleSheetFunctionCallDescriptor {
     boolean isMyFunction(PsiXStyleSheetFunctionCall functionCall);
 
     @RequiredReadAction
-    List<HighlightInfo> createHighlights(@Nonnull PsiXStyleSheetFunctionCall functionCall);
+    List<HighlightInfo> createHighlights(PsiXStyleSheetFunctionCall functionCall);
 }

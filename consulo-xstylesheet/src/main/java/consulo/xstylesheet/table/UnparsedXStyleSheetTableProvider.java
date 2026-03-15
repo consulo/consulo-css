@@ -25,8 +25,7 @@ import consulo.xstylesheet.definition.XStyleSheetTable;
 import consulo.xstylesheet.definition.XStyleSheetTableProvider;
 import consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -57,7 +56,7 @@ public class UnparsedXStyleSheetTableProvider implements XStyleSheetTableProvide
 
     @Nullable
     @Override
-    public XStyleSheetTable getTableForFile(@Nonnull PsiFile file) {
+    public XStyleSheetTable getTableForFile(PsiFile file) {
         return myTable.get();
     }
 }

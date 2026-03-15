@@ -20,8 +20,7 @@ import consulo.annotation.component.ExtensionImpl;
 import consulo.language.Commenter;
 import consulo.language.Language;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -59,7 +58,6 @@ public class CssCommenter implements Commenter {
         return null;
     }
 
-    @Nonnull
     @Override
     public Language getLanguage() {
         return CssLanguage.INSTANCE;

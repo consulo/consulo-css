@@ -19,8 +19,7 @@ package consulo.xstylesheet.definition.value.impl;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePartParser;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -29,9 +28,9 @@ import jakarta.annotation.Nullable;
 public abstract class TextBasedXStyleSheetPropertyValuePartParser implements XStyleSheetPropertyValuePartParser {
     @Nullable
     @Override
-    public Object getNativeValue(@Nonnull PsiXStyleSheetPropertyValuePart valuePart, String value) {
+    public Object getNativeValue(PsiXStyleSheetPropertyValuePart valuePart, String value) {
         return fromString(valuePart.getText().trim(), value);
     }
 
-    public abstract Object fromString(@Nonnull String valuePart, String value);
+    public abstract Object fromString(String valuePart, String value);
 }

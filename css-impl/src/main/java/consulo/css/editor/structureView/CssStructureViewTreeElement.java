@@ -22,8 +22,7 @@ import consulo.language.editor.structureView.PsiTreeElementBase;
 import consulo.xstylesheet.psi.PsiXStyleSheetRule;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -37,7 +36,6 @@ public class CssStructureViewTreeElement extends PsiTreeElementBase<CssFile> {
         super(psiElement);
     }
 
-    @Nonnull
     @Override
     public Collection<StructureViewTreeElement> getChildrenBase() {
         List<StructureViewTreeElement> list = new ArrayList<>();

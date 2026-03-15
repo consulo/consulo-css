@@ -19,14 +19,13 @@ package consulo.css.lang.psi;
 import consulo.language.ast.ASTNode;
 import consulo.language.impl.psi.ASTWrapperPsiElement;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 2013-07-03
  */
 public abstract class CssElement extends ASTWrapperPsiElement {
-    public CssElement(@Nonnull ASTNode node) {
+    public CssElement(ASTNode node) {
         super(node);
     }
 }

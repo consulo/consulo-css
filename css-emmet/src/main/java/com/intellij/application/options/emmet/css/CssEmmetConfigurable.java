@@ -12,8 +12,7 @@ import consulo.ui.annotation.RequiredUIAccess;
 import consulo.ui.ex.awt.JBCheckBox;
 import consulo.ui.ex.awt.VerticalFlowLayout;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 
@@ -30,7 +29,6 @@ public class CssEmmetConfigurable implements ApplicationConfigurable, Configurab
 
     private CssEditPrefixesListPanel myCssEditPrefixesListPanel;
 
-    @Nonnull
     @Override
     public String getId() {
         return "editor.emmet.css";
@@ -42,7 +40,6 @@ public class CssEmmetConfigurable implements ApplicationConfigurable, Configurab
         return "editor.emmet";
     }
 
-    @Nonnull
     @Override
     public LocalizeValue getDisplayName() {
         return LocalizeValue.localizeTODO("CSS");
@@ -51,7 +48,7 @@ public class CssEmmetConfigurable implements ApplicationConfigurable, Configurab
     @RequiredUIAccess
     @Nullable
     @Override
-    public JComponent createComponent(@Nonnull Disposable uiDisposable) {
+    public JComponent createComponent(Disposable uiDisposable) {
         if (myPanel == null) {
             myPanel = new JPanel(new BorderLayout());
 

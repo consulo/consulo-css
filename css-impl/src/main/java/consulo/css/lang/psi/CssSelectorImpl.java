@@ -21,19 +21,17 @@ import consulo.language.ast.ASTNode;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 2017-08-20
  */
 public class CssSelectorImpl extends CssElement implements XStyleSheetSelector {
-    public CssSelectorImpl(@Nonnull ASTNode node) {
+    public CssSelectorImpl(ASTNode node) {
         super(node);
     }
 
     @RequiredReadAction
-    @Nonnull
     @Override
     public XStyleSheetSimpleSelector[] getSimpleSelectors() {
         return findChildrenByClass(XStyleSheetSimpleSelector.class);

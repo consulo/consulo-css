@@ -19,14 +19,13 @@ package consulo.css.lang.psi;
 import consulo.language.ast.ASTNode;
 import consulo.xstylesheet.psi.XStyleSheetSelectorSuffixList;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 2017-08-20
  */
 public class CssSelectorSuffixListImpl extends CssElement implements XStyleSheetSelectorSuffixList {
-    public CssSelectorSuffixListImpl(@Nonnull ASTNode node) {
+    public CssSelectorSuffixListImpl(ASTNode node) {
         super(node);
     }
 }

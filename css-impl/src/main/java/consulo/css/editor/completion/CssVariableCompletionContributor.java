@@ -11,7 +11,6 @@ import consulo.language.editor.completion.lookup.LookupElementBuilder;
 import consulo.language.icon.IconDescriptorUpdaters;
 import consulo.language.pattern.StandardPatterns;
 import consulo.language.psi.util.PsiTreeUtil;
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -40,11 +39,10 @@ public class CssVariableCompletionContributor extends CompletionContributor {
     }
 
     @Override
-    public void beforeCompletion(@Nonnull CompletionInitializationContext context) {
+    public void beforeCompletion(CompletionInitializationContext context) {
         context.setDummyIdentifier("--dummy-completion-var");
     }
 
-    @Nonnull
     @Override
     public Language getLanguage() {
         return CssLanguage.INSTANCE;

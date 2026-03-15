@@ -20,7 +20,6 @@ import consulo.annotation.access.RequiredReadAction;
 import consulo.language.psi.PsiElement;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -35,7 +34,7 @@ public interface PsiXStyleSheetPropertyValuePart extends PsiElement {
     @RequiredReadAction
     Object getValue();
 
-    default void setValue(@Nonnull Object value) {
+    default void setValue(Object value) {
     }
 
     XStyleSheetPropertyValuePart getValuePart();

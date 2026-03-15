@@ -19,8 +19,7 @@ package consulo.xstylesheet.psi;
 import consulo.annotation.access.RequiredReadAction;
 import consulo.language.psi.PsiElement;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -30,7 +29,6 @@ public interface PsiXStyleSheetRule extends PsiElement {
     @Nullable
     PsiXStyleSheetBlock getBlock();
 
-    @Nonnull
     PsiXStyleSheetProperty[] getProperties();
 
     @Nullable

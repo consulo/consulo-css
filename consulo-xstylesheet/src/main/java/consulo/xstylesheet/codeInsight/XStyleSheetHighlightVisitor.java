@@ -28,8 +28,7 @@ import consulo.xstylesheet.highlight.XStyleSheetColors;
 import consulo.xstylesheet.psi.*;
 import consulo.xstylesheet.psi.reference.BuildInSymbolElement;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -39,7 +38,7 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
     private HighlightInfoHolder myHighlightInfoHolder;
 
     @Override
-    public void visit(@Nonnull PsiElement psiElement) {
+    public void visit(PsiElement psiElement) {
         psiElement.accept(new PsiElementVisitor() {
             @Override
             @RequiredReadAction
@@ -60,7 +59,7 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
     }
 
     @RequiredReadAction
-    private void highlightElement(@Nonnull PsiElement element, @Nullable PsiElement targetElement) {
+    private void highlightElement(PsiElement element, @Nullable PsiElement targetElement) {
         if (element instanceof PsiXStyleSheetProperty property) {
             highlightName(targetElement == null ? property.getNameIdentifier() : targetElement, PROPERTY_NAME);
         }
@@ -128,10 +127,10 @@ public class XStyleSheetHighlightVisitor implements HighlightVisitor, XStyleShee
 
     @Override
     public boolean analyze(
-        @Nonnull PsiFile psiFile,
+        PsiFile psiFile,
         boolean b,
-        @Nonnull HighlightInfoHolder highlightInfoHolder,
-        @Nonnull Runnable runnable
+        HighlightInfoHolder highlightInfoHolder,
+        Runnable runnable
     ) {
         myHighlightInfoHolder = highlightInfoHolder;
         runnable.run();

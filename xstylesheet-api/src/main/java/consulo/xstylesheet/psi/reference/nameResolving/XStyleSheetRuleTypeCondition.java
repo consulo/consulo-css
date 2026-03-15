@@ -22,8 +22,7 @@ import consulo.xstylesheet.psi.XStyleSheetSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -33,7 +32,7 @@ public class XStyleSheetRuleTypeCondition implements XStyleRuleCondition {
     private final XStyleSheetSimpleSelectorType myConditionType;
     private final String myName;
 
-    public XStyleSheetRuleTypeCondition(@Nonnull XStyleSheetSimpleSelectorType conditionType, @Nullable String name) {
+    public XStyleSheetRuleTypeCondition(XStyleSheetSimpleSelectorType conditionType, @Nullable String name) {
         myConditionType = conditionType;
         myName = name;
     }

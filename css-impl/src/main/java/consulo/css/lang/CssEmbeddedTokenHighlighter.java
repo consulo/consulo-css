@@ -6,7 +6,6 @@ import consulo.colorScheme.TextAttributesKey;
 import consulo.language.ast.IElementType;
 import consulo.util.collection.MultiMap;
 import consulo.xml.lang.xml.XMLLanguage;
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -14,9 +13,8 @@ import jakarta.annotation.Nonnull;
  */
 @ExtensionImpl
 public class CssEmbeddedTokenHighlighter implements EmbeddedTokenHighlighter {
-    @Nonnull
     @Override
-    public MultiMap<IElementType, TextAttributesKey> getEmbeddedTokenAttributes(@Nonnull XMLLanguage xmlLanguage) {
+    public MultiMap<IElementType, TextAttributesKey> getEmbeddedTokenAttributes(XMLLanguage xmlLanguage) {
         MultiMap<IElementType, TextAttributesKey> result = MultiMap.createLinked();
         CssSyntaxHighlighter.storeDefaults(result);
         return result;

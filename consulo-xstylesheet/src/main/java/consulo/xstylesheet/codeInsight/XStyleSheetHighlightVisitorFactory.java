@@ -7,7 +7,6 @@ import consulo.language.psi.PsiFile;
 import consulo.xml.psi.xml.XmlFile;
 import consulo.xstylesheet.psi.XStyleSheetFile;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -16,11 +15,10 @@ import jakarta.annotation.Nonnull;
 @ExtensionImpl
 public class XStyleSheetHighlightVisitorFactory implements HighlightVisitorFactory {
     @Override
-    public boolean suitableForFile(@Nonnull PsiFile psiFile) {
+    public boolean suitableForFile(PsiFile psiFile) {
         return psiFile instanceof XStyleSheetFile || psiFile instanceof XmlFile;
     }
 
-    @Nonnull
     @Override
     public HighlightVisitor createVisitor() {
         return new XStyleSheetHighlightVisitor();

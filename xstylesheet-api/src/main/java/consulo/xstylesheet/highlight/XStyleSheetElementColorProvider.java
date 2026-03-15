@@ -23,8 +23,7 @@ import consulo.language.psi.ElementColorProvider;
 import consulo.language.psi.PsiElement;
 import consulo.ui.color.ColorValue;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author VISTALL
@@ -34,7 +33,7 @@ public abstract class XStyleSheetElementColorProvider implements ElementColorPro
     @RequiredReadAction
     @Nullable
     @Override
-    public ColorValue getColorFrom(@Nonnull PsiElement psiElement) {
+    public ColorValue getColorFrom(PsiElement psiElement) {
         if (psiElement instanceof PsiXStyleSheetPropertyValuePart part) {
             Object value = null;
             try {
@@ -52,7 +51,7 @@ public abstract class XStyleSheetElementColorProvider implements ElementColorPro
 
     @RequiredWriteAction
     @Override
-    public void setColorTo(@Nonnull PsiElement psiElement, @Nonnull ColorValue color) {
+    public void setColorTo(PsiElement psiElement, ColorValue color) {
         if (psiElement instanceof PsiXStyleSheetPropertyValuePart part) {
             WriteAction.run(() -> part.setValue(color));
         }

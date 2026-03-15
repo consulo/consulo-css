@@ -9,8 +9,7 @@ import consulo.language.psi.*;
 import consulo.language.psi.resolve.ResolveCache;
 import consulo.language.util.IncorrectOperationException;
 import consulo.xstylesheet.psi.PsiXStyleSheetVariableReference;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +21,12 @@ import java.util.function.Consumer;
  * @since 2024-03-14
  */
 public class CssVariableReference extends CssElement implements PsiXStyleSheetVariableReference {
-    public CssVariableReference(@Nonnull ASTNode node) {
+    public CssVariableReference(ASTNode node) {
         super(node);
     }
 
     @RequiredReadAction
     @Override
-    @Nonnull
     public PsiElement getElement() {
         return findNotNullChildByType(CssTokens.IDENTIFIER);
     }
@@ -39,7 +37,6 @@ public class CssVariableReference extends CssElement implements PsiXStyleSheetVa
     }
 
     @RequiredReadAction
-    @Nonnull
     @Override
     public TextRange getRangeInElement() {
         PsiElement element = getElement();
@@ -60,7 +57,6 @@ public class CssVariableReference extends CssElement implements PsiXStyleSheetVa
     }
 
     @RequiredReadAction
-    @Nonnull
     @Override
     public String getCanonicalText() {
         PsiElement element = getElement();
@@ -75,7 +71,7 @@ public class CssVariableReference extends CssElement implements PsiXStyleSheetVa
 
     @RequiredWriteAction
     @Override
-    public PsiElement bindToElement(@Nonnull PsiElement psiElement) throws IncorrectOperationException {
+    public PsiElement bindToElement(PsiElement psiElement) throws IncorrectOperationException {
         return null;
     }
 
@@ -111,7 +107,6 @@ public class CssVariableReference extends CssElement implements PsiXStyleSheetVa
     }
 
     @RequiredReadAction
-    @Nonnull
     @Override
     public ResolveResult[] multiResolve(boolean incompleteCode) {
         return ResolveCache.getInstance(getProject()).resolveWithCaching(

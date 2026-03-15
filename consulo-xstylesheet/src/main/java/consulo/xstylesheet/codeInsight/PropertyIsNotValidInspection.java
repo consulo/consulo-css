@@ -28,7 +28,6 @@ import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetVariable;
 
-import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -36,9 +35,8 @@ import jakarta.annotation.Nonnull;
  */
 @ExtensionImpl
 public class PropertyIsNotValidInspection extends LocalInspectionTool {
-    @Nonnull
     @Override
-    public PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, boolean isOnTheFly) {
+    public PsiElementVisitor buildVisitor(final ProblemsHolder holder, boolean isOnTheFly) {
         return new PsiElementVisitor() {
             @Override
             @RequiredReadAction
@@ -64,19 +62,16 @@ public class PropertyIsNotValidInspection extends LocalInspectionTool {
         };
     }
 
-    @Nonnull
     @Override
     public LocalizeValue getGroupDisplayName() {
         return LocalizeValue.localizeTODO("CSS");
     }
 
-    @Nonnull
     @Override
     public LocalizeValue getDisplayName() {
         return LocalizeValue.localizeTODO("Invalid property name");
     }
 
-    @Nonnull
     @Override
     public HighlightDisplayLevel getDefaultLevel() {
         return HighlightDisplayLevel.ERROR;
