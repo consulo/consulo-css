@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package consulo.xstylesheet.html.psi.reference.file;
+package consulo.xstylesheet.impl.html.psi.reference.file;
 
 import consulo.language.ast.ASTNode;
 import consulo.language.psi.*;
@@ -29,8 +29,6 @@ import consulo.xml.psi.xml.XmlAttributeValue;
 import consulo.xml.psi.xml.XmlTag;
 import consulo.xml.psi.xml.XmlTokenType;
 import consulo.xstylesheet.psi.XStyleSheetFile;
-
-
 
 /**
  * @author VISTALL

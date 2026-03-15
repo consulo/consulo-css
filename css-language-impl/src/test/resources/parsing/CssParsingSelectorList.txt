@@ -27,3 +27,4 @@ CSS_FILE
           PsiElement(SEMICOLON)(';')
         PsiWhiteSpace('\n')
         PsiElement(RBRACE)('}')
+  PsiWhiteSpace('\n')

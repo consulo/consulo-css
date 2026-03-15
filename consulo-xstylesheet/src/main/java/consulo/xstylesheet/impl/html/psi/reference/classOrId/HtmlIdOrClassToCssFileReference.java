@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package consulo.xstylesheet.html.psi.reference.classOrId;
+package consulo.xstylesheet.impl.html.psi.reference.classOrId;
 
 import consulo.annotation.access.RequiredReadAction;
 import consulo.language.editor.completion.lookup.LookupElementBuilder;
@@ -22,7 +22,7 @@ import consulo.language.icon.IconDescriptorUpdaters;
 import consulo.language.psi.*;
 import consulo.language.psi.util.PsiTreeUtil;
 import consulo.util.collection.ArrayUtil;
-import consulo.xstylesheet.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
+import consulo.xstylesheet.impl.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
 import consulo.xstylesheet.psi.*;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleRuleCondition;
 import consulo.xstylesheet.psi.reference.nameResolving.XStyleSheetRuleTypeCondition;

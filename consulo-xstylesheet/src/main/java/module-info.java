@@ -8,6 +8,8 @@ module consulo.xstylesheet {
     requires transitive consulo.language.api;
     requires transitive consulo.language.editor.api;
 
+    requires com.intellij.xml;
+
     exports consulo.xstylesheet;
     exports consulo.xstylesheet.codeInsight;
     exports consulo.xstylesheet.table;

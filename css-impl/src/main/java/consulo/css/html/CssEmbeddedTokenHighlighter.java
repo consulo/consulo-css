@@ -1,8 +1,9 @@
-package consulo.css.lang;
+package consulo.css.html;
 
 import com.intellij.xml.highlighter.EmbeddedTokenHighlighter;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.colorScheme.TextAttributesKey;
+import consulo.css.lang.CssSyntaxHighlighter;
 import consulo.language.ast.IElementType;
 import consulo.util.collection.MultiMap;
 import consulo.xml.lang.xml.XMLLanguage;

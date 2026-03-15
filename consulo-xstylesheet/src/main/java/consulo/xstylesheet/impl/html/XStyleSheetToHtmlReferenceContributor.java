@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package consulo.xstylesheet.html;
+package consulo.xstylesheet.impl.html;
 
 import com.intellij.xml.util.XmlUtil;
 import consulo.annotation.component.ExtensionImpl;
@@ -22,8 +22,8 @@ import consulo.language.Language;
 import consulo.language.psi.PsiReferenceContributor;
 import consulo.language.psi.PsiReferenceRegistrar;
 import consulo.xml.lang.html.HTMLLanguage;
-import consulo.xstylesheet.html.psi.reference.classOrId.HtmlIdOrClassToCssFileReferenceProvider;
-import consulo.xstylesheet.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
+import consulo.xstylesheet.impl.html.psi.reference.classOrId.HtmlIdOrClassToCssFileReferenceProvider;
+import consulo.xstylesheet.impl.html.psi.reference.file.HtmlHrefToCssFileReferenceProvider;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
 
 

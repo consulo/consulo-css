@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package consulo.xstylesheet.html.psi.reference.classOrId;
+package consulo.xstylesheet.impl.html.psi.reference.classOrId;
 
 import consulo.language.ast.ASTNode;
 import consulo.language.psi.PsiElement;
