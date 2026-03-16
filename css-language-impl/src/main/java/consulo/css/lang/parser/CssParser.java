@@ -331,7 +331,9 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
     public void parsePropertyValue(PsiBuilder builder) {
         while (!builder.eof()) {
             IElementType type = builder.getTokenType();
-            if (type == COMMA) {
+            if (type == COMMA || type == SLASH) {
+                // Comma and slash are value separators in CSS shorthand properties
+                // e.g., "font: 12px/1.5 sans-serif", "grid-area: 1 / 1"
                 builder.advanceLexer();
             }
             else if (type == SEMICOLON || type == RBRACE || type == IMPORTANT_KEYWORD) {
@@ -372,6 +374,22 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
                             builder.advanceLexer();
                         }
                         colorMark.collapse(CssTokens.NUMBER);
+                    }
+                    else {
+                        builder.advanceLexer();
+                    }
+                }
+                else if (type == CssTokens.NUMBER) {
+                    // The lexer may split number+unit into two tokens for modern units
+                    // not in the lexer's suffix list (e.g., rem, vw, vh, vmin, vmax, ch, etc.):
+                    //   1.3rem → NUMBER(1.3) + IDENTIFIER(rem)
+                    // Collapse adjacent NUMBER + IDENTIFIER into a single NUMBER token
+                    IElementType nextRaw = builder.rawLookup(1);
+                    if (nextRaw == CssTokens.IDENTIFIER) {
+                        PsiBuilder.Marker collapseMark = builder.mark();
+                        builder.advanceLexer();
+                        builder.advanceLexer();
+                        collapseMark.collapse(CssTokens.NUMBER);
                     }
                     else {
                         builder.advanceLexer();
@@ -708,8 +726,28 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
 
                 builder.advanceLexer();
 
-                if (StringUtil.equals(name, "not") && parseSelector(builder) == null) {
-                    builder.error(CssLocalize.expectedSelector());
+                if (StringUtil.equals(name, "not")) {
+                    if (parseSelector(builder) == null) {
+                        builder.error(CssLocalize.expectedSelector());
+                    }
+                }
+                else {
+                    // Consume arguments for pseudo-classes/pseudo-elements like
+                    // ::part(drawer), :nth-child(2n+1), :has(.class), :where(a, b)
+                    int depth = 1;
+                    while (!builder.eof() && depth > 0) {
+                        IElementType tokenType = builder.getTokenType();
+                        if (tokenType == LPAR) {
+                            depth++;
+                        }
+                        else if (tokenType == RPAR) {
+                            depth--;
+                            if (depth == 0) {
+                                break;
+                            }
+                        }
+                        builder.advanceLexer();
+                    }
                 }
 
                 expect(builder, RPAR, CssLocalize.expectedRparen());

@@ -55,6 +55,7 @@ public interface CssTokens extends TokenType {
     IElementType PLUS = new CssElementType("PLUS");
     IElementType TILDE = new CssElementType("TILDE");
     IElementType PERC = new CssElementType("PERC");
+    IElementType SLASH = new CssElementType("SLASH");
 
     IElementType URL_TOKEN = new CssElementType("URL_TOKEN");
 

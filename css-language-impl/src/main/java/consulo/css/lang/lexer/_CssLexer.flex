@@ -71,6 +71,7 @@ URL_PATTERN = ([!#$%&*-~]|{nonascii}|{escape})*
     "+"                     { return CssTokens.PLUS; }
     "~"                     { return CssTokens.TILDE; }
     "%"                     { return CssTokens.PERC; }
+    "/"                     { return CssTokens.SLASH; }
     "@import"               { return CssTokens.IMPORT_KEYWORD;}
     "@page"                 { return CssTokens.PAGE_KEYWORD;}
     "@media"                { return CssTokens.MEDIA_KEYWORD;}
