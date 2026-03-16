@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 must-be.org
+ * Copyright 2013-2026 consulo.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@ package consulo.xstylesheet.definition.value.impl;
 
 /**
  * @author VISTALL
- * @since 2013-07-08
+ * @since 2026-03-15
  */
-public class AbsoluteLengthNumberXStyleSheetValue extends BaseNumberXStyleSheetValue {
-    public AbsoluteLengthNumberXStyleSheetValue() {
-        super("in", "cm", "mm", "pt", "pc", "px", "Q");
+public class AngleNumberXStyleSheetValue extends BaseNumberXStyleSheetValue {
+    public AngleNumberXStyleSheetValue() {
+        super("deg", "rad", "grad", "turn");
     }
 }

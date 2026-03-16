@@ -116,6 +116,17 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
 
         int i = ArrayUtil.indexOf(parts, this);
 
-        return i >= 0 && i < validEntries.length ? validEntries[i] : null;
+        if (i < 0) {
+            return null;
+        }
+
+        // If there are more value parts than entries, reuse the last entry.
+        // This handles properties with variable-length value lists (e.g. margin: 10px 20px 30px)
+        // where the MDN-based provider creates a single entry with all valid alternatives.
+        if (i < validEntries.length) {
+            return validEntries[i];
+        }
+
+        return validEntries[validEntries.length - 1];
     }
 }

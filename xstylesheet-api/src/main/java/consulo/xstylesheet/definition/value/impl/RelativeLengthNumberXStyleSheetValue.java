@@ -22,6 +22,6 @@ package consulo.xstylesheet.definition.value.impl;
  */
 public class RelativeLengthNumberXStyleSheetValue extends BaseNumberXStyleSheetValue {
     public RelativeLengthNumberXStyleSheetValue() {
-        super("em", "ex");
+        super("em", "ex", "rem", "ch", "vh", "vw", "vmin", "vmax", "svh", "svw", "lvh", "lvw", "dvh", "dvw");
     }
 }

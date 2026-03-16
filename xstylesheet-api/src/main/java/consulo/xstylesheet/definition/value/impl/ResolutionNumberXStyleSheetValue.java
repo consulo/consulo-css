@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2020 consulo.io
+ * Copyright 2013-2026 consulo.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package consulo.xstylesheet.table;
-
-import consulo.annotation.component.ExtensionImpl;
-import consulo.xstylesheet.definition.XStyleSheetXmlTableProvider;
+package consulo.xstylesheet.definition.value.impl;
 
 /**
  * @author VISTALL
- * @since 2020-08-08
+ * @since 2026-03-15
  */
-@ExtensionImpl
-public class DefaultXStyleSheetTableProvider extends XStyleSheetXmlTableProvider {
-    public DefaultXStyleSheetTableProvider() {
-        init(getClass().getResource("/consulo/xstylesheet/defaultXStyleSheetTable.xml"));
+public class ResolutionNumberXStyleSheetValue extends BaseNumberXStyleSheetValue {
+    public ResolutionNumberXStyleSheetValue() {
+        super("dpi", "dpcm", "dppx", "x");
     }
 }

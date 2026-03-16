@@ -66,6 +66,7 @@ CSS_FILE
                 PsiElement(LPAR)('(')
                 PsiElement(URL_TOKEN)('test')
                 PsiElement(RPAR)(')')
+          CssPropertyValuePart(PROPERTY_VALUE_PART)
             PsiElement(RPAR)(')')
           PsiElement(SEMICOLON)(';')
         PsiWhiteSpace('\n\t')

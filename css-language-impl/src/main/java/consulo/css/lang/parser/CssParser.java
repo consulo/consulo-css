@@ -329,31 +329,55 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
     }
 
     public void parsePropertyValue(PsiBuilder builder) {
-        PsiBuilder.Marker valueMarker = null;
-
         while (!builder.eof()) {
             IElementType type = builder.getTokenType();
             if (type == COMMA) {
-                if (valueMarker != null) {
-                    valueMarker.done(PROPERTY_VALUE_PART);
-                    valueMarker = null;
-                }
-
                 builder.advanceLexer();
             }
             else if (type == SEMICOLON || type == RBRACE || type == IMPORTANT_KEYWORD) {
                 break;
             }
             else {
-                if (valueMarker == null) {
-                    valueMarker = builder.mark();
-                }
+                // Each space-separated token (or function call) becomes its own PROPERTY_VALUE_PART.
+                // This allows proper validation of multi-value shorthand properties like
+                // "border: 1px solid rgba(255, 255, 255, 0.8)"
+                PsiBuilder.Marker valueMarker = builder.mark();
 
                 if (parseFunctionCall(builder)) {
+                    valueMarker.done(PROPERTY_VALUE_PART);
                     continue;
                 }
 
-                if (type == CssTokens.BAD_CHARACTER) {
+                if (type == CssTokens.SHARP) {
+                    // Hex color: # followed by hex digits (e.g., #272c32)
+                    // The lexer may split hex digits into multiple tokens:
+                    //   #272c32 → SHARP + NUMBER(272) + IDENTIFIER(c32)
+                    //   #fff    → SHARP + IDENTIFIER(fff)
+                    // Count adjacent (no whitespace gap) NUMBER/IDENTIFIER tokens via rawLookup
+                    int rawOffset = 1;
+                    while (true) {
+                        IElementType raw = builder.rawLookup(rawOffset);
+                        if (raw == CssTokens.NUMBER || raw == CssTokens.IDENTIFIER) {
+                            rawOffset++;
+                        }
+                        else {
+                            break;
+                        }
+                    }
+
+                    if (rawOffset > 1) {
+                        // Collapse SHARP + all adjacent hex digit tokens into a single NUMBER token
+                        PsiBuilder.Marker colorMark = builder.mark();
+                        for (int i = 0; i < rawOffset; i++) {
+                            builder.advanceLexer();
+                        }
+                        colorMark.collapse(CssTokens.NUMBER);
+                    }
+                    else {
+                        builder.advanceLexer();
+                    }
+                }
+                else if (type == CssTokens.BAD_CHARACTER) {
                     PsiBuilder.Marker mark = builder.mark();
                     builder.advanceLexer();
                     mark.error(CssLocalize.badToken());
@@ -361,11 +385,9 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
                 else {
                     builder.advanceLexer();
                 }
-            }
-        }
 
-        if (valueMarker != null) {
-            valueMarker.done(PROPERTY_VALUE_PART);
+                valueMarker.done(PROPERTY_VALUE_PART);
+            }
         }
     }
 

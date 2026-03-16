@@ -30,4 +30,32 @@ public interface XStyleSheetProperty {
     default boolean isUnknown() {
         return false;
     }
+
+    /**
+     * @return CSS Value Definition Syntax string for this property
+     */
+    default String getSyntax() {
+        return "";
+    }
+
+    /**
+     * @return initial (default) value for this property
+     */
+    default String getInitialValue() {
+        return "";
+    }
+
+    /**
+     * @return whether this property is inherited by child elements
+     */
+    default boolean isInherited() {
+        return false;
+    }
+
+    /**
+     * @return URL to MDN documentation for this property, or empty string
+     */
+    default String getMdnUrl() {
+        return "";
+    }
 }

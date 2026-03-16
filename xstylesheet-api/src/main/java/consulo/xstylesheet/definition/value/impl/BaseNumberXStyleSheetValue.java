@@ -57,7 +57,7 @@ public class BaseNumberXStyleSheetValue extends TextBasedXStyleSheetPropertyValu
         }
 
         try {
-            return Integer.parseInt(stringValue);
+            return Double.parseDouble(stringValue);
         }
         catch (NumberFormatException e) {
             //
