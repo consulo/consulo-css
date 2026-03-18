@@ -26,6 +26,7 @@ import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import consulo.xstylesheet.definition.value.impl.VarFunctionCallValidator;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
+import consulo.xstylesheet.psi.PsiXStyleSheetVariableReference;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Map;
@@ -43,7 +44,12 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
     @Override
     public boolean isSoft() {
         PsiElement firstChild = getFirstChild();
-        return firstChild instanceof CssFunctionCall functionCall && VarFunctionCallValidator.VAR_NAME.equals(functionCall.getCallName());
+        if (firstChild instanceof CssFunctionCall functionCall && VarFunctionCallValidator.VAR_NAME.equals(functionCall.getCallName())) {
+            return true;
+        }
+        // SCSS variable references ($variable) in property values are also soft —
+        // skip validation since the variable's actual value is unknown at parse time.
+        return firstChild instanceof PsiXStyleSheetVariableReference;
     }
 
     @RequiredReadAction
@@ -100,7 +106,9 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
 
     @RequiredReadAction
     private XStyleSheetPropertyValueEntry findEntry() {
-        PsiXStyleSheetProperty parent = (PsiXStyleSheetProperty)getParent();
+        if (!(getParent() instanceof PsiXStyleSheetProperty parent)) {
+            return null;
+        }
 
         XStyleSheetProperty xStyleSheetProperty = parent.getXStyleSheetProperty();
         if (xStyleSheetProperty == null) {

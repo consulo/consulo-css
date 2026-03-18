@@ -74,7 +74,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         rootMarker.done(CssElements.ROOT);
     }
 
-    private boolean parseRootItem(PsiBuilder builder) {
+    protected boolean parseRootItem(PsiBuilder builder) {
         if (builder.getTokenType() == CssTokens.CHARSET_KEYWORD) {
             PsiBuilder.Marker marker = builder.mark();
             builder.advanceLexer();
@@ -167,7 +167,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         }
     }
 
-    private boolean parseRule(PsiBuilder builder) {
+    protected boolean parseRule(PsiBuilder builder) {
         PsiBuilder.Marker marker = builder.mark();
 
         if (!parseSelectorListNew(builder)) {
@@ -181,7 +181,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         return true;
     }
 
-    private boolean parseKeyframeBlock(PsiBuilder builder) {
+    protected boolean parseKeyframeBlock(PsiBuilder builder) {
         if (!isKeyframeSelector(builder)) {
             return false;
         }
@@ -196,7 +196,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         return true;
     }
 
-    private void parsePropertyBlock(PsiBuilder builder) {
+    protected void parsePropertyBlock(PsiBuilder builder) {
         if (builder.getTokenType() == LBRACE) {
             PsiBuilder.Marker bodyMarker = builder.mark();
             builder.advanceLexer();
@@ -216,7 +216,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         }
     }
 
-    private boolean isKeyframeSelector(PsiBuilder builder) {
+    protected boolean isKeyframeSelector(PsiBuilder builder) {
         IElementType type = builder.getTokenType();
         if (type == IDENTIFIER) {
             CharSequence text = builder.getTokenSequence();
@@ -225,7 +225,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         return type == NUMBER;
     }
 
-    private void parseKeyframeSelectors(PsiBuilder builder) {
+    protected void parseKeyframeSelectors(PsiBuilder builder) {
         PsiBuilder.Marker selectorMarker = builder.mark();
 
         parseKeyframeSelectorValue(builder);
@@ -238,7 +238,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         selectorMarker.done(KEYFRAME_SELECTOR);
     }
 
-    private void parseKeyframeSelectorValue(PsiBuilder builder) {
+    protected void parseKeyframeSelectorValue(PsiBuilder builder) {
         if (builder.getTokenType() == IDENTIFIER) {
             CharSequence text = builder.getTokenSequence();
             if (StringUtil.equals(text, "from") || StringUtil.equals(text, "to")) {
@@ -258,7 +258,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         }
     }
 
-    private void parseMediaQueryList(PsiBuilder builder) {
+    protected void parseMediaQueryList(PsiBuilder builder) {
         PsiBuilder.Marker marker = builder.mark();
 
         while (!builder.eof()) {
@@ -283,7 +283,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         marker.done(MEDIA_QUERY_LIST);
     }
 
-    private PsiBuilder.@Nullable Marker parseProperty(PsiBuilder builder, PsiBuilder.@Nullable Marker marker) {
+    protected PsiBuilder.@Nullable Marker parseProperty(PsiBuilder builder, PsiBuilder.@Nullable Marker marker) {
         if (builder.getTokenType() == IDENTIFIER) {
             boolean isVariable = StringUtil.startsWith(Objects.requireNonNull(builder.getTokenSequence()), VAR_PREFIX);
 
@@ -409,7 +409,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         }
     }
 
-    private boolean parseFunctionCall(PsiBuilder builder) {
+    protected boolean parseFunctionCall(PsiBuilder builder) {
         IElementType type = builder.getTokenType();
         if (type == CssTokens.IDENTIFIER && builder.lookAhead(1) == CssTokens.LPAR) {
             PsiBuilder.Marker functionMarker = builder.mark();
@@ -436,11 +436,11 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         return false;
     }
 
-    private void parseSimpleParameters(PsiBuilder builder) {
+    protected void parseSimpleParameters(PsiBuilder builder) {
         parseParameters(builder, (b, index) -> b.advanceLexer());
     }
 
-    private void parseVarParameters(PsiBuilder builder) {
+    protected void parseVarParameters(PsiBuilder builder) {
         parseParameters(builder, (b, index) ->
         {
             if (index == 0) {
@@ -468,7 +468,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         });
     }
 
-    private void parseParameters(PsiBuilder builder, BiConsumer<PsiBuilder, Integer> parameterParser) {
+    protected void parseParameters(PsiBuilder builder, BiConsumer<PsiBuilder, Integer> parameterParser) {
         int index = 0;
         boolean noArgument = true;
         while (!builder.eof()) {
@@ -544,7 +544,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         return !errorSelector;
     }
 
-    private void markError(PsiBuilder builder, LocalizeValue message) {
+    protected void markError(PsiBuilder builder, LocalizeValue message) {
         PsiBuilder.Marker mark = builder.mark();
         builder.advanceLexer();
         mark.error(message);
@@ -575,7 +575,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         return mark;
     }
 
-    private boolean parseSimpleSelector(PsiBuilder builder) {
+    protected boolean parseSimpleSelector(PsiBuilder builder) {
         PsiBuilder.Marker marker = builder.mark();
         boolean isSelector;
         if ((isSelector = parseSelectorClassOrId(builder, false))
@@ -633,7 +633,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         }
     }
 
-    private boolean parseSelectorClassOrId(PsiBuilder builder, boolean eat) {
+    protected boolean parseSelectorClassOrId(PsiBuilder builder, boolean eat) {
         if (builder.getTokenType() == CssTokens.DOT && builder.lookAhead(1) == CssTokens.IDENTIFIER) {
             if (eat) {
                 PsiBuilder.Marker mark = builder.mark();
@@ -657,7 +657,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         return false;
     }
 
-    private void parseSelectorAttributeList(PsiBuilder builder) {
+    protected void parseSelectorAttributeList(PsiBuilder builder) {
         if (builder.getTokenType() == LBRACKET) {
             PsiBuilder.Marker marker = builder.mark();
 
@@ -678,7 +678,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         }
     }
 
-    private boolean parseSelectorAttribute(PsiBuilder builder) {
+    protected boolean parseSelectorAttribute(PsiBuilder builder) {
         if (builder.getTokenType() == IDENTIFIER) {
             PsiBuilder.Marker mark = builder.mark();
 
@@ -705,7 +705,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         return false;
     }
 
-    private void parseSelectorPseudoClass(PsiBuilder builder) {
+    protected void parseSelectorPseudoClass(PsiBuilder builder) {
         if (builder.getTokenType() == COLON && builder.lookAhead(1) == IDENTIFIER && builder.lookAhead(2) == LPAR) {
             builder.advanceLexer();
 

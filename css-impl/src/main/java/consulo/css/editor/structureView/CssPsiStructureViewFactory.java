@@ -19,7 +19,6 @@ package consulo.css.editor.structureView;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.codeEditor.Editor;
 import consulo.css.lang.CssLanguage;
-import consulo.css.lang.psi.CssFile;
 import consulo.fileEditor.structureView.StructureViewBuilder;
 import consulo.fileEditor.structureView.StructureViewModel;
 import consulo.fileEditor.structureView.TreeBasedStructureViewBuilder;
@@ -27,7 +26,7 @@ import consulo.language.Language;
 import consulo.language.editor.structureView.PsiStructureViewFactory;
 import consulo.language.editor.structureView.StructureViewModelBase;
 import consulo.language.psi.PsiFile;
-
+import consulo.xstylesheet.psi.XStyleSheetFile;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -42,7 +41,7 @@ public class CssPsiStructureViewFactory implements PsiStructureViewFactory {
         return new TreeBasedStructureViewBuilder() {
             @Override
             public StructureViewModel createStructureViewModel(Editor editor) {
-                return new StructureViewModelBase(psiFile, new CssStructureViewTreeElement((CssFile)psiFile));
+                return new StructureViewModelBase(psiFile, new CssStructureViewTreeElement((XStyleSheetFile)psiFile));
             }
         };
     }

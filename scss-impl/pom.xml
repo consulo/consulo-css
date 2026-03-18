@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  - Copyright 2013-2024 consulo.io
+  - Copyright 2013-2026 consulo.io
   -
   - Licensed under the Apache License, Version 2.0 (the "License");
   - you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@
     </parent>
 
     <groupId>consulo.plugin</groupId>
-    <artifactId>consulo.css</artifactId>
+    <artifactId>consulo.scss</artifactId>
     <version>3-SNAPSHOT</version>
     <packaging>consulo-plugin</packaging>
 
@@ -49,7 +49,6 @@
                 <configuration>
                     <dependencies>
                         <dependency>com.intellij.xml</dependency>
-                        <dependency>consulo.emmet</dependency>
                     </dependencies>
                     <packaging>
                         <skip>${dev.mode}</skip>
@@ -58,7 +57,7 @@
                     <execution>
                         <pluginDirectories>
                             <pluginDirectory>${project.basedir}/../consulo-xstylesheet/target/consulo-plugin-extracted/</pluginDirectory>
-                            <pluginDirectory>${project.basedir}/../scss-impl/target/consulo-plugin-extracted/</pluginDirectory>
+                            <pluginDirectory>${project.basedir}/../css-impl/target/consulo-plugin-extracted/</pluginDirectory>
                         </pluginDirectories>
                     </execution>
                 </configuration>
@@ -86,15 +85,8 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>consulo.css.language.impl</artifactId>
+            <artifactId>consulo.scss.language.impl</artifactId>
             <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>consulo.css.emmet</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -103,9 +95,23 @@
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>com.intellij.xml</artifactId>
+            <artifactId>consulo.css.language.impl</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>consulo.xstylesheet</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>consulo.css</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>

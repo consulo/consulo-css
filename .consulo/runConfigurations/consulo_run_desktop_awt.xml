@@ -26,7 +26,7 @@
             <list>
               <option value="consulo:run-desktop-awt" />
               <option value="-pl" />
-              <option value=":consulo.css" />
+              <option value=":consulo.scss" />
             </list>
           </option>
           <option name="profilesMap">

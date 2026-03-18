@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  - Copyright 2013-2024 consulo.io
+  - Copyright 2013-2026 consulo.io
   -
   - Licensed under the Apache License, Version 2.0 (the "License");
   - you may not use this file except in compliance with the License.
@@ -19,15 +19,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>consulo</groupId>
-        <artifactId>arch.ide-api-provided</artifactId>
+        <artifactId>arch.bind.java</artifactId>
         <version>3-SNAPSHOT</version>
         <relativePath/>
     </parent>
 
     <groupId>consulo.plugin</groupId>
-    <artifactId>consulo.css</artifactId>
+    <artifactId>consulo.scss.language.impl</artifactId>
     <version>3-SNAPSHOT</version>
-    <packaging>consulo-plugin</packaging>
+    <packaging>jar</packaging>
 
     <repositories>
         <repository>
@@ -35,7 +35,7 @@
             <url>https://maven.consulo.dev/repository/snapshots/</url>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
+                <updatePolicy>interval:60</updatePolicy>
             </snapshots>
         </repository>
     </repositories>
@@ -45,37 +45,14 @@
             <plugin>
                 <groupId>consulo.maven</groupId>
                 <artifactId>maven-consulo-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <dependencies>
-                        <dependency>com.intellij.xml</dependency>
-                        <dependency>consulo.emmet</dependency>
-                    </dependencies>
-                    <packaging>
-                        <skip>${dev.mode}</skip>
-                        <version>${build.number}</version>
-                    </packaging>
-                    <execution>
-                        <pluginDirectories>
-                            <pluginDirectory>${project.basedir}/../consulo-xstylesheet/target/consulo-plugin-extracted/</pluginDirectory>
-                            <pluginDirectory>${project.basedir}/../scss-impl/target/consulo-plugin-extracted/</pluginDirectory>
-                        </pluginDirectories>
-                    </execution>
-                </configuration>
                 <executions>
                     <execution>
                         <id>gen</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>generate-icon</goal>
+                            <goal>generate-lexers</goal>
                             <goal>generate-localize</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>pack</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>workspace</goal>
+                            <goal>generate-icon</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -86,28 +63,46 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>consulo.css.language.impl</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>consulo.css.emmet</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>consulo.css-xstylesheet.api</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>com.intellij.xml</artifactId>
+            <artifactId>consulo.css.language.impl</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>consulo</groupId>
+            <artifactId>consulo-language-api</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>consulo</groupId>
+            <artifactId>consulo-language-impl</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>consulo</groupId>
+            <artifactId>consulo-language-code-style-api</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>consulo</groupId>
+            <artifactId>consulo-language-editor-api</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>consulo</groupId>
+            <artifactId>consulo-test-junit-impl</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

@@ -47,5 +47,7 @@
         <module>css-impl</module>
         <module>css-language-impl</module>
         <module>css-emmet</module>
+        <module>scss-language-impl</module>
+        <module>scss-impl</module>
     </modules>
 </project>

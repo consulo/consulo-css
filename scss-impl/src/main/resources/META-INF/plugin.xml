@@ -1,0 +1,9 @@
+<consulo-plugin url="https://github.com/consulo/consulo-css">
+    <id>consulo.scss</id>
+    <name>SCSS</name>
+    <version>SNAPSHOT</version>
+    <tags>
+        <tag>markup.language</tag>
+    </tags>
+    <depends>consulo.css</depends>
+</consulo-plugin>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 must-be.org
+ * Copyright 2013-2026 consulo.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,46 +14,41 @@
  * limitations under the License.
  */
 
-package consulo.css.lang;
+package consulo.scss.lang;
 
-import consulo.codeEditor.CodeInsightColors;
 import consulo.colorScheme.TextAttributesKey;
-import consulo.css.lang.lexer._CssLexer;
+import consulo.css.lang.CssSyntaxHighlighter;
 import consulo.language.ast.IElementType;
 import consulo.language.editor.highlight.SyntaxHighlighterBase;
 import consulo.language.lexer.Lexer;
+import consulo.scss.lang.lexer._ScssLexer;
 import consulo.xstylesheet.highlight.XStyleSheetColors;
 
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * @author VISTALL
- * @since 2013-07-03
+ * @since 2026-03-16
  */
-public class CssSyntaxHighlighter extends SyntaxHighlighterBase {
-    public static void storeDefaults(Map<IElementType, TextAttributesKey> keys) {
-        keys.put(CssTokens.NUMBER, XStyleSheetColors.NUMBER);
-        keys.put(CssTokens.STRING, XStyleSheetColors.STRING);
-        keys.put(CssTokens.BLOCK_COMMENT, XStyleSheetColors.BLOCK_COMMENT);
-        keys.put(CssTokens.IMPORTANT_KEYWORD, XStyleSheetColors.KEYWORD);
-        keys.put(CssTokens.CHARSET_KEYWORD, XStyleSheetColors.KEYWORD);
-        keys.put(CssTokens.FONT_FACE_KEYWORD, XStyleSheetColors.KEYWORD);
-        keys.put(CssTokens.IMPORT_KEYWORD, XStyleSheetColors.KEYWORD);
-        keys.put(CssTokens.NAMESPACE_KEYWORD, XStyleSheetColors.KEYWORD);
-        keys.put(CssTokens.BAD_CHARACTER, CodeInsightColors.UNMATCHED_BRACE_ATTRIBUTES);
-    }
-
+public class ScssSyntaxHighlighter extends SyntaxHighlighterBase {
     private final Map<IElementType, TextAttributesKey> myKeys = new HashMap<>();
 
-    public CssSyntaxHighlighter() {
-        storeDefaults(myKeys);
+    public ScssSyntaxHighlighter() {
+        CssSyntaxHighlighter.storeDefaults(myKeys);
+
+        myKeys.put(ScssTokens.LINE_COMMENT, XStyleSheetColors.LINE_COMMENT);
+        myKeys.put(ScssTokens.DOLLAR, XStyleSheetColors.KEYWORD);
+        myKeys.put(ScssTokens.AMPERSAND, XStyleSheetColors.KEYWORD);
+        myKeys.put(ScssTokens.MIXIN_KEYWORD, XStyleSheetColors.KEYWORD);
+        myKeys.put(ScssTokens.INCLUDE_KEYWORD, XStyleSheetColors.KEYWORD);
+        myKeys.put(ScssTokens.USE_KEYWORD, XStyleSheetColors.KEYWORD);
+        myKeys.put(ScssTokens.FORWARD_KEYWORD, XStyleSheetColors.KEYWORD);
     }
 
     @Override
     public Lexer getHighlightingLexer() {
-        return new _CssLexer();
+        return new _ScssLexer();
     }
 
     @Override

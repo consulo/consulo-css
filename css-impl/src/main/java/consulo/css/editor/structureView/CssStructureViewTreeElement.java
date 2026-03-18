@@ -16,13 +16,13 @@
 
 package consulo.css.editor.structureView;
 
-import consulo.css.lang.psi.CssFile;
 import consulo.fileEditor.structureView.StructureViewTreeElement;
 import consulo.language.editor.structureView.PsiTreeElementBase;
 import consulo.xstylesheet.psi.PsiXStyleSheetRule;
+import consulo.xstylesheet.psi.XStyleSheetFile;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
-
 import org.jspecify.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -31,8 +31,8 @@ import java.util.List;
  * @author VISTALL
  * @since 2013-07-08
  */
-public class CssStructureViewTreeElement extends PsiTreeElementBase<CssFile> {
-    public CssStructureViewTreeElement(CssFile psiElement) {
+public class CssStructureViewTreeElement extends PsiTreeElementBase<XStyleSheetFile> {
+    public CssStructureViewTreeElement(XStyleSheetFile psiElement) {
         super(psiElement);
     }
 
