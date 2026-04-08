@@ -6,7 +6,7 @@ import consulo.colorScheme.TextAttributesKey;
 import consulo.css.lang.CssSyntaxHighlighter;
 import consulo.language.ast.IElementType;
 import consulo.util.collection.MultiMap;
-import consulo.xml.lang.xml.XMLLanguage;
+import consulo.xml.language.XMLLanguage;
 
 import java.util.HashMap;
 import java.util.Map;

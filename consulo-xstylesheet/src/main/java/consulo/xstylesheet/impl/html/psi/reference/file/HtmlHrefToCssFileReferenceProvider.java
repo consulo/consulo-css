@@ -24,10 +24,10 @@ import consulo.language.psi.path.FileReferenceSet;
 import consulo.language.psi.util.PsiElementFilter;
 import consulo.language.util.ProcessingContext;
 import consulo.util.lang.function.Condition;
-import consulo.xml.psi.xml.XmlAttribute;
-import consulo.xml.psi.xml.XmlAttributeValue;
-import consulo.xml.psi.xml.XmlTag;
-import consulo.xml.psi.xml.XmlTokenType;
+import consulo.xml.language.psi.XmlAttribute;
+import consulo.xml.language.psi.XmlAttributeValue;
+import consulo.xml.language.psi.XmlTag;
+import consulo.xml.language.psi.XmlTokenType;
 import consulo.xstylesheet.psi.XStyleSheetFile;
 
 /**

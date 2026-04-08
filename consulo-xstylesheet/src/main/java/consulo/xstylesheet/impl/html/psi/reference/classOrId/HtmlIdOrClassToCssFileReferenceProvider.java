@@ -21,9 +21,8 @@ import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiReference;
 import consulo.language.psi.PsiReferenceProvider;
 import consulo.language.util.ProcessingContext;
-import consulo.xml.psi.xml.XmlTokenType;
+import consulo.xml.language.psi.XmlTokenType;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
-
 
 /**
  * @author VISTALL
