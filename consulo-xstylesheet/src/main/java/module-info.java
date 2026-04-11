@@ -9,10 +9,13 @@ module consulo.xstylesheet {
     requires transitive consulo.language.editor.api;
 
     requires com.intellij.xml;
+    requires com.intellij.xml.html.api;
+    
     requires com.google.gson;
 
     exports consulo.xstylesheet;
     exports consulo.xstylesheet.codeInsight;
     exports consulo.xstylesheet.table.mdn;
+    
     
 }
