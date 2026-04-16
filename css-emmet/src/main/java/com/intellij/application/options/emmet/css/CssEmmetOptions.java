@@ -6,7 +6,7 @@ import consulo.annotation.component.ServiceImpl;
 import consulo.component.persist.PersistentStateComponent;
 import consulo.component.persist.State;
 import consulo.component.persist.Storage;
-import consulo.ide.ServiceManager;
+import consulo.application.Application;
 import consulo.logging.Logger;
 import consulo.util.jdom.JDOMUtil;
 import consulo.util.lang.StringUtil;
@@ -28,7 +28,7 @@ import java.util.*;
 @ServiceImpl
 public class CssEmmetOptions implements PersistentStateComponent<CssEmmetOptions> {
     public static CssEmmetOptions getInstance() {
-        return ServiceManager.getService(CssEmmetOptions.class);
+        return Application.get().getInstance(CssEmmetOptions.class);
     }
 
     private static final Logger LOGGER = Logger.getInstance(CssEmmetOptions.class);

@@ -4,7 +4,8 @@
  */
 module consulo.css.emmet
 {
-    requires consulo.ide.api;
+    requires consulo.language.editor.refactoring.api;
+    requires consulo.configurable.api;
     // TODO remove in future
     requires java.desktop;
 
