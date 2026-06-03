@@ -1,0 +1,37 @@
+{
+  "lockVersion" : 1,
+  "server" : "https://i.verbaria.org/",
+  "project" : "consulo-css",
+  "projectVersion" : "master",
+  "generatedAt" : "2026-06-03T18:29:52.536497775Z",
+  "documents" : {
+    "consulo.css.CssLocalize" : {
+      "source" : {
+        "revision" : 1,
+        "sig" : "9345e464349acdb5668dd8d2628ede86"
+      },
+      "translations" : {
+        "en-US" : {
+          "sig" : "cdb16047c1b1569d006c3a6c0adecc17",
+          "state" : "Approved",
+          "total" : 18,
+          "translators" : [ "Valery Semenchuk <vistall.valeriy@gmail.com>" ]
+        }
+      }
+    },
+    "consulo.css.emmet.CssEmmetLocalize" : {
+      "source" : {
+        "revision" : 1,
+        "sig" : "0dfd660f5d411847d3430fa4499a1743"
+      },
+      "translations" : {
+        "en-US" : {
+          "sig" : "450b2c8da130b62470481cc96fe33613",
+          "state" : "Approved",
+          "total" : 2,
+          "translators" : [ "Valery Semenchuk <vistall.valeriy@gmail.com>" ]
+        }
+      }
+    }
+  }
+}
