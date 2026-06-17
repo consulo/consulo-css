@@ -17,13 +17,14 @@
 package consulo.css.lang;
 
 import consulo.language.ast.IElementType;
+import consulo.language.ast.StandardTokenTypes;
 import consulo.language.ast.TokenType;
 
 /**
  * @author VISTALL
  * @since 2013-07-02
  */
-public interface CssTokens extends TokenType {
+public interface CssTokens extends StandardTokenTypes {
     IElementType BLOCK_COMMENT = new CssElementType("BLOCK_COMMENT");
 
     IElementType SELECTOR_ID = new CssElementType("SELECTOR_ID");
