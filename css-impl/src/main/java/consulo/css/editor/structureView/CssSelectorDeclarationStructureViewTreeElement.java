@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package consulo.css.editor.structureView;
 
+import consulo.annotation.access.RequiredReadAction;
 import consulo.fileEditor.structureView.StructureViewTreeElement;
 import consulo.language.editor.structureView.PsiTreeElementBase;
+import consulo.localize.LocalizeValue;
 import consulo.xstylesheet.psi.XStyleSheetSelector;
 
-import org.jspecify.annotations.Nullable;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 
 /**
  * @author VISTALL
@@ -38,9 +39,9 @@ public class CssSelectorDeclarationStructureViewTreeElement extends PsiTreeEleme
         return Collections.emptyList();
     }
 
-    @Nullable
     @Override
-    public String getPresentableText() {
-        return getElement().getText();
+    @RequiredReadAction
+    public LocalizeValue getPresentableText() {
+        return LocalizeValue.of(Objects.requireNonNull(getElement()).getText());
     }
 }
