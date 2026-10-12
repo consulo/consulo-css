@@ -8,9 +8,11 @@ import consulo.configurable.Configurable;
 import consulo.configurable.ConfigurationException;
 import consulo.disposer.Disposable;
 import consulo.localize.LocalizeValue;
+import consulo.ui.Component;
 import consulo.ui.annotation.RequiredUIAccess;
 import consulo.ui.ex.awt.JBCheckBox;
 import consulo.ui.ex.awt.VerticalFlowLayout;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
 
 import org.jspecify.annotations.Nullable;
 import javax.swing.*;
@@ -48,7 +50,7 @@ public class CssEmmetConfigurable implements ApplicationConfigurable, Configurab
     @RequiredUIAccess
     @Nullable
     @Override
-    public JComponent createComponent(Disposable uiDisposable) {
+    public Component createUIComponent(Disposable uiDisposable) {
         if (myPanel == null) {
             myPanel = new JPanel(new BorderLayout());
 
@@ -71,7 +73,7 @@ public class CssEmmetConfigurable implements ApplicationConfigurable, Configurab
                 e -> myCssEditPrefixesListPanel.setEnabled(myAutoInsertCssVendorJBCheckBox.isSelected())
             );
         }
-        return myPanel;
+        return TargetAWT.wrap(myPanel);
     }
 
     @RequiredUIAccess
