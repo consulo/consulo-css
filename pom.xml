@@ -49,5 +49,6 @@
         <module>css-emmet</module>
         <module>scss-language-impl</module>
         <module>scss-impl</module>
+        <module>css-it</module>
     </modules>
 </project>

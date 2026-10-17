@@ -12,6 +12,7 @@ module consulo.css.language.impl {
     
     exports consulo.css.lang;
     exports consulo.css.lang.formatting;
+    exports consulo.css.lang.index;
     exports consulo.css.lang.lexer;
     exports consulo.css.lang.parser;
     exports consulo.css.lang.psi;
