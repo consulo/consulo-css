@@ -23,7 +23,7 @@ import consulo.language.ast.ASTNode;
  * @author VISTALL
  * @since 2021-01-30
  */
-public class CssImport extends CssElement {
+public class CssImport extends CssElement implements CssAtRule {
     public CssImport(ASTNode node) {
         super(node);
     }

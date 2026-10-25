@@ -1,0 +1,32 @@
+.card {
+  color: black;
+
+  & .title {
+    font-weight: bold;
+  }
+
+  &.active {
+    color: red;
+  }
+
+  &:hover,
+  &:focus-visible {
+    outline: none;
+  }
+
+  > .body {
+    padding: 0;
+  }
+
+  + .card {
+    margin-top: 8px;
+  }
+
+  a:hover {
+    color: blue;
+  }
+
+  .footer & {
+    border: 0;
+  }
+}

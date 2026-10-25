@@ -22,7 +22,7 @@ import consulo.language.ast.ASTNode;
  * @author VISTALL
  * @since 2026-03-15
  */
-public class CssMedia extends CssElement {
+public class CssMedia extends CssElement implements CssAtRule {
     public CssMedia(ASTNode node) {
         super(node);
     }

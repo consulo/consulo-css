@@ -22,7 +22,7 @@ import consulo.language.ast.ASTNode;
  * @author VISTALL
  * @since 2026-03-15
  */
-public class CssKeyframes extends CssElement {
+public class CssKeyframes extends CssElement implements CssAtRule {
     public CssKeyframes(ASTNode node) {
         super(node);
     }

@@ -58,18 +58,22 @@ URL_PATTERN = ([!#$%&*-~]|{nonascii}|{escape})*
     ";"                     { return CssTokens.SEMICOLON; }
     "::"                    { return CssTokens.COLONCOLON; }
     "="                     { return CssTokens.EQ; }
+    ">>>"                   { return CssTokens.GT_GT_GT; }
     ">"                     { return CssTokens.GT; }
+    "<"                     { return CssTokens.LT; }
     ","                     { return CssTokens.COMMA; }
     "*"                     { return CssTokens.ASTERISK; }
     "#"                     { return CssTokens.SHARP; }
     "~="                    { return CssTokens.TILDE_EQ; }
     "*="                    { return CssTokens.MUL_EQ; }
     "|="                    { return CssTokens.OR_EQ; }
+    "|"                     { return CssTokens.PIPE; }
     "^="                    { return CssTokens.XOR_EQ; }
     "$="                    { return CssTokens.DOL_EQ; }
     "."                     { return CssTokens.DOT; }
     "+"                     { return CssTokens.PLUS; }
     "~"                     { return CssTokens.TILDE; }
+    "&"                     { return CssTokens.AMPERSAND; }
     "%"                     { return CssTokens.PERC; }
     "/"                     { return CssTokens.SLASH; }
     "@import"               { return CssTokens.IMPORT_KEYWORD;}
@@ -83,10 +87,14 @@ URL_PATTERN = ([!#$%&*-~]|{nonascii}|{escape})*
     "@-moz-keyframes"       { return CssTokens.KEYFRAMES_KEYWORD;}
     "@-o-keyframes"         { return CssTokens.KEYFRAMES_KEYWORD;}
     "!"({TraditionalComment}+|{WhiteSpace}+)?"important"   { return CssTokens.IMPORTANT_KEYWORD;  }
+    "@" "-"* [:jletter:] ([:jletterdigit:] | "-")* { return CssTokens.AT_KEYWORD; }
 
     "url("                  { yypushback(yylength()); yybegin(URL_START);}
 
     {NumberLiteralWithSufixes}  { return CssTokens.NUMBER; }
+
+    // custom property name with a wildcard: "--*", "--font-*" (Tailwind @theme)
+    "--" ([:jletterdigit:] | "-")* "*" { return CssTokens.IDENTIFIER; }
 
     {Identifier}            { return CssTokens.IDENTIFIER; }
 

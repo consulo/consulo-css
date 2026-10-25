@@ -49,12 +49,16 @@ public interface CssTokens extends StandardTokenTypes {
     IElementType XOR_EQ = new CssElementType("XOR_EQ");
     IElementType DOL_EQ = new CssElementType("DOL_EQ");
     IElementType GT = new CssElementType("GT");
+    IElementType GT_GT_GT = new CssElementType("GT_GT_GT");
+    IElementType LT = new CssElementType("LT");
     IElementType SEMICOLON = new CssElementType("SEMICOLON");
     IElementType COMMA = new CssElementType("COMMA");
     IElementType ASTERISK = new CssElementType("ASTERISK");
     IElementType DOT = new CssElementType("DOT");
     IElementType PLUS = new CssElementType("PLUS");
     IElementType TILDE = new CssElementType("TILDE");
+    IElementType PIPE = new CssElementType("PIPE");
+    IElementType AMPERSAND = new CssElementType("AMPERSAND");
     IElementType PERC = new CssElementType("PERC");
     IElementType SLASH = new CssElementType("SLASH");
 
@@ -68,4 +72,8 @@ public interface CssTokens extends StandardTokenTypes {
     IElementType NAMESPACE_KEYWORD = new CssElementType("NAMESPACE_KEYWORD");
     IElementType FONT_FACE_KEYWORD = new CssElementType("FONT_FACE_KEYWORD");
     IElementType KEYFRAMES_KEYWORD = new CssElementType("KEYFRAMES_KEYWORD");
+    /**
+     * Any other at-rule keyword ({@code @supports}, {@code @layer}, {@code @container}, ...)
+     */
+    IElementType AT_KEYWORD = new CssElementType("AT_KEYWORD");
 }

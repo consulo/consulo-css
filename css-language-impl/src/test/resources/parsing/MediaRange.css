@@ -1,0 +1,11 @@
+@media (width < 600px) {
+  a {
+    color: red;
+  }
+}
+
+@media (400px <= width <= 700px) {
+  a {
+    color: blue;
+  }
+}

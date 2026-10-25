@@ -68,81 +68,26 @@ public class ScssParser extends CssParser {
     }
 
     @Override
-    protected void parsePropertyBlock(PsiBuilder builder) {
-        if (builder.getTokenType() == CssTokens.LBRACE) {
-            PsiBuilder.Marker bodyMarker = builder.mark();
-            builder.advanceLexer();
-
-            while (!builder.eof()) {
-                IElementType type = builder.getTokenType();
-
-                if (type == CssTokens.RBRACE) {
-                    break;
-                }
-
-                // SCSS variable declaration: $name: value;
-                if (type == ScssTokens.DOLLAR) {
-                    if (parseScssVariableDeclaration(builder)) {
-                        continue;
-                    }
-                }
-
-                // SCSS @include inside block
-                if (type == ScssTokens.INCLUDE_KEYWORD) {
-                    if (parseInclude(builder)) {
-                        continue;
-                    }
-                }
-
-                // Decide between property and nested rule using lookahead:
-                // If IDENTIFIER is followed by COLON, it's a property (e.g., "color: red;")
-                // Otherwise, it's a nested rule (e.g., "ul { ... }" or ".class { ... }")
-                if (type == CssTokens.IDENTIFIER && builder.lookAhead(1) == CssTokens.COLON) {
-                    if (parseProperty(builder, null) != null) {
-                        continue;
-                    }
-                }
-
-                // Try parsing as a nested rule (SCSS nesting)
-                if (parseRule(builder)) {
-                    continue;
-                }
-
-                // Fallback: try parsing as a property (for non-IDENTIFIER property starts like *)
-                if (parseProperty(builder, null) != null) {
-                    continue;
-                }
-
-                break;
-            }
-
-            expect(builder, CssTokens.RBRACE, CssLocalize.expectedRbrace());
-
-            bodyMarker.done(ScssElements.BLOCK);
-        }
-        else {
-            builder.error(CssLocalize.expectedLbrace());
-        }
+    protected IElementType getBlockElementType() {
+        return ScssElements.BLOCK;
     }
 
     @Override
-    protected boolean parseSimpleSelector(PsiBuilder builder) {
-        // Handle & parent selector
-        if (builder.getTokenType() == ScssTokens.AMPERSAND) {
-            PsiBuilder.Marker marker = builder.mark();
-            builder.advanceLexer();
+    protected boolean parseBlockItem(PsiBuilder builder) {
+        IElementType type = builder.getTokenType();
 
-            // & can be followed by suffix like &-item, &__element, &:hover
-            PsiBuilder.Marker suffixListMarker = builder.mark();
-            parseSelectorAttributeList(builder);
-            parseSelectorPseudoClass(builder);
-            suffixListMarker.done(ScssElements.SELECTOR_SUFFIX_LIST);
-
-            marker.done(ScssElements.SIMPLE_SELECTOR);
+        // SCSS variable declaration: $name: value;
+        if (type == ScssTokens.DOLLAR && parseScssVariableDeclaration(builder)) {
             return true;
         }
 
-        return super.parseSimpleSelector(builder);
+        // SCSS @include inside block
+        if (type == ScssTokens.INCLUDE_KEYWORD && parseInclude(builder)) {
+            return true;
+        }
+
+        // declarations, nested rules and the "&" nesting selector are standard CSS
+        return super.parseBlockItem(builder);
     }
 
     @Override

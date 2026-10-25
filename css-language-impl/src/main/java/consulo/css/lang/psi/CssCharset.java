@@ -23,7 +23,7 @@ import consulo.language.ast.ASTNode;
  * @author VISTALL
  * @since 2021-01-30
  */
-public class CssCharset extends CssElement {
+public class CssCharset extends CssElement implements CssAtRule {
     public CssCharset(ASTNode node) {
         super(node);
     }

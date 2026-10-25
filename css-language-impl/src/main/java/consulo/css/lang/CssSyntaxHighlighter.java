@@ -42,6 +42,11 @@ public class CssSyntaxHighlighter extends SyntaxHighlighterBase {
         keys.put(CssTokens.FONT_FACE_KEYWORD, XStyleSheetColors.KEYWORD);
         keys.put(CssTokens.IMPORT_KEYWORD, XStyleSheetColors.KEYWORD);
         keys.put(CssTokens.NAMESPACE_KEYWORD, XStyleSheetColors.KEYWORD);
+        keys.put(CssTokens.AMPERSAND, XStyleSheetColors.KEYWORD);
+        keys.put(CssTokens.AT_KEYWORD, XStyleSheetColors.KEYWORD);
+        keys.put(CssTokens.MEDIA_KEYWORD, XStyleSheetColors.KEYWORD);
+        keys.put(CssTokens.KEYFRAMES_KEYWORD, XStyleSheetColors.KEYWORD);
+        keys.put(CssTokens.PAGE_KEYWORD, XStyleSheetColors.KEYWORD);
         keys.put(CssTokens.BAD_CHARACTER, CodeInsightColors.UNMATCHED_BRACE_ATTRIBUTES);
     }
 

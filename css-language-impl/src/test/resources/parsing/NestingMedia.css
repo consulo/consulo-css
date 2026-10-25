@@ -1,0 +1,11 @@
+.panel {
+  width: 100%;
+
+  @media (width >= 600px) {
+    width: 50%;
+
+    .header {
+      display: flex;
+    }
+  }
+}

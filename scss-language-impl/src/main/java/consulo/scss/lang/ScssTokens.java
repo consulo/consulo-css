@@ -27,7 +27,6 @@ import consulo.language.ast.IElementType;
 public interface ScssTokens {
     IElementType LINE_COMMENT = new ScssElementType("LINE_COMMENT");
     IElementType DOLLAR = new ScssElementType("DOLLAR");
-    IElementType AMPERSAND = new ScssElementType("AMPERSAND");
     IElementType MIXIN_KEYWORD = new ScssElementType("MIXIN_KEYWORD");
     IElementType INCLUDE_KEYWORD = new ScssElementType("INCLUDE_KEYWORD");
     IElementType USE_KEYWORD = new ScssElementType("USE_KEYWORD");

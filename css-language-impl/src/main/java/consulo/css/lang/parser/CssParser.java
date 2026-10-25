@@ -39,6 +39,12 @@ import java.util.function.BiConsumer;
 public class CssParser implements PsiParser, CssTokens, CssElements {
     public static final String VAR_PREFIX = "--";
 
+    /**
+     * Depth of style blocks currently being parsed. Inside a block (CSS Nesting) rules may be nested
+     * and a selector may start with a combinator ({@code > .child}).
+     */
+    private int myNestingDepth;
+
     public static boolean expect(PsiBuilder builder, IElementType elementType, LocalizeValue message) {
         boolean expectedToken = optional(builder, elementType);
         if (!expectedToken) {
@@ -100,71 +106,137 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
             return true;
         }
         else if (builder.getTokenType() == CssTokens.MEDIA_KEYWORD) {
-            PsiBuilder.Marker marker = builder.mark();
-            builder.advanceLexer();
-
-            parseMediaQueryList(builder);
-
-            if (builder.getTokenType() == LBRACE) {
-                PsiBuilder.Marker bodyMarker = builder.mark();
-                builder.advanceLexer();
-
-                while (!builder.eof() && builder.getTokenType() != RBRACE) {
-                    if (!parseRule(builder)) {
-                        markError(builder, CssLocalize.unexpectedToken());
-                    }
-                }
-
-                expect(builder, RBRACE, CssLocalize.expectedRbrace());
-
-                bodyMarker.done(BLOCK);
-            }
-            else {
-                builder.error(CssLocalize.expectedLbrace());
-            }
-
-            marker.done(MEDIA);
+            parseMedia(builder);
             return true;
         }
         else if (builder.getTokenType() == CssTokens.FONT_FACE_KEYWORD) {
-            PsiBuilder.Marker marker = builder.mark();
-            builder.advanceLexer();
-
-            parsePropertyBlock(builder);
-
-            marker.done(FONT_FACE);
+            parseFontFace(builder);
             return true;
         }
         else if (builder.getTokenType() == CssTokens.KEYFRAMES_KEYWORD) {
-            PsiBuilder.Marker marker = builder.mark();
-            builder.advanceLexer();
-
-            expect(builder, IDENTIFIER, CssLocalize.expectedIdentifier());
-
-            if (builder.getTokenType() == LBRACE) {
-                PsiBuilder.Marker bodyMarker = builder.mark();
-                builder.advanceLexer();
-
-                while (!builder.eof() && builder.getTokenType() != RBRACE) {
-                    if (!parseKeyframeBlock(builder)) {
-                        markError(builder, CssLocalize.unexpectedToken());
-                    }
-                }
-
-                expect(builder, RBRACE, CssLocalize.expectedRbrace());
-
-                bodyMarker.done(BLOCK);
-            }
-            else {
-                builder.error(CssLocalize.expectedLbrace());
-            }
-
-            marker.done(KEYFRAMES);
+            parseKeyframes(builder);
+            return true;
+        }
+        else if (isGenericAtRuleStart(builder.getTokenType())) {
+            parseAtRule(builder);
             return true;
         }
         else {
             return parseRule(builder);
         }
+    }
+
+    protected void parseFontFace(PsiBuilder builder) {
+        PsiBuilder.Marker marker = builder.mark();
+        builder.advanceLexer();
+
+        parsePropertyBlock(builder);
+
+        marker.done(FONT_FACE);
+    }
+
+    protected void parseKeyframes(PsiBuilder builder) {
+        PsiBuilder.Marker marker = builder.mark();
+        builder.advanceLexer();
+
+        expect(builder, IDENTIFIER, CssLocalize.expectedIdentifier());
+
+        if (builder.getTokenType() == LBRACE) {
+            PsiBuilder.Marker bodyMarker = builder.mark();
+            builder.advanceLexer();
+
+            while (!builder.eof() && builder.getTokenType() != RBRACE) {
+                if (!parseKeyframeBlock(builder)) {
+                    markError(builder, CssLocalize.unexpectedToken());
+                }
+            }
+
+            expect(builder, RBRACE, CssLocalize.expectedRbrace());
+
+            bodyMarker.done(BLOCK);
+        }
+        else {
+            builder.error(CssLocalize.expectedLbrace());
+        }
+
+        marker.done(KEYFRAMES);
+    }
+
+    private static boolean isGenericAtRuleStart(@Nullable IElementType type) {
+        return type == AT_KEYWORD || type == PAGE_KEYWORD || type == NAMESPACE_KEYWORD;
+    }
+
+    /**
+     * At-rule without dedicated parsing: {@code @keyword prelude { block }} or {@code @keyword prelude;}.
+     * The block may hold declarations ({@code @page}), rules ({@code @supports}, {@code @layer}) or both (CSS Nesting).
+     */
+    protected void parseAtRule(PsiBuilder builder) {
+        PsiBuilder.Marker marker = builder.mark();
+        builder.advanceLexer();
+
+        // prelude: up to the block or the end of the statement
+        int parenDepth = 0;
+        while (!builder.eof()) {
+            IElementType type = builder.getTokenType();
+            if (type == LPAR) {
+                parenDepth++;
+            }
+            else if (type == RPAR) {
+                parenDepth--;
+            }
+            else if (parenDepth <= 0 && (type == LBRACE || type == SEMICOLON || type == RBRACE)) {
+                break;
+            }
+            builder.advanceLexer();
+        }
+
+        if (builder.getTokenType() == LBRACE) {
+            parsePropertyBlock(builder);
+        }
+        else {
+            optional(builder, SEMICOLON);
+        }
+
+        marker.done(AT_RULE);
+    }
+
+    /**
+     * {@code @media} at the root, or nested inside a style rule (CSS Nesting), where its body may also hold declarations.
+     */
+    protected void parseMedia(PsiBuilder builder) {
+        PsiBuilder.Marker marker = builder.mark();
+        builder.advanceLexer();
+
+        parseMediaQueryList(builder);
+
+        if (builder.getTokenType() == LBRACE) {
+            PsiBuilder.Marker bodyMarker = builder.mark();
+            builder.advanceLexer();
+
+            boolean nested = myNestingDepth > 0 || isDeclarationAllowedInMediaBlock();
+            while (!builder.eof() && builder.getTokenType() != RBRACE) {
+                boolean parsed = nested ? parseBlockItem(builder) : parseRule(builder);
+                if (!parsed) {
+                    markError(builder, CssLocalize.unexpectedToken());
+                }
+            }
+
+            expect(builder, RBRACE, CssLocalize.expectedRbrace());
+
+            bodyMarker.done(BLOCK);
+        }
+        else {
+            builder.error(CssLocalize.expectedLbrace());
+        }
+
+        marker.done(MEDIA);
+    }
+
+    /**
+     * Whether the body of a top-level {@code @media} may hold declarations (PostCSS nesting), not only rules.
+     */
+    protected boolean isDeclarationAllowedInMediaBlock() {
+        return false;
     }
 
     protected boolean parseRule(PsiBuilder builder) {
@@ -201,19 +273,117 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
             PsiBuilder.Marker bodyMarker = builder.mark();
             builder.advanceLexer();
 
-            while (!builder.eof()) {
-                if (parseProperty(builder, null) == null) {
+            myNestingDepth++;
+            while (!builder.eof() && builder.getTokenType() != RBRACE) {
+                if (!parseBlockItem(builder)) {
                     break;
                 }
             }
+            myNestingDepth--;
 
             expect(builder, RBRACE, CssLocalize.expectedRbrace());
 
-            bodyMarker.done(BLOCK);
+            bodyMarker.done(getBlockElementType());
         }
         else {
             builder.error(CssLocalize.expectedLbrace());
         }
+    }
+
+    protected IElementType getBlockElementType() {
+        return BLOCK;
+    }
+
+    /**
+     * One item of a style block: a declaration, a nested rule or a nested {@code @media} (CSS Nesting).
+     *
+     * @return false if nothing could be parsed
+     */
+    protected boolean parseBlockItem(PsiBuilder builder) {
+        if (builder.getTokenType() == MEDIA_KEYWORD) {
+            parseMedia(builder);
+            return true;
+        }
+
+        if (isGenericAtRuleStart(builder.getTokenType())) {
+            parseAtRule(builder);
+            return true;
+        }
+
+        // inside at-rule blocks: "@starting-style { @keyframes x {} }", "@layer x { @font-face {} }"
+        if (builder.getTokenType() == KEYFRAMES_KEYWORD) {
+            parseKeyframes(builder);
+            return true;
+        }
+
+        if (builder.getTokenType() == FONT_FACE_KEYWORD) {
+            parseFontFace(builder);
+            return true;
+        }
+
+        if (isNestedRuleStart(builder)) {
+            return parseRule(builder);
+        }
+
+        return parseProperty(builder, null) != null;
+    }
+
+    protected boolean isNestedRuleStart(PsiBuilder builder) {
+        IElementType type = builder.getTokenType();
+        if (type == IDENTIFIER) {
+            if (StringUtil.startsWith(Objects.requireNonNull(builder.getTokenSequence()), VAR_PREFIX)) {
+                // custom property: its value may legally contain braces
+                return false;
+            }
+            return isFollowedByBlock(builder);
+        }
+        else if (type == ASTERISK) {
+            // "* { }" universal selector vs "*zoom: 1;" property hack
+            return isFollowedByBlock(builder);
+        }
+        return type == AMPERSAND
+            || type == DOT
+            || type == SHARP
+            || type == LBRACKET
+            || type == COLON
+            || type == COLONCOLON
+            || type == PIPE
+            || isCombinator(type);
+    }
+
+    /**
+     * Whether "{" comes before the end of a declaration (";" or "}"), which makes the current item a nested rule:
+     * {@code a:hover { }} is a rule, {@code color: red;} is a declaration.
+     */
+    private static boolean isFollowedByBlock(PsiBuilder builder) {
+        PsiBuilder.Marker marker = builder.mark();
+        try {
+            int parenDepth = 0;
+            while (!builder.eof()) {
+                IElementType type = builder.getTokenType();
+                if (type == LPAR) {
+                    parenDepth++;
+                }
+                else if (type == RPAR) {
+                    parenDepth--;
+                }
+                else if (parenDepth <= 0 && (type == SEMICOLON || type == RBRACE)) {
+                    return false;
+                }
+                else if (parenDepth <= 0 && type == LBRACE) {
+                    return true;
+                }
+                builder.advanceLexer();
+            }
+            return false;
+        }
+        finally {
+            marker.rollbackTo();
+        }
+    }
+
+    protected static boolean isCombinator(@Nullable IElementType type) {
+        return type == GT || type == PLUS || type == TILDE || type == GT_GT_GT;
     }
 
     protected boolean isKeyframeSelector(PsiBuilder builder) {
@@ -263,13 +433,16 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
 
         while (!builder.eof()) {
             IElementType type = builder.getTokenType();
-            if (type == LBRACE) {
+            if (type == LBRACE || type == SEMICOLON || type == RBRACE) {
                 break;
             }
             else if (type == LPAR) {
                 builder.advanceLexer();
 
-                while (!builder.eof() && builder.getTokenType() != RPAR) {
+                while (!builder.eof()
+                    && builder.getTokenType() != RPAR
+                    && builder.getTokenType() != SEMICOLON
+                    && builder.getTokenType() != RBRACE) {
                     builder.advanceLexer();
                 }
 
@@ -289,7 +462,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
 
             PsiBuilder.Marker propertyMarker = marker == null ? builder.mark() : marker;
 
-            builder.advanceLexer();
+            parsePropertyName(builder);
 
             if (expect(builder, COLON, CssLocalize.expectedColon())) {
                 parsePropertyValue(builder);
@@ -328,6 +501,29 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         }
     }
 
+    /**
+     * Name of a declaration, current token is an identifier. Dialects may glue more tokens to it ({@code margin-$dir}).
+     */
+    protected void parsePropertyName(PsiBuilder builder) {
+        builder.advanceLexer();
+    }
+
+    /**
+     * Dialect-specific part of a property value ({@code $var}, ...).
+     *
+     * @return true if a part was parsed
+     */
+    protected boolean parseDialectPropertyValuePart(PsiBuilder builder) {
+        return false;
+    }
+
+    /**
+     * Dialect-specific end of a property value, e.g. the start of the next declaration when a semicolon is missing.
+     */
+    protected boolean isDialectPropertyValueEnd(PsiBuilder builder) {
+        return false;
+    }
+
     public void parsePropertyValue(PsiBuilder builder) {
         while (!builder.eof()) {
             IElementType type = builder.getTokenType();
@@ -338,6 +534,12 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
             }
             else if (type == SEMICOLON || type == RBRACE || type == IMPORTANT_KEYWORD) {
                 break;
+            }
+            else if (isDialectPropertyValueEnd(builder)) {
+                break;
+            }
+            else if (parseDialectPropertyValuePart(builder)) {
+                continue;
             }
             else {
                 // Each space-separated token (or function call) becomes its own PROPERTY_VALUE_PART.
@@ -437,7 +639,34 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
     }
 
     protected void parseSimpleParameters(PsiBuilder builder) {
-        parseParameters(builder, (b, index) -> b.advanceLexer());
+        parseParameters(builder, (b, index) -> parseParameterPart(b));
+    }
+
+    /**
+     * One part of a function argument: a nested call ({@code style(--x: y)}), a parenthesized group or a token.
+     */
+    protected void parseParameterPart(PsiBuilder builder) {
+        if (parseFunctionCall(builder)) {
+            return;
+        }
+
+        if (builder.getTokenType() == LPAR) {
+            int depth = 0;
+            do {
+                IElementType type = builder.getTokenType();
+                if (type == LPAR) {
+                    depth++;
+                }
+                else if (type == RPAR) {
+                    depth--;
+                }
+                builder.advanceLexer();
+            }
+            while (!builder.eof() && depth > 0);
+            return;
+        }
+
+        builder.advanceLexer();
     }
 
     protected void parseVarParameters(PsiBuilder builder) {
@@ -484,7 +713,8 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
                 index++;
             }
             else if (tokenType == RPAR) {
-                if (noArgument) {
+                // "f()" has no arguments, "f(a,)" misses one
+                if (noArgument && index > 0) {
                     builder.error(CssLocalize.expectedArgument());
                 }
                 break;
@@ -506,7 +736,8 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         boolean first = true;
         boolean comma = false;
         while (!builder.eof()) {
-            if (builder.getTokenType() == LBRACE) {
+            IElementType tokenType = builder.getTokenType();
+            if (tokenType == LBRACE || tokenType == SEMICOLON || tokenType == RBRACE) {
                 if (first) {
                     errorSelector = true;
                 }
@@ -552,7 +783,19 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
 
     public PsiBuilder.@Nullable Marker parseSelector(PsiBuilder builder) {
         PsiBuilder.Marker mark = builder.mark();
+
+        // relative selector inside a style block (CSS Nesting): "> .child", "+ .sibling", "~ .sibling"
+        boolean relative = myNestingDepth > 0 && isCombinator(builder.getTokenType());
+        if (relative) {
+            builder.advanceLexer();
+        }
+
         if (!parseSimpleSelector(builder)) {
+            if (relative) {
+                builder.error(CssLocalize.expectedSelector());
+                mark.done(SELECTOR);
+                return mark;
+            }
             mark.drop();
             return null;
         }
@@ -560,9 +803,7 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         while (parseSimpleSelector(builder)) {
         }
 
-        while (builder.getTokenType() == CssTokens.PLUS
-            || builder.getTokenType() == CssTokens.TILDE
-            || builder.getTokenType() == CssTokens.GT) {
+        while (isCombinator(builder.getTokenType())) {
             builder.advanceLexer();
 
             if (parseSelector(builder) == null) {
@@ -580,35 +821,28 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         boolean isSelector;
         if ((isSelector = parseSelectorClassOrId(builder, false))
             || builder.getTokenType() == CssTokens.ASTERISK
-            || builder.getTokenType() == CssTokens.IDENTIFIER) {
+            || builder.getTokenType() == CssTokens.IDENTIFIER
+            // nesting selector (CSS Nesting): "&", "&.active", "&:hover"
+            || builder.getTokenType() == CssTokens.AMPERSAND
+            // no namespace: "|a"
+            || builder.getTokenType() == CssTokens.PIPE && isNamespacedName(builder.lookAhead(1))) {
             if (isSelector) {
                 parseSelectorClassOrId(builder, true);
             }
             else {
+                boolean namespaceStart = builder.getTokenType() == CssTokens.PIPE;
                 builder.advanceLexer();
-            }
-
-            PsiBuilder.Marker suffixListMarker = builder.mark();
-
-            parseSelectorAttributeList(builder);
-
-            parseSelectorPseudoClass(builder);
-
-            while (!builder.eof()) {
-                if (parseSelectorClassOrId(builder, false)) {
-                    PsiBuilder.Marker suffixMarker = builder.mark();
-
-                    parseSelectorClassOrId(builder, true);
-
-                    parseSelectorPseudoClass(builder);
-
-                    suffixMarker.done(CssElements.SIMPLE_SELECTOR);
+                if (namespaceStart) {
+                    builder.advanceLexer();
                 }
-                else {
-                    break;
+                // namespace prefix: "svg|path", "*|a"
+                else if (builder.getTokenType() == CssTokens.PIPE && !isWhitespaceBefore(builder) && isNamespacedName(builder.rawLookup(1))) {
+                    builder.advanceLexer();
+                    builder.advanceLexer();
                 }
             }
-            suffixListMarker.done(CssElements.SELECTOR_SUFFIX_LIST);
+
+            parseSelectorSuffixList(builder);
 
             marker.done(CssElements.SIMPLE_SELECTOR);
             return true;
@@ -631,6 +865,48 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
             marker.drop();
             return false;
         }
+    }
+
+    private static boolean isNamespacedName(@Nullable IElementType type) {
+        return type == CssTokens.IDENTIFIER || type == CssTokens.ASTERISK;
+    }
+
+    /**
+     * Attribute selectors, pseudo-classes, classes and ids attached to the start of a compound selector.
+     */
+    protected void parseSelectorSuffixList(PsiBuilder builder) {
+        PsiBuilder.Marker suffixListMarker = builder.mark();
+
+        // whitespace is a descendant combinator: "& .title" and "div .title" are two compound selectors
+        if (!isWhitespaceBefore(builder)) {
+            parseSelectorAttributeList(builder);
+
+            parseSelectorPseudoClass(builder);
+        }
+
+        while (!builder.eof() && !isWhitespaceBefore(builder)) {
+            if (parseSelectorClassOrId(builder, false)) {
+                PsiBuilder.Marker suffixMarker = builder.mark();
+
+                parseSelectorClassOrId(builder, true);
+
+                parseSelectorPseudoClass(builder);
+
+                suffixMarker.done(CssElements.SIMPLE_SELECTOR);
+            }
+            else {
+                break;
+            }
+        }
+        suffixListMarker.done(CssElements.SELECTOR_SUFFIX_LIST);
+    }
+
+    /**
+     * Whether whitespace or a comment separates the current token from the previous one.
+     */
+    protected static boolean isWhitespaceBefore(PsiBuilder builder) {
+        IElementType previous = builder.rawLookup(-1);
+        return previous == WHITE_SPACE || CssTokenSets.COMMENTS.contains(previous);
     }
 
     protected boolean parseSelectorClassOrId(PsiBuilder builder, boolean eat) {

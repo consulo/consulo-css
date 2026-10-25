@@ -84,6 +84,8 @@ public interface CssElements {
 
     IElementType KEYFRAMES = new ElementTypeAsPsiFactory("KEYFRAMES", CssLanguage.INSTANCE, CssKeyframes::new);
 
+    IElementType AT_RULE = new ElementTypeAsPsiFactory("AT_RULE", CssLanguage.INSTANCE, CssAtRuleImpl::new);
+
     IElementType KEYFRAME_SELECTOR =
         new ElementTypeAsPsiFactory("KEYFRAME_SELECTOR", CssLanguage.INSTANCE, CssKeyframeSelector::new);
 }

@@ -22,7 +22,7 @@ import consulo.language.ast.ASTNode;
  * @author VISTALL
  * @since 2026-03-15
  */
-public class CssFontFace extends CssElement {
+public class CssFontFace extends CssElement implements CssAtRule {
     public CssFontFace(ASTNode node) {
         super(node);
     }

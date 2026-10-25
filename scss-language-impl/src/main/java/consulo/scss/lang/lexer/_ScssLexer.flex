@@ -62,13 +62,16 @@ LineComment = "//" {InputCharacter}*
     ";"                     { return CssTokens.SEMICOLON; }
     "::"                    { return CssTokens.COLONCOLON; }
     "="                     { return CssTokens.EQ; }
+    ">>>"                   { return CssTokens.GT_GT_GT; }
     ">"                     { return CssTokens.GT; }
+    "<"                     { return CssTokens.LT; }
     ","                     { return CssTokens.COMMA; }
     "*"                     { return CssTokens.ASTERISK; }
     "#"                     { return CssTokens.SHARP; }
     "~="                    { return CssTokens.TILDE_EQ; }
     "*="                    { return CssTokens.MUL_EQ; }
     "|="                    { return CssTokens.OR_EQ; }
+    "|"                     { return CssTokens.PIPE; }
     "^="                    { return CssTokens.XOR_EQ; }
     "$="                    { return CssTokens.DOL_EQ; }
     "."                     { return CssTokens.DOT; }
@@ -80,9 +83,9 @@ LineComment = "//" {InputCharacter}*
     {LineComment}           { return ScssTokens.LINE_COMMENT; }
     "/"                     { return CssTokens.SLASH; }
 
-    // SCSS: variable prefix and parent selector
+    // SCSS: variable prefix; "&" (nesting selector) is standard CSS now
     "$"                     { return ScssTokens.DOLLAR; }
-    "&"                     { return ScssTokens.AMPERSAND; }
+    "&"                     { return CssTokens.AMPERSAND; }
 
     // SCSS: at-rules
     "@mixin"                { return ScssTokens.MIXIN_KEYWORD; }
@@ -102,6 +105,7 @@ LineComment = "//" {InputCharacter}*
     "@-moz-keyframes"       { return CssTokens.KEYFRAMES_KEYWORD;}
     "@-o-keyframes"         { return CssTokens.KEYFRAMES_KEYWORD;}
     "!"({TraditionalComment}+|{WhiteSpace}+)?"important"   { return CssTokens.IMPORTANT_KEYWORD;  }
+    "@" "-"* [:jletter:] ([:jletterdigit:] | "-")* { return CssTokens.AT_KEYWORD; }
 
     "url("                  { yypushback(yylength()); yybegin(URL_START);}
 

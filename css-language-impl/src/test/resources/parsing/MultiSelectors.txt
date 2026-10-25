@@ -38,8 +38,11 @@ CSS_FILE
             PsiElement(IDENTIFIER)('a')
             PsiWhiteSpace(' ')
             CssSelectorSuffixListImpl(SELECTOR_SUFFIX_LIST)
-              CssSimpleSelectorImpl(SIMPLE_SELECTOR)
-                PsiElement(SELECTOR_CLASS)('.string')
+              <empty list>
+          CssSimpleSelectorImpl(SIMPLE_SELECTOR)
+            PsiElement(SELECTOR_CLASS)('.string')
+            CssSelectorSuffixListImpl(SELECTOR_SUFFIX_LIST)
+              <empty list>
         PsiElement(COMMA)(',')
         PsiWhiteSpace(' ')
         CssSelectorImpl(SELECTOR)

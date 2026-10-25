@@ -1,0 +1,27 @@
+@namespace svg url(http://www.w3.org/2000/svg);
+
+@layer reset, base;
+
+@supports (display: grid) and (not (display: inline-grid)) {
+  .grid {
+    display: grid;
+  }
+}
+
+@container sidebar (min-width: 400px) {
+  .card {
+    color: red;
+  }
+}
+
+@page :first {
+  margin: 1in;
+}
+
+svg|path, *|a, |b {
+  stroke: red;
+}
+
+.host >>> .inner {
+  color: rgba(0, 0, calc(1 + min(2, 3)), 0.5);
+}

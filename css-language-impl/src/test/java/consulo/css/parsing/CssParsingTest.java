@@ -76,6 +76,26 @@ public class CssParsingTest extends SimpleParsingTest<Object> {
         doTest(context, null);
     }
 
+    @Test
+    public void testNesting(Context context) throws Exception {
+        doTest(context, null);
+    }
+
+    @Test
+    public void testNestingMedia(Context context) throws Exception {
+        doTest(context, null);
+    }
+
+    @Test
+    public void testMediaRange(Context context) throws Exception {
+        doTest(context, null);
+    }
+
+    @Test
+    public void testAtRules(Context context) throws Exception {
+        doTest(context, null);
+    }
+
     @Nonnull
     @Override
     protected LanguageFileType getFileType(@Nonnull Context context, @Nullable Object o) {

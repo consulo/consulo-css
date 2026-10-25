@@ -39,7 +39,6 @@ public class ScssSyntaxHighlighter extends SyntaxHighlighterBase {
 
         myKeys.put(ScssTokens.LINE_COMMENT, XStyleSheetColors.LINE_COMMENT);
         myKeys.put(ScssTokens.DOLLAR, XStyleSheetColors.KEYWORD);
-        myKeys.put(ScssTokens.AMPERSAND, XStyleSheetColors.KEYWORD);
         myKeys.put(ScssTokens.MIXIN_KEYWORD, XStyleSheetColors.KEYWORD);
         myKeys.put(ScssTokens.INCLUDE_KEYWORD, XStyleSheetColors.KEYWORD);
         myKeys.put(ScssTokens.USE_KEYWORD, XStyleSheetColors.KEYWORD);
