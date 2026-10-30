@@ -58,8 +58,8 @@ public class XStyleSheetPropertyValuePartImpl implements XStyleSheetPropertyValu
     }
 
     @Override
-    public boolean setNativeValue(XStyleSheetPropertyValuePart part, Object value) {
-        return false;
+    public boolean setNativeValue(PsiXStyleSheetPropertyValuePart part, Object value) {
+        return myParser.setNativeValue(part, myValue, value);
     }
 
     @Override

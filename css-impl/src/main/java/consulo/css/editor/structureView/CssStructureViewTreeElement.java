@@ -19,13 +19,9 @@ import consulo.annotation.access.RequiredReadAction;
 import consulo.fileEditor.structureView.StructureViewTreeElement;
 import consulo.language.editor.structureView.PsiTreeElementBase;
 import consulo.localize.LocalizeValue;
-import consulo.xstylesheet.psi.PsiXStyleSheetRule;
 import consulo.xstylesheet.psi.XStyleSheetFile;
-import consulo.xstylesheet.psi.XStyleSheetSelector;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @author VISTALL
@@ -39,13 +35,7 @@ public class CssStructureViewTreeElement extends PsiTreeElementBase<XStyleSheetF
     @Override
     @RequiredReadAction
     public Collection<StructureViewTreeElement> getChildrenBase() {
-        List<StructureViewTreeElement> list = new ArrayList<>();
-        for (PsiXStyleSheetRule cssRule : getElement().getRoot().getRules()) {
-            for (XStyleSheetSelector declaration : cssRule.getSelectors()) {
-                list.add(new CssSelectorDeclarationStructureViewTreeElement(declaration));
-            }
-        }
-        return list;
+        return CssRuleStructureViewTreeElement.collectChildren(getElement().getRoot());
     }
 
     @Override

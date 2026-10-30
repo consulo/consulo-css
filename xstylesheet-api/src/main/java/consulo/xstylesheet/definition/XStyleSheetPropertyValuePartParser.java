@@ -37,6 +37,15 @@ public interface XStyleSheetPropertyValuePartParser {
         return null;
     }
 
+    /**
+     * Writes a native value into a PSI value part this parser matched.
+     *
+     * @return false when the parser doesn't write values
+     */
+    default boolean setNativeValue(PsiXStyleSheetPropertyValuePart valuePart, String value, Object nativeValue) {
+        return false;
+    }
+
     default List<LookupElement> getLookupElements(String value) {
         return List.of();
     }

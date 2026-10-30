@@ -37,7 +37,12 @@ public interface XStyleSheetPropertyValuePart {
 
     Object getNativeValue(PsiXStyleSheetPropertyValuePart part);
 
-    default boolean setNativeValue(XStyleSheetPropertyValuePart part, Object value) {
+    /**
+     * Writes a native value ({@code ColorValue} of a color picker) into the PSI value part this definition part matched.
+     *
+     * @return false when this part doesn't write such values (the PSI part has a default for colors)
+     */
+    default boolean setNativeValue(PsiXStyleSheetPropertyValuePart part, Object value) {
         return false;
     }
 

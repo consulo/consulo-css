@@ -20,6 +20,7 @@ import consulo.css.lang.CssElements;
 import consulo.css.lang.CssTokens;
 import consulo.css.lang.parser.CssParserDefinition;
 import consulo.language.ast.ASTNode;
+import consulo.xstylesheet.psi.PsiXStyleSheetBlock;
 import consulo.language.ast.IElementType;
 import consulo.language.codeStyle.*;
 
@@ -42,11 +43,18 @@ public class CssFormattingBlock extends AbstractBlock {
         ASTNode child = getNode().getFirstChildNode();
         while (child != null) {
             if (!FormatterUtil.containsWhiteSpacesOnly(child)) {
-                blocks.add(new CssFormattingBlock(child, null, null));
+                blocks.add(createChildBlock(child));
             }
             child = child.getTreeNext();
         }
         return blocks;
+    }
+
+    /**
+     * Dialects return their own block subclass here.
+     */
+    protected Block createChildBlock(ASTNode child) {
+        return new CssFormattingBlock(child, null, null);
     }
 
     @Nullable
@@ -71,6 +79,12 @@ public class CssFormattingBlock extends AbstractBlock {
         else if (elementType == CssTokens.LBRACE || elementType == CssTokens.RBRACE) {
             return Indent.getNoneIndent();
         }
+
+        // everything inside a block: declarations, nested rules, nested at-rules (CSS Nesting), comments
+        ASTNode parent = getNode().getTreeParent();
+        if (parent != null && parent.getPsi() instanceof PsiXStyleSheetBlock) {
+            return Indent.getNormalIndent();
+        }
         return Indent.getNoneIndent();
     }
 
@@ -78,7 +92,7 @@ public class CssFormattingBlock extends AbstractBlock {
     @Override
     protected Indent getChildIndent() {
         IElementType elementType = getNode().getElementType();
-        if (elementType == CssElements.BLOCK) {
+        if (elementType == CssElements.BLOCK || getNode().getPsi() instanceof PsiXStyleSheetBlock) {
             return Indent.getNormalIndent();
         }
         else if (elementType == CssElements.ROOT || elementType == CssParserDefinition.FILE_ELEMENT) {

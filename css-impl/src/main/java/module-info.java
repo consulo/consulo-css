@@ -9,9 +9,11 @@ module consulo.css {
     requires consulo.language.code.style.ui.api;
     requires consulo.file.editor.api;
     requires consulo.configurable.api;
+    requires consulo.language.copyright.api;
 
     requires com.intellij.xml;
 
+    exports consulo.css.copyright;
     exports consulo.css.editor.completion;
     exports consulo.css.editor.structureView;
     exports consulo.css.html;

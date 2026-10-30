@@ -43,9 +43,9 @@ CSS_FILE
             CssSelectorImpl(SELECTOR)
               CssSimpleSelectorImpl(SIMPLE_SELECTOR)
                 PsiElement(SELECTOR_CLASS)('.module')
-                PsiWhiteSpace(' ')
                 CssSelectorSuffixListImpl(SELECTOR_SUFFIX_LIST)
                   <empty list>
+          PsiWhiteSpace(' ')
           CssBlock(BLOCK)
             PsiElement(LBRACE)('{')
             PsiWhiteSpace(' ')

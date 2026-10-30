@@ -16,9 +16,9 @@
 
 package consulo.xstylesheet.highlight;
 
+import consulo.language.psi.util.PsiTreeUtil;
 import consulo.annotation.access.RequiredReadAction;
 import consulo.annotation.access.RequiredWriteAction;
-import consulo.application.WriteAction;
 import consulo.language.psi.ElementColorProvider;
 import consulo.language.psi.PsiElement;
 import consulo.ui.color.ColorValue;
@@ -34,7 +34,8 @@ public abstract class XStyleSheetElementColorProvider implements ElementColorPro
     @Nullable
     @Override
     public ColorValue getColorFrom(PsiElement psiElement) {
-        if (psiElement instanceof PsiXStyleSheetPropertyValuePart part) {
+        PsiXStyleSheetPropertyValuePart part = findValuePart(psiElement);
+        if (part != null) {
             Object value = null;
             try {
                 value = part.getValue();
@@ -52,8 +53,23 @@ public abstract class XStyleSheetElementColorProvider implements ElementColorPro
     @RequiredWriteAction
     @Override
     public void setColorTo(PsiElement psiElement, ColorValue color) {
-        if (psiElement instanceof PsiXStyleSheetPropertyValuePart part) {
-            WriteAction.run(() -> part.setValue(color));
+        PsiXStyleSheetPropertyValuePart part = findValuePart(psiElement);
+        if (part != null) {
+            part.setValue(color);
         }
+    }
+
+    /**
+     * The value part a leaf starts ({@code #bbb}, {@code red}, the {@code rgb} of {@code rgb(1, 2, 3)}): one gutter icon
+     * per value, on its first leaf.
+     */
+    @Nullable
+    @RequiredReadAction
+    private static PsiXStyleSheetPropertyValuePart findValuePart(PsiElement leaf) {
+        if (leaf.getFirstChild() != null) {
+            return null;
+        }
+        PsiXStyleSheetPropertyValuePart part = PsiTreeUtil.getParentOfType(leaf, PsiXStyleSheetPropertyValuePart.class);
+        return part != null && PsiTreeUtil.getDeepestFirst(part) == leaf ? part : null;
     }
 }

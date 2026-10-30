@@ -16,6 +16,9 @@
 
 package consulo.css.lang.psi;
 
+import consulo.ui.util.ColorValueUtil;
+import consulo.ui.color.ColorValue;
+import consulo.annotation.access.RequiredWriteAction;
 import consulo.annotation.access.RequiredReadAction;
 import consulo.language.ast.ASTNode;
 import consulo.language.psi.PsiElement;
@@ -75,16 +78,31 @@ public class CssPropertyValuePart extends CssElement implements PsiXStyleSheetPr
         return null;
     }
 
+    /**
+     * Writes a value through the definition part that matched this value part (as {@link #getValue()} reads it): for
+     * {@code border: 1px solid #bbb} the color part of {@code #bbb}, not the first part of the property (a length).
+     * A color without a writer of its own is replaced by its CSS text ({@code #fff}, {@code rgba(...)}).
+     */
     @Override
+    @RequiredWriteAction
     public void setValue(Object value) {
-        XStyleSheetPropertyValueEntry validEntry = findEntry();
-        if (validEntry == null) {
+        Map.Entry<XStyleSheetPropertyValuePart, Object> entry = find();
+        if (entry == null) {
             return;
         }
-
-        for (XStyleSheetPropertyValuePart valuePart : validEntry.getParts()) {
-            if (valuePart.setNativeValue(valuePart, value)) {
-                break;
+        if (entry.getKey().setNativeValue(this, value)) {
+            return;
+        }
+        if (value instanceof ColorValue color && entry.getValue() instanceof ColorValue) {
+            String text = ColorValueUtil.toCssColor(color);
+            if (text != null && text.startsWith("#")) {
+                // lowercase hex, unless the old value was uppercase hex
+                String oldText = getText();
+                boolean upper = oldText.startsWith("#") && !oldText.equals(oldText.toLowerCase());
+                text = upper ? text.toUpperCase() : text.toLowerCase();
+            }
+            if (text != null) {
+                replace(CssElementFactory.getInstance(getProject()).createPropertyValuePart(text, getLanguage()));
             }
         }
     }

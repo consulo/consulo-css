@@ -11,6 +11,7 @@ module consulo.css.xstylesheet.api {
     exports consulo.xstylesheet.definition.value.impl;
     exports consulo.xstylesheet.highlight;
     exports consulo.xstylesheet.icon;
+    exports consulo.xstylesheet.inspection;
     exports consulo.xstylesheet.psi;
     exports consulo.xstylesheet.psi.reference;
     exports consulo.xstylesheet.psi.reference.nameResolving;

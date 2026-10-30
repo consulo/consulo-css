@@ -24,6 +24,7 @@ import consulo.language.ast.ASTNode;
 import consulo.language.ast.IElementType;
 import consulo.language.parser.PsiBuilder;
 import consulo.language.parser.PsiParser;
+import consulo.language.parser.WhitespacesBinders;
 import consulo.language.version.LanguageVersion;
 import consulo.localize.LocalizeValue;
 import consulo.util.lang.StringUtil;
@@ -160,6 +161,18 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
         }
 
         marker.done(KEYFRAMES);
+    }
+
+    /**
+     * Whether the token starts an at-rule. Dialects add their own at-rule keywords.
+     */
+    protected boolean isAtRuleStart(@Nullable IElementType type) {
+        return type == MEDIA_KEYWORD
+            || type == IMPORT_KEYWORD
+            || type == CHARSET_KEYWORD
+            || type == FONT_FACE_KEYWORD
+            || type == KEYFRAMES_KEYWORD
+            || isGenericAtRuleStart(type);
     }
 
     private static boolean isGenericAtRuleStart(@Nullable IElementType type) {
@@ -430,10 +443,12 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
 
     protected void parseMediaQueryList(PsiBuilder builder) {
         PsiBuilder.Marker marker = builder.mark();
+        int start = builder.getCurrentOffset();
 
         while (!builder.eof()) {
             IElementType type = builder.getTokenType();
-            if (type == LBRACE || type == SEMICOLON || type == RBRACE) {
+            // a missing ";" / "{": the next statement starts
+            if (type == LBRACE || type == SEMICOLON || type == RBRACE || isAtRuleStart(type)) {
                 break;
             }
             else if (type == LPAR) {
@@ -453,6 +468,10 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
             }
         }
 
+        if (builder.getCurrentOffset() == start) {
+            // an empty list stays in front of the following whitespace, where a missing part is reported
+            marker.setCustomEdgeTokenBinders(WhitespacesBinders.GREEDY_LEFT_BINDER, null);
+        }
         marker.done(MEDIA_QUERY_LIST);
     }
 
@@ -643,9 +662,22 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
     }
 
     /**
+     * Dialect-specific part of a function argument ({@code $var} in {@code calc(4 * $var)}).
+     *
+     * @return true if a part was parsed
+     */
+    protected boolean parseDialectParameterPart(PsiBuilder builder) {
+        return false;
+    }
+
+    /**
      * One part of a function argument: a nested call ({@code style(--x: y)}), a parenthesized group or a token.
      */
     protected void parseParameterPart(PsiBuilder builder) {
+        if (parseDialectParameterPart(builder)) {
+            return;
+        }
+
         if (parseFunctionCall(builder)) {
             return;
         }
@@ -898,6 +930,8 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
                 break;
             }
         }
+        // an empty suffix list stays in front of the following whitespace, so the selector doesn't end with it
+        suffixListMarker.setCustomEdgeTokenBinders(WhitespacesBinders.GREEDY_LEFT_BINDER, null);
         suffixListMarker.done(CssElements.SELECTOR_SUFFIX_LIST);
     }
 

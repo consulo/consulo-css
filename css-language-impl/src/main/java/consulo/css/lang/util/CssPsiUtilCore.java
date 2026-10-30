@@ -19,6 +19,8 @@ package consulo.css.lang.util;
 import consulo.css.lang.CssLanguage;
 import consulo.language.Language;
 import consulo.language.ast.ASTNode;
+import consulo.language.ast.IElementType;
+import consulo.language.ast.ILazyParseableElementType;
 import consulo.language.impl.ast.LeafElement;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
@@ -50,6 +52,13 @@ public final class CssPsiUtilCore {
     public static @Nullable Language getStylesheetLanguage(@Nullable PsiElement element) {
         if (element == null) {
             return null;
+        }
+        // a stylesheet embedded into another file (<style type="text/postcss">): the language of its lazy element
+        for (ASTNode node = element.getNode(); node != null; node = node.getTreeParent()) {
+            IElementType type = node.getElementType();
+            if (type instanceof ILazyParseableElementType && type.getLanguage().isKindOf(CssLanguage.INSTANCE)) {
+                return type.getLanguage();
+            }
         }
         PsiFile file = element.getContainingFile();
         if (file == null) {

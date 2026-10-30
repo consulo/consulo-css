@@ -18,6 +18,7 @@ package consulo.css.html;
 
 import consulo.annotation.component.ExtensionImpl;
 import consulo.css.html.psi.CssHtmlElements;
+import consulo.css.lang.CssLanguage;
 import consulo.language.ast.IElementType;
 import consulo.language.version.LanguageVersion;
 import consulo.language.version.LanguageVersionUtil;
@@ -44,6 +45,8 @@ public class CssEmbeddedTokenTypesProvider implements EmbeddedTokenTypesProvider
     @Override
     public boolean isMyVersion(LanguageVersion languageVersion) {
         //noinspection RequiredXAction
-        return languageVersion == LanguageVersionUtil.findDefaultVersion(languageVersion.getLanguage());
+        // dialects (<style type="text/postcss">) embed their own stylesheets
+        return languageVersion.getLanguage() == CssLanguage.INSTANCE
+            && languageVersion == LanguageVersionUtil.findDefaultVersion(languageVersion.getLanguage());
     }
 }

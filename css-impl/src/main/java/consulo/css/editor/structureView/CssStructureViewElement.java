@@ -1,0 +1,62 @@
+/*
+ * Copyright 2013-2026 consulo.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package consulo.css.editor.structureView;
+
+import consulo.fileEditor.structureView.StructureViewTreeElement;
+import consulo.language.editor.structureView.PsiTreeElementBase;
+import consulo.language.psi.PsiElement;
+import consulo.localize.LocalizeValue;
+import consulo.ui.image.Image;
+import org.jspecify.annotations.Nullable;
+
+import java.util.Collection;
+import java.util.Collections;
+
+/**
+ * Leaf structure view element with a fixed text and icon.
+ *
+ * @since 2026-10-26
+ */
+public class CssStructureViewElement extends PsiTreeElementBase<PsiElement> {
+    private final @Nullable Image myIcon;
+    private final String myText;
+
+    private CssStructureViewElement(PsiElement element, @Nullable Image icon, String text) {
+        super(element);
+        myIcon = icon;
+        myText = text;
+    }
+
+    public static CssStructureViewElement create(PsiElement element, @Nullable Image icon, String text) {
+        return new CssStructureViewElement(element, icon, text);
+    }
+
+    @Override
+    public Collection<StructureViewTreeElement> getChildrenBase() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public LocalizeValue getPresentableText() {
+        return LocalizeValue.of(myText);
+    }
+
+    @Override
+    public @Nullable Image getIcon() {
+        return myIcon;
+    }
+}

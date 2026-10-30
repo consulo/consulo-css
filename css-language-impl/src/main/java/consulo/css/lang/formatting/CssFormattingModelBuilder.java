@@ -33,8 +33,15 @@ public class CssFormattingModelBuilder implements FormattingModelBuilder {
     public FormattingModel createModel(FormattingContext formattingContext) {
         PsiFile file = formattingContext.getContainingFile();
         FormattingDocumentModel model = FormattingDocumentModel.create(file);
-        Block rootBlock = new CssFormattingBlock(formattingContext.getNode(), null, null);
+        Block rootBlock = createRootBlock(formattingContext);
         return new PsiBasedFormattingModel(file, rootBlock, model);
+    }
+
+    /**
+     * Dialects return their own {@link CssFormattingBlock} subclass here.
+     */
+    protected Block createRootBlock(FormattingContext formattingContext) {
+        return new CssFormattingBlock(formattingContext.getNode(), null, null);
     }
 
     @Override

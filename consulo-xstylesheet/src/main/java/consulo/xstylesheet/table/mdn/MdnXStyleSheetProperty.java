@@ -243,6 +243,11 @@ public class MdnXStyleSheetProperty implements XStyleSheetProperty {
         public Object getNativeValue(PsiXStyleSheetPropertyValuePart valuePart, String value) {
             String text = valuePart.getText().trim();
             if (keyword.equalsIgnoreCase(text)) {
+                // <color> expands to the named colors: a color for the gutter icon and the color picker
+                XStyleSheetColor color = XStyleSheetColor.getColor(keyword.toLowerCase());
+                if (color != null) {
+                    return ColorValueUtil.fromHex("#" + color.colorCode());
+                }
                 return keyword;
             }
             return null;
@@ -443,9 +448,15 @@ public class MdnXStyleSheetProperty implements XStyleSheetProperty {
         public Object getNativeValue(PsiXStyleSheetPropertyValuePart valuePart, String value) {
             String text = valuePart.getText().trim();
             if (text.startsWith(functionName + "(")) {
-                return text;
+                // rgb() / hsl(): a color for the gutter icon and the color picker
+                ColorValue color = isColorFunction() ? DataTypePartParser.parseColorValue(text) : null;
+                return color != null ? color : text;
             }
             return null;
+        }
+
+        private boolean isColorFunction() {
+            return functionName.equals("rgb") || functionName.equals("rgba") || functionName.equals("hsl") || functionName.equals("hsla");
         }
 
         @Override

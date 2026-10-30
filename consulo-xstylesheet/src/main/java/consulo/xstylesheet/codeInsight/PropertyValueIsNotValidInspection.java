@@ -25,6 +25,7 @@ import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiElementVisitor;
 import consulo.localize.LocalizeValue;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
+import consulo.xstylesheet.inspection.CssInspectionFilter;
 import consulo.xstylesheet.psi.PsiXStyleSheetProperty;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
 
@@ -42,6 +43,10 @@ public class PropertyValueIsNotValidInspection extends LocalInspectionTool {
             @RequiredReadAction
             public void visitElement(PsiElement element) {
                 if (element instanceof PsiXStyleSheetProperty xStyleSheetProperty) {
+                    if (!CssInspectionFilter.isInspectionSupported(PropertyValueIsNotValidInspection.class, element)
+                        || !CssInspectionFilter.isValueValidated(xStyleSheetProperty)) {
+                        return;
+                    }
                     XStyleSheetProperty property = xStyleSheetProperty.getXStyleSheetProperty();
                     if (property == null || property.isUnknown()) {
                         return;

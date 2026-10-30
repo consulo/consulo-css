@@ -5,9 +5,9 @@ SCSS_FILE
         CssSelectorImpl(SELECTOR)
           CssSimpleSelectorImpl(SIMPLE_SELECTOR)
             PsiElement(IDENTIFIER)('nav')
-            PsiWhiteSpace(' ')
             CssSelectorSuffixListImpl(SELECTOR_SUFFIX_LIST)
               <empty list>
+      PsiWhiteSpace(' ')
       CssBlock(BLOCK)
         PsiElement(LBRACE)('{')
         PsiWhiteSpace('\n  ')
@@ -16,9 +16,9 @@ SCSS_FILE
             CssSelectorImpl(SELECTOR)
               CssSimpleSelectorImpl(SIMPLE_SELECTOR)
                 PsiElement(IDENTIFIER)('ul')
-                PsiWhiteSpace(' ')
                 CssSelectorSuffixListImpl(SELECTOR_SUFFIX_LIST)
                   <empty list>
+          PsiWhiteSpace(' ')
           CssBlock(BLOCK)
             PsiElement(LBRACE)('{')
             PsiWhiteSpace('\n    ')
@@ -45,9 +45,9 @@ SCSS_FILE
             CssSelectorImpl(SELECTOR)
               CssSimpleSelectorImpl(SIMPLE_SELECTOR)
                 PsiElement(IDENTIFIER)('li')
-                PsiWhiteSpace(' ')
                 CssSelectorSuffixListImpl(SELECTOR_SUFFIX_LIST)
                   <empty list>
+          PsiWhiteSpace(' ')
           CssBlock(BLOCK)
             PsiElement(LBRACE)('{')
             PsiWhiteSpace('\n    ')
@@ -66,9 +66,9 @@ SCSS_FILE
             CssSelectorImpl(SELECTOR)
               CssSimpleSelectorImpl(SIMPLE_SELECTOR)
                 PsiElement(IDENTIFIER)('a')
-                PsiWhiteSpace(' ')
                 CssSelectorSuffixListImpl(SELECTOR_SUFFIX_LIST)
                   <empty list>
+          PsiWhiteSpace(' ')
           CssBlock(BLOCK)
             PsiElement(LBRACE)('{')
             PsiWhiteSpace('\n    ')

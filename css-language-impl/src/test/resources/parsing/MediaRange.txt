@@ -20,9 +20,9 @@ CSS_FILE
             CssSelectorImpl(SELECTOR)
               CssSimpleSelectorImpl(SIMPLE_SELECTOR)
                 PsiElement(IDENTIFIER)('a')
-                PsiWhiteSpace(' ')
                 CssSelectorSuffixListImpl(SELECTOR_SUFFIX_LIST)
                   <empty list>
+          PsiWhiteSpace(' ')
           CssBlock(BLOCK)
             PsiElement(LBRACE)('{')
             PsiWhiteSpace('\n    ')
@@ -64,9 +64,9 @@ CSS_FILE
             CssSelectorImpl(SELECTOR)
               CssSimpleSelectorImpl(SIMPLE_SELECTOR)
                 PsiElement(IDENTIFIER)('a')
-                PsiWhiteSpace(' ')
                 CssSelectorSuffixListImpl(SELECTOR_SUFFIX_LIST)
                   <empty list>
+          PsiWhiteSpace(' ')
           CssBlock(BLOCK)
             PsiElement(LBRACE)('{')
             PsiWhiteSpace('\n    ')
