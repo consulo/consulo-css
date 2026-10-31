@@ -9,4 +9,6 @@ module consulo.scss {
     requires consulo.language.editor.refactoring.api;
     requires consulo.language.code.style.ui.api;
     requires consulo.configurable.api;
+    requires consulo.css;
+    requires com.intellij.xml;
 }

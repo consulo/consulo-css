@@ -65,6 +65,7 @@
                             </excludes>
                             <classpathDependencyExcludes>
                                 <classpathDependencyExclude>consulo.plugin:consulo.xstylesheet</classpathDependencyExclude>
+                                <classpathDependencyExclude>consulo.plugin:consulo.css</classpathDependencyExclude>
                                 <classpathDependencyExclude>consulo.plugin:com.intellij.xml</classpathDependencyExclude>
                                 <classpathDependencyExclude>consulo.plugin:com.intellij.xml.dom.api</classpathDependencyExclude>
                                 <classpathDependencyExclude>consulo.plugin:com.intellij.xml.rngom</classpathDependencyExclude>
@@ -113,6 +114,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>consulo.scss.language.impl</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- CSS embedded into HTML and the color provider -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>consulo.css</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
