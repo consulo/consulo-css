@@ -101,6 +101,8 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
                 expect(builder, CssTokens.STRING, CssLocalize.expectedImportUrl());
             }
 
+            parseImportConditions(builder);
+
             expect(builder, CssTokens.SEMICOLON, CssLocalize.expectedSemicolon());
 
             marker.done(CssElements.IMPORT);
@@ -166,6 +168,22 @@ public class CssParser implements PsiParser, CssTokens, CssElements {
     /**
      * Whether the token starts an at-rule. Dialects add their own at-rule keywords.
      */
+    /**
+     * The conditions after the url of an {@code @import}: {@code layer(base)}, {@code supports(display: grid)}, a media
+     * query list, or the options of a CSS framework such as {@code source("../src")}
+     */
+    private void parseImportConditions(PsiBuilder builder) {
+        while (!builder.eof()) {
+            IElementType type = builder.getTokenType();
+            if (type == CssTokens.SEMICOLON || type == CssTokens.LBRACE || type == CssTokens.RBRACE || isAtRuleStart(type)) {
+                return;
+            }
+            if (!parseFunctionCall(builder)) {
+                builder.advanceLexer();
+            }
+        }
+    }
+
     protected boolean isAtRuleStart(@Nullable IElementType type) {
         return type == MEDIA_KEYWORD
             || type == IMPORT_KEYWORD

@@ -20,9 +20,9 @@ import consulo.language.editor.completion.lookup.LookupElement;
 import consulo.language.editor.completion.lookup.LookupElementBuilder;
 import consulo.language.editor.rawHighlight.HighlightInfo;
 import consulo.ui.color.ColorValue;
-import consulo.ui.color.RGBColor;
-import consulo.ui.image.ImageEffects;
 import consulo.ui.util.ColorValueUtil;
+import consulo.ui.image.ImageEffects;
+import consulo.xstylesheet.color.CssColorParser;
 import consulo.xstylesheet.definition.XStyleSheetColor;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValueEntry;
@@ -274,7 +274,7 @@ public class MdnXStyleSheetProperty implements XStyleSheetProperty {
             if (CssPrimitiveValueMatcher.matchesDataType(dataType, text)) {
                 // For color-related types, return ColorValue for gutter icon support
                 if (isColorType()) {
-                    ColorValue colorValue = parseColorValue(text);
+                    ColorValue colorValue = CssColorParser.parse(text);
                     if (colorValue != null) {
                         return colorValue;
                     }
@@ -304,139 +304,6 @@ public class MdnXStyleSheetProperty implements XStyleSheetProperty {
             return "color".equals(dataType) || "hex-color".equals(dataType) || "named-color".equals(dataType);
         }
 
-        @Nullable
-        private static ColorValue parseColorValue(String text) {
-            String lower = text.toLowerCase();
-            // Hex color
-            if (lower.startsWith("#")) {
-                try {
-                    return ColorValueUtil.fromHex(text);
-                }
-                catch (Exception e) {
-                    return null;
-                }
-            }
-            // Named color
-            XStyleSheetColor color = XStyleSheetColor.getColor(lower);
-            if (color != null) {
-                try {
-                    return ColorValueUtil.fromHex("#" + color.colorCode());
-                }
-                catch (Exception e) {
-                    return null;
-                }
-            }
-            // rgb() / rgba()
-            if (lower.startsWith("rgb")) {
-                return parseRgbColor(lower);
-            }
-            // hsl() / hsla()
-            if (lower.startsWith("hsl")) {
-                return parseHslColor(lower);
-            }
-            return null;
-        }
-
-        @Nullable
-        private static ColorValue parseRgbColor(String lower) {
-            try {
-                int start = lower.indexOf('(');
-                int end = lower.lastIndexOf(')');
-                if (start < 0 || end < 0) {
-                    return null;
-                }
-                String[] parts = lower.substring(start + 1, end).split("[,/\\s]+");
-                if (parts.length < 3) {
-                    return null;
-                }
-                int r = parseColorComponent(parts[0].trim(), 255);
-                int g = parseColorComponent(parts[1].trim(), 255);
-                int b = parseColorComponent(parts[2].trim(), 255);
-                if (parts.length >= 4) {
-                    float a = parseAlpha(parts[3].trim());
-                    return new RGBColor(r, g, b, a);
-                }
-                return new RGBColor(r, g, b);
-            }
-            catch (Exception e) {
-                return null;
-            }
-        }
-
-        @Nullable
-        private static ColorValue parseHslColor(String lower) {
-            try {
-                int start = lower.indexOf('(');
-                int end = lower.lastIndexOf(')');
-                if (start < 0 || end < 0) {
-                    return null;
-                }
-                String[] parts = lower.substring(start + 1, end).split("[,/\\s]+");
-                if (parts.length < 3) {
-                    return null;
-                }
-                float h = Float.parseFloat(parts[0].trim().replace("deg", "")) / 360f;
-                float s = parsePercent(parts[1].trim());
-                float l = parsePercent(parts[2].trim());
-
-                // HSL to RGB conversion
-                float r, g, b;
-                if (s == 0) {
-                    r = g = b = l;
-                }
-                else {
-                    float q = l < 0.5f ? l * (1 + s) : l + s - l * s;
-                    float p = 2 * l - q;
-                    r = hueToRgb(p, q, h + 1f / 3f);
-                    g = hueToRgb(p, q, h);
-                    b = hueToRgb(p, q, h - 1f / 3f);
-                }
-
-                int ri = Math.round(r * 255);
-                int gi = Math.round(g * 255);
-                int bi = Math.round(b * 255);
-
-                if (parts.length >= 4) {
-                    float a = parseAlpha(parts[3].trim());
-                    return new RGBColor(ri, gi, bi, a);
-                }
-                return new RGBColor(ri, gi, bi);
-            }
-            catch (Exception e) {
-                return null;
-            }
-        }
-
-        private static float hueToRgb(float p, float q, float t) {
-            if (t < 0) t += 1;
-            if (t > 1) t -= 1;
-            if (t < 1f / 6f) return p + (q - p) * 6 * t;
-            if (t < 1f / 2f) return q;
-            if (t < 2f / 3f) return p + (q - p) * (2f / 3f - t) * 6;
-            return p;
-        }
-
-        private static int parseColorComponent(String value, int max) {
-            if (value.endsWith("%")) {
-                float pct = Float.parseFloat(value.substring(0, value.length() - 1));
-                return Math.round(pct / 100f * max);
-            }
-            return Math.min(Math.max(Math.round(Float.parseFloat(value)), 0), max);
-        }
-
-        private static float parseAlpha(String value) {
-            if (value.endsWith("%")) {
-                return Float.parseFloat(value.substring(0, value.length() - 1)) / 100f;
-            }
-            return Float.parseFloat(value);
-        }
-
-        private static float parsePercent(String value) {
-            if (value.endsWith("%")) {
-                return Float.parseFloat(value.substring(0, value.length() - 1)) / 100f;
-            }
-            return Float.parseFloat(value);
-        }
     }
 
     /**
@@ -448,15 +315,18 @@ public class MdnXStyleSheetProperty implements XStyleSheetProperty {
         public Object getNativeValue(PsiXStyleSheetPropertyValuePart valuePart, String value) {
             String text = valuePart.getText().trim();
             if (text.startsWith(functionName + "(")) {
-                // rgb() / hsl(): a color for the gutter icon and the color picker
-                ColorValue color = isColorFunction() ? DataTypePartParser.parseColorValue(text) : null;
+                // rgb(), hsl(), oklab(), oklch(): a color for the gutter icon and the color picker
+                ColorValue color = isColorFunction() ? CssColorParser.parse(text) : null;
                 return color != null ? color : text;
             }
             return null;
         }
 
         private boolean isColorFunction() {
-            return functionName.equals("rgb") || functionName.equals("rgba") || functionName.equals("hsl") || functionName.equals("hsla");
+            return switch (functionName) {
+                case "rgb", "rgba", "hsl", "hsla", "oklab", "oklch" -> true;
+                default -> false;
+            };
         }
 
         @Override

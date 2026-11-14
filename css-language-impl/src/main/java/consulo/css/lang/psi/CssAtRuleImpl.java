@@ -17,15 +17,20 @@
 package consulo.css.lang.psi;
 
 import consulo.language.ast.ASTNode;
+import consulo.language.psi.ContributedReferenceHost;
 import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.ReferenceProvidersRegistry;
 import org.jspecify.annotations.Nullable;
 
 /**
- * At-rule without dedicated support: {@code @keyword prelude { block }} or {@code @keyword prelude;}.
+ * At-rule without dedicated support: {@code @keyword prelude { block }} or {@code @keyword prelude;}. Its references come
+ * from the reference contributors, so a CSS framework can resolve the prelude of its at-rules, such as the classes of
+ * {@code @apply}.
  *
  * @since 2026-10-25
  */
-public class CssAtRuleImpl extends CssElement implements CssAtRule {
+public class CssAtRuleImpl extends CssElement implements CssAtRule, ContributedReferenceHost {
     public CssAtRuleImpl(ASTNode node) {
         super(node);
     }
@@ -40,5 +45,10 @@ public class CssAtRuleImpl extends CssElement implements CssAtRule {
 
     public @Nullable CssBlock getBlock() {
         return findChildByClass(CssBlock.class);
+    }
+
+    @Override
+    public PsiReference[] getReferences() {
+        return ReferenceProvidersRegistry.getReferencesFromProviders(this);
     }
 }

@@ -18,6 +18,7 @@ package consulo.xstylesheet.definition;
 
 import org.jspecify.annotations.Nullable;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author VISTALL
@@ -28,4 +29,20 @@ public interface XStyleSheetTable {
     XStyleSheetProperty findProperty(String propertyName);
 
     Collection<XStyleSheetProperty> getProperties();
+
+    /**
+     * @return the at-rules, for example those of CSS or of a CSS framework
+     */
+    default Collection<XStyleSheetAtRule> getAtRules() {
+        return List.of();
+    }
+
+    default @Nullable XStyleSheetAtRule findAtRule(String name) {
+        for (XStyleSheetAtRule atRule : getAtRules()) {
+            if (atRule.name().equals(name)) {
+                return atRule;
+            }
+        }
+        return null;
+    }
 }

@@ -16,6 +16,7 @@
 
 package consulo.xstylesheet.impl.html.psi.reference.classOrId;
 
+import consulo.document.util.TextRange;
 import consulo.language.ast.ASTNode;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiReference;
@@ -23,6 +24,9 @@ import consulo.language.psi.PsiReferenceProvider;
 import consulo.language.util.ProcessingContext;
 import consulo.xml.language.psi.XmlTokenType;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author VISTALL
@@ -42,6 +46,24 @@ public class HtmlIdOrClassToCssFileReferenceProvider extends PsiReferenceProvide
             return PsiReference.EMPTY_ARRAY;
         }
 
-        return new PsiReference[]{new HtmlIdOrClassToCssFileReference(value.getPsi(), myCssRefTo)};
+        String text = value.getText();
+        if (myCssRefTo != XStyleSheetSimpleSelectorType.CLASS) {
+            return new PsiReference[]{new HtmlIdOrClassToCssFileReference(value.getPsi(), new TextRange(0, text.length()), myCssRefTo)};
+        }
+
+        // a reference for each class of the space separated list
+        List<PsiReference> references = new ArrayList<>();
+        int start = -1;
+        for (int i = 0; i <= text.length(); i++) {
+            boolean separator = i == text.length() || Character.isWhitespace(text.charAt(i));
+            if (separator && start >= 0) {
+                references.add(new HtmlIdOrClassToCssFileReference(value.getPsi(), new TextRange(start, i), myCssRefTo));
+                start = -1;
+            }
+            else if (!separator && start < 0) {
+                start = i;
+            }
+        }
+        return references.toArray(PsiReference.EMPTY_ARRAY);
     }
 }

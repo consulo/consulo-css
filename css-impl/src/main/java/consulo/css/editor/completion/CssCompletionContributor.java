@@ -18,15 +18,19 @@ package consulo.css.editor.completion;
 
 import consulo.annotation.component.ExtensionImpl;
 import consulo.css.lang.CssLanguage;
+import consulo.css.lang.CssTokens;
 import consulo.language.Language;
 import consulo.language.editor.completion.CompletionContributor;
+import consulo.language.editor.completion.CompletionResultSet;
 import consulo.language.editor.completion.CompletionType;
 import consulo.language.editor.completion.lookup.LookupElementBuilder;
 import consulo.language.pattern.PlatformPatterns;
+import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
 import consulo.language.psi.util.PsiTreeUtil;
 import consulo.platform.base.icon.PlatformIconGroup;
 import consulo.util.lang.StringUtil;
+import consulo.xstylesheet.definition.XStyleSheetAtRule;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetPropertyValuePart;
 import consulo.xstylesheet.definition.XStyleSheetTable;
@@ -45,6 +49,22 @@ import java.util.List;
 @ExtensionImpl
 public class CssCompletionContributor extends CompletionContributor {
     public CssCompletionContributor() {
+        // the at-rules of the stylesheet table: those of CSS and of the CSS frameworks of the file
+        extend(
+            CompletionType.BASIC,
+            PlatformPatterns.psiElement(CssTokens.AT_KEYWORD),
+            (completionParameters, processingContext, completionResultSet) -> {
+                PsiElement position = completionParameters.getPosition();
+                String prefix = position.getText().substring(0, completionParameters.getOffset() - position.getTextRange().getStartOffset());
+                CompletionResultSet result = completionResultSet.withPrefixMatcher(prefix);
+                for (XStyleSheetAtRule atRule : XStyleSheetFile.getXStyleSheetTable(completionParameters.getOriginalFile()).getAtRules()) {
+                    result.addElement(LookupElementBuilder.create("@" + atRule.name())
+                        .withIcon(PlatformIconGroup.nodesAnnotationtype())
+                        .withTailText(syntaxTail(atRule), true));
+                }
+            }
+        );
+
         extend(
             CompletionType.BASIC,
             PlatformPatterns.psiElement().withParent(PsiXStyleSheetProperty.class),
@@ -127,5 +147,15 @@ public class CssCompletionContributor extends CompletionContributor {
     @Override
     public Language getLanguage() {
         return CssLanguage.INSTANCE;
+    }
+
+    /**
+     * What follows the name in the syntax of an at-rule, on one line: {@code  <media-query-list> { … }} for {@code @media}
+     */
+    private static String syntaxTail(XStyleSheetAtRule atRule) {
+        String syntax = atRule.syntax().replaceAll("\\s+", " ").trim();
+        String name = "@" + atRule.name();
+        String tail = syntax.startsWith(name) ? syntax.substring(name.length()) : "";
+        return tail.length() > 60 ? tail.substring(0, 59) + "…" : tail;
     }
 }

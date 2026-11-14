@@ -23,6 +23,7 @@ import consulo.annotation.component.ExtensionImpl;
 import consulo.language.psi.PsiFile;
 import consulo.logging.Logger;
 import consulo.util.lang.lazy.LazyValue;
+import consulo.xstylesheet.definition.XStyleSheetAtRule;
 import consulo.xstylesheet.definition.XStyleSheetTable;
 import consulo.xstylesheet.definition.XStyleSheetTableProvider;
 import consulo.xstylesheet.definition.impl.EmptyXStyleSheetTable;
@@ -32,7 +33,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -130,8 +133,20 @@ public class MdnDataXStyleSheetTableProvider implements XStyleSheetTableProvider
                 loadAtRuleDescriptors(atRulesJson, parser, syntaxesMap, propertiesMap);
             }
 
-            LOGGER.info("Loaded " + propertiesMap.size() + " CSS properties from MDN data");
-            return new MdnXStyleSheetTable(propertiesMap);
+            List<XStyleSheetAtRule> atRules = new ArrayList<>();
+            if (atRulesJson != null) {
+                for (Map.Entry<String, JsonElement> ruleEntry : atRulesJson.entrySet()) {
+                    JsonObject ruleObj = ruleEntry.getValue().getAsJsonObject();
+                    atRules.add(new XStyleSheetAtRule(
+                        ruleEntry.getKey().substring(1),
+                        ruleObj.has("syntax") ? ruleObj.get("syntax").getAsString() : "",
+                        ruleObj.has("mdn_url") ? ruleObj.get("mdn_url").getAsString() : ""
+                    ));
+                }
+            }
+
+            LOGGER.info("Loaded " + propertiesMap.size() + " CSS properties and " + atRules.size() + " at-rules from MDN data");
+            return new MdnXStyleSheetTable(propertiesMap, List.copyOf(atRules));
         }
         catch (Exception e) {
             LOGGER.error("Failed to load MDN CSS data", e);

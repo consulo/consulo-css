@@ -16,17 +16,10 @@
 package consulo.css.it;
 
 import consulo.application.ReadAction;
-import consulo.application.WriteAction;
-import consulo.application.dumb.IndexNotReadyException;
 import consulo.css.lang.index.CssClassIndex;
 import consulo.it.HeadlessProjectExtension;
 import consulo.it.HeadlessProjects;
 import consulo.language.psi.scope.GlobalSearchScope;
-import consulo.module.ModifiableModuleModel;
-import consulo.module.Module;
-import consulo.module.ModuleManager;
-import consulo.module.content.ModuleRootManager;
-import consulo.module.content.layer.ModifiableRootModel;
 import consulo.project.Project;
 import consulo.virtualFileSystem.LocalFileSystem;
 import consulo.virtualFileSystem.VirtualFile;
@@ -38,9 +31,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -50,8 +40,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @ExtendWith(HeadlessProjectExtension.class)
 public class CssClassIndexTest {
-    private static final long TIMEOUT_SECONDS = 60;
-
     private static final String STYLES_CSS = """
         .card, div.badge.badge-large:hover > .badge-icon {
             color: red;
@@ -87,10 +75,10 @@ public class CssClassIndexTest {
         Files.writeString(directory.resolve("styles.css"), STYLES_CSS);
         Files.writeString(directory.resolve("theme.scss"), THEME_SCSS);
 
-        Project project = openWithModule(projects, directory);
+        Project project = CssIndexTesting.openWithModule(projects, directory);
         GlobalSearchScope scope = GlobalSearchScope.allScope(project);
 
-        Set<String> classNames = waitForIndex(() -> CssClassIndex.getAllClassNames(project, scope), names -> !names.isEmpty());
+        Set<String> classNames = CssIndexTesting.waitForIndex(() -> CssClassIndex.getAllClassNames(project, scope), names -> !names.isEmpty());
         assertThat(classNames)
             .containsExactlyInAnyOrder("card", "badge", "badge-large", "badge-icon", "card-compact", "toolbar", "toolbar-item");
     }
@@ -101,10 +89,10 @@ public class CssClassIndexTest {
         Files.writeString(directory.resolve("styles.css"), STYLES_CSS);
         Files.writeString(directory.resolve("theme.scss"), THEME_SCSS);
 
-        Project project = openWithModule(projects, directory);
+        Project project = CssIndexTesting.openWithModule(projects, directory);
         GlobalSearchScope scope = GlobalSearchScope.allScope(project);
 
-        List<String> files = waitForIndex(
+        List<String> files = CssIndexTesting.waitForIndex(
             () -> CssClassIndex.getFilesWithClass("toolbar-item", scope).stream().map(VirtualFile::getName).toList(),
             names -> !names.isEmpty()
         );
@@ -126,12 +114,12 @@ public class CssClassIndexTest {
         Files.writeString(directory.resolve("styles.css"), STYLES_CSS);
         Files.writeString(directory.resolve("theme.scss"), THEME_SCSS);
 
-        Project project = openWithModule(projects, directory);
+        Project project = CssIndexTesting.openWithModule(projects, directory);
         VirtualFile styles = LocalFileSystem.getInstance().refreshAndFindFileByNioFile(directory.resolve("styles.css"));
         assertThat(styles).isNotNull();
         GlobalSearchScope stylesOnly = GlobalSearchScope.fileScope(project, styles);
 
-        Set<String> classNames = waitForIndex(() -> CssClassIndex.getAllClassNames(project, stylesOnly), names -> !names.isEmpty());
+        Set<String> classNames = CssIndexTesting.waitForIndex(() -> CssClassIndex.getAllClassNames(project, stylesOnly), names -> !names.isEmpty());
         assertThat(classNames).contains("card").doesNotContain("toolbar", "toolbar-item");
     }
 
@@ -141,10 +129,10 @@ public class CssClassIndexTest {
         Path styles = directory.resolve("styles.css");
         Files.writeString(styles, ".old-name { color: red; }");
 
-        Project project = openWithModule(projects, directory);
+        Project project = CssIndexTesting.openWithModule(projects, directory);
         GlobalSearchScope scope = GlobalSearchScope.allScope(project);
 
-        waitForIndex(() -> CssClassIndex.getAllClassNames(project, scope), names -> names.contains("old-name"));
+        CssIndexTesting.waitForIndex(() -> CssClassIndex.getAllClassNames(project, scope), names -> names.contains("old-name"));
 
         // an external tool renames the class
         Files.writeString(styles, ".new-name { color: red; }");
@@ -152,52 +140,7 @@ public class CssClassIndexTest {
         assertThat(stylesFile).isNotNull();
         stylesFile.refresh(false, false);
 
-        Set<String> classNames = waitForIndex(() -> CssClassIndex.getAllClassNames(project, scope), names -> names.contains("new-name"));
+        Set<String> classNames = CssIndexTesting.waitForIndex(() -> CssClassIndex.getAllClassNames(project, scope), names -> names.contains("new-name"));
         assertThat(classNames).containsExactly("new-name");
-    }
-
-    private static Project openWithModule(HeadlessProjects projects, Path directory) throws Exception {
-        Project project = projects.open(directory);
-
-        VirtualFile directoryFile = LocalFileSystem.getInstance().refreshAndFindFileByNioFile(directory);
-        assertThat(directoryFile).isNotNull();
-
-        ModuleManager moduleManager = ModuleManager.getInstance(project);
-        WriteAction.run(() -> {
-            ModifiableModuleModel moduleModel = moduleManager.getModifiableModel();
-            Module module = moduleModel.newModule("main", directory.toString());
-            moduleModel.commit();
-
-            ModifiableRootModel rootModel = ModuleRootManager.getInstance(module).getModifiableModel();
-            rootModel.addContentEntry(directoryFile);
-            rootModel.commit();
-        });
-
-        HeadlessProjects.awaitIdle(project);
-        return project;
-    }
-
-    /**
-     * Polls {@code query} in a read action until its answer satisfies {@code ready}. The index refuses to answer while a
-     * reindex runs in dumb mode, which the poll waits out as well.
-     */
-    private static <T> T waitForIndex(Supplier<T> query, Predicate<T> ready) throws Exception {
-        long deadline = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(TIMEOUT_SECONDS);
-        T answer = null;
-        while (System.currentTimeMillis() < deadline) {
-            answer = ReadAction.compute(() -> {
-                try {
-                    return query.get();
-                }
-                catch (IndexNotReadyException e) {
-                    return null;
-                }
-            });
-            if (answer != null && ready.test(answer)) {
-                return answer;
-            }
-            Thread.sleep(50);
-        }
-        throw new AssertionError("timed out waiting for the index, last answer: " + answer);
     }
 }

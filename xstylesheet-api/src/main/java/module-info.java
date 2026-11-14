@@ -6,6 +6,7 @@ module consulo.css.xstylesheet.api {
     requires transitive consulo.language.api;
     requires transitive consulo.language.editor.api;
 
+    exports consulo.xstylesheet.color;
     exports consulo.xstylesheet.definition;
     exports consulo.xstylesheet.definition.impl;
     exports consulo.xstylesheet.definition.value.impl;
@@ -13,6 +14,7 @@ module consulo.css.xstylesheet.api {
     exports consulo.xstylesheet.icon;
     exports consulo.xstylesheet.inspection;
     exports consulo.xstylesheet.psi;
+    exports consulo.xstylesheet.psi.index;
     exports consulo.xstylesheet.psi.reference;
     exports consulo.xstylesheet.psi.reference.nameResolving;
 }

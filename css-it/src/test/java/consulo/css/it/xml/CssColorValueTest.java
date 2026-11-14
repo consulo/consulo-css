@@ -79,6 +79,33 @@ public class CssColorValueTest {
         assertEquals("a { box-shadow: 0 0 2px #00f; }", ReadAction.compute(file::getText));
     }
 
+    /**
+     * The colors of CSS Color 4, as the default theme of Tailwind CSS v4 writes them
+     */
+    @Test
+    public void testOklchFunction(CodeInsightTestFixture fixture) throws Exception {
+        PsiFile file = fixture.configureByText("d.css", "a { color: oklch(63.7% 0.237 25.331); }");
+        ColorValue value = ReadAction.compute(() -> PROVIDER.getColorFrom(leaf(file, "oklch")));
+        assertNotNull(value);
+        // red-500 of Tailwind CSS, #fb2c36
+        assertEquals(0xfb, value.toRGB().getRed());
+        assertEquals(0x2c, value.toRGB().getGreen());
+        assertEquals(0x36, value.toRGB().getBlue());
+    }
+
+    /**
+     * A custom property has no definition, its color is read from its value, as in the {@code @theme} of Tailwind CSS
+     */
+    @Test
+    public void testCustomProperty(CodeInsightTestFixture fixture) throws Exception {
+        PsiFile file = fixture.configureByText("e.css", ":root { --color-brand: oklch(0.623 0.214 259.815); --gap: 4px; }");
+        ColorValue value = ReadAction.compute(() -> PROVIDER.getColorFrom(leaf(file, "oklch")));
+        assertNotNull(value);
+        assertEquals(0x2b, value.toRGB().getRed());
+        assertEquals(0x7f, value.toRGB().getGreen());
+        assertNull(ReadAction.compute(() -> PROVIDER.getColorFrom(leaf(file, "4px"))));
+    }
+
     private static PsiElement leaf(PsiFile file, String text) {
         return ReadAction.compute(() -> file.findElementAt(file.getText().indexOf(text)));
     }

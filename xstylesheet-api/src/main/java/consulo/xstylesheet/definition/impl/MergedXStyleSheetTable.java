@@ -16,6 +16,7 @@
 
 package consulo.xstylesheet.definition.impl;
 
+import consulo.xstylesheet.definition.XStyleSheetAtRule;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetTable;
 
@@ -52,6 +53,15 @@ public class MergedXStyleSheetTable implements XStyleSheetTable {
         List<XStyleSheetProperty> list = new ArrayList<>();
         for (XStyleSheetTable table : myTables) {
             list.addAll(table.getProperties());
+        }
+        return list;
+    }
+
+    @Override
+    public Collection<XStyleSheetAtRule> getAtRules() {
+        List<XStyleSheetAtRule> list = new ArrayList<>();
+        for (XStyleSheetTable table : myTables) {
+            list.addAll(table.getAtRules());
         }
         return list;
     }

@@ -46,6 +46,15 @@ public class CssParsingTest extends SimpleParsingTest<Object> {
         doTest(context, null);
     }
 
+    /**
+     * The CSS of a Tailwind v4 project: {@code @import} with options, {@code @source}, {@code @theme} with wildcard
+     * custom properties, {@code @custom-variant}, {@code @utility} and {@code @apply}
+     */
+    @Test
+    public void testTailwind(Context context) throws Exception {
+        doTest(context, null);
+    }
+
     @Test
     public void testUrl(Context context) throws Exception {
         doTest(context, null);

@@ -16,6 +16,7 @@
 
 package consulo.xstylesheet.table.mdn;
 
+import consulo.xstylesheet.definition.XStyleSheetAtRule;
 import consulo.xstylesheet.definition.XStyleSheetProperty;
 import consulo.xstylesheet.definition.XStyleSheetTable;
 
@@ -31,7 +32,7 @@ import java.util.Map;
  * @author VISTALL
  * @since 2026-03-15
  */
-public record MdnXStyleSheetTable(Map<String, MdnXStyleSheetProperty> properties) implements XStyleSheetTable {
+public record MdnXStyleSheetTable(Map<String, MdnXStyleSheetProperty> properties, List<XStyleSheetAtRule> atRules) implements XStyleSheetTable {
     @Nullable
     @Override
     public XStyleSheetProperty findProperty(String propertyName) {
@@ -41,5 +42,10 @@ public record MdnXStyleSheetTable(Map<String, MdnXStyleSheetProperty> properties
     @Override
     public Collection<XStyleSheetProperty> getProperties() {
         return List.copyOf(properties.values());
+    }
+
+    @Override
+    public Collection<XStyleSheetAtRule> getAtRules() {
+        return atRules;
     }
 }

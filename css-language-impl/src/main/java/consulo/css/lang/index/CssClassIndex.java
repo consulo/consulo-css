@@ -17,12 +17,10 @@ package consulo.css.lang.index;
 
 import consulo.annotation.access.RequiredReadAction;
 import consulo.annotation.component.ExtensionImpl;
-import consulo.css.lang.CssLanguage;
 import consulo.index.io.DataIndexer;
 import consulo.index.io.EnumeratorStringDescriptor;
 import consulo.index.io.ID;
 import consulo.index.io.KeyDescriptor;
-import consulo.language.file.LanguageFileType;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
 import consulo.language.psi.PsiManager;
@@ -33,12 +31,10 @@ import consulo.language.psi.stub.FileContent;
 import consulo.language.psi.stub.ScalarIndexExtension;
 import consulo.project.Project;
 import consulo.virtualFileSystem.VirtualFile;
-import consulo.virtualFileSystem.fileType.FileType;
 import consulo.virtualFileSystem.fileType.FileTypeRegistry;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelector;
 import consulo.xstylesheet.psi.XStyleSheetSimpleSelectorType;
 import jakarta.inject.Inject;
-import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,7 +44,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 /**
  * The names of the classes declared by class selectors ({@code .name}) in CSS files and in the files of every
@@ -68,7 +63,7 @@ public class CssClassIndex extends ScalarIndexExtension<String> {
 
     @Inject
     public CssClassIndex(FileTypeRegistry fileTypeRegistry) {
-        myInputFilter = new CssInputFilter(fileTypeRegistry);
+        myInputFilter = new CssIndexInputFilter(fileTypeRegistry);
     }
 
     /**
@@ -173,35 +168,5 @@ public class CssClassIndex extends ScalarIndexExtension<String> {
                 super.visitElement(element);
             }
         });
-    }
-
-    private static boolean isCssFileType(FileType fileType) {
-        return fileType instanceof LanguageFileType languageFileType && languageFileType.getLanguage().isKindOf(CssLanguage.INSTANCE);
-    }
-
-    /**
-     * Accepts the file types of CSS and of every language built on it. The dialects live in other modules, SCSS among them,
-     * so their file types are looked up among the registered ones instead of being named here.
-     */
-    private static final class CssInputFilter implements FileBasedIndex.FileTypeSpecificInputFilter {
-        private final FileTypeRegistry myFileTypeRegistry;
-
-        private CssInputFilter(FileTypeRegistry fileTypeRegistry) {
-            myFileTypeRegistry = fileTypeRegistry;
-        }
-
-        @Override
-        public void registerFileTypesUsedForIndexing(Consumer<FileType> fileTypeSink) {
-            for (FileType fileType : myFileTypeRegistry.getRegisteredFileTypes()) {
-                if (isCssFileType(fileType)) {
-                    fileTypeSink.accept(fileType);
-                }
-            }
-        }
-
-        @Override
-        public boolean acceptInput(@Nullable Project project, VirtualFile file) {
-            return isCssFileType(file.getFileType());
-        }
     }
 }

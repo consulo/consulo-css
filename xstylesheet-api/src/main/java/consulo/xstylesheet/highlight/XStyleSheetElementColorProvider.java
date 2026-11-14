@@ -22,7 +22,9 @@ import consulo.annotation.access.RequiredWriteAction;
 import consulo.language.psi.ElementColorProvider;
 import consulo.language.psi.PsiElement;
 import consulo.ui.color.ColorValue;
+import consulo.xstylesheet.color.CssColorParser;
 import consulo.xstylesheet.psi.PsiXStyleSheetPropertyValuePart;
+import consulo.xstylesheet.psi.PsiXStyleSheetVariable;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -45,6 +47,10 @@ public abstract class XStyleSheetElementColorProvider implements ElementColorPro
 
             if (value instanceof ColorValue colorValue) {
                 return colorValue;
+            }
+            // a custom property has no definition to parse its value: its color is read from the text
+            if (value == null && PsiTreeUtil.getParentOfType(part, PsiXStyleSheetVariable.class) != null) {
+                return CssColorParser.parse(part.getText());
             }
         }
         return null;

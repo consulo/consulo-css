@@ -3,12 +3,19 @@ package consulo.css.lang.psi;
 import consulo.annotation.access.RequiredReadAction;
 import consulo.annotation.access.RequiredWriteAction;
 import consulo.css.lang.CssTokens;
+import consulo.css.lang.index.CssCustomPropertyIndex;
 import consulo.document.util.TextRange;
 import consulo.language.ast.ASTNode;
 import consulo.language.psi.*;
 import consulo.language.psi.resolve.ResolveCache;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.stub.FileBasedIndex;
+import consulo.language.psi.util.PsiTreeUtil;
 import consulo.language.util.IncorrectOperationException;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
 import consulo.xstylesheet.psi.PsiXStyleSheetVariableReference;
+import consulo.xstylesheet.psi.index.XStyleSheetDeclarations;
 import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -120,10 +127,39 @@ public class CssVariableReference extends CssElement implements PsiXStyleSheetVa
                         results.add(new PsiElementResolveResult(element, true));
                     }
                 });
+                if (results.isEmpty()) {
+                    // declared in another stylesheet: the theme of a CSS framework, or :root of a shared file. Stylesheets
+                    // are seldom in source roots, so the whole project is searched
+                    for (CssVariable variable : XStyleSheetDeclarations.preferProjectOwn(findDeclarations(ref.getProject(), refText, GlobalSearchScope.projectScope(ref.getProject())))) {
+                        results.add(new PsiElementResolveResult(variable, true));
+                    }
+                }
                 return results.toArray(ResolveResult.EMPTY_ARRAY);
             },
             true,
             incompleteCode
         );
+    }
+
+    /**
+     * The declarations of the custom property {@code name} in the stylesheets of {@code scope}, found with
+     * {@link CssCustomPropertyIndex}
+     */
+    @RequiredReadAction
+    public static List<CssVariable> findDeclarations(Project project, String name, GlobalSearchScope scope) {
+        List<CssVariable> result = new ArrayList<>();
+        PsiManager psiManager = PsiManager.getInstance(project);
+        for (VirtualFile file : FileBasedIndex.getInstance().getContainingFiles(CssCustomPropertyIndex.INDEX_ID, name, scope)) {
+            PsiFile psiFile = psiManager.findFile(file);
+            if (psiFile == null) {
+                continue;
+            }
+            for (CssVariable variable : PsiTreeUtil.findChildrenOfType(psiFile, CssVariable.class)) {
+                if (name.equals(variable.getName())) {
+                    result.add(variable);
+                }
+            }
+        }
+        return result;
     }
 }
